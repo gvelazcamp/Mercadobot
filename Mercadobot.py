@@ -96,17 +96,13 @@ body {
     padding: 0;
     width: 100%;
     overflow-x: hidden;
-    min-height: 100%;
-    height: 100%;
+    min-height: 100vh;
 }
 
 .page-container {
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 /* =========================
@@ -1149,8 +1145,8 @@ HTML_PRECIOS = f"""{HTML_BASE}
 # RENDER
 # =========================
 if vista == "asistentes":
-    components.html(HTML_ASISTENTES, height=2000, scrolling=False)
+    components.html(HTML_ASISTENTES, height=2200, scrolling=False)
 elif vista == "precios":
-    components.html(HTML_PRECIOS, height=2000, scrolling=False)
+    components.html(HTML_PRECIOS, height=2200, scrolling=False)
 else:
-    components.html(HTML_HOME, height=2000, scrolling=False)
+    components.html(HTML_HOME, height=2200, scrolling=False)
