@@ -5,9 +5,6 @@ st.set_page_config(layout="wide")
 
 html = """
 <style>
-/* =========================
-   BASE
-========================= */
 * {
     box-sizing: border-box;
     font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -84,7 +81,6 @@ body {
     margin-left: auto;
 }
 
-/* ===== HERO ACTIONS ===== */
 .hero-actions {
     display: flex;
     align-items: center;
@@ -109,21 +105,52 @@ body {
     cursor: pointer;
 }
 
-.btn-secondary span {
-    font-size: 16px;
+/* =========================
+   BLOQUE CATEGORÍAS
+========================= */
+.cats-block {
+    text-align: center;
+    padding: 20px 40px 10px 40px;
+}
+
+.cats {
+    display: inline-flex;
+    gap: 12px;
+    background: #fff;
+    padding: 10px 14px;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+}
+
+.cat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    background: #f6f7fb;
 }
 
 /* =========================
    SECTION
 ========================= */
 .section {
-    padding: 40px;
+    padding: 20px 40px 40px 40px;
 }
 
 .section h2 {
     text-align: center;
     font-size: 32px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+}
+
+.section .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
 }
 
 /* =========================
@@ -133,7 +160,7 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 22px;
-    margin-top: 40px;
+    margin-top: 36px;
 }
 
 .card {
@@ -210,17 +237,28 @@ body {
 
             <div class="hero-actions">
                 <div class="btn-primary">Explorar asistentes</div>
-                <div class="btn-secondary">
-                    <span>▶</span> Ver demo en vivo
-                </div>
+                <div class="btn-secondary">▶ Ver demo en vivo</div>
             </div>
         </div>
 
         <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistente.png">
     </div>
 
+    <!-- BLOQUE NUEVO -->
+    <div class="cats-block">
+        <div class="cats">
+            <div class="cat">⚽ Fútbol</div>
+            <div class="cat">👨‍🍳 Cocina</div>
+            <div class="cat">🛒 Ecommerce</div>
+            <div class="cat">💰 Finanzas</div>
+        </div>
+    </div>
+
     <div class="section">
-        <h2>Asistentes IA</h2>
+        <h2>Asistentes IA listos para potenciar tu negocio</h2>
+        <div class="subtitle">
+            Explorá, elegí e instalá asistentes inteligentes según tus necesidades.
+        </div>
 
         <div class="cards">
             <div class="card">
@@ -261,4 +299,4 @@ body {
 </div>
 """
 
-components.html(html, height=1450, scrolling=True)
+components.html(html, height=1550, scrolling=True)
