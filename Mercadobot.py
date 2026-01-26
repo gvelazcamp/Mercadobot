@@ -804,9 +804,12 @@ HTML_PRECIOS = f"""
 # =========================
 # RENDER
 # =========================
+# =========================
+# RENDER
+# =========================
 if vista == "asistentes":
-    components.html(HTML_ASISTENTES, height=2300, scrolling=True)
+    components.html(HTML_ASISTENTES, height=2500, scrolling=False)
 elif vista == "precios":
-    components.html(HTML_PRECIOS, height=2300, scrolling=True)
+    components.html(HTML_PRECIOS, height=2500, scrolling=False)
 else:
-    components.html(HTML_HOME, height=1900, scrolling=True)
+    components.html(HTML_HOME, height=2100, scrolling=False)
