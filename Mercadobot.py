@@ -1263,8 +1263,8 @@ HTML_HOME = f"""{HTML_BASE}
     </div>
 
     <div class="cta" id="soporte">
-        <h2>Integra en minutos</h2>
-        <p>Instalá un chatbot IA en tu web y empezá a automatizar consultas reales desde el día 1.</p>
+        <h2>Tu negocio no para nunca</h2>
+        <p>Enseñale sobre tus datos y dejalo trabajar. Mientras vos dormís, el chatbot vende, agenda y responde 24/7.</p>
         <button>Quiero mi chatbot</button>
 
         <div class="features">
