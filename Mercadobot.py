@@ -124,9 +124,6 @@ body {
 }
 
 .cat {
-    display: flex;
-    align-items: center;
-    gap: 6px;
     padding: 6px 12px;
     border-radius: 999px;
     font-size: 14px;
@@ -147,7 +144,7 @@ body {
     margin-bottom: 8px;
 }
 
-.section .subtitle {
+.subtitle {
     text-align: center;
     font-size: 14px;
     color: #777;
@@ -169,11 +166,6 @@ body {
     padding: 20px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-    transition: transform 0.2s ease;
-}
-
-.card:hover {
-    transform: translateY(-4px);
 }
 
 .card img {
@@ -183,21 +175,22 @@ body {
 }
 
 .card h3 {
-    margin-top: 18px;
+    margin-top: 16px;
     font-size: 18px;
 }
 
 .card p {
     font-size: 13px;
     color: #666;
+    min-height: 60px;
 }
 
 .card button {
     margin-top: 14px;
     background: #f4b400;
     border: none;
-    padding: 8px 16px;
-    border-radius: 10px;
+    padding: 10px 18px;
+    border-radius: 12px;
     font-weight: 700;
     cursor: pointer;
 }
@@ -244,7 +237,6 @@ body {
         <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistente.png">
     </div>
 
-    <!-- BLOQUE NUEVO -->
     <div class="cats-block">
         <div class="cats">
             <div class="cat">⚽ Fútbol</div>
@@ -263,30 +255,38 @@ body {
         <div class="cards">
             <div class="card">
                 <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentefutbol.png">
-                <h3>Fútbol</h3>
-                <p>Datos, estadísticas y análisis</p>
-                <button>Ver</button>
+                <h3>Asistente de Fútbol</h3>
+                <p>
+                    Resultados al instante, noticias y estadísticas del mundo del fútbol.
+                </p>
+                <button>Ver asistente</button>
             </div>
 
             <div class="card">
                 <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentecocina.png">
-                <h3>Cocina</h3>
-                <p>Recetas inteligentes</p>
-                <button>Ver</button>
+                <h3>Asistente de Cocina</h3>
+                <p>
+                    Recetas rápidas, consejos de cocina y conversiones de ingredientes.
+                </p>
+                <button>Ver asistente</button>
             </div>
 
             <div class="card">
                 <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteecommerce.png">
-                <h3>Ecommerce</h3>
-                <p>Ventas automáticas</p>
-                <button>Ver</button>
+                <h3>Asistente de Ecommerce</h3>
+                <p>
+                    Respuestas automáticas sobre productos, pedidos, envíos y más.
+                </p>
+                <button>Ver asistente</button>
             </div>
 
             <div class="card">
                 <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentefinanzas.png">
-                <h3>Finanzas</h3>
-                <p>Análisis financiero</p>
-                <button>Ver</button>
+                <h3>Asistente de Finanzas</h3>
+                <p>
+                    Información financiera, cotizaciones de mercado y análisis de inversiones.
+                </p>
+                <button>Ver asistente</button>
             </div>
         </div>
     </div>
@@ -299,4 +299,4 @@ body {
 </div>
 """
 
-components.html(html, height=1550, scrolling=True)
+components.html(html, height=1600, scrolling=True)
