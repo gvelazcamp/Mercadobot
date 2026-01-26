@@ -13,15 +13,27 @@ st.markdown(
     .main .block-container {
         padding: 0 !important;
         max-width: 100% !important;
+        margin: 0 !important;
     }
 
     section[data-testid="stAppViewContainer"] {
         padding: 0 !important;
+        margin: 0 !important;
     }
 
     section.main > div {
         padding: 0 !important;
         max-width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    .stApp > header {
+        background-color: transparent !important;
+    }
+    
+    .stApp {
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     /* Ocultar header, footer y toolbar */
@@ -50,6 +62,9 @@ st.markdown(
         display: block !important;
         margin: 0 !important;
         padding: 0 !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
     }
     </style>
     """,
