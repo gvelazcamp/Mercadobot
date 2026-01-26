@@ -1248,16 +1248,16 @@ HTML_HOME = f"""{HTML_BASE}
 
             <div class="testimonio-card">
                 <div class="testimonio-quote">
-                    "El asistente financiero responde consultas sobre inversiones, cotizaciones y productos al instante. Nuestros clientes están más informados y concretan operaciones más rápido."
+                    "Las consultas por propiedades llegan las 24hs. El bot responde características, precios y agenda visitas automáticamente. Ahora atendemos 3 veces más clientes con el mismo equipo."
                 </div>
                 <div class="testimonio-author">
                     <div class="testimonio-avatar">A</div>
                     <div class="testimonio-info">
                         <h4>Ana Rodríguez</h4>
-                        <p>Asesoría financiera</p>
+                        <p>Inmobiliaria</p>
                     </div>
                 </div>
-                <div class="testimonio-stat">⚡ Respuesta instantánea</div>
+                <div class="testimonio-stat">🏠 3x más consultas</div>
             </div>
         </div>
     </div>
