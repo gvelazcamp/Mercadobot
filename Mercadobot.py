@@ -79,6 +79,13 @@ CSS_BASE = """
 body {
     background: #f6f7fb;
     margin: 0;
+    overflow-x: hidden;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* =========================
@@ -87,6 +94,9 @@ body {
 .wrapper {
     max-width: 100%;
     margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* =========================
@@ -452,6 +462,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: auto;
 }
 
 /* =========================
@@ -802,14 +813,11 @@ HTML_PRECIOS = f"""
 """
 
 # =========================
-# RENDER
-# =========================
-# =========================
-# RENDER
+# RENDER CON ALTURAS AJUSTADAS
 # =========================
 if vista == "asistentes":
-    components.html(HTML_ASISTENTES, height=2500, scrolling=False)
+    components.html(HTML_ASISTENTES, height=2200, scrolling=False)
 elif vista == "precios":
-    components.html(HTML_PRECIOS, height=2500, scrolling=False)
+    components.html(HTML_PRECIOS, height=2000, scrolling=False)
 else:
-    components.html(HTML_HOME, height=2100, scrolling=False)
+    components.html(HTML_HOME, height=1900, scrolling=False)
