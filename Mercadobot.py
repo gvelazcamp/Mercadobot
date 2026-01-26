@@ -4,24 +4,26 @@ import streamlit.components.v1 as components
 st.set_page_config(layout="wide")
 
 # =========================
-# FULL WIDTH STREAMLIT (para que use todo el ancho)
+# FULL WIDTH STREAMLIT
 # =========================
 st.markdown(
     """
     <style>
     .block-container {
         max-width: 100% !important;
-        padding-left: 0rem !important;
-        padding-right: 0rem !important;
-        padding-top: 0rem !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
     section.main > div {
         max-width: 100% !important;
-        padding-left: 0rem !important;
-        padding-right: 0rem !important;
-        padding-top: 0rem !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
-
+    section.main {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
     /* Ocultar completamente header y toolbar de Streamlit */
     header[data-testid="stHeader"] { 
         display: none !important; 
@@ -50,13 +52,19 @@ st.markdown(
     }
     [data-testid="stDecoration"] { display: none !important; }
     [data-testid="stStatusWidget"] { display: none !important; }
+    
+    /* Eliminar scrollbars de Streamlit */
+    iframe {
+        display: block;
+        overflow: hidden !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
 
 # =========================
-# VISTA (HOME / ASISTENTES / PRECIOS) POR QUERY PARAM
+# VISTA
 # =========================
 try:
     vista = st.query_params.get("vista", "home")
@@ -70,31 +78,44 @@ BASE_URL = "https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/"
 # HTML + CSS (BASE)
 # =========================
 CSS_BASE = """
-<style>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-body {
-    background: #f6f7fb;
-    margin: 0;
-    overflow-x: hidden;
-}
-
 html, body {
+    width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    background: #f6f7fb;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* =========================
    WRAPPER
 ========================= */
 .wrapper {
-    max-width: 100%;
-    margin: 0 auto;
-    min-height: 100vh;
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
@@ -107,6 +128,7 @@ html, body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
+    width: 100%;
 }
 
 .logo {
@@ -136,6 +158,7 @@ html, body {
     padding: 8px 16px;
     border-radius: 10px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 /* =========================
@@ -145,31 +168,37 @@ html, body {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 40px;
-    padding: 40px;
+    padding: 40px 40px;
     align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .hero h1 {
     font-size: 38px;
     line-height: 1.15;
+    margin: 0 0 18px 0;
 }
 
 .hero p {
     font-size: 16px;
     color: #555;
-    margin: 18px 0 22px 0;
+    margin: 0 0 22px 0;
 }
 
 .hero img {
-    max-width: 460px;
+    max-width: 100%;
     width: 100%;
-    margin-left: auto;
+    height: auto;
+    display: block;
 }
 
 .hero-actions {
     display: flex;
     align-items: center;
     gap: 18px;
+    flex-wrap: wrap;
 }
 
 .btn-primary {
@@ -181,6 +210,7 @@ html, body {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+    border: none;
 }
 
 .btn-secondary {
@@ -198,7 +228,8 @@ html, body {
 ========================= */
 .cats-block {
     text-align: center;
-    padding: 20px 40px 10px 40px;
+    padding: 20px 40px;
+    width: 100%;
 }
 
 .cats {
@@ -223,18 +254,22 @@ html, body {
 ========================= */
 .section {
     padding: 20px 40px 40px 40px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .section h2 {
     text-align: center;
     font-size: 32px;
+    margin: 0 0 10px 0;
 }
 
 .subtitle {
     text-align: center;
     font-size: 14px;
     color: #777;
-    margin-bottom: 30px;
+    margin: 0 0 30px 0;
 }
 
 /* =========================
@@ -242,8 +277,9 @@ html, body {
 ========================= */
 .cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 22px;
+    width: 100%;
 }
 
 .card {
@@ -261,7 +297,7 @@ html, body {
 }
 
 .card h3 {
-    margin-top: 16px;
+    margin: 16px 0 10px 0;
     font-size: 18px;
 }
 
@@ -269,10 +305,10 @@ html, body {
     font-size: 13px;
     color: #666;
     min-height: 70px;
+    margin: 0 0 14px 0;
 }
 
 .card button {
-    margin-top: 14px;
     background: #f4b400;
     border: none;
     padding: 10px 18px;
@@ -286,9 +322,10 @@ html, body {
 ========================= */
 .pricing {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 22px;
     margin-top: 10px;
+    width: 100%;
 }
 
 .plan {
@@ -321,6 +358,7 @@ html, body {
 .plan-name {
     font-size: 18px;
     font-weight: 800;
+    margin: 0;
 }
 
 .plan-desc {
@@ -381,12 +419,12 @@ html, body {
 }
 
 .setup h3 {
-    margin: 0;
+    margin: 0 0 10px 0;
     font-size: 18px;
 }
 
 .setup p {
-    margin: 10px 0 0;
+    margin: 0;
     font-size: 13px;
     color: #666;
 }
@@ -402,21 +440,26 @@ html, body {
    CTA FINAL
 ========================= */
 .cta {
-    margin: 60px 40px 30px;
+    margin: 40px 40px 20px;
     background: linear-gradient(180deg, #eef2f7, #ffffff);
     border-radius: 40px;
-    padding: 50px 40px;
+    padding: 40px;
     text-align: center;
+    width: calc(100% - 80px);
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .cta h2 {
     font-size: 32px;
+    margin: 0 0 10px 0;
 }
 
 .cta p {
     font-size: 14px;
     color: #666;
-    margin: 10px 0 20px;
+    margin: 0 0 20px 0;
 }
 
 .cta button {
@@ -462,6 +505,7 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     margin-top: auto;
 }
 
@@ -475,30 +519,57 @@ html, body {
     }
     .hero img {
         margin: 0 auto;
-        max-width: 520px;
+        max-width: 400px;
     }
     .hero-actions {
         justify-content: center;
-        flex-wrap: wrap;
     }
     .cards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .header { 
+        padding: 16px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .nav { 
+        gap: 14px;
+        font-size: 14px;
+    }
+    .hero { 
+        padding: 20px 16px;
+        gap: 20px;
+    }
+    .hero h1 {
+        font-size: 28px;
+    }
+    .section { 
+        padding: 20px 16px;
+    }
+    .cta { 
+        margin: 30px 16px 16px;
+        padding: 30px 20px;
+        width: calc(100% - 32px);
+    }
+    .cards { 
+        grid-template-columns: 1fr;
+    }
+    .footer { 
+        padding: 16px;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
     .pricing {
         grid-template-columns: 1fr;
     }
 }
-
-@media (max-width: 640px) {
-    .header { padding: 16px 16px; }
-    .nav { gap: 14px; }
-    .hero { padding: 26px 16px; }
-    .section { padding: 18px 16px 30px 16px; }
-    .cta { margin: 40px 16px 20px; padding: 36px 18px; }
-    .cards { grid-template-columns: 1fr; }
-    .footer { padding: 16px; flex-direction: column; gap: 10px; }
-}
 </style>
+</head>
+<body>
 """
 
 # =========================
@@ -506,7 +577,6 @@ html, body {
 # =========================
 HEADER = """
 <div class="wrapper">
-
     <!-- HEADER -->
     <div class="header">
         <a class="logo" href="?vista=home">MERCADO<span>BOT</span></a>
@@ -520,11 +590,21 @@ HEADER = """
     </div>
 """
 
+FOOTER = """
+    <!-- FOOTER -->
+    <div class="footer">
+        <div>Política de privacidad · Términos y condiciones · Contacto</div>
+        <div>Facebook · Twitter · LinkedIn</div>
+    </div>
+</div>
+</body>
+</html>
+"""
+
 # =========================
 # HOME
 # =========================
-HTML_HOME = f"""
-{CSS_BASE}
+HTML_HOME = f"""{CSS_BASE}
 {HEADER}
 
     <!-- HERO -->
@@ -537,7 +617,7 @@ HTML_HOME = f"""
                 <a class="btn-secondary" href="#demo">▶ Ver demo en vivo</a>
             </div>
         </div>
-        <img src="{BASE_URL}Asistente.png">
+        <img src="{BASE_URL}Asistente.png" alt="Asistente IA">
     </div>
 
     <!-- CATEGORÍAS -->
@@ -557,28 +637,28 @@ HTML_HOME = f"""
 
         <div class="cards">
             <div class="card">
-                <img src="{BASE_URL}Asistentefutbol.png">
+                <img src="{BASE_URL}Asistentefutbol.png" alt="Asistente de Fútbol">
                 <h3>Asistente de Fútbol</h3>
                 <p>Resultados, noticias y estadísticas del mundo del fútbol.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentecocina.png">
+                <img src="{BASE_URL}Asistentecocina.png" alt="Asistente de Cocina">
                 <h3>Asistente de Cocina</h3>
                 <p>Recetas rápidas, consejos de cocina y conversiones de ingredientes.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistenteecommerce.png">
+                <img src="{BASE_URL}Asistenteecommerce.png" alt="Asistente de Ecommerce">
                 <h3>Asistente de Ecommerce</h3>
                 <p>Respuestas automáticas sobre productos, pedidos y envíos.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentefinanzas.png">
+                <img src="{BASE_URL}Asistentefinanzas.png" alt="Asistente de Finanzas">
                 <h3>Asistente de Finanzas</h3>
                 <p>Información financiera, cotizaciones y análisis de inversiones.</p>
                 <button>Ver asistente</button>
@@ -600,20 +680,13 @@ HTML_HOME = f"""
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <div class="footer">
-        <div>Política de privacidad · Términos y condiciones · Contacto</div>
-        <div>Facebook · Twitter · LinkedIn</div>
-    </div>
-
-</div>
+{FOOTER}
 """
 
 # =========================
-# ASISTENTES (LISTADO TOTAL)
+# ASISTENTES
 # =========================
-HTML_ASISTENTES = f"""
-{CSS_BASE}
+HTML_ASISTENTES = f"""{CSS_BASE}
 {HEADER}
 
     <div class="section">
@@ -622,63 +695,63 @@ HTML_ASISTENTES = f"""
 
         <div class="cards">
             <div class="card">
-                <img src="{BASE_URL}Asistentefutbol.png">
+                <img src="{BASE_URL}Asistentefutbol.png" alt="Asistente de Fútbol">
                 <h3>Asistente de Fútbol</h3>
                 <p>Resultados, noticias y estadísticas del mundo del fútbol.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentecocina.png">
+                <img src="{BASE_URL}Asistentecocina.png" alt="Asistente de Cocina">
                 <h3>Asistente de Cocina</h3>
                 <p>Recetas, consejos y conversiones de ingredientes.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistenteecommerce.png">
+                <img src="{BASE_URL}Asistenteecommerce.png" alt="Asistente de Ecommerce">
                 <h3>Asistente de Ecommerce</h3>
                 <p>Soporte para productos, pedidos, envíos y postventa.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentefinanzas.png">
+                <img src="{BASE_URL}Asistentefinanzas.png" alt="Asistente de Finanzas">
                 <h3>Asistente de Finanzas</h3>
                 <p>Cotizaciones, reportes y análisis financiero básico.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentestock.png">
+                <img src="{BASE_URL}Asistentestock.png" alt="Asistente de Stock">
                 <h3>Asistente de Stock</h3>
                 <p>Control de inventario, consumos y alertas de reposición.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistenteinmobiliaria.png">
+                <img src="{BASE_URL}Asistenteinmobiliaria.png" alt="Asistente Inmobiliario">
                 <h3>Asistente Inmobiliario</h3>
                 <p>Consultas de propiedades, disponibilidad y agendado.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistenteagendas.png">
+                <img src="{BASE_URL}Asistenteagendas.png" alt="Asistente de Turnos">
                 <h3>Asistente de Turnos / Agenda</h3>
                 <p>Reserva de turnos, confirmaciones y recordatorios.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentedental.png">
+                <img src="{BASE_URL}Asistentedental.png" alt="Asistente Dental">
                 <h3>Asistente Dental</h3>
                 <p>Turnos, precios orientativos y preparación previa.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentedeviaje.png">
+                <img src="{BASE_URL}Asistentedeviaje.png" alt="Asistente de Viaje">
                 <h3>Asistente de Viaje</h3>
                 <p>Itinerarios, recomendaciones y ayuda en reservas.</p>
                 <button>Ver asistente</button>
@@ -700,23 +773,16 @@ HTML_ASISTENTES = f"""
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <div class="footer">
-        <div>Política de privacidad · Términos y condiciones · Contacto</div>
-        <div>Facebook · Twitter · LinkedIn</div>
-    </div>
-
-</div>
+{FOOTER}
 """
 
 # =========================
 # PRECIOS
 # =========================
-HTML_PRECIOS = f"""
-{CSS_BASE}
+HTML_PRECIOS = f"""{CSS_BASE}
 {HEADER}
 
-    <div class="section" id="precios">
+    <div class="section">
         <h2>Precios</h2>
         <div class="subtitle">Elegí un plan según la cantidad de asistentes y el nivel de soporte que necesites.</div>
 
@@ -803,21 +869,15 @@ HTML_PRECIOS = f"""
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <div class="footer">
-        <div>Política de privacidad · Términos y condiciones · Contacto</div>
-        <div>Facebook · Twitter · LinkedIn</div>
-    </div>
-
-</div>
+{FOOTER}
 """
 
 # =========================
-# RENDER CON ALTURAS AJUSTADAS
+# RENDER CON ALTURAS OPTIMIZADAS
 # =========================
 if vista == "asistentes":
-    components.html(HTML_ASISTENTES, height=2200, scrolling=False)
+    components.html(HTML_ASISTENTES, height=2000, scrolling=False)
 elif vista == "precios":
-    components.html(HTML_PRECIOS, height=2000, scrolling=False)
+    components.html(HTML_PRECIOS, height=1850, scrolling=False)
 else:
-    components.html(HTML_HOME, height=1900, scrolling=False)
+    components.html(HTML_HOME, height=1700, scrolling=False)
