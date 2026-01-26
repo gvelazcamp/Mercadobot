@@ -154,6 +154,132 @@ body {
 }
 
 /* =========================
+   HERO IMPACT
+========================= */
+.hero-impact {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    padding: 100px 5% 80px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-impact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(244, 180, 0, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero-impact-content {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-impact-title {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 20px 0;
+    letter-spacing: -0.02em;
+}
+
+.hero-impact-subtitle {
+    display: block;
+    font-size: 48px;
+    background: linear-gradient(135deg, #f4b400 0%, #ffd700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 10px;
+}
+
+.hero-impact-text {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 40px 0;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-impact-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-impact-btn-primary {
+    background: #f4b400;
+    color: #000;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(244, 180, 0, 0.3);
+}
+
+.hero-impact-btn-primary:hover {
+    background: #ffd700;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(244, 180, 0, 0.4);
+}
+
+.hero-impact-btn-secondary {
+    background: transparent;
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    display: inline-block;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.hero-impact-btn-secondary:hover {
+    border-color: #f4b400;
+    color: #f4b400;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .hero-impact {
+        padding: 60px 5% 50px;
+    }
+    
+    .hero-impact-title {
+        font-size: 36px;
+    }
+    
+    .hero-impact-subtitle {
+        font-size: 32px;
+    }
+    
+    .hero-impact-text {
+        font-size: 16px;
+    }
+    
+    .hero-impact-btn-primary,
+    .hero-impact-btn-secondary {
+        font-size: 16px;
+        padding: 14px 24px;
+    }
+}
+
+/* =========================
    HERO
 ========================= */
 .hero {
@@ -801,6 +927,23 @@ FOOTER = """
 HTML_HOME = f"""{HTML_BASE}
 {HEADER}
 
+    <!-- HERO IMPACT -->
+    <div class="hero-impact">
+        <div class="hero-impact-content">
+            <h1 class="hero-impact-title">
+                Preguntale a tus datos.<br>
+                <span class="hero-impact-subtitle">No busques más entre miles de archivos.</span>
+            </h1>
+            <p class="hero-impact-text">
+                Conectá tus datos y hablá con ellos. Tu asistente IA responde al instante.
+            </p>
+            <div class="hero-impact-actions">
+                <a class="hero-impact-btn-primary" href="?vista=asistentes">Ver asistentes →</a>
+                <a class="hero-impact-btn-secondary" href="#demo">Demo en vivo</a>
+            </div>
+        </div>
+    </div>
+
     <div class="hero">
         <div class="hero-content">
             <h1>Tu negocio atendido<br>por un <span style="color:#f4b400;">chatbot IA</span></h1>
@@ -909,28 +1052,28 @@ HTML_HOME = f"""{HTML_BASE}
                 <img src="{BASE_URL}Asistentefutbol.png" alt="Fútbol">
                 <h3>Asistente de Fútbol</h3>
                 <p>Resultados, noticias y estadísticas del mundo del fútbol.</p>
-                <button>Ver asistente</button>
+                <a href="?vista=demo&asistente=futbol" style="text-decoration: none;"><button>Ver asistente</button></a>
             </div>
 
             <div class="card">
                 <img src="{BASE_URL}Asistentecocina.png" alt="Cocina">
                 <h3>Asistente de Cocina</h3>
                 <p>Recetas rápidas, consejos de cocina y conversiones.</p>
-                <button>Ver asistente</button>
+                <a href="?vista=demo&asistente=cocina" style="text-decoration: none;"><button>Ver asistente</button></a>
             </div>
 
             <div class="card">
                 <img src="{BASE_URL}Asistenteecommerce.png" alt="Ecommerce">
                 <h3>Asistente de Ecommerce</h3>
                 <p>Respuestas automáticas sobre productos y pedidos.</p>
-                <button>Ver asistente</button>
+                <a href="?vista=demo&asistente=ecommerce" style="text-decoration: none;"><button>Ver asistente</button></a>
             </div>
 
             <div class="card">
                 <img src="{BASE_URL}Asistentefinanzas.png" alt="Finanzas">
                 <h3>Asistente de Finanzas</h3>
                 <p>Información financiera y análisis de inversiones.</p>
-                <button>Ver asistente</button>
+                <a href="?vista=demo&asistente=finanzas" style="text-decoration: none;"><button>Ver asistente</button></a>
             </div>
         </div>
     </div>
