@@ -40,9 +40,7 @@ body {
     font-size: 22px;
     font-weight: 800;
 }
-.logo span {
-    color: #f4b400;
-}
+.logo span { color: #f4b400; }
 
 .nav {
     display: flex;
@@ -77,13 +75,42 @@ body {
 .hero p {
     font-size: 16px;
     color: #555;
-    margin: 18px 0;
+    margin: 18px 0 22px 0;
 }
 
 .hero img {
     max-width: 460px;
     width: 100%;
     margin-left: auto;
+}
+
+/* ===== HERO ACTIONS ===== */
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.btn-primary {
+    background: #f4b400;
+    color: #000;
+    padding: 12px 22px;
+    border-radius: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+.btn-secondary span {
+    font-size: 16px;
 }
 
 /* =========================
@@ -178,8 +205,15 @@ body {
             <h1>El marketplace<br>de asistentes IA</h1>
             <p>
                 Automatizá tu negocio con asistentes virtuales inteligentes
-                que responden, informan y venden por vos.
+                que responden, informan y asisten a tus clientes.
             </p>
+
+            <div class="hero-actions">
+                <div class="btn-primary">Explorar asistentes</div>
+                <div class="btn-secondary">
+                    <span>▶</span> Ver demo en vivo
+                </div>
+            </div>
         </div>
 
         <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistente.png">
@@ -227,4 +261,4 @@ body {
 </div>
 """
 
-components.html(html, height=1400, scrolling=True)
+components.html(html, height=1450, scrolling=True)
