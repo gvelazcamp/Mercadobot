@@ -814,16 +814,15 @@ HTML_PRECIOS = f"""{HTML_BASE}
 
         <div class="pricing">
             <div class="plan">
-                <div class="plan-name">Starter</div>
-                <div class="plan-desc">Para probar 1 asistente</div>
+                <div class="plan-name">Instalacion</div>
 
-                <div class="plan-price">US$ 49<span>/mes</span></div>
+                <div class="plan-price">A medida<span>/mes</span></div>
                 <div class="plan-note">1 asistente · 1 sitio</div>
 
                 <ul class="plan-list">
-                    <li>✅ Widget embebible</li>
+                    <li>✅ Instalacion</li>
                     <li>✅ Personalización básica</li>
-                    <li>✅ 1 integración simple</li>
+                    <li>✅ Interpretador</li>
                     <li>✅ Soporte por email</li>
                 </ul>
 
@@ -835,12 +834,11 @@ HTML_PRECIOS = f"""{HTML_BASE}
                 <div class="plan-name">Pro</div>
                 <div class="plan-desc">Para negocios que escalan</div>
 
-                <div class="plan-price">US$ 99<span>/mes</span></div>
+                <div class="plan-price">US$ 150<span>/mes</span></div>
                 <div class="plan-note">3 asistentes · 1 sitio</div>
 
                 <ul class="plan-list">
                     <li>✅ Todo lo de Starter</li>
-                    <li>✅ Hasta 3 asistentes</li>
                     <li>✅ Configuración avanzada</li>
                     <li>✅ Reporte mensual</li>
                     <li>✅ Soporte prioritario</li>
@@ -868,12 +866,6 @@ HTML_PRECIOS = f"""{HTML_BASE}
             </div>
         </div>
 
-        <div class="setup">
-            <h3>Instalación & Setup (pago único)</h3>
-            <p>Incluye: configuración inicial, branding, seteo del asistente y publicación en tu web.</p>
-            <div style="margin-top:14px; font-weight:900; font-size:22px;">US$ 150</div>
-            <div style="margin-top:6px; font-size:13px; color:#777;">Pago único · Varía según integraciones.</div>
-        </div>
 
         <div class="mini-note">Precios orientativos. Definimos planes según tus límites reales.</div>
     </div>
@@ -903,3 +895,4 @@ elif vista == "precios":
     components.html(HTML_PRECIOS, height=1800, scrolling=False)
 else:
     components.html(HTML_HOME, height=1650, scrolling=False)
+
