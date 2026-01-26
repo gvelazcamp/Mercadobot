@@ -1188,11 +1188,25 @@ HTML_PRECIOS = f"""{HTML_BASE}
 # =========================
 # RENDER
 # =========================
-ALTURA_FIJA = 2500
+import base64
 
 if vista == "asistentes":
-    components.html(HTML_ASISTENTES, height=ALTURA_FIJA, scrolling=False)
+    html_content = HTML_ASISTENTES
 elif vista == "precios":
-    components.html(HTML_PRECIOS, height=ALTURA_FIJA, scrolling=False)
+    html_content = HTML_PRECIOS
 else:
-    components.html(HTML_HOME, height=ALTURA_FIJA, scrolling=False)
+    html_content = HTML_HOME
+
+# Codificar HTML en base64 para el iframe
+html_b64 = base64.b64encode(html_content.encode()).decode()
+
+st.markdown(
+    f"""
+    <iframe 
+        src="data:text/html;base64,{html_b64}" 
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; border: none; margin: 0; padding: 0;"
+        scrolling="no"
+    ></iframe>
+    """,
+    unsafe_allow_html=True
+)
