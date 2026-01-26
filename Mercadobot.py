@@ -1890,23 +1890,23 @@ HTML_HOME = f"""{HTML_BASE}
     <script>
     let chatHistory = [];
     
-    function toggleChat() {
+    function toggleChat() {{
         const window = document.getElementById('chatbot-window');
         const icon = document.getElementById('chatbot-icon');
         const close = document.getElementById('chatbot-close');
         
-        if (window.style.display === 'none') {
+        if (window.style.display === 'none') {{
             window.style.display = 'flex';
             icon.style.display = 'none';
             close.style.display = 'block';
-        } else {
+        }} else {{
             window.style.display = 'none';
             icon.style.display = 'block';
             close.style.display = 'none';
-        }
-    }
+        }}
+    }}
     
-    async function sendMessage() {
+    async function sendMessage() {{
         const input = document.getElementById('chatbot-input');
         const message = input.value.trim();
         
@@ -1926,15 +1926,15 @@ HTML_HOME = f"""{HTML_BASE}
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
         
         // Llamar a la IA
-        try {
-            chatHistory.push({role: "user", content: message});
+        try {{
+            chatHistory.push({{role: "user", content: message}});
             
-            const response = await fetch("https://api.anthropic.com/v1/messages", {
+            const response = await fetch("https://api.anthropic.com/v1/messages", {{
                 method: "POST",
-                headers: {
+                headers: {{
                     "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
+                }},
+                body: JSON.stringify({{
                     model: "claude-sonnet-4-20250514",
                     max_tokens: 1000,
                     system: `Sos el asistente virtual de MercadoBot, una empresa que crea chatbots con IA para negocios.
@@ -1956,8 +1956,8 @@ PRECIOS (si preguntan):
 Respondé de forma amigable, concisa y directa. Si piden una demo, pediles su email.
 Si preguntás algo que no sabés, derivá a contacto: hola@mercadobot.com`,
                     messages: chatHistory
-                })
-            });
+                }})
+            }});
             
             const data = await response.json();
             
@@ -1967,23 +1967,23 @@ Si preguntás algo que no sabés, derivá a contacto: hola@mercadobot.com`,
             // Agregar respuesta del bot
             const botResponse = data.content[0].text;
             addMessage(botResponse, 'bot');
-            chatHistory.push({role: "assistant", content: botResponse});
+            chatHistory.push({{role: "assistant", content: botResponse}});
             
-        } catch (error) {
+        }} catch (error) {{
             console.error('Error:', error);
             document.getElementById('typing-indicator').remove();
             addMessage('Disculpá, hubo un error. Escribinos a hola@mercadobot.com', 'bot');
-        }
-    }
+        }}
+    }}
     
-    function addMessage(text, sender) {
+    function addMessage(text, sender) {{
         const messagesDiv = document.getElementById('chatbot-messages');
         const messageDiv = document.createElement('div');
-        messageDiv.className = `chatbot-message ${sender}`;
-        messageDiv.innerHTML = `<div class="chatbot-bubble ${sender}">${text}</div>`;
+        messageDiv.className = `chatbot-message ${{sender}}`;
+        messageDiv.innerHTML = `<div class="chatbot-bubble ${{sender}}>${{text}}</div>`;
         messagesDiv.appendChild(messageDiv);
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
+    }}
     </script>
 
 {FOOTER}
