@@ -62,9 +62,6 @@ st.markdown(
         display: block !important;
         margin: 0 !important;
         padding: 0 !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
     }
     </style>
     """,
@@ -1162,8 +1159,8 @@ HTML_PRECIOS = f"""{HTML_BASE}
 # RENDER
 # =========================
 if vista == "asistentes":
-    components.html(HTML_ASISTENTES, height=3000, scrolling=True)
+    components.html(HTML_ASISTENTES, height=1950, scrolling=False)
 elif vista == "precios":
-    components.html(HTML_PRECIOS, height=3000, scrolling=True)
+    components.html(HTML_PRECIOS, height=1800, scrolling=False)
 else:
-    components.html(HTML_HOME, height=3000, scrolling=True)
+    components.html(HTML_HOME, height=1850, scrolling=False)
