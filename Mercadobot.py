@@ -1158,9 +1158,11 @@ HTML_PRECIOS = f"""{HTML_BASE}
 # =========================
 # RENDER
 # =========================
+ALTURA_FIJA = 2500
+
 if vista == "asistentes":
-    components.html(HTML_ASISTENTES, height=1950, scrolling=False)
+    components.html(HTML_ASISTENTES, height=ALTURA_FIJA, scrolling=False)
 elif vista == "precios":
-    components.html(HTML_PRECIOS, height=1800, scrolling=False)
+    components.html(HTML_PRECIOS, height=ALTURA_FIJA, scrolling=False)
 else:
-    components.html(HTML_HOME, height=1850, scrolling=False)
+    components.html(HTML_HOME, height=ALTURA_FIJA, scrolling=False)
