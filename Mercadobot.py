@@ -1177,34 +1177,12 @@ HTML_PRECIOS = f"""{HTML_BASE}
 # =========================
 # RENDER
 # =========================
-import tempfile
-import os
+# Usar SIEMPRE la misma altura para evitar que el contenido baje
+ALTURA_FIJA = 2000
 
-# Crear archivo temporal con el HTML
 if vista == "asistentes":
-    html_content = HTML_ASISTENTES
+    components.html(HTML_ASISTENTES, height=ALTURA_FIJA, scrolling=False)
 elif vista == "precios":
-    html_content = HTML_PRECIOS
+    components.html(HTML_PRECIOS, height=ALTURA_FIJA, scrolling=False)
 else:
-    html_content = HTML_HOME
-
-# Escribir HTML a archivo temporal
-temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False, encoding='utf-8')
-temp_file.write(html_content)
-temp_file.close()
-
-# Usar iframe directo con archivo local
-st.markdown(
-    f"""
-    <iframe 
-        src="file://{temp_file.name}" 
-        style="width: 100%; height: 100vh; border: none; margin: 0; padding: 0;"
-        scrolling="yes"
-    ></iframe>
-    """,
-    unsafe_allow_html=True
-)
-
-# Limpiar archivo temporal después de un tiempo
-import atexit
-atexit.register(lambda: os.unlink(temp_file.name) if os.path.exists(temp_file.name) else None)
+    components.html(HTML_HOME, height=ALTURA_FIJA, scrolling=False)
