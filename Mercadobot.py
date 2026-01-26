@@ -9,12 +9,23 @@ st.set_page_config(layout="wide")
 st.markdown(
     """
     <style>
-    .block-container {max-width: 100% !important; padding-left: 0rem !important; padding-right: 0rem !important; padding-top: 0rem !important;}
-    section.main > div {max-width: 100% !important; padding-left: 0rem !important; padding-right: 0rem !important; padding-top: 0rem !important;}
+    .block-container {
+        max-width: 100% !important;
+        padding-left: 0rem !important;
+        padding-right: 0rem !important;
+        padding-top: 3.5rem !important;  /* <-- evita el recorte */
+    }
+    section.main > div {
+        max-width: 100% !important;
+        padding-left: 0rem !important;
+        padding-right: 0rem !important;
+        padding-top: 3.5rem !important;  /* <-- evita el recorte */
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 # =========================
 # VISTA (HOME / ASISTENTES / PRECIOS) POR QUERY PARAM
@@ -771,3 +782,4 @@ elif vista == "precios":
     components.html(HTML_PRECIOS, height=2300, scrolling=True)
 else:
     components.html(HTML_HOME, height=1900, scrolling=True)
+
