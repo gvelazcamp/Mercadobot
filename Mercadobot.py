@@ -999,11 +999,18 @@ body {
     .hero-impact-btn-secondary,
     .cta button,
     a button,
-    .card button {
+    .card button,
+    input[type="submit"],
+    input[type="button"],
+    .stButton button,
+    [class*="button"],
+    [class*="Button"],
+    [class*="btn"] {
         border-radius: 8px !important;
         background: #f4b400 !important;
         background-color: #f4b400 !important;
         color: #000 !important;
+        border: none !important;
     }
     
     /* Elementos con fondos específicos que NO deben cambiar */
