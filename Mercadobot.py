@@ -990,6 +990,22 @@ body {
         color: #666 !important;
     }
     
+    /* BOTONES CON MENOS BORDER-RADIUS Y COLOR AMARILLO EN MOBILE */
+    button,
+    .btn-primary,
+    .btn-secondary,
+    .btn-login,
+    .hero-impact-btn-primary,
+    .hero-impact-btn-secondary,
+    .cta button,
+    a button,
+    .card button {
+        border-radius: 8px !important;
+        background: #f4b400 !important;
+        background-color: #f4b400 !important;
+        color: #000 !important;
+    }
+    
     /* Elementos con fondos específicos que NO deben cambiar */
     .hero-impact {
         background: linear-gradient(135deg, #2a2a2a 0%, #3d3d3d 100%) !important;
