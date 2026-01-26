@@ -540,6 +540,63 @@ body {
     line-height: 1.45;
 }
 
+/* NUEVOS STEPS SIMPLES */
+.steps-simple {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    flex-wrap: wrap;
+}
+
+.step-simple {
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+}
+
+.step-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+.step-simple h3 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: #000;
+}
+
+.step-simple p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.step-arrow {
+    font-size: 32px;
+    color: #f4b400;
+    font-weight: 800;
+}
+
+@media (max-width: 768px) {
+    .step-arrow {
+        display: none;
+    }
+    
+    .steps-simple {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
 /* =========================
    CATEGORÍAS
 ========================= */
@@ -863,6 +920,46 @@ body {
     margin: 0 0 20px 0;
 }
 
+.cta-form {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    flex-wrap: wrap;
+}
+
+.cta-form input {
+    flex: 1;
+    min-width: 200px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+    font-size: 15px;
+    font-family: inherit;
+}
+
+.cta-form input:focus {
+    outline: none;
+    border-color: #f4b400;
+}
+
+.cta-form button {
+    background: #f4b400;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.cta-form button:hover {
+    background: #e5a500;
+}
+
 .cta button {
     background: #f4b400;
     padding: 14px 28px;
@@ -897,6 +994,96 @@ body {
     font-size: 13px;
     font-weight: 600;
     box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+
+/* =========================
+   FAQ
+========================= */
+.faq-section {
+    padding: 60px 5%;
+    background: #fff;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.faq-section h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 50px;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.faq-item {
+    background: #f6f7fb;
+    padding: 25px;
+    border-radius: 16px;
+    border-left: 4px solid #f4b400;
+}
+
+.faq-question {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.faq-answer {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* =========================
+   INTEGRACIONES
+========================= */
+.integrations-section {
+    padding: 60px 5%;
+    background: linear-gradient(180deg, #f6f7fb, #fff);
+    text-align: center;
+}
+
+.integrations-section h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.integrations-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.integrations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.integration-logo {
+    background: #fff;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+}
+
+.integration-logo:hover {
+    transform: translateY(-5px);
+}
+
+.integration-logo p {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
 }
 
 /* =========================
@@ -1254,25 +1441,25 @@ HTML_HOME = f"""{HTML_BASE}
 
     <div class="section">
         <h2>Cómo funciona</h2>
-        <div class="subtitle">Simple: elegís el asistente y lo dejamos instalado en tu web.</div>
+        <div class="subtitle">Simple y rápido. En 3 pasos tenés tu asistente funcionando.</div>
 
-        <div class="steps">
-            <div class="step">
-                <div class="step-num">1</div>
-                <h3>Elegís el asistente</h3>
-                <p>Seleccionás el rubro (stock, turnos, ecommerce, etc.) y el estilo de atención.</p>
+        <div class="steps-simple">
+            <div class="step-simple">
+                <div class="step-icon">🔌</div>
+                <h3>Conectás</h3>
+                <p>Vinculás tus datos, productos, servicios o información del negocio.</p>
             </div>
-
-            <div class="step">
-                <div class="step-num">2</div>
-                <h3>Lo adaptamos a tu negocio</h3>
-                <p>Lo configuramos con tus datos, respuestas, reglas y preguntas frecuentes reales.</p>
+            <div class="step-arrow">→</div>
+            <div class="step-simple">
+                <div class="step-icon">🧠</div>
+                <h3>Entrenás</h3>
+                <p>El asistente aprende tu negocio: precios, stock, políticas, horarios.</p>
             </div>
-
-            <div class="step">
-                <div class="step-num">3</div>
-                <h3>Lo instalamos</h3>
-                <p>Lo dejamos funcionando en tu sitio (iframe o web completa) y con soporte incluido.</p>
+            <div class="step-arrow">→</div>
+            <div class="step-simple">
+                <div class="step-icon">🚀</div>
+                <h3>Lanzás</h3>
+                <p>Lo instalamos en tu web o WhatsApp y empieza a atender clientes.</p>
             </div>
         </div>
     </div>
@@ -1404,15 +1591,90 @@ HTML_HOME = f"""{HTML_BASE}
     </div>
 
     <div class="cta" id="soporte">
-        <h2>Tu negocio no para nunca</h2>
-        <p>Enseñale sobre tus datos y dejalo trabajar. Mientras vos dormís, el chatbot vende, agenda y responde 24/7.</p>
-        <button>Quiero mi chatbot</button>
+        <h2>Agenda una demo gratuita</h2>
+        <p>Probá 7 días gratis. Sin tarjeta de crédito. Cancelá cuando quieras.</p>
+        
+        <form class="cta-form" onsubmit="event.preventDefault(); alert('¡Gracias! Te contactamos en 24hs.');">
+            <input type="text" placeholder="Tu nombre" required>
+            <input type="email" placeholder="Tu email" required>
+            <button type="submit">Quiero mi demo gratuita</button>
+        </form>
 
         <div class="features">
             <div class="feature">⚡ Fácil y rápido</div>
             <div class="feature">⚙️ Totalmente configurable</div>
             <div class="feature">🔒 Seguro y escalable</div>
             <div class="feature">💬 Soporte incluido</div>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+        <h2>Preguntas frecuentes</h2>
+        
+        <div class="faq-grid">
+            <div class="faq-item">
+                <div class="faq-question">¿Necesito saber programar?</div>
+                <div class="faq-answer">No. Nosotros configuramos todo por vos. Vos solo nos pasás la información de tu negocio y nosotros lo dejamos funcionando.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">¿Funciona con WhatsApp?</div>
+                <div class="faq-answer">Sí. Podés integrar el chatbot con WhatsApp, Instagram, tu sitio web, Shopify y más plataformas.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">¿Puedo cancelar cuando quiera?</div>
+                <div class="faq-answer">Sí. No hay permanencia. Cancelás cuando quieras sin costos adicionales ni penalizaciones.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">¿Qué pasa si el bot no sabe responder?</div>
+                <div class="faq-answer">El bot deriva la consulta a un humano o toma tus datos para que te contactemos. Nunca deja al cliente sin respuesta.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">¿Los datos están seguros?</div>
+                <div class="faq-answer">Sí. Toda la información está encriptada y cumplimos con normativas de protección de datos. Tus datos y los de tus clientes están 100% seguros.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">¿Cuánto tarda la implementación?</div>
+                <div class="faq-answer">Depende de la complejidad. Casos simples: 2-3 días. Integraciones complejas: 1-2 semanas. Te damos un timeline al inicio.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTEGRACIONES -->
+    <div class="integrations-section">
+        <h2>Integraciones</h2>
+        <p class="integrations-subtitle">Conecta tu chatbot con las plataformas que ya usás</p>
+        
+        <div class="integrations-grid">
+            <div class="integration-logo">
+                <span style="font-size: 48px;">💬</span>
+                <p>WhatsApp</p>
+            </div>
+            <div class="integration-logo">
+                <span style="font-size: 48px;">📸</span>
+                <p>Instagram</p>
+            </div>
+            <div class="integration-logo">
+                <span style="font-size: 48px;">🌐</span>
+                <p>Web</p>
+            </div>
+            <div class="integration-logo">
+                <span style="font-size: 48px;">🛍️</span>
+                <p>Shopify</p>
+            </div>
+            <div class="integration-logo">
+                <span style="font-size: 48px;">💳</span>
+                <p>Mercado Pago</p>
+            </div>
+            <div class="integration-logo">
+                <span style="font-size: 48px;">📧</span>
+                <p>Email</p>
+            </div>
         </div>
     </div>
 
