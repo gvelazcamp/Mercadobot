@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide")
 
@@ -14,6 +15,7 @@ html = """
 
 body {
     background: #f6f7fb;
+    margin: 0;
 }
 
 /* =========================
@@ -168,7 +170,7 @@ body {
 }
 
 /* =========================
-   CTA FINAL
+   CTA
 ========================= */
 .cta {
     background: linear-gradient(180deg, #eef2f7, #ffffff);
@@ -178,25 +180,6 @@ body {
     margin: 60px;
 }
 
-.cta h2 {
-    font-size: 36px;
-}
-
-.cta p {
-    color: #666;
-    margin: 20px 0;
-}
-
-.cta button {
-    background: #f4b400;
-    padding: 16px 30px;
-    border-radius: 16px;
-    font-weight: 800;
-}
-
-/* =========================
-   FOOTER
-========================= */
 .footer {
     padding: 40px;
     display: flex;
@@ -220,67 +203,48 @@ body {
 <div class="hero">
     <div>
         <h1>El marketplace<br>de asistentes IA</h1>
-        <p>Automatizá tu negocio con asistentes virtuales inteligentes que responden, informan y asisten a tus clientes.</p>
+        <p>Automatizá tu negocio con asistentes virtuales inteligentes.</p>
         <div class="hero-actions">
             <div class="btn-primary">Explorar asistentes</div>
-            <div class="btn-secondary">▶ Ver demo en vivo</div>
+            <div class="btn-secondary">▶ Ver demo</div>
         </div>
     </div>
     <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentefutbol.png">
 </div>
 
-<div class="categories">
-    <div class="category">⚽ Fútbol</div>
-    <div class="category">👨‍🍳 Cocina</div>
-    <div class="category">🛒 Ecommerce</div>
-    <div class="category">💰 Finanzas</div>
-</div>
-
 <div class="section">
-    <h2>Asistentes IA listos para potenciar tu negocio</h2>
-    <p>Explorá, elegí e instalá asistentes inteligentes según tus necesidades.</p>
+    <h2>Asistentes IA</h2>
 
     <div class="cards">
         <div class="card">
             <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentefutbol.png">
-            <h3>Asistente de Fútbol</h3>
-            <p>Resultados, noticias y estadísticas del mundo del fútbol.</p>
-            <button>Ver asistente</button>
+            <h3>Fútbol</h3>
+            <p>Datos y estadísticas</p>
+            <button>Ver</button>
         </div>
 
         <div class="card">
             <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentecocina.png">
-            <h3>Asistente de Cocina</h3>
-            <p>Recetas rápidas, consejos y conversiones al instante.</p>
-            <button>Ver asistente</button>
+            <h3>Cocina</h3>
+            <p>Recetas inteligentes</p>
+            <button>Ver</button>
         </div>
 
         <div class="card">
             <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistenteecommerce.png">
-            <h3>Asistente Ecommerce</h3>
-            <p>Respuestas automáticas sobre productos, pedidos y envíos.</p>
-            <button>Ver asistente</button>
+            <h3>Ecommerce</h3>
+            <p>Ventas automáticas</p>
+            <button>Ver</button>
         </div>
 
         <div class="card">
             <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentefinanzas.png">
-            <h3>Asistente de Finanzas</h3>
-            <p>Información financiera, cotizaciones y análisis.</p>
-            <button>Ver asistente</button>
+            <h3>Finanzas</h3>
+            <p>Análisis financiero</p>
+            <button>Ver</button>
         </div>
     </div>
 </div>
-
-<div class="cta">
-    <h2>Integra en minutos</h2>
-    <p>Instalá un asistente IA en tu web fácilmente con un simple código.</p>
-    <button>Probar gratis</button>
-</div>
-
-<div class="footer">
-    <div>Política de privacidad · Términos · Contacto</div>
-    <div>Facebook · Twitter · LinkedIn</div>
-</div>
 """
 
-st.markdown(html, unsafe_allow_html=True)
+components.html(html, height=1800, scrolling=True)
