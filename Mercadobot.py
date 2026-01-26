@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
 
@@ -1141,12 +1142,11 @@ HTML_PRECIOS = f"""{HTML_BASE}
 """
 
 # =========================
-# RENDER
+# RENDER - Usar st.html() sin iframes
 # =========================
 if vista == "asistentes":
-    components.html(HTML_ASISTENTES, height=1950, scrolling=False)
+    st.html(HTML_ASISTENTES)
 elif vista == "precios":
-    components.html(HTML_PRECIOS, height=1800, scrolling=False)
+    st.html(HTML_PRECIOS)
 else:
-    components.html(HTML_HOME, height=1750, scrolling=False)
-
+    st.html(HTML_HOME)
