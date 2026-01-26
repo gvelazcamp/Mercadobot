@@ -87,11 +87,12 @@ html {
     overflow-x: hidden;
     width: 100%;
     height: 100%;
+    background: #f6f7fb !important;
 }
 
 body {
     font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #f6f7fb;
+    background: #f6f7fb !important;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -103,6 +104,7 @@ body {
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
+    background: #f6f7fb !important;
 }
 
 /* =========================
