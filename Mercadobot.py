@@ -9,6 +9,13 @@ st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
 st.markdown(
     """
     <style>
+    /* Forzar todo a posición 0 */
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100% !important;
+    }
+    
     /* Eliminar TODO el padding y margin de Streamlit */
     .main .block-container {
         padding: 0 !important;
@@ -24,6 +31,11 @@ st.markdown(
     section.main > div {
         padding: 0 !important;
         max-width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    section.main {
+        padding: 0 !important;
         margin: 0 !important;
     }
     
@@ -62,6 +74,13 @@ st.markdown(
         display: block !important;
         margin: 0 !important;
         padding: 0 !important;
+    }
+    
+    /* Forzar elemento contenedor */
+    [data-testid="stVerticalBlock"] {
+        padding: 0 !important;
+        margin: 0 !important;
+        gap: 0 !important;
     }
     </style>
     """,
@@ -805,6 +824,17 @@ FOOTER = """
         <div>Facebook · Twitter · LinkedIn</div>
     </div>
 </div>
+<script>
+// Forzar que el contenido siempre empiece arriba
+window.addEventListener('load', function() {
+    document.body.style.minHeight = '2500px';
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    document.querySelector('.page-container').style.minHeight = '2500px';
+    document.querySelector('.page-container').style.margin = '0';
+    document.querySelector('.page-container').style.padding = '0';
+});
+</script>
 </body>
 </html>
 """
