@@ -5,12 +5,9 @@ st.set_page_config(layout="wide")
 
 html = """
 <style>
-/* =========================
-   RESET + BASE
-========================= */
 * {
     box-sizing: border-box;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
@@ -18,9 +15,6 @@ body {
     margin: 0;
 }
 
-/* =========================
-   HEADER
-========================= */
 .header {
     display: flex;
     justify-content: space-between;
@@ -32,10 +26,7 @@ body {
     font-size: 22px;
     font-weight: 800;
 }
-
-.logo span {
-    color: #f4b400;
-}
+.logo span { color: #f4b400; }
 
 .nav {
     display: flex;
@@ -46,15 +37,11 @@ body {
 
 .btn-login {
     background: #f4b400;
-    color: #000;
     padding: 10px 18px;
     border-radius: 12px;
     font-weight: 600;
 }
 
-/* =========================
-   HERO
-========================= */
 .hero {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -63,71 +50,11 @@ body {
     align-items: center;
 }
 
-.hero h1 {
-    font-size: 48px;
-    line-height: 1.1;
-}
+.hero h1 { font-size: 48px; line-height: 1.1; }
+.hero p { font-size: 18px; color: #555; margin: 20px 0; }
 
-.hero p {
-    font-size: 18px;
-    color: #555;
-    margin: 20px 0;
-}
-
-.hero-actions {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.btn-primary {
-    background: #f4b400;
-    padding: 14px 24px;
-    border-radius: 14px;
-    font-weight: 700;
-}
-
-.btn-secondary {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #555;
-}
-
-/* =========================
-   CATEGORÍAS
-========================= */
-.categories {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin: 30px 0;
-}
-
-.category {
-    background: #fff;
-    padding: 10px 18px;
-    border-radius: 999px;
-    font-weight: 600;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-}
-
-/* =========================
-   TARJETAS
-========================= */
 .section {
     padding: 60px;
-}
-
-.section h2 {
-    text-align: center;
-    font-size: 36px;
-}
-
-.section p {
-    text-align: center;
-    color: #666;
-    margin-bottom: 40px;
 }
 
 .cards {
@@ -150,42 +77,16 @@ body {
     object-fit: contain;
 }
 
-.card h3 {
-    margin-top: 20px;
-}
-
-.card p {
-    font-size: 14px;
-    color: #666;
-    min-height: 60px;
-}
+.card h3 { margin-top: 20px; }
+.card p { color: #666; font-size: 14px; }
 
 .card button {
-    margin-top: 20px;
+    margin-top: 16px;
     background: #f4b400;
     border: none;
     padding: 10px 18px;
     border-radius: 12px;
     font-weight: 700;
-}
-
-/* =========================
-   CTA
-========================= */
-.cta {
-    background: linear-gradient(180deg, #eef2f7, #ffffff);
-    padding: 80px;
-    text-align: center;
-    border-radius: 40px;
-    margin: 60px;
-}
-
-.footer {
-    padding: 40px;
-    display: flex;
-    justify-content: space-between;
-    color: #888;
-    font-size: 14px;
 }
 </style>
 
@@ -204,41 +105,37 @@ body {
     <div>
         <h1>El marketplace<br>de asistentes IA</h1>
         <p>Automatizá tu negocio con asistentes virtuales inteligentes.</p>
-        <div class="hero-actions">
-            <div class="btn-primary">Explorar asistentes</div>
-            <div class="btn-secondary">▶ Ver demo</div>
-        </div>
     </div>
-    <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentefutbol.png">
+    <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistente.png">
 </div>
 
 <div class="section">
-    <h2>Asistentes IA</h2>
+    <h2 style="text-align:center;">Asistentes IA</h2>
 
     <div class="cards">
         <div class="card">
-            <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentefutbol.png">
+            <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentefutbol.png">
             <h3>Fútbol</h3>
             <p>Datos y estadísticas</p>
             <button>Ver</button>
         </div>
 
         <div class="card">
-            <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentecocina.png">
+            <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentecocina.png">
             <h3>Cocina</h3>
             <p>Recetas inteligentes</p>
             <button>Ver</button>
         </div>
 
         <div class="card">
-            <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistenteecommerce.png">
+            <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteecommerce.png">
             <h3>Ecommerce</h3>
             <p>Ventas automáticas</p>
             <button>Ver</button>
         </div>
 
         <div class="card">
-            <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentefinanzas.png">
+            <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentefinanzas.png">
             <h3>Finanzas</h3>
             <p>Análisis financiero</p>
             <button>Ver</button>
@@ -247,4 +144,4 @@ body {
 </div>
 """
 
-components.html(html, height=1800, scrolling=True)
+components.html(html, height=1600, scrolling=True)
