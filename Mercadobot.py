@@ -739,6 +739,99 @@ body {
 
 
 /* =========================
+   TESTIMONIOS
+========================= */
+.testimonios {
+    padding: 60px 5% 40px;
+    background: #fff;
+}
+
+.testimonios h2 {
+    font-size: 36px;
+    text-align: center;
+    margin: 0 0 50px 0;
+}
+
+.testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonio-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonio-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+}
+
+.testimonio-quote {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0 0 20px 0;
+    font-style: italic;
+}
+
+.testimonio-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.testimonio-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f4b400 0%, #ffd700 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: #000;
+    font-size: 18px;
+}
+
+.testimonio-info h4 {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #000;
+}
+
+.testimonio-info p {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+}
+
+.testimonio-stat {
+    display: inline-block;
+    background: rgba(244, 180, 0, 0.1);
+    color: #c29400;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+    .testimonios-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================
    CTA FINAL
 ========================= */
 .cta {
@@ -1074,6 +1167,69 @@ HTML_HOME = f"""{HTML_BASE}
                 <h3>Asistente de Finanzas</h3>
                 <p>Información financiera y análisis de inversiones.</p>
                 <a href="?vista=demo&asistente=finanzas" style="text-decoration: none;"><button>Ver asistente</button></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- TESTIMONIOS -->
+    <div class="testimonios">
+        <h2>Lo que dicen nuestros clientes</h2>
+        
+        <div class="testimonios-grid">
+            <div class="testimonio-card">
+                <div class="testimonio-quote">
+                    "Desde que instalé el chatbot, las consultas se responden automáticamente. Las ventas subieron un 40% y ya no pierdo clientes por demoras en responder."
+                </div>
+                <div class="testimonio-author">
+                    <div class="testimonio-avatar">M</div>
+                    <div class="testimonio-info">
+                        <h4>Martín González</h4>
+                        <p>Tienda de deportes online</p>
+                    </div>
+                </div>
+                <div class="testimonio-stat">📈 +40% ventas</div>
+            </div>
+
+            <div class="testimonio-card">
+                <div class="testimonio-quote">
+                    "Antes pasaba 3 horas al día respondiendo las mismas preguntas. Ahora el bot responde al instante y yo me enfoco en atender consultas complejas. Un antes y después."
+                </div>
+                <div class="testimonio-author">
+                    <div class="testimonio-avatar">L</div>
+                    <div class="testimonio-info">
+                        <h4>Laura Fernández</h4>
+                        <p>Restaurante</p>
+                    </div>
+                </div>
+                <div class="testimonio-stat">⏰ -3hs diarias</div>
+            </div>
+
+            <div class="testimonio-card">
+                <div class="testimonio-quote">
+                    "Implementamos el asistente de turnos y las reservas se duplicaron. Los clientes reservan a cualquier hora y el sistema confirma automáticamente. Impresionante."
+                </div>
+                <div class="testimonio-author">
+                    <div class="testimonio-avatar">C</div>
+                    <div class="testimonio-info">
+                        <h4>Carlos Ruiz</h4>
+                        <p>Clínica odontológica</p>
+                    </div>
+                </div>
+                <div class="testimonio-stat">📅 2x reservas</div>
+            </div>
+
+            <div class="testimonio-card">
+                <div class="testimonio-quote">
+                    "El chatbot responde consultas de stock, precios y envíos las 24 horas. Los clientes están más satisfechos y nosotros cerramos ventas incluso de madrugada."
+                </div>
+                <div class="testimonio-author">
+                    <div class="testimonio-avatar">S</div>
+                    <div class="testimonio-info">
+                        <h4>Sofía Méndez</h4>
+                        <p>Ecommerce de tecnología</p>
+                    </div>
+                </div>
+                <div class="testimonio-stat">🌙 Ventas 24/7</div>
             </div>
         </div>
     </div>
