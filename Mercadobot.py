@@ -342,6 +342,9 @@ body {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+
+    /* ✅ todas las cards misma altura por fila */
+    align-items: stretch;
 }
 
 .plan {
@@ -351,11 +354,18 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.06);
     text-align: left;
     position: relative;
+
+    /* ✅ permite alinear “inicio/fin” y pegar el botón abajo */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .plan.pro {
     border: 2px solid rgba(244, 180, 0, 0.9);
-    transform: translateY(-6px);
+
+    /* ✅ antes estaba levantada; ahora arranca igual que las demás */
+    transform: none;
 }
 
 .badge {
@@ -381,6 +391,9 @@ body {
     margin-top: 6px;
     font-size: 13px;
     color: #777;
+
+    /* ✅ asegura “misma altura” aunque el texto sea corto */
+    min-height: 18px;
 }
 
 .plan-price {
@@ -388,6 +401,9 @@ body {
     font-size: 34px;
     font-weight: 900;
     letter-spacing: -0.02em;
+
+    /* ✅ misma “caja” de precio en todas */
+    min-height: 44px;
 }
 
 .plan-price span {
@@ -401,12 +417,18 @@ body {
     margin-top: 6px;
     font-size: 13px;
     color: #777;
+
+    /* ✅ alinea notas */
+    min-height: 18px;
 }
 
 .plan-list {
     list-style: none;
     padding: 0;
     margin: 16px 0 0 0;
+
+    /* ✅ ocupa el espacio y empuja el botón al final */
+    flex: 1;
 }
 
 .plan-list li {
@@ -420,40 +442,13 @@ body {
 }
 
 .plan-btn {
-    margin-top: 16px;
+    /* ✅ siempre abajo, todas terminan igual */
+    margin-top: auto;
     width: 100%;
     text-align: center;
+    display: block;
 }
 
-.setup {
-    margin-top: 22px;
-    background: linear-gradient(180deg, #eef2f7, #ffffff);
-    border-radius: 22px;
-    padding: 22px;
-    text-align: left;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.setup h3 {
-    margin: 0 0 10px 0;
-    font-size: 18px;
-}
-
-.setup p {
-    margin: 0;
-    font-size: 13px;
-    color: #666;
-}
-
-.mini-note {
-    margin-top: 14px;
-    font-size: 12px;
-    color: #888;
-    text-align: center;
-}
 
 /* =========================
    CTA FINAL
@@ -815,6 +810,7 @@ HTML_PRECIOS = f"""{HTML_BASE}
         <div class="pricing">
             <div class="plan">
                 <div class="plan-name">Instalacion</div>
+                <div class="plan-desc">Para empezar con 1 asistente</div>
 
                 <div class="plan-price">A medida<span>/mes</span></div>
                 <div class="plan-note">1 asistente · 1 sitio</div>
@@ -851,7 +847,7 @@ HTML_PRECIOS = f"""{HTML_BASE}
                 <div class="plan-name">Enterprise</div>
                 <div class="plan-desc">Para empresas a medida</div>
 
-                <div class="plan-price">A medida</div>
+                <div class="plan-price">A medida<span>/mes</span></div>
                 <div class="plan-note">Ilimitado · Multi-sitio</div>
 
                 <ul class="plan-list">
@@ -865,7 +861,6 @@ HTML_PRECIOS = f"""{HTML_BASE}
                 <a class="btn-primary plan-btn" href="?vista=home#contacto">Hablar con ventas</a>
             </div>
         </div>
-
 
         <div class="mini-note">Precios orientativos. Definimos planes según tus límites reales.</div>
     </div>
@@ -895,4 +890,5 @@ elif vista == "precios":
     components.html(HTML_PRECIOS, height=1800, scrolling=False)
 else:
     components.html(HTML_HOME, height=1650, scrolling=False)
+
 
