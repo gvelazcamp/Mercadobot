@@ -1,94 +1,62 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(layout="wide")
 
 # =========================
-# FULL WIDTH STREAMLIT
+# FULL WIDTH STREAMLIT (para que use todo el ancho)
 # =========================
 st.markdown(
     """
     <style>
-    /* Forzar todo a posición 0 */
-    html, body {
-        margin: 0 !important;
-        padding: 0 !important;
-        height: 100% !important;
-    }
-    
-    /* Eliminar TODO el padding y margin de Streamlit */
-    .main .block-container {
-        padding: 0 !important;
+    .block-container {
         max-width: 100% !important;
-        margin: 0 !important;
+        padding-left: 0rem !important;
+        padding-right: 0rem !important;
+        padding-top: 0rem !important;
     }
-
-    section[data-testid="stAppViewContainer"] {
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-
     section.main > div {
-        padding: 0 !important;
         max-width: 100% !important;
-        margin: 0 !important;
-    }
-    
-    section.main {
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    
-    .stApp > header {
-        background-color: transparent !important;
-    }
-    
-    .stApp {
-        margin: 0 !important;
-        padding: 0 !important;
+        padding-left: 0rem !important;
+        padding-right: 0rem !important;
+        padding-top: 0rem !important;
     }
 
-    /* Ocultar header, footer y toolbar */
-    header[data-testid="stHeader"],
-    .stAppHeader,
-    footer,
-    #MainMenu,
-    [data-testid="stToolbar"],
-    [data-testid="stDecoration"],
-    [data-testid="stStatusWidget"] {
+    /* Ocultar completamente header y toolbar de Streamlit */
+    header[data-testid="stHeader"] { 
+        display: none !important; 
+        visibility: hidden !important; 
+        height: 0px !important;
+        min-height: 0px !important;
+    }
+    .stAppHeader {
         display: none !important;
+    }
+    #MainMenu { 
         visibility: hidden !important;
-        height: 0 !important;
+        display: none !important; 
     }
-
-    /* Eliminar scroll horizontal */
-    html, body, [data-testid="stAppViewContainer"], section.main {
-        overflow-x: hidden !important;
-        max-width: 100vw !important;
+    footer { 
+        visibility: hidden !important; 
+        height: 0px !important; 
     }
-
-    /* El iframe debe ocupar exactamente el espacio */
-    iframe {
-        width: 100% !important;
-        border: none !important;
-        display: block !important;
-        margin: 0 !important;
-        padding: 0 !important;
+    [data-testid="stToolbar"] { 
+        visibility: hidden !important; 
+        height: 0px !important;
+        display: none !important; 
     }
-    
-    /* Forzar elemento contenedor */
-    [data-testid="stVerticalBlock"] {
-        padding: 0 !important;
-        margin: 0 !important;
-        gap: 0 !important;
+    .stToolbar {
+        display: none !important;
     }
+    [data-testid="stDecoration"] { display: none !important; }
+    [data-testid="stStatusWidget"] { display: none !important; }
     </style>
     """,
     unsafe_allow_html=True
 )
 
 # =========================
-# VISTA
+# VISTA (HOME / ASISTENTES / PRECIOS) POR QUERY PARAM
 # =========================
 try:
     vista = st.query_params.get("vista", "home")
@@ -99,43 +67,26 @@ except Exception:
 BASE_URL = "https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/"
 
 # =========================
-# HTML COMPLETO
+# HTML + CSS (BASE)
 # =========================
-HTML_BASE = """
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
+CSS_BASE = """
+<style>
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    overflow-x: hidden;
-    width: 100%;
-    height: 100%;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     background: #f6f7fb;
     margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden;
-    min-height: 2000px;
-    height: 2000px;
 }
 
-.page-container {
-    width: 100%;
+/* =========================
+   WRAPPER
+========================= */
+.wrapper {
     max-width: 100%;
-    overflow-x: hidden;
-    min-height: 2000px;
+    margin: 0 auto;
 }
 
 /* =========================
@@ -145,8 +96,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 5%;
-    width: 100%;
+    padding: 20px 40px;
 }
 
 .logo {
@@ -154,7 +104,6 @@ body {
     font-weight: 800;
     text-decoration: none;
     color: #000;
-    white-space: nowrap;
 }
 .logo span { color: #f4b400; }
 
@@ -170,11 +119,6 @@ body {
     text-decoration: none;
     color: #555;
     cursor: pointer;
-    white-space: nowrap;
-}
-
-.nav a:hover {
-    color: #f4b400;
 }
 
 .btn-login {
@@ -182,8 +126,6 @@ body {
     padding: 8px 16px;
     border-radius: 10px;
     font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
 }
 
 /* =========================
@@ -193,43 +135,31 @@ body {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 40px;
-    padding: 40px 5%;
+    padding: 40px;
     align-items: center;
-    width: 100%;
-}
-
-.hero-content {
-    max-width: 600px;
 }
 
 .hero h1 {
     font-size: 38px;
     line-height: 1.15;
-    margin: 0 0 18px 0;
 }
 
 .hero p {
     font-size: 16px;
     color: #555;
-    margin: 0 0 22px 0;
+    margin: 18px 0 22px 0;
 }
 
-.hero-image {
-    text-align: center;
-}
-
-.hero-image img {
-    max-width: 100%;
-    width: auto;
-    height: auto;
-    max-height: 400px;
+.hero img {
+    max-width: 460px;
+    width: 100%;
+    margin-left: auto;
 }
 
 .hero-actions {
     display: flex;
     align-items: center;
     gap: 18px;
-    flex-wrap: wrap;
 }
 
 .btn-primary {
@@ -241,12 +171,6 @@ body {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    border: none;
-    white-space: nowrap;
-}
-
-.btn-primary:hover {
-    background: #e5a500;
 }
 
 .btn-secondary {
@@ -257,192 +181,6 @@ body {
     color: #555;
     cursor: pointer;
     text-decoration: none;
-    white-space: nowrap;
-}
-
-/* =========================
-   NUEVO: HERO CHAT DEMO
-   (solo agrega, no rompe)
-========================= */
-.hero-chat {
-    background: #ffffff;
-    border-radius: 24px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-    overflow: hidden;
-    border: 1px solid rgba(0,0,0,0.06);
-}
-
-.chat-topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 16px;
-    background: linear-gradient(180deg, #ffffff, #f6f7fb);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-}
-
-.chat-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 900;
-    font-size: 13px;
-    color: #111;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 999px;
-    background: #f4b400;
-    box-shadow: 0 0 0 4px rgba(244,180,0,0.18);
-}
-
-.chat-pill {
-    font-size: 12px;
-    font-weight: 800;
-    color: #7a5a00;
-    background: rgba(244,180,0,0.18);
-    border: 1px solid rgba(244,180,0,0.45);
-    padding: 6px 10px;
-    border-radius: 999px;
-    white-space: nowrap;
-}
-
-.chat-body {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    min-height: 260px;
-}
-
-.bubble {
-    max-width: 88%;
-    padding: 10px 12px;
-    border-radius: 14px;
-    font-size: 13px;
-    line-height: 1.35;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.05);
-}
-
-.bubble.user {
-    align-self: flex-end;
-    background: #111;
-    color: #fff;
-    border-bottom-right-radius: 6px;
-}
-
-.bubble.bot {
-    align-self: flex-start;
-    background: #ffffff;
-    color: #222;
-    border: 1px solid rgba(0,0,0,0.06);
-    border-bottom-left-radius: 6px;
-}
-
-.chat-meta {
-    margin-top: 4px;
-    font-size: 11px;
-    color: #888;
-}
-
-.chat-input {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 16px;
-    border-top: 1px solid rgba(0,0,0,0.06);
-    background: #fff;
-}
-
-.fake-input {
-    flex: 1;
-    background: #f6f7fb;
-    border: 1px solid rgba(0,0,0,0.06);
-    padding: 10px 12px;
-    border-radius: 14px;
-    font-size: 13px;
-    color: #777;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.send-btn {
-    background: #f4b400;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 14px;
-    font-weight: 900;
-    cursor: pointer;
-}
-
-.send-btn:hover {
-    background: #e5a500;
-}
-
-.trust-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 14px;
-}
-
-.trust-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #fff;
-    padding: 10px 14px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 700;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-}
-
-/* =========================
-   NUEVO: CÓMO FUNCIONA (3 pasos)
-========================= */
-.steps {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.step {
-    background: #fff;
-    border-radius: 22px;
-    padding: 18px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-    text-align: left;
-}
-
-.step-num {
-    width: 34px;
-    height: 34px;
-    border-radius: 12px;
-    background: rgba(244,180,0,0.20);
-    border: 1px solid rgba(244,180,0,0.45);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    color: #7a5a00;
-    margin-bottom: 12px;
-}
-
-.step h3 {
-    font-size: 16px;
-    margin-bottom: 8px;
-}
-
-.step p {
-    font-size: 13px;
-    color: #666;
-    line-height: 1.45;
 }
 
 /* =========================
@@ -450,8 +188,7 @@ body {
 ========================= */
 .cats-block {
     text-align: center;
-    padding: 20px 5%;
-    width: 100%;
+    padding: 20px 40px 10px 40px;
 }
 
 .cats {
@@ -461,7 +198,6 @@ body {
     padding: 10px 14px;
     border-radius: 999px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    flex-wrap: wrap;
 }
 
 .cat {
@@ -470,28 +206,25 @@ body {
     font-size: 14px;
     font-weight: 600;
     background: #f6f7fb;
-    white-space: nowrap;
 }
 
 /* =========================
    SECTION
 ========================= */
 .section {
-    padding: 20px 5% 40px;
-    width: 100%;
+    padding: 20px 40px 40px 40px;
 }
 
 .section h2 {
     text-align: center;
     font-size: 32px;
-    margin: 0 0 10px 0;
 }
 
 .subtitle {
     text-align: center;
     font-size: 14px;
     color: #777;
-    margin: 0 0 30px 0;
+    margin-bottom: 30px;
 }
 
 /* =========================
@@ -499,11 +232,8 @@ body {
 ========================= */
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 22px;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
 }
 
 .card {
@@ -516,26 +246,23 @@ body {
 
 .card img {
     width: 100%;
-    max-width: 200px;
-    height: 130px;
+    max-height: 130px;
     object-fit: contain;
-    margin: 0 auto;
-    display: block;
 }
 
 .card h3 {
-    margin: 16px 0 10px 0;
+    margin-top: 16px;
     font-size: 18px;
 }
 
 .card p {
     font-size: 13px;
     color: #666;
-    min-height: 60px;
-    margin: 0 0 14px 0;
+    min-height: 70px;
 }
 
 .card button {
+    margin-top: 14px;
     background: #f4b400;
     border: none;
     padding: 10px 18px;
@@ -544,47 +271,40 @@ body {
     cursor: pointer;
 }
 
-.card button:hover {
-    background: #e5a500;
-}
-
 /* =========================
    PRECIOS
 ========================= */
 .pricing {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    max-width: 1200px;
-    margin: 20px auto 0 auto;
-    align-items: stretch;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 10px;
 }
 
 .plan {
-    background: #ffffff;
+    background: #fff;
     border-radius: 22px;
-    padding: 24px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    padding: 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    text-align: left;
     position: relative;
 }
 
 .plan.pro {
-    border: 2px solid rgba(244,180,0,0.9);
+    border: 2px solid rgba(244, 180, 0, 0.9);
+    transform: translateY(-6px);
 }
 
 .badge {
     position: absolute;
     top: 16px;
     right: 16px;
-    background: rgba(244,180,0,0.15);
-    border: 1px solid rgba(244,180,0,0.6);
+    background: rgba(244, 180, 0, 0.16);
+    border: 1px solid rgba(244, 180, 0, 0.55);
     color: #7a5a00;
     font-weight: 800;
     font-size: 12px;
-    padding: 6px 12px;
+    padding: 6px 10px;
     border-radius: 999px;
 }
 
@@ -594,18 +314,16 @@ body {
 }
 
 .plan-desc {
+    margin-top: 6px;
     font-size: 13px;
     color: #777;
-    margin-top: 6px;
-    min-height: 34px;
 }
 
 .plan-price {
-    margin-top: 16px;
+    margin-top: 14px;
     font-size: 34px;
     font-weight: 900;
     letter-spacing: -0.02em;
-    min-height: 44px;
 }
 
 .plan-price span {
@@ -616,58 +334,79 @@ body {
 }
 
 .plan-note {
+    margin-top: 6px;
     font-size: 13px;
     color: #777;
-    margin-top: 6px;
-    min-height: 18px;
 }
 
 .plan-list {
     list-style: none;
     padding: 0;
-    margin: 18px 0 0 0;
-    flex: 1;
+    margin: 16px 0 0 0;
 }
 
 .plan-list li {
     display: flex;
     gap: 10px;
+    align-items: flex-start;
     padding: 9px 0;
+    border-bottom: 1px solid #f2f2f2;
     font-size: 13px;
     color: #555;
-    border-bottom: 1px solid #f2f2f2;
 }
 
 .plan-btn {
-    margin-top: auto;
+    margin-top: 16px;
     width: 100%;
     text-align: center;
 }
 
+.setup {
+    margin-top: 22px;
+    background: linear-gradient(180deg, #eef2f7, #ffffff);
+    border-radius: 22px;
+    padding: 22px;
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.setup h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.setup p {
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: #666;
+}
+
+.mini-note {
+    margin-top: 14px;
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+}
 
 /* =========================
    CTA FINAL
 ========================= */
 .cta {
-    margin: 40px 5% 20px;
+    margin: 60px 40px 30px;
     background: linear-gradient(180deg, #eef2f7, #ffffff);
     border-radius: 40px;
-    padding: 40px;
+    padding: 50px 40px;
     text-align: center;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .cta h2 {
     font-size: 32px;
-    margin: 0 0 10px 0;
 }
 
 .cta p {
     font-size: 14px;
     color: #666;
-    margin: 0 0 20px 0;
+    margin: 10px 0 20px;
 }
 
 .cta button {
@@ -677,10 +416,6 @@ body {
     font-weight: 800;
     border: none;
     cursor: pointer;
-}
-
-.cta button:hover {
-    background: #e5a500;
 }
 
 /* =========================
@@ -711,14 +446,12 @@ body {
 ========================= */
 .footer {
     border-top: 1px solid #eee;
-    padding: 20px 5%;
+    padding: 20px 40px;
     font-size: 13px;
     color: #888;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    margin-top: 20px;
 }
 
 /* =========================
@@ -729,83 +462,41 @@ body {
         grid-template-columns: 1fr;
         text-align: center;
     }
-
-    .hero-content {
-        max-width: 100%;
+    .hero img {
+        margin: 0 auto;
+        max-width: 520px;
     }
-
     .hero-actions {
         justify-content: center;
+        flex-wrap: wrap;
     }
-
-    .trust-row {
-        justify-content: center;
-    }
-
-    .steps {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-chat {
-        text-align: left;
-    }
-}
-
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        gap: 15px;
-        padding: 16px 4%;
-    }
-
-    .nav {
-        gap: 16px;
-        font-size: 14px;
-    }
-
-    .hero {
-        padding: 20px 4%;
-    }
-
-    .hero h1 {
-        font-size: 28px;
-    }
-
-    .section {
-        padding: 20px 4%;
-    }
-
-    .section h2 {
-        font-size: 26px;
-    }
-
     .cards {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
-
-    .cta {
-        margin: 30px 4% 20px;
-        padding: 30px 20px;
-    }
-
-    .footer {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-        padding: 20px 4%;
-    }
-
     .pricing {
         grid-template-columns: 1fr;
     }
 }
+
+@media (max-width: 640px) {
+    .header { padding: 16px 16px; }
+    .nav { gap: 14px; }
+    .hero { padding: 26px 16px; }
+    .section { padding: 18px 16px 30px 16px; }
+    .cta { margin: 40px 16px 20px; padding: 36px 18px; }
+    .cards { grid-template-columns: 1fr; }
+    .footer { padding: 16px; flex-direction: column; gap: 10px; }
+}
 </style>
-</head>
-<body>
-<div class="page-container">
 """
 
+# =========================
+# HEADER (COMÚN)
+# =========================
 HEADER = """
+<div class="wrapper">
+
+    <!-- HEADER -->
     <div class="header">
         <a class="logo" href="?vista=home">MERCADO<span>BOT</span></a>
         <div class="nav">
@@ -818,160 +509,77 @@ HEADER = """
     </div>
 """
 
-FOOTER = """
-    <div class="footer">
-        <div>Política de privacidad · Términos y condiciones · Contacto</div>
-        <div>Facebook · Twitter · LinkedIn</div>
-    </div>
-</div>
-</body>
-</html>
-"""
-
 # =========================
-# HOME (MODIFICADO: chatbot protagonista)
+# HOME
 # =========================
-HTML_HOME = f"""{HTML_BASE}
+HTML_HOME = f"""
+{CSS_BASE}
 {HEADER}
 
+    <!-- HERO -->
     <div class="hero">
-        <div class="hero-content">
-            <h1>Tu negocio atendido<br>por un <span style="color:#f4b400;">chatbot IA</span></h1>
-            <p>
-                Instalamos un asistente virtual que responde a tus clientes 24/7, con tus reglas y tus datos.
-                Elegí un rubro (stock, ecommerce, turnos, viajes) y lo dejamos funcionando.
-            </p>
-
+        <div>
+            <h1>El marketplace<br>de asistentes IA</h1>
+            <p>Automatizá tu negocio con asistentes virtuales inteligentes.</p>
             <div class="hero-actions">
-                <a class="btn-primary" href="#demo">Ver chatbot en acción</a>
-                <a class="btn-secondary" href="?vista=asistentes">Explorar asistentes</a>
-            </div>
-
-            <div class="trust-row">
-                <div class="trust-pill">⚡ Instalación rápida</div>
-                <div class="trust-pill">🔒 Configurable y seguro</div>
-                <div class="trust-pill">💬 Soporte incluido</div>
+                <a class="btn-primary" href="?vista=asistentes">Explorar asistentes</a>
+                <a class="btn-secondary" href="#demo">▶ Ver demo en vivo</a>
             </div>
         </div>
-
-        <!-- CHAT DEMO (mock visual) -->
-        <div class="hero-chat" id="demo">
-            <div class="chat-topbar">
-                <div class="chat-brand">
-                    <div class="dot"></div>
-                    Demo de chatbot
-                </div>
-                <div class="chat-pill">24/7</div>
-            </div>
-
-            <div class="chat-body">
-                <div class="bubble user">
-                    Hola, ¿me podés decir horarios y cómo reservar?
-                    <div class="chat-meta">Cliente</div>
-                </div>
-
-                <div class="bubble bot">
-                    Claro. Podés reservar en 30 segundos:
-                    <br><strong>1)</strong> Elegís día y hora
-                    <br><strong>2)</strong> Confirmás tus datos
-                    <br><strong>3)</strong> Te llega la confirmación
-                    <div class="chat-meta">Asistente IA</div>
-                </div>
-
-                <div class="bubble user">
-                    ¿Y si tengo stock bajo o quiero saber precios?
-                    <div class="chat-meta">Cliente</div>
-                </div>
-
-                <div class="bubble bot">
-                    También. Puedo:
-                    <br>• avisar <strong>stock mínimo</strong>
-                    <br>• responder <strong>precios</strong> y disponibilidad
-                    <br>• derivar a un humano cuando haga falta
-                    <div class="chat-meta">Asistente IA</div>
-                </div>
-            </div>
-
-            <div class="chat-input">
-                <div class="fake-input">Escribí una consulta… (demo)</div>
-                <button class="send-btn">Enviar</button>
-            </div>
-        </div>
+        <img src="{BASE_URL}Asistente.png">
     </div>
 
+    <!-- CATEGORÍAS -->
     <div class="cats-block">
         <div class="cats">
-            <div class="cat">📦 Stock</div>
+            <div class="cat">⚽ Fútbol</div>
+            <div class="cat">👨‍🍳 Cocina</div>
             <div class="cat">🛒 Ecommerce</div>
-            <div class="cat">📅 Turnos</div>
-            <div class="cat">✈️ Viajes</div>
+            <div class="cat">💰 Finanzas</div>
         </div>
     </div>
 
-    <div class="section">
-        <h2>Cómo funciona</h2>
-        <div class="subtitle">Simple: elegís el asistente y lo dejamos instalado en tu web.</div>
-
-        <div class="steps">
-            <div class="step">
-                <div class="step-num">1</div>
-                <h3>Elegís el asistente</h3>
-                <p>Seleccionás el rubro (stock, turnos, ecommerce, etc.) y el estilo de atención.</p>
-            </div>
-
-            <div class="step">
-                <div class="step-num">2</div>
-                <h3>Lo adaptamos a tu negocio</h3>
-                <p>Lo configuramos con tus datos, respuestas, reglas y preguntas frecuentes reales.</p>
-            </div>
-
-            <div class="step">
-                <div class="step-num">3</div>
-                <h3>Lo instalamos</h3>
-                <p>Lo dejamos funcionando en tu sitio (iframe o web completa) y con soporte incluido.</p>
-            </div>
-        </div>
-    </div>
-
+    <!-- ASISTENTES (HOME) -->
     <div class="section">
         <h2>Asistentes IA listos para potenciar tu negocio</h2>
-        <div class="subtitle">Estos son ejemplos. El producto principal es el <strong>chatbot instalado</strong>.</div>
+        <div class="subtitle">Explorá, elegí e instalá asistentes inteligentes según tus necesidades.</div>
 
         <div class="cards">
             <div class="card">
-                <img src="{BASE_URL}Asistentefutbol.png" alt="Fútbol">
+                <img src="{BASE_URL}Asistentefutbol.png">
                 <h3>Asistente de Fútbol</h3>
                 <p>Resultados, noticias y estadísticas del mundo del fútbol.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentecocina.png" alt="Cocina">
+                <img src="{BASE_URL}Asistentecocina.png">
                 <h3>Asistente de Cocina</h3>
-                <p>Recetas rápidas, consejos de cocina y conversiones.</p>
+                <p>Recetas rápidas, consejos de cocina y conversiones de ingredientes.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistenteecommerce.png" alt="Ecommerce">
+                <img src="{BASE_URL}Asistenteecommerce.png">
                 <h3>Asistente de Ecommerce</h3>
-                <p>Respuestas automáticas sobre productos y pedidos.</p>
+                <p>Respuestas automáticas sobre productos, pedidos y envíos.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentefinanzas.png" alt="Finanzas">
+                <img src="{BASE_URL}Asistentefinanzas.png">
                 <h3>Asistente de Finanzas</h3>
-                <p>Información financiera y análisis de inversiones.</p>
+                <p>Información financiera, cotizaciones y análisis de inversiones.</p>
                 <button>Ver asistente</button>
             </div>
         </div>
     </div>
 
-    <div class="cta" id="soporte">
+    <!-- CTA FINAL -->
+    <div class="cta">
         <h2>Integra en minutos</h2>
-        <p>Instalá un chatbot IA en tu web y empezá a automatizar consultas reales desde el día 1.</p>
-        <button>Quiero mi chatbot</button>
+        <p>Instalá un asistente virtual IA en tu web fácilmente con un simple código.</p>
+        <button>Probar gratis</button>
 
         <div class="features">
             <div class="feature">⚡ Fácil y rápido</div>
@@ -981,13 +589,20 @@ HTML_HOME = f"""{HTML_BASE}
         </div>
     </div>
 
-{FOOTER}
+    <!-- FOOTER -->
+    <div class="footer">
+        <div>Política de privacidad · Términos y condiciones · Contacto</div>
+        <div>Facebook · Twitter · LinkedIn</div>
+    </div>
+
+</div>
 """
 
 # =========================
-# ASISTENTES
+# ASISTENTES (LISTADO TOTAL)
 # =========================
-HTML_ASISTENTES = f"""{HTML_BASE}
+HTML_ASISTENTES = f"""
+{CSS_BASE}
 {HEADER}
 
     <div class="section">
@@ -996,483 +611,205 @@ HTML_ASISTENTES = f"""{HTML_BASE}
 
         <div class="cards">
             <div class="card">
-                <img src="{BASE_URL}Asistentefutbol.png" alt="Fútbol">
+                <img src="{BASE_URL}Asistentefutbol.png">
                 <h3>Asistente de Fútbol</h3>
-                <p>Resultados, noticias y estadísticas del fútbol.</p>
+                <p>Resultados, noticias y estadísticas del mundo del fútbol.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentecocina.png" alt="Cocina">
+                <img src="{BASE_URL}Asistentecocina.png">
                 <h3>Asistente de Cocina</h3>
-                <p>Recetas, consejos y conversiones.</p>
+                <p>Recetas, consejos y conversiones de ingredientes.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistenteecommerce.png" alt="Ecommerce">
+                <img src="{BASE_URL}Asistenteecommerce.png">
                 <h3>Asistente de Ecommerce</h3>
-                <p>Soporte para productos y pedidos.</p>
+                <p>Soporte para productos, pedidos, envíos y postventa.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentefinanzas.png" alt="Finanzas">
+                <img src="{BASE_URL}Asistentefinanzas.png">
                 <h3>Asistente de Finanzas</h3>
-                <p>Cotizaciones y análisis financiero.</p>
+                <p>Cotizaciones, reportes y análisis financiero básico.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentestock.png" alt="Stock">
+                <img src="{BASE_URL}Asistentestock.png">
                 <h3>Asistente de Stock</h3>
-                <p>Control de inventario y alertas.</p>
+                <p>Control de inventario, consumos y alertas de reposición.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistenteinmobiliaria.png" alt="Inmobiliaria">
+                <img src="{BASE_URL}Asistenteinmobiliaria.png">
                 <h3>Asistente Inmobiliario</h3>
-                <p>Consultas de propiedades y agendado.</p>
+                <p>Consultas de propiedades, disponibilidad y agendado.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistenteagendas.png" alt="Agenda">
-                <h3>Asistente de Turnos</h3>
-                <p>Reserva de turnos y recordatorios.</p>
+                <img src="{BASE_URL}Asistenteagendas.png">
+                <h3>Asistente de Turnos / Agenda</h3>
+                <p>Reserva de turnos, confirmaciones y recordatorios.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentedental.png" alt="Dental">
+                <img src="{BASE_URL}Asistentedental.png">
                 <h3>Asistente Dental</h3>
-                <p>Turnos y precios orientativos.</p>
+                <p>Turnos, precios orientativos y preparación previa.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentedeviaje.png" alt="Viaje">
+                <img src="{BASE_URL}Asistentedeviaje.png">
                 <h3>Asistente de Viaje</h3>
-                <p>Itinerarios y recomendaciones.</p>
+                <p>Itinerarios, recomendaciones y ayuda en reservas.</p>
                 <button>Ver asistente</button>
             </div>
         </div>
     </div>
 
+    <!-- CTA FINAL -->
     <div class="cta">
         <h2>Integra en minutos</h2>
-        <p>Instalá un asistente virtual IA en tu web fácilmente.</p>
+        <p>Instalá un asistente virtual IA en tu web fácilmente con un simple código.</p>
         <button>Probar gratis</button>
 
         <div class="features">
             <div class="feature">⚡ Fácil y rápido</div>
-            <div class="feature">⚙️ Configurable</div>
-            <div class="feature">🔒 Seguro</div>
-            <div class="feature">💬 Soporte</div>
+            <div class="feature">⚙️ Totalmente configurable</div>
+            <div class="feature">🔒 Seguro y escalable</div>
+            <div class="feature">💬 Soporte incluido</div>
         </div>
     </div>
 
-{FOOTER}
+    <!-- FOOTER -->
+    <div class="footer">
+        <div>Política de privacidad · Términos y condiciones · Contacto</div>
+        <div>Facebook · Twitter · LinkedIn</div>
+    </div>
+
+</div>
 """
 
 # =========================
 # PRECIOS
 # =========================
-HTML_PRECIOS = f"""{HTML_BASE}
+HTML_PRECIOS = f"""
+{CSS_BASE}
 {HEADER}
 
-<div class="subtitle">
-    <strong>Paso 1:</strong> Implementación inicial (pago único).<br>
-    <strong>Paso 2:</strong> Plan mensual para mantener y mejorar tu asistente.
-</div>
+    <div class="section" id="precios">
+        <h2>Precios</h2>
+        <div class="subtitle">Elegí un plan según la cantidad de asistentes y el nivel de soporte que necesites.</div>
 
-    <div class="pricing">
+        <div class="pricing">
+            <div class="plan">
+                <div class="plan-name">Starter</div>
+                <div class="plan-desc">Para probar 1 asistente en tu web</div>
 
-        <!-- SETUP -->
-        <div class="plan">
-            <div class="plan-name">Implementación inicial</div>
-            <div class="plan-desc">
-                Dejamos tu asistente funcionando sobre tus datos reales
+                <div class="plan-price">US$ 49<span>/mes</span></div>
+                <div class="plan-note">1 asistente · 1 sitio</div>
+
+                <ul class="plan-list">
+                    <li>✅ Widget embebible (iframe)</li>
+                    <li>✅ Personalización básica (colores/logo)</li>
+                    <li>✅ 1 fuente de datos / integración simple</li>
+                    <li>✅ Soporte por email</li>
+                </ul>
+
+                <a class="btn-primary plan-btn" href="?vista=asistentes">Elegir plan</a>
             </div>
 
-            <div class="plan-price">Desde US$ 300<span>pago único</span></div>
-            <div class="plan-note">1 asistente · 1 sitio</div>
+            <div class="plan pro">
+                <div class="badge">Más popular</div>
+                <div class="plan-name">Pro</div>
+                <div class="plan-desc">Para negocios que quieren escalar</div>
 
-            <ul class="plan-list">
-                <li>✅ Creación del asistente IA</li>
-                <li>✅ Conexión a base de datos / archivos</li>
-                <li>✅ Configuración de preguntas</li>
-                <li>✅ Instalación en web (iframe o sitio)</li>
-                <li>✅ Ajustes iniciales</li>
-                <li>✅ Soporte de arranque</li>
-            </ul>
+                <div class="plan-price">US$ 99<span>/mes</span></div>
+                <div class="plan-note">3 asistentes · 1 sitio</div>
 
-            <a class="btn-primary plan-btn" href="?vista=home#contacto">
-                Iniciar implementación
-            </a>
+                <ul class="plan-list">
+                    <li>✅ Todo lo de Starter</li>
+                    <li>✅ Hasta 3 asistentes (catálogo)</li>
+                    <li>✅ Configuración avanzada de prompts</li>
+                    <li>✅ Reporte mensual básico</li>
+                    <li>✅ Soporte prioritario</li>
+                </ul>
+
+                <a class="btn-primary plan-btn" href="?vista=asistentes">Elegir plan</a>
+            </div>
+
+            <div class="plan">
+                <div class="plan-name">Enterprise</div>
+                <div class="plan-desc">Para empresas con necesidades a medida</div>
+
+                <div class="plan-price">A medida<span></span></div>
+                <div class="plan-note">Asistentes ilimitados · Multi-sitio</div>
+
+                <ul class="plan-list">
+                    <li>✅ Integraciones (CRM / ERP / APIs)</li>
+                    <li>✅ Roles, permisos y auditoría</li>
+                    <li>✅ SLA y soporte dedicado</li>
+                    <li>✅ Seguridad/escala</li>
+                    <li>✅ Onboarding y capacitación</li>
+                </ul>
+
+                <a class="btn-primary plan-btn" href="?vista=home#contacto">Hablar con ventas</a>
+            </div>
         </div>
 
-        <!-- PRO -->
-        <div class="plan pro">
-            <div class="badge">Más elegido</div>
-            <div class="plan-name">Pro mensual</div>
-            <div class="plan-desc">
-                Uso, mantenimiento y evolución continua
-            </div>
-
-            <div class="plan-price">US$ 120<span>/mes</span></div>
-            <div class="plan-note">1 asistente · 1 sitio</div>
-            <div class="plan-note" style="font-size:12px; color:#999;">
-                Requiere implementación inicial previa
-            </div>
-
-
-            <ul class="plan-list">
-                <li>✅ Asistentes entrenados con tus datos</li>
-                <li>✅ Interpretación avanzada (IA + reglas)</li>
-                <li>✅ Ajustes y mejoras mensuales</li>
-                <li>✅ Reportes de uso</li>
-                <li>✅ Soporte prioritario</li>
-            </ul>
-
-            <a class="btn-primary plan-btn" href="?vista=asistentes">
-                Contratar plan Pro
-            </a>
+        <div class="setup">
+            <h3>Instalación & Setup (pago único)</h3>
+            <p>
+                Incluye: configuración inicial, carga de tu branding, seteo del asistente, publicación y pruebas en tu web.
+                Ideal para arrancar rápido sin tocar código.
+            </p>
+            <div style="margin-top:14px; font-weight:900; font-size:22px;">US$ 150</div>
+            <div style="margin-top:6px; font-size:13px; color:#777;">Pago único · Puede variar según integraciones.</div>
         </div>
 
-        <!-- ENTERPRISE -->
-        <div class="plan">
-            <div class="plan-name">Enterprise</div>
-            <div class="plan-desc">
-                IA integrada a la operación de tu empresa
-            </div>
-
-            <div class="plan-price">A medida<span>/mes</span></div>
-            <div class="plan-note">Asistentes ilimitados · Multi-sitio</div>
-
-            <ul class="plan-list">
-                <li>✅ Integraciones ERP / CRM</li>
-                <li>✅ Roles y permisos</li>
-                <li>✅ SLA y soporte dedicado</li>
-                <li>✅ Seguridad y escalabilidad</li>
-                <li>✅ Onboarding completo</li>
-            </ul>
-
-            <a class="btn-primary plan-btn" href="?vista=home#contacto">
-                Hablar con ventas
-            </a>
-        </div>
-
+        <div class="mini-note">Los precios son orientativos. Si querés, definimos 3 planes finales con tus límites reales (asistentes, sitios, soporte, integraciones).</div>
     </div>
 
-    <div class="mini-note">
-        Precios orientativos. Ajustamos planes según volumen y complejidad real.
-    </div>
-</div>
+    <!-- CTA FINAL -->
+    <div class="cta">
+        <h2>Integra en minutos</h2>
+        <p>Instalá un asistente virtual IA en tu web fácilmente con un simple código.</p>
+        <button>Probar gratis</button>
 
-{FOOTER}
+        <div class="features">
+            <div class="feature">⚡ Fácil y rápido</div>
+            <div class="feature">⚙️ Totalmente configurable</div>
+            <div class="feature">🔒 Seguro y escalable</div>
+            <div class="feature">💬 Soporte incluido</div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div>Política de privacidad · Términos y condiciones · Contacto</div>
+        <div>Facebook · Twitter · LinkedIn</div>
+    </div>
+
+</div>
 """
 
 # =========================
 # RENDER
 # =========================
+# =========================
+# RENDER
+# =========================
 if vista == "asistentes":
-    components.html(HTML_ASISTENTES, scrolling=True)
+    components.html(HTML_ASISTENTES, height=2500, scrolling=False)
 elif vista == "precios":
-    components.html(HTML_PRECIOS, scrolling=True)
+    components.html(HTML_PRECIOS, height=2500, scrolling=False)
 else:
-    # HOME sin components - directo con st.markdown
-    st.markdown("""
-    <style>
-    .home-container {
-        width: 100%;
-        max-width: 100%;
-        background: #f6f7fb;
-        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    
-    .home-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 5%;
-        background: #fff;
-    }
-    
-    .home-logo {
-        font-size: 22px;
-        font-weight: 800;
-        color: #000;
-    }
-    
-    .home-logo span {
-        color: #f4b400;
-    }
-    
-    .home-nav {
-        display: flex;
-        gap: 28px;
-        font-weight: 500;
-        color: #555;
-    }
-    
-    .home-nav a {
-        text-decoration: none;
-        color: #555;
-    }
-    
-    .home-nav a:hover {
-        color: #f4b400;
-    }
-    
-    .home-btn-login {
-        background: #f4b400;
-        padding: 8px 16px;
-        border-radius: 10px;
-        font-weight: 600;
-    }
-    
-    .home-hero {
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 40px;
-        padding: 40px 5%;
-        align-items: center;
-    }
-    
-    .home-hero h1 {
-        font-size: 38px;
-        line-height: 1.15;
-        margin: 0 0 18px 0;
-    }
-    
-    .home-hero p {
-        font-size: 16px;
-        color: #555;
-        margin: 0 0 22px 0;
-    }
-    
-    .home-btn-primary {
-        background: #f4b400;
-        color: #000;
-        padding: 12px 22px;
-        border-radius: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        display: inline-block;
-        margin-right: 18px;
-    }
-    
-    .home-btn-secondary {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 14px;
-        color: #555;
-        text-decoration: none;
-    }
-    
-    .home-chat {
-        background: #ffffff;
-        border-radius: 24px;
-        box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-        overflow: hidden;
-        border: 1px solid rgba(0,0,0,0.06);
-    }
-    
-    .home-chat-topbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 16px;
-        background: linear-gradient(180deg, #ffffff, #f6f7fb);
-        border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    
-    .home-chat-brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 900;
-        font-size: 13px;
-    }
-    
-    .home-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #f4b400;
-        box-shadow: 0 0 0 4px rgba(244,180,0,0.18);
-    }
-    
-    .home-chat-pill {
-        font-size: 12px;
-        font-weight: 800;
-        color: #7a5a00;
-        background: rgba(244,180,0,0.18);
-        border: 1px solid rgba(244,180,0,0.45);
-        padding: 6px 10px;
-        border-radius: 999px;
-    }
-    
-    .home-chat-body {
-        padding: 16px;
-        min-height: 260px;
-    }
-    
-    .home-bubble {
-        max-width: 88%;
-        padding: 10px 12px;
-        border-radius: 14px;
-        font-size: 13px;
-        line-height: 1.35;
-        box-shadow: 0 6px 16px rgba(0,0,0,0.05);
-        margin-bottom: 10px;
-    }
-    
-    .home-bubble-user {
-        background: #111;
-        color: #fff;
-        margin-left: auto;
-        border-bottom-right-radius: 6px;
-    }
-    
-    .home-bubble-bot {
-        background: #ffffff;
-        color: #222;
-        border: 1px solid rgba(0,0,0,0.06);
-        border-bottom-left-radius: 6px;
-    }
-    
-    .home-chat-meta {
-        margin-top: 4px;
-        font-size: 11px;
-        color: #888;
-    }
-    
-    .home-trust {
-        display: flex;
-        gap: 10px;
-        margin-top: 14px;
-        flex-wrap: wrap;
-    }
-    
-    .home-trust-pill {
-        background: #fff;
-        padding: 10px 14px;
-        border-radius: 999px;
-        font-size: 13px;
-        font-weight: 700;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-    }
-    
-    .home-cats {
-        text-align: center;
-        padding: 20px 5%;
-    }
-    
-    .home-cats-inner {
-        display: inline-flex;
-        gap: 12px;
-        background: #fff;
-        padding: 10px 14px;
-        border-radius: 999px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-        flex-wrap: wrap;
-    }
-    
-    .home-cat {
-        padding: 6px 12px;
-        border-radius: 999px;
-        font-size: 14px;
-        font-weight: 600;
-        background: #f6f7fb;
-    }
-    
-    @media (max-width: 1100px) {
-        .home-hero {
-            grid-template-columns: 1fr;
-            text-align: center;
-        }
-    }
-    </style>
-    
-    <div class="home-container">
-        <div class="home-header">
-            <div class="home-logo">MERCADO<span>BOT</span></div>
-            <div class="home-nav">
-                <a href="?vista=home">Inicio</a>
-                <a href="?vista=asistentes">Asistentes</a>
-                <a href="?vista=precios">Precios</a>
-                <a href="?vista=home#soporte">Soporte</a>
-            </div>
-            <div class="home-btn-login">Iniciar sesión</div>
-        </div>
-        
-        <div class="home-hero">
-            <div>
-                <h1>Tu negocio atendido<br>por un <span style="color:#f4b400;">chatbot IA</span></h1>
-                <p>Instalamos un asistente virtual que responde a tus clientes 24/7, con tus reglas y tus datos. Elegí un rubro (stock, ecommerce, turnos, viajes) y lo dejamos funcionando.</p>
-                
-                <div>
-                    <a class="home-btn-primary" href="#demo">Ver chatbot en acción</a>
-                    <a class="home-btn-secondary" href="?vista=asistentes">Explorar asistentes</a>
-                </div>
-                
-                <div class="home-trust">
-                    <div class="home-trust-pill">⚡ Instalación rápida</div>
-                    <div class="home-trust-pill">🔒 Configurable y seguro</div>
-                    <div class="home-trust-pill">💬 Soporte incluido</div>
-                </div>
-            </div>
-            
-            <div class="home-chat" id="demo">
-                <div class="home-chat-topbar">
-                    <div class="home-chat-brand">
-                        <div class="home-dot"></div>
-                        Demo de chatbot
-                    </div>
-                    <div class="home-chat-pill">24/7</div>
-                </div>
-                
-                <div class="home-chat-body">
-                    <div class="home-bubble home-bubble-user">
-                        Hola, ¿me podés decir horarios y cómo reservar?
-                        <div class="home-chat-meta">Cliente</div>
-                    </div>
-                    
-                    <div class="home-bubble home-bubble-bot">
-                        Claro. Podés reservar en 30 segundos:<br>
-                        <strong>1)</strong> Elegís día y hora<br>
-                        <strong>2)</strong> Confirmás tus datos<br>
-                        <strong>3)</strong> Te llega la confirmación
-                        <div class="home-chat-meta">Asistente IA</div>
-                    </div>
-                    
-                    <div class="home-bubble home-bubble-user">
-                        ¿Y si tengo stock bajo o quiero saber precios?
-                        <div class="home-chat-meta">Cliente</div>
-                    </div>
-                    
-                    <div class="home-bubble home-bubble-bot">
-                        También. Puedo:<br>
-                        • avisar <strong>stock mínimo</strong><br>
-                        • responder <strong>precios</strong> y disponibilidad<br>
-                        • derivar a un humano cuando haga falta
-                        <div class="home-chat-meta">Asistente IA</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="home-cats">
-            <div class="home-cats-inner">
-                <div class="home-cat">📦 Stock</div>
-                <div class="home-cat">🛒 Ecommerce</div>
-                <div class="home-cat">📅 Turnos</div>
-                <div class="home-cat">✈️ Viajes</div>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    components.html(HTML_HOME, height=2100, scrolling=False)
