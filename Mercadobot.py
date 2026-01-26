@@ -226,7 +226,7 @@ body {
             <div class="btn-secondary">▶ Ver demo en vivo</div>
         </div>
     </div>
-    <img src="assets/hero.png">
+    <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentefutbol.png">
 </div>
 
 <div class="categories">
@@ -242,28 +242,28 @@ body {
 
     <div class="cards">
         <div class="card">
-            <img src="assets/futbol.png">
+            <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentefutbol.png">
             <h3>Asistente de Fútbol</h3>
             <p>Resultados, noticias y estadísticas del mundo del fútbol.</p>
             <button>Ver asistente</button>
         </div>
 
         <div class="card">
-            <img src="assets/cocina.png">
+            <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentecocina.png">
             <h3>Asistente de Cocina</h3>
             <p>Recetas rápidas, consejos y conversiones al instante.</p>
             <button>Ver asistente</button>
         </div>
 
         <div class="card">
-            <img src="assets/ecommerce.png">
+            <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistenteecommerce.png">
             <h3>Asistente Ecommerce</h3>
             <p>Respuestas automáticas sobre productos, pedidos y envíos.</p>
             <button>Ver asistente</button>
         </div>
 
         <div class="card">
-            <img src="assets/finanzas.png">
+            <img src="https://raw.githubusercontent.com/gvelazcamp/gvelazcamp/main/Asistentefinanzas.png">
             <h3>Asistente de Finanzas</h3>
             <p>Información financiera, cotizaciones y análisis.</p>
             <button>Ver asistente</button>
