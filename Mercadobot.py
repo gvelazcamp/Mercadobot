@@ -13,28 +13,47 @@ st.markdown(
         max-width: 100% !important;
         padding-left: 0rem !important;
         padding-right: 0rem !important;
-        padding-top: 3.5rem !important;  /* <-- evita el recorte */
+        padding-top: 0rem !important;
     }
     section.main > div {
         max-width: 100% !important;
         padding-left: 0rem !important;
         padding-right: 0rem !important;
-        padding-top: 3.5rem !important;  /* <-- evita el recorte */
+        padding-top: 0rem !important;
     }
 
-    /* Ocultar UI Streamlit (3 puntos / toolbar / menú / footer) */
-    header { visibility: hidden; height: 0px; }
-    #MainMenu { visibility: hidden; }
-    footer { visibility: hidden; height: 0px; }
-    [data-testid="stToolbar"] { visibility: hidden !important; height: 0px !important; }
+    /* Ocultar completamente header y toolbar de Streamlit */
+    header[data-testid="stHeader"] { 
+        display: none !important; 
+        visibility: hidden !important; 
+        height: 0px !important;
+        min-height: 0px !important;
+    }
+    .stAppHeader {
+        display: none !important;
+    }
+    #MainMenu { 
+        visibility: hidden !important;
+        display: none !important; 
+    }
+    footer { 
+        visibility: hidden !important; 
+        height: 0px !important; 
+    }
+    [data-testid="stToolbar"] { 
+        visibility: hidden !important; 
+        height: 0px !important;
+        display: none !important; 
+    }
+    .stToolbar {
+        display: none !important;
+    }
     [data-testid="stDecoration"] { display: none !important; }
     [data-testid="stStatusWidget"] { display: none !important; }
     </style>
     """,
     unsafe_allow_html=True
 )
-
-
 
 # =========================
 # VISTA (HOME / ASISTENTES / PRECIOS) POR QUERY PARAM
@@ -791,5 +810,3 @@ elif vista == "precios":
     components.html(HTML_PRECIOS, height=2300, scrolling=True)
 else:
     components.html(HTML_HOME, height=1900, scrolling=True)
-
-
