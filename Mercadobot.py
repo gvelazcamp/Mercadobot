@@ -607,6 +607,10 @@ body {
     padding: 20px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .card img {
@@ -626,8 +630,8 @@ body {
 .card p {
     font-size: 13px;
     color: #666;
-    min-height: 60px;
     margin: 0 0 14px 0;
+    flex-grow: 1;
 }
 
 .card button {
@@ -637,6 +641,7 @@ body {
     border-radius: 12px;
     font-weight: 700;
     cursor: pointer;
+    margin-top: auto;
 }
 
 .card button:hover {
