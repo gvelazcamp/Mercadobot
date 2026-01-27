@@ -1645,12 +1645,12 @@ CHATBOT_WIDGET = """
 <head>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: transparent !important; }
+body { background: transparent !important; overflow: hidden; }
 
 #chatbot-button {
-    position: fixed !important;
-    bottom: 20px !important;
-    right: 20px !important;
+    position: absolute !important;
+    bottom: 10px !important;
+    right: 10px !important;
     width: 64px;
     height: 64px;
     border-radius: 50%;
@@ -1677,11 +1677,11 @@ body { background: transparent !important; }
 }
 
 #chatbot-container {
-    position: fixed !important;
-    bottom: 100px !important;
-    right: 20px !important;
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
     width: 380px;
-    height: 500px;
+    height: 480px;
     background: white;
     border-radius: 20px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.25);
