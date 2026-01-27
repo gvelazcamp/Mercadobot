@@ -23,11 +23,10 @@ if _qp_get("api") == "chat":
     msg = _qp_get("msg", "")
     if msg:
         respuesta = get_chatbot_response(msg)
-        # Marcadores para que el JS extraiga SOLO la respuesta (sin inyectar todo el HTML de Streamlit)
-        import html as _html
-        st.markdown(f'<div id="mbot-response">{_html.escape(str(respuesta))}</div>', unsafe_allow_html=True)
+        # CAMBIO CRÍTICO: No usar html.escape, devolver HTML directamente
+        # El frontend lo parseará correctamente
+        st.markdown(f'<div id="mbot-response">{respuesta}</div>', unsafe_allow_html=True)
     st.stop()
-
 # =========================
 # CONFIGURACIÓN NORMAL APP
 # =========================
@@ -2205,7 +2204,8 @@ function sendMessage() {
                     try {
                         const doc = new DOMParser().parseFromString(html, 'text/html');
                         const el = doc.querySelector('#mbot-response');
-                        const response = el ? (el.textContent || '').trim() : '⚠️ Error: no pude leer la respuesta del servidor.';
+                        // CAMBIO: usar innerHTML en lugar de textContent para mantener el formato HTML
+                        const response = el ? (el.innerHTML || '').trim() : '⚠️ Error: no pude leer la respuesta del servidor.';
                         addMessage(response || '⚠️ Error: respuesta vacía.', 'bot');
                     } catch (e) {
                         console.error("Parse error:", e);
@@ -5195,6 +5195,3 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
 
 # Footer + Chatbot juntos con components.html (para que funcione JS)
 components.html(FOOTER_CHATBOT, height=550)
-
-
-
