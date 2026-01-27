@@ -4878,25 +4878,26 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
 # RENDER
 # =========================
 
-# 1. CSS para hacer el iframe del chatbot flotante
+# 1. CSS para hacer el iframe del chatbot flotante y subirlo
 st.markdown("""
 <style>
-/* Hacer que el iframe del chatbot flote */
+/* Subir el contenedor del chatbot con margin negativo */
 div[data-testid="element-container"]:has(iframe[height="550"]) {
-    position: fixed !important;
-    bottom: 20px !important;
-    right: 20px !important;
+    margin-top: -600px !important;
+    position: relative !important;
+    float: right !important;
     width: 420px !important;
     height: 550px !important;
     z-index: 999999 !important;
-    overflow: visible !important;
+    background: transparent !important;
+    pointer-events: none;
 }
 div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
     width: 420px !important;
     height: 550px !important;
     border: none !important;
     background: transparent !important;
-    overflow: visible !important;
+    pointer-events: auto;
 }
 </style>
 """, unsafe_allow_html=True)
