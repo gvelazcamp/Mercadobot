@@ -22,8 +22,10 @@ def _qp_get(key: str, default: str = "") -> str:
 if _qp_get("api") == "chat":
     msg = _qp_get("msg", "")
     if msg:
+        from chatbot_responses import get_chatbot_response
         respuesta = get_chatbot_response(msg)
-        st.markdown(f'<pre id="mbot-response" style="display:none;">{respuesta}</pre>', unsafe_allow_html=True)
+        # IMPORTANTE: Sin etiquetas HTML, solo texto plano
+        st.text(respuesta)
     st.stop()
 
 # =========================
@@ -5215,4 +5217,5 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
 
 # Footer + Chatbot juntos con components.html (para que funcione JS)
 components.html(FOOTER_CHATBOT, height=550)
+
 
