@@ -1,5 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import json
+from chatbot_responses import CHATBOT_RESPONSES
 
 st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
 
@@ -2102,23 +2104,23 @@ HTML_ASISTENTES = f"""{HTML_BASE}
 HTML_PRECIOS = f"""{HTML_BASE}
 {HEADER}
 
-<div class="subtitle">
-    <strong>Paso 1:</strong> Implementación inicial (pago único).<br>
-    <strong>Paso 2:</strong> Plan mensual para mantener y mejorar tu asistente.
-</div>
+<div class="section" style="padding-top: 40px;">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto 50px;">
+        <p style="font-size: 15px; color: #666; line-height: 1.6;">
+            <strong>Paso 1:</strong> Implementación inicial (pago único).<br>
+            <strong>Paso 2:</strong> Plan mensual para mantener y mejorar tu asistente.
+        </p>
+    </div>
 
     <div class="pricing">
-
-        <!-- SETUP -->
+        <!-- IMPLEMENTACIÓN INICIAL -->
         <div class="plan">
             <div class="plan-name">Implementación inicial</div>
-            <div class="plan-desc">
-                Dejamos tu asistente funcionando sobre tus datos reales
-            </div>
-
+            <div class="plan-desc">Dejamos tu asistente funcionando sobre tus datos reales</div>
+            
             <div class="plan-price">Desde US$ 300<span>pago único</span></div>
             <div class="plan-note">1 asistente · 1 sitio</div>
-
+            
             <ul class="plan-list">
                 <li>✅ Creación del asistente IA</li>
                 <li>✅ Conexión a base de datos / archivos</li>
@@ -2127,27 +2129,26 @@ HTML_PRECIOS = f"""{HTML_BASE}
                 <li>✅ Ajustes iniciales</li>
                 <li>✅ Soporte de arranque</li>
             </ul>
-
-            <a class="btn-primary plan-btn" href="?vista=home#contacto">
-                Iniciar implementación
-            </a>
+            
+            <div class="plan-btn">
+                <a class="btn-primary" href="?vista=home#soporte" style="text-decoration: none; display: block; text-align: center;">
+                    Iniciar implementación
+                </a>
+            </div>
         </div>
 
-        <!-- PRO -->
+        <!-- PRO MENSUAL -->
         <div class="plan pro">
             <div class="badge">Más elegido</div>
             <div class="plan-name">Pro mensual</div>
-            <div class="plan-desc">
-                Uso, mantenimiento y evolución continua
-            </div>
-
+            <div class="plan-desc">Uso, mantenimiento y evolución continua</div>
+            
             <div class="plan-price">US$ 120<span>/mes</span></div>
             <div class="plan-note">1 asistente · 1 sitio</div>
-            <div class="plan-note" style="font-size:12px; color:#999;">
+            <div class="plan-note" style="font-size: 12px; color: #999; margin-top: 4px;">
                 Requiere implementación inicial previa
             </div>
-
-
+            
             <ul class="plan-list">
                 <li>✅ Asistentes entrenados con tus datos</li>
                 <li>✅ Interpretación avanzada (IA + reglas)</li>
@@ -2155,22 +2156,22 @@ HTML_PRECIOS = f"""{HTML_BASE}
                 <li>✅ Reportes de uso</li>
                 <li>✅ Soporte prioritario</li>
             </ul>
-
-            <a class="btn-primary plan-btn" href="?vista=asistentes">
-                Contratar plan Pro
-            </a>
+            
+            <div class="plan-btn">
+                <a class="btn-primary" href="?vista=home#soporte" style="text-decoration: none; display: block; text-align: center;">
+                    Contratar plan Pro
+                </a>
+            </div>
         </div>
 
         <!-- ENTERPRISE -->
         <div class="plan">
             <div class="plan-name">Enterprise</div>
-            <div class="plan-desc">
-                IA integrada a la operación de tu empresa
-            </div>
-
+            <div class="plan-desc">IA integrada a la operación de tu empresa</div>
+            
             <div class="plan-price">A medida<span>/mes</span></div>
             <div class="plan-note">Asistentes ilimitados · Multi-sitio</div>
-
+            
             <ul class="plan-list">
                 <li>✅ Integraciones ERP / CRM</li>
                 <li>✅ Roles y permisos</li>
@@ -2178,16 +2179,13 @@ HTML_PRECIOS = f"""{HTML_BASE}
                 <li>✅ Seguridad y escalabilidad</li>
                 <li>✅ Onboarding completo</li>
             </ul>
-
-            <a class="btn-primary plan-btn" href="?vista=home#contacto">
-                Hablar con ventas
-            </a>
+            
+            <div class="plan-btn">
+                <a class="btn-primary" href="?vista=home#soporte" style="text-decoration: none; display: block; text-align: center;">
+                    Hablar con ventas
+                </a>
+            </div>
         </div>
-
-    </div>
-
-    <div class="mini-note">
-        Precios orientativos. Ajustamos planes según volumen y complejidad real.
     </div>
 </div>
 
