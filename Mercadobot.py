@@ -64,6 +64,16 @@ st.markdown(
 # =========================
 # VISTA
 # =========================
+def _qp_get(key: str, default: str = "") -> str:
+    """Lee query params soportando API nueva y vieja"""
+    try:
+        v = st.query_params.get(key, default)
+    except Exception:
+        v = st.experimental_get_query_params().get(key, [default])
+    if isinstance(v, list):
+        return v[0] if v else default
+    return v if v is not None else default
+
 try:
     vista = st.query_params.get("vista", "home")
 except Exception:
@@ -1757,6 +1767,28 @@ body {
 </body>
 </html>
 """
+
+# =========================
+# RENDERIZAR PÁGINAS SEGÚN VISTA
+# =========================
+if vista == "demo":
+    asistente = _qp_get("asistente", "futbol")
+    if asistente == "ecommerce":
+        st.html(HTML_DEMO_ECOMMERCE)
+    elif asistente == "peluqueria":
+        st.html(HTML_DEMO_PELUQUERIA)
+    else:
+        st.html(HTML_DEMO_FUTBOL)
+
+elif vista == "asistentes":
+    st.html(HTML_ASISTENTES)
+
+elif vista == "precios":
+    st.html(HTML_PRECIOS)
+
+else:
+    st.html(HTML_HOME)
+
 # CSS para overflow visible
 st.markdown("""
 <style>
