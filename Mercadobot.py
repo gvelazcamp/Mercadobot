@@ -4897,7 +4897,21 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
 # RENDER
 # =========================
 
-# SIN CSS EXTRA - el footer+chatbot van juntos
+# CSS para que el iframe del footer+chatbot no ocupe espacio extra
+st.markdown("""
+<style>
+/* El iframe del footer ocupa solo lo necesario visualmente */
+div[data-testid="element-container"]:has(iframe[height="600"]) {
+    height: 80px !important;
+    overflow: visible !important;
+}
+div[data-testid="element-container"]:has(iframe[height="600"]) iframe {
+    height: 600px !important;
+    margin-top: -520px !important;
+    border: none !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # Página principal con st.html
 if vista == "demo":
@@ -4931,4 +4945,4 @@ else:
     st.html(HTML_HOME)
 
 # Footer + Chatbot juntos con components.html (para que funcione JS)
-components.html(FOOTER_CHATBOT, height=100)
+components.html(FOOTER_CHATBOT, height=600)
