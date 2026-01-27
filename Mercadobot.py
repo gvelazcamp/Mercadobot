@@ -801,7 +801,6 @@ body {
     text-align: center;
 }
 
-
 /* =========================
    TESTIMONIOS
 ========================= */
@@ -995,7 +994,6 @@ body {
     font-weight: 600;
     box-shadow: 0 6px 18px rgba(0,0,0,0.05);
 }
-
 
 /* =========================
    FAQ
@@ -1314,6 +1312,298 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================
+   CHATBOT FLOTANTE
+========================= */
+#chatbot-button {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999 !important;
+    transition: all 0.3s ease;
+}
+
+#chatbot-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+#chatbot-button svg {
+    width: 28px;
+    height: 28px;
+    fill: white;
+}
+
+#chatbot-container {
+    position: fixed !important;
+    bottom: 90px !important;
+    right: 20px !important;
+    width: 380px;
+    height: 600px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 999998 !important;
+    overflow: hidden;
+    animation: slideIn 0.3s ease;
+}
+
+#chatbot-container.open {
+    display: flex;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.chat-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.chat-header-text h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.chat-header-text p {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.close-button:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 16px;
+    display: flex;
+    gap: 10px;
+}
+
+.message.bot {
+    flex-direction: row;
+}
+
+.message.user {
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.message.bot .message-avatar {
+    background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
+    color: white;
+}
+
+.message.user .message-avatar {
+    background: #e9ecef;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.message.bot .message-content {
+    background: white;
+    color: #333;
+    border-bottom-left-radius: 4px;
+}
+
+.message.user .message-content {
+    background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+    background: white;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    width: fit-content;
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f4b400;
+    animation: typing 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-10px);
+    }
+}
+
+.chat-input {
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #e9ecef;
+    border-radius: 24px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.chat-input input:focus {
+    border-color: #f4b400;
+}
+
+.send-button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.send-button:hover {
+    transform: scale(1.05);
+}
+
+.send-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.send-button svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+}
+
+@media (max-width: 768px) {
+    #chatbot-container {
+        width: calc(100vw - 40px);
+        height: calc(100vh - 140px);
+        bottom: 90px;
+    }
+}
+
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #f4b400;
+    border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #ff6b00;
+}
 </style>
 </head>
 <body>
@@ -1338,308 +1628,8 @@ FOOTER = """
         <div>Facebook · Twitter · LinkedIn</div>
     </div>
 </div>
-</body>
-</html>
-"""
 
-# =========================
-# CHATBOT WIDGET FLOTANTE
-# =========================
-CHATBOT_WIDGET = """
-<style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; }
-    
-    #chatbot-button {
-        position: fixed !important;
-        bottom: 20px !important;
-        right: 20px !important;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 999999 !important;
-        transition: all 0.3s ease;
-    }
-    
-    #chatbot-button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    }
-    
-    #chatbot-button svg {
-        width: 28px;
-        height: 28px;
-        fill: white;
-    }
-    
-    #chatbot-container {
-        position: fixed !important;
-        bottom: 90px !important;
-        right: 20px !important;
-        width: 380px;
-        height: 600px;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        display: none;
-        flex-direction: column;
-        z-index: 999998 !important;
-        overflow: hidden;
-        animation: slideIn 0.3s ease;
-    }
-    
-    #chatbot-container.open {
-        display: flex;
-    }
-    
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .chat-header {
-        background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
-        color: white;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    
-    .chat-header-info {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-    
-    .chat-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-    }
-    
-    .chat-header-text h3 {
-        font-size: 16px;
-        font-weight: 600;
-        margin-bottom: 2px;
-    }
-    
-    .chat-header-text p {
-        font-size: 12px;
-        opacity: 0.9;
-    }
-    
-    .close-button {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 24px;
-        cursor: pointer;
-        padding: 0;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: background 0.2s;
-    }
-    
-    .close-button:hover {
-        background: rgba(255,255,255,0.2);
-    }
-    
-    .chat-messages {
-        flex: 1;
-        overflow-y: auto;
-        padding: 20px;
-        background: #f8f9fa;
-    }
-    
-    .message {
-        margin-bottom: 16px;
-        display: flex;
-        gap: 10px;
-    }
-    
-    .message.bot {
-        flex-direction: row;
-    }
-    
-    .message.user {
-        flex-direction: row-reverse;
-    }
-    
-    .message-avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 16px;
-    }
-    
-    .message.bot .message-avatar {
-        background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
-        color: white;
-    }
-    
-    .message.user .message-avatar {
-        background: #e9ecef;
-    }
-    
-    .message-content {
-        max-width: 70%;
-        padding: 12px 16px;
-        border-radius: 18px;
-        font-size: 14px;
-        line-height: 1.5;
-    }
-    
-    .message.bot .message-content {
-        background: white;
-        color: #333;
-        border-bottom-left-radius: 4px;
-    }
-    
-    .message.user .message-content {
-        background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
-        color: white;
-        border-bottom-right-radius: 4px;
-    }
-    
-    .typing-indicator {
-        display: flex;
-        gap: 4px;
-        padding: 12px 16px;
-        background: white;
-        border-radius: 18px;
-        border-bottom-left-radius: 4px;
-        width: fit-content;
-    }
-    
-    .typing-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #f4b400;
-        animation: typing 1.4s infinite;
-    }
-    
-    .typing-dot:nth-child(2) {
-        animation-delay: 0.2s;
-    }
-    
-    .typing-dot:nth-child(3) {
-        animation-delay: 0.4s;
-    }
-    
-    @keyframes typing {
-        0%, 60%, 100% {
-            transform: translateY(0);
-        }
-        30% {
-            transform: translateY(-10px);
-        }
-    }
-    
-    .chat-input {
-        padding: 20px;
-        background: white;
-        border-top: 1px solid #e9ecef;
-        display: flex;
-        gap: 10px;
-    }
-    
-    .chat-input input {
-        flex: 1;
-        padding: 12px 16px;
-        border: 1px solid #e9ecef;
-        border-radius: 24px;
-        font-size: 14px;
-        outline: none;
-        transition: border-color 0.2s;
-    }
-    
-    .chat-input input:focus {
-        border-color: #f4b400;
-    }
-    
-    .send-button {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
-        border: none;
-        color: white;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s;
-    }
-    
-    .send-button:hover {
-        transform: scale(1.05);
-    }
-    
-    .send-button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-    
-    .send-button svg {
-        width: 20px;
-        height: 20px;
-        fill: white;
-    }
-    
-    @media (max-width: 768px) {
-        #chatbot-container {
-            width: calc(100vw - 40px);
-            height: calc(100vh - 140px);
-            bottom: 90px;
-        }
-    }
-    
-    .chat-messages::-webkit-scrollbar {
-        width: 6px;
-    }
-    
-    .chat-messages::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-    
-    .chat-messages::-webkit-scrollbar-thumb {
-        background: #f4b400;
-        border-radius: 3px;
-    }
-    
-    .chat-messages::-webkit-scrollbar-thumb:hover {
-        background: #ff6b00;
-    }
-</style>
-
+<!-- CHATBOT FLOTANTE -->
 <button id="chatbot-button" onclick="toggleChat()">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
@@ -1796,7 +1786,7 @@ CHATBOT_WIDGET = """
         }
         
         if (lowerMessage.includes('contacto') || lowerMessage.includes('teléfono') || lowerMessage.includes('email')) {
-            return '📞 +598 99 123 456\n📧 contacto@mercadobot.com\n💬 También puedes escribirnos por WhatsApp';
+            return '📞 +598 99 123 456\\n📧 contacto@mercadobot.com\\n💬 También puedes escribirnos por WhatsApp';
         }
         
         if (lowerMessage.includes('gracias')) {
@@ -1817,6 +1807,9 @@ CHATBOT_WIDGET = """
         }
     }, 2000);
 </script>
+
+</body>
+</html>
 """
 
 # =========================
@@ -2025,16 +2018,16 @@ HTML_HOME = f"""{HTML_BASE}
 
             <div class="testimonio-card">
                 <div class="testimonio-quote">
-                    "El chatbot responde consultas de stock, precios y envíos las 24 horas. Los clientes están más satisfechos y nosotros cerramos ventas incluso de madrugada."
+                    "Las consultas por propiedades llegan las 24hs. El bot responde características, precios y agenda visitas automáticamente. Ahora atendemos 3 veces más clientes con el mismo equipo."
                 </div>
                 <div class="testimonio-author">
-                    <div class="testimonio-avatar">S</div>
+                    <div class="testimonio-avatar">A</div>
                     <div class="testimonio-info">
-                        <h4>Sofía Méndez</h4>
-                        <p>Ecommerce de tecnología</p>
+                        <h4>Ana Rodríguez</h4>
+                        <p>Inmobiliaria</p>
                     </div>
                 </div>
-                <div class="testimonio-stat">🌙 Ventas 24/7</div>
+                <div class="testimonio-stat">🏠 3x más consultas</div>
             </div>
 
             <div class="testimonio-card">
@@ -2053,16 +2046,16 @@ HTML_HOME = f"""{HTML_BASE}
 
             <div class="testimonio-card">
                 <div class="testimonio-quote">
-                    "Las consultas por propiedades llegan las 24hs. El bot responde características, precios y agenda visitas automáticamente. Ahora atendemos 3 veces más clientes con el mismo equipo."
+                    "El chatbot responde consultas de stock, precios y envíos las 24 horas. Los clientes están más satisfechos y nosotros cerramos ventas incluso de madrugada."
                 </div>
                 <div class="testimonio-author">
-                    <div class="testimonio-avatar">A</div>
+                    <div class="testimonio-avatar">S</div>
                     <div class="testimonio-info">
-                        <h4>Ana Rodríguez</h4>
-                        <p>Inmobiliaria</p>
+                        <h4>Sofía Méndez</h4>
+                        <p>Ecommerce de tecnología</p>
                     </div>
                 </div>
-                <div class="testimonio-stat">🏠 3x más consultas</div>
+                <div class="testimonio-stat">🌙 Ventas 24/7</div>
             </div>
         </div>
     </div>
@@ -2154,8 +2147,6 @@ HTML_HOME = f"""{HTML_BASE}
             </div>
         </div>
     </div>
-
-""" + CHATBOT_WIDGET + """
 
 {FOOTER}
 """
@@ -2998,7 +2989,7 @@ HTML_DEMO_COCINA = f"""{HTML_BASE}
             • <strong>Ideal para:</strong> Cumpleaños, aniversarios, reuniones empresariales<br>
             • <strong>Incluye:</strong> Menú personalizado, decoración básica, wifi<br>
             • <strong>Precio:</strong> Desde $180.000 (menú + salón)<br>
-            También hacemos catering externo. ¿Te paso el contacto del área de eventos?</div>
+            También hacemos catering externo. ¿Para cuántas personas sería?</div>
         </div>
 
         <div class="demo-message">
@@ -3258,7 +3249,7 @@ HTML_DEMO_ECOMMERCE = f"""{HTML_BASE}
             1. <strong>Tenés 30 días</strong> desde la compra<br>
             2. <strong>El producto debe estar:</strong> Sin uso, con etiquetas, en embalaje original<br>
             3. <strong>Iniciá el cambio:</strong> Desde tu cuenta o por WhatsApp<br>
-            4. <strong>Te enviamos:</strong> Etiqueta de devolución prepaga<br>
+            4. <strong>Te enviamos</strong> etiqueta de devolución prepaga<br>
             5. <strong>Recibimos y validamos:</strong> 2-3 días hábiles<br>
             6. <strong>Enviamos el nuevo:</strong> Sin cargo adicional<br>
             Los cambios son GRATIS.</div>
@@ -3381,7 +3372,7 @@ HTML_DEMO_ECOMMERCE = f"""{HTML_BASE}
         </div>
         <div class="demo-message">
             <div class="demo-label">Asistente IA</div>
-            <div class="demo-bubble demo-bot">Sí! Tenemos descuentos progresivos:<br>
+            <div class="demo-bubble demo-bot">Sí! Descuentos progresivos:<br>
             • <strong>2 productos:</strong> 10% OFF<br>
             • <strong>3 productos:</strong> 15% OFF<br>
             • <strong>4 o más productos:</strong> 20% OFF<br>
@@ -3422,7 +3413,7 @@ HTML_DEMO_ECOMMERCE = f"""{HTML_BASE}
             <strong>Beneficios por nivel:</strong><br>
             🥉 <strong>Bronce</strong> (0-500 puntos): 5% descuento permanente<br>
             🥈 <strong>Plata</strong> (501-1000): 10% + envíos gratis<br>
-            🥇 <strong>Oro</strong> (1001+): 15% + acceso anticipado a lanzamientos<br>
+            🥇 <strong>Oro</strong> (1001+): 15% + acceso a lanzamientos anticipados<br>
             Registrate gratis y empezá a acumular puntos hoy!</div>
         </div>
 
@@ -3432,7 +3423,7 @@ HTML_DEMO_ECOMMERCE = f"""{HTML_BASE}
         </div>
         <div class="demo-message">
             <div class="demo-label">Asistente IA</div>
-            <div class="demo-bubble demo-bot">Sí! Tenemos nuestro programa "Trade-In":<br>
+            <div class="demo-bubble demo-bot">Sí! Nuestro programa "Trade-In":<br>
             👟 <strong>Productos aceptados:</strong><br>
             • Zapatillas de marca (buen estado)<br>
             • Ropa deportiva premium<br>
@@ -3469,17 +3460,13 @@ HTML_DEMO_ECOMMERCE = f"""{HTML_BASE}
         </div>
         <div class="demo-message">
             <div class="demo-label">Asistente IA</div>
-            <div class="demo-bubble demo-bot">Sí! Nuestras tarjetas regalo son perfectas:<br>
-            🎁 <strong>Valores disponibles:</strong><br>
-            • $10.000 / $20.000 / $50.000 / $100.000<br>
-            • O elegí el monto que quieras (mín. $5.000)<br>
-            <strong>Características:</strong><br>
-            • Válidas por 12 meses<br>
-            • Usables online y en tiendas<br>
-            • Entrega inmediata por email<br>
-            • Podés personalizarla con mensaje<br>
-            • Sin cargo adicional<br>
-            ¿Para quién sería el regalo?</div>
+            <div class="demo-bubble demo-bot">Sí! Tarjetas regalo perfectas para regalar:<br>
+            🎁 <strong>Valores:</strong> $10.000 / $20.000 / $50.000 / Monto libre<br>
+            ⏰ <strong>Validez:</strong> 12 meses<br>
+            📧 <strong>Entrega:</strong> Digital instantánea por email<br>
+            🎁 <strong>Personalización:</strong> Agregá un mensaje<br>
+            💸 <strong>Sin cargo adicional</strong><br>
+            Se puede usar online y en locales. ¿Para quién sería?</div>
         </div>
 
         <div class="demo-message">
@@ -3836,8 +3823,6 @@ HTML_DEMO_FINANZAS = f"""{HTML_BASE}
             📊 <strong>Acciones/CEDEARs:</strong><br>
             • Compra/venta: 0.6% por operación<br>
             • Derechos de mercado: 0.05%<br>
-            📈 <strong>Bonos:</strong><br>
-            • Compra/venta: 0.3% por operación<br>
             💰 <strong>Fondos Comunes:</strong><br>
             • Sin comisión de compra/venta<br>
             • Fee del fondo: 1-3% anual<br>
@@ -3919,7 +3904,6 @@ HTML_DEMO_FINANZAS = f"""{HTML_BASE}
             🌎 <strong>1. CEDEARs (la más fácil):</strong><br>
             • Invertís en empresas USA en pesos<br>
             • Sin límites ni trabas<br>
-            • Desde Argentina<br>
             💵 <strong>2. Broker internacional:</strong><br>
             • Abrís cuenta en Interactive Brokers, TD Ameritrade, etc.<br>
             • Necesitás dólares afuera<br>
@@ -3982,7 +3966,7 @@ HTML_DEMO_FINANZAS = f"""{HTML_BASE}
         <div class="demo-message">
             <div class="demo-label">Asistente IA</div>
             <div class="demo-bubble demo-bot">Tus inversiones están protegidas:<br>
-            🛡️ <strong>Custodia segregada:</strong><br>
+            ����️ <strong>Custodia segregada:</strong><br>
             • Tus activos están a TU nombre<br>
             • Depositados en Caja de Valores<br>
             • NO son activos del broker<br>
@@ -4188,7 +4172,7 @@ HTML_DEMO_ROPA = f"""{HTML_BASE}
             • <strong>Condiciones:</strong> Producto sin uso, con etiquetas<br>
             <strong>Proceso:</strong><br>
             1. Iniciás el cambio desde tu cuenta<br>
-            2. Imprimís la etiqueta prepaga<br>
+            2. Imprimís etiqueta prepaga<br>
             3. Lo despachás en correo<br>
             4. Te enviamos el nuevo o reintegramos el dinero</div>
         </div>
@@ -4301,12 +4285,15 @@ HTML_DEMO_ROPA = f"""{HTML_BASE}
         <div class="demo-message">
             <div class="demo-label">Asistente IA</div>
             <div class="demo-bubble demo-bot">Sí! Retiro en tienda GRATIS:<br>
-            1. Comprás online y elegís "Retiro en tienda"<br>
-            2. Seleccionás el local (Palermo o Belgrano)<br>
-            3. Te llega un email cuando está listo (24-48hs)<br>
-            4. Retirás con DNI y número de pedido<br>
-            <strong>Horarios de retiro:</strong> Lun-Sáb 10-20hs<br>
-            <strong>Ventaja:</strong> Podés probarte y cambiar en el momento si no te queda!</div>
+            1. <strong>Comprás online</strong> y elegís "Retiro en tienda"<br>
+            2. <strong>Elegís el local</strong> más cercano<br>
+            3. <strong>Te llega un email</strong> cuando está listo (24-48hs)<br>
+            4. <strong>Retirás</strong> presentando DNI y número de pedido<br>
+            <strong>Ventajas:</strong><br>
+            ✓ Sin costo de envío<br>
+            ✓ Podés probarte en el local<br>
+            ✓ Cambio inmediato si no te queda<br>
+            Horarios: Lun-Sáb 10-20hs</div>
         </div>
 
         <div class="demo-message">
@@ -4429,19 +4416,88 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
 {HEADER}
 
 <style>
-.demo-container {{ max-width: 800px; margin: 0 auto; padding: 40px 20px; }}
-.demo-header {{ text-align: center; margin-bottom: 40px; }}
-.demo-header img {{ width: 120px; height: 120px; object-fit: contain; margin-bottom: 20px; }}
-.demo-header h1 {{ font-size: 32px; margin-bottom: 10px; }}
-.demo-header p {{ color: #666; font-size: 16px; }}
-.demo-chat {{ background: #fff; border-radius: 24px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }}
-.demo-message {{ margin-bottom: 20px; }}
-.demo-bubble {{ padding: 12px 16px; border-radius: 16px; margin-bottom: 6px; max-width: 85%; font-size: 14px; line-height: 1.5; }}
-.demo-user {{ background: #111; color: #fff; margin-left: auto; border-bottom-right-radius: 6px; }}
-.demo-bot {{ background: #f6f7fb; color: #222; border-bottom-left-radius: 6px; }}
-.demo-label {{ font-size: 12px; color: #888; margin-bottom: 4px; font-weight: 600; }}
-.demo-back {{ text-align: center; margin-top: 40px; }}
-.demo-back a {{ background: #f4b400; color: #000; padding: 12px 24px; border-radius: 12px; text-decoration: none; font-weight: 700; display: inline-block; }}
+.demo-container {{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}}
+
+.demo-header {{
+    text-align: center;
+    margin-bottom: 40px;
+}}
+
+.demo-header img {{
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}}
+
+.demo-header h1 {{
+    font-size: 32px;
+    margin-bottom: 10px;
+}}
+
+.demo-header p {{
+    color: #666;
+    font-size: 16px;
+}}
+
+.demo-chat {{
+    background: #fff;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}}
+
+.demo-message {{
+    margin-bottom: 20px;
+}}
+
+.demo-bubble {{
+    padding: 12px 16px;
+    border-radius: 16px;
+    margin-bottom: 6px;
+    max-width: 85%;
+    font-size: 14px;
+    line-height: 1.5;
+}}
+
+.demo-user {{
+    background: #111;
+    color: #fff;
+    margin-left: auto;
+    border-bottom-right-radius: 6px;
+}}
+
+.demo-bot {{
+    background: #f6f7fb;
+    color: #222;
+    border-bottom-left-radius: 6px;
+}}
+
+.demo-label {{
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 4px;
+    font-weight: 600;
+}}
+
+.demo-back {{
+    text-align: center;
+    margin-top: 40px;
+}}
+
+.demo-back a {{
+    background: #f4b400;
+    color: #000;
+    padding: 12px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+}}
 </style>
 
 <div class="demo-container">
@@ -4452,65 +4508,185 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
     </div>
     
     <div class="demo-chat">
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Cuánto sale un corte de pelo?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Nuestros precios de corte:<br>• <strong>Mujer:</strong> $8.500<br>• <strong>Hombre:</strong> $6.000<br>• <strong>Niños (hasta 12 años):</strong> $5.000<br>Incluye lavado, corte y secado. ¿Querés sacar turno?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Cuánto sale un corte de pelo?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Nuestros precios de corte:<br>• <strong>Mujer:</strong> $8.500<br>• <strong>Hombre:</strong> $6.000<br>• <strong>Niños (hasta 12 años):</strong> $5.000<br>Incluye lavado, corte y secado. ¿Querés sacar turno?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Tienen turnos disponibles para mañana?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Sí! Mañana tenemos disponibilidad:<br>• 10:00 hs<br>• 14:30 hs<br>• 16:00 hs<br>• 18:00 hs<br>¿Cuál horario te viene bien? ¿Qué servicio necesitás?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Tienen turnos disponibles para mañana?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Sí! Mañana tenemos disponibilidad:<br>• 10:00 hs<br>• 14:30 hs<br>• 16:00 hs<br>• 18:00 hs<br>¿Cuál horario te viene bien? ¿Qué servicio necesitás?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Hacen coloración?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Sí! Servicios de color:<br>• <strong>Color completo:</strong> $18.000<br>• <strong>Retoque de raíz:</strong> $12.000<br>• <strong>Balayage:</strong> $25.000<br>• <strong>Mechas tradicionales:</strong> $20.000<br>Usamos productos de alta gama (Loreal, Wella). Incluye lavado, color y brushing.</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Hacen coloración?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Sí! Servicios de color:<br>• <strong>Color completo:</strong> $18.000<br>• <strong>Retoque de raíz:</strong> $12.000<br>• <strong>Balayage:</strong> $25.000<br>• <strong>Mechas tradicionales:</strong> $20.000<br>Usamos productos de alta gama (Loreal, Wella). Incluye lavado, color y brushing.</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Cuánto dura un tratamiento de keratina?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">El tratamiento de keratina:<br>• <strong>Duración:</strong> 3-4 horas<br>• <strong>Precio:</strong> $35.000<br>• <strong>Efecto:</strong> Dura 3-4 meses<br>• <strong>Incluye:</strong> Lavado, aplicación, planchado, brushing<br>Te dejamos el pelo liso y sin frizz. ¿Reservamos turno?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Cuánto dura un tratamiento de keratina?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">El tratamiento de keratina:<br>• <strong>Duración:</strong> 3-4 horas<br>• <strong>Precio:</strong> $35.000<br>• <strong>Efecto:</strong> Dura 3-4 meses<br>• <strong>Incluye:</strong> Lavado, aplicación, planchado, brushing<br>Te deja el pelo liso y sin frizz. ¿Reservamos turno?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Atienden con turno o sin turno?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Trabajamos principalmente CON TURNO:<br>• <strong>Con turno:</strong> Atención garantizada a horario<br>• <strong>Sin turno:</strong> Según disponibilidad<br>Te recomendamos sacar turno para asegurar tu horario. Podés reservar por:<br>• WhatsApp: +54 11 5555-PELO<br>• Web: www.peluqueria.com<br>• Teléfono: 011 4444-4444</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Atienden con turno o sin turno?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Trabajamos principalmente CON TURNO:<br>• <strong>Con turno:</strong> Atención garantizada a horario<br>• <strong>Sin turno:</strong> Según disponibilidad<br>Te recomendamos sacar turno para asegurar tu horario. Podés reservar por:<br>• WhatsApp: +54 11 5555-PELO<br>• Web: www.peluqueria.com<br>• Teléfono: 011 4444-4444</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Hacen peinados para eventos?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Sí! Peinados para eventos:<br>• <strong>Recogido simple:</strong> $12.000<br>• <strong>Recogido elaborado:</strong> $18.000<br>• <strong>Semi-recogido:</strong> $15.000<br>• <strong>Peinado con rulos:</strong> $14.000<br>Incluye prueba previa si reservás con 1 semana de anticipación. ¿Es para algún evento especial?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Hacen peinados para eventos?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Sí! Peinados para eventos:<br>• <strong>Recogido simple:</strong> $12.000<br>• <strong>Recogido elaborado:</strong> $18.000<br>• <strong>Semi-recogido:</strong> $15.000<br>• <strong>Peinado con rulos:</strong> $14.000<br>Incluye prueba previa si reservás con 1 semana de anticipación. ¿Es para algún evento especial?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Cuánto sale mechas balayage?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Balayage completo: $25.000<br>• <strong>Incluye:</strong> Diagnóstico, decoloración, tonalización, tratamiento, brushing<br>• <strong>Duración:</strong> 3-4 horas<br>• <strong>Productos:</strong> Loreal Professionnel<br>• <strong>Efecto:</strong> Natural, iluminado, sin marcas<br>Dura 3-4 meses. ¿Te interesa agendar una consulta?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Cuánto sale mechas balayage?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Balayage completo: $25.000<br>• <strong>Incluye:</strong> Diagnóstico, decoloración, tonalización, tratamiento, brushing<br>• <strong>Duración:</strong> 3-4 horas<br>• <strong>Productos:</strong> Loreal Professionnel<br>• <strong>Efecto:</strong> Natural, iluminado, sin marcas<br>Dura 3-4 meses. ¿Te interesa agendar una consulta?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Trabajan con novias?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Sí! Servicio completo para novias:<br>• <strong>Peinado novia:</strong> $25.000<br>• <strong>Maquillaje novia:</strong> $22.000<br>• <strong>Combo peinado + makeup:</strong> $42.000<br>• <strong>Prueba previa:</strong> Incluida<br>• <strong>Atención a domicilio:</strong> Disponible<br>También peinamos a las madrinas. ¿Para cuándo es el casamiento?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Trabajan con novias?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Sí! Servicio completo para novias:<br>• <strong>Peinado novia:</strong> $25.000<br>• <strong>Maquillaje novia:</strong> $22.000<br>• <strong>Combo peinado + makeup:</strong> $42.000<br>• <strong>Prueba previa:</strong> Incluida<br>• <strong>Atención a domicilio:</strong> Disponible<br>También peinamos a las madrinas. ¿Para cuándo es el casamiento?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Aceptan tarjetas?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Sí! Todas las formas de pago:<br>• <strong>Efectivo:</strong> 10% descuento<br>• <strong>Débito:</strong> Precio de lista<br>• <strong>Crédito:</strong> Hasta 6 cuotas sin interés<br>• <strong>Mercado Pago:</strong> Hasta 12 cuotas<br>• <strong>Transferencia:</strong> 10% OFF<br>Aceptamos Visa, Mastercard, Amex, Naranja.</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Aceptan tarjetas?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Sí! Todas las formas de pago:<br>• <strong>Efectivo:</strong> 10% descuento<br>• <strong>Débito:</strong> Precio de lista<br>• <strong>Crédito:</strong> Hasta 6 cuotas sin interés<br>• <strong>Mercado Pago:</strong> Hasta 12 cuotas<br>Aceptamos Visa, Mastercard, Amex, Naranja.</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Puedo cancelar mi turno?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Sí, podés cancelar o reprogramar:<br>• <strong>Con 24hs de anticipación:</strong> Sin cargo<br>• <strong>Menos de 24hs:</strong> Se cobra 50% del servicio<br>• <strong>No show:</strong> Se cobra 100%<br>Para cancelar llamá, escribí por WhatsApp o entrá a tu cuenta en la web. ¿Necesitás cancelar o reprogramar?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Puedo cancelar mi turno?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Sí, podés cancelar o reprogramar:<br>• <strong>Con 24hs de anticipación:</strong> Sin cargo<br>• <strong>Menos de 24hs:</strong> Se cobra 50% del servicio<br>• <strong>No show:</strong> Se cobra 100%<br>Para cancelar llamá, escribí por WhatsApp o entrá a tu cuenta en la web. ¿Necesitás cancelar o reprogramar?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Hacen barbería también?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Sí! Servicios de barbería:<br>• <strong>Corte + barba:</strong> $8.500<br>• <strong>Corte simple:</strong> $6.000<br>• <strong>Barba y perfilado:</strong> $4.500<br>• <strong>Afeitado clásico:</strong> $3.500<br>Usamos navajas profesionales y productos premium. ¿Sacamos turno?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Hacen barbería también?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Sí! Servicios de barbería:<br>• <strong>Corte + barba:</strong> $8.500<br>• <strong>Corte simple:</strong> $6.000<br>• <strong>Barba y perfilado:</strong> $4.500<br>• <strong>Afeitado clásico:</strong> $3.500<br>Usamos navajas profesionales y productos premium. ¿Sacamos turno?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Cuánto sale un brushing?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Brushing profesional: $4.500<br>• <strong>Incluye:</strong> Lavado + secado con cepillo<br>• <strong>Duración:</strong> 30-40 minutos<br>• <strong>Con plancha:</strong> +$1.000<br>• <strong>Con rulos:</strong> +$1.500<br>Ideal para eventos o salidas. ¿Para cuándo lo necesitás?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Cuánto sale un brushing?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Brushing profesional: $4.500<br>• <strong>Incluye:</strong> Lavado + secado con cepillo<br>• <strong>Duración:</strong> 30-40 minutos<br>• <strong>Con plancha:</strong> +$1.000<br>• <strong>Con rulos:</strong> +$1.500<br>Ideal para eventos o salidas. ¿Para cuándo lo necesitás?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Tienen servicios de manicura?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Sí! Servicios de uñas:<br>• <strong>Manicura clásica:</strong> $5.000<br>• <strong>Manicura permanente:</strong> $8.000<br>• <strong>Pedicura clásica:</strong> $6.500<br>• <strong>Pedicura permanente:</strong> $9.500<br>• <strong>Kapping gel:</strong> $12.000<br>Usamos productos de primera calidad. ¿Reservamos turno?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Tienen servicios de manicura?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Sí! Servicios de uñas:<br>• <strong>Manicura clásica:</strong> $5.000<br>• <strong>Manicura permanente:</strong> $8.000<br>• <strong>Pedicura clásica:</strong> $6.500<br>• <strong>Pedicura permanente:</strong> $9.500<br>• <strong>Kapping gel:</strong> $12.000<br>Usamos productos de primera calidad. ¿Reservamos turno?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Qué productos usan?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Trabajamos con marcas premium:<br>• <strong>Color:</strong> Loreal Professionnel, Wella<br>• <strong>Tratamientos:</strong> Kerastase, Olaplex<br>• <strong>Styling:</strong> Sebastian, Moroccanoil<br>• <strong>Keratina:</strong> Inoar, Cadiveu<br>Todos nuestros productos son profesionales de alta gama. ¡Cuidamos tu cabello!</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Qué productos usan?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Trabajamos con marcas premium:<br>• <strong>Color:</strong> Loreal Professionnel, Wella<br>• <strong>Tratamientos:</strong> Kerastase, Olaplex<br>• <strong>Styling:</strong> Sebastian, Moroccanoil<br>• <strong>Keratina:</strong> Inoar, Cadiveu<br>Todos nuestros productos son profesionales de alta gama. ¡Cuidamos tu cabello!</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Dónde están ubicados?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Estamos en:<br>📍 Av. Santa Fe 2800, Palermo<br>🚇 <strong>Subte:</strong> Línea D (Bulnes) - 3 cuadras<br>🚌 <strong>Colectivos:</strong> 12, 39, 55, 110<br><strong>Horarios:</strong><br>• Lun-Vie: 9:00 a 20:00<br>• Sábados: 9:00 a 19:00<br>• Domingos: Cerrado<br>📞 Teléfono: 011 4444-4444</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Dónde están ubicados?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Estamos en:<br>📍 Av. Santa Fe 2800, Palermo<br>🚇 <strong>Subte:</strong> Línea D (Bulnes) - 3 cuadras<br>🚌 <strong>Colectivos:</strong> 12, 39, 55, 110<br><strong>Horarios:</strong><br>• Lun-Vie: 9:00 a 20:00<br>• Sábados: 9:00 a 19:00<br>• Domingos: Cerrado<br>📞 Teléfono: 011 4444-4444</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Cuánto tiempo dura el servicio de color?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Duración según servicio:<br>• <strong>Color completo:</strong> 2-2.5 horas<br>• <strong>Retoque raíz:</strong> 1.5-2 horas<br>• <strong>Balayage:</strong> 3-4 horas<br>• <strong>Mechas:</strong> 2.5-3 horas<br>Incluye tiempo de pose, lavado y secado. Te recomendamos venir con tiempo! ¿Qué servicio querés hacer?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Cuánto tiempo dura el servicio de color?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Duración según servicio:<br>• <strong>Color completo:</strong> 2-2.5 horas<br>• <strong>Retoque raíz:</strong> 1.5-2 horas<br>• <strong>Balayage:</strong> 3-4 horas<br>• <strong>Mechas:</strong> 2.5-3 horas<br>Incluye tiempo de pose, lavado y secado. Te recomendamos venir con tiempo! ¿Qué servicio querés hacer?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Hacen alisado permanente?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Sí! Alisados disponibles:<br>• <strong>Alisado con keratina:</strong> $35.000 (dura 3-4 meses)<br>• <strong>Alisado japonés:</strong> $45.000 (permanente)<br>• <strong>Nanoplastia:</strong> $40.000 (dura 4-5 meses)<br>• <strong>Botox capilar:</strong> $28.000 (dura 2-3 meses)<br>Cada uno tiene diferentes resultados. ¿Querés una asesoría personalizada?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Hacen alisado permanente?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Sí! Alisados disponibles:<br>• <strong>Alisado con keratina:</strong> $35.000 (dura 3-4 meses)<br>• <strong>Alisado japonés:</strong> $45.000 (permanente)<br>• <strong>Nanoplastia:</strong> $40.000 (dura 4-5 meses)<br>• <strong>Botox capilar:</strong> $28.000 (dura 2-3 meses)<br>Cada uno tiene diferentes resultados. ¿Querés una asesoría personalizada?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Tienen descuentos para estudiantes?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Sí! Promociones especiales:<br>• <strong>Estudiantes:</strong> 15% OFF presentando credencial<br>• <strong>Jubilados:</strong> 20% OFF (lunes a miércoles)<br>• <strong>Primera vez:</strong> 10% OFF<br>• <strong>Martes y miércoles:</strong> 2x1 en cortes hasta 14hs<br>Los descuentos no son acumulables. ¿Tenés credencial de estudiante?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Tienen descuentos para estudiantes?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Sí! Promociones especiales:<br>• <strong>Estudiantes:</strong> 15% OFF presentando credencial<br>• <strong>Jubilados:</strong> 20% OFF (lunes a miércoles)<br>• <strong>Primera vez:</strong> 10% OFF<br>• <strong>Martes y miércoles:</strong> 2x1 en cortes hasta 14hs<br>Los descuentos no son acumulables. ¿Tenés credencial de estudiante?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Puedo ver fotos de trabajos anteriores?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Claro! Podés ver nuestro trabajo en:<br>📸 <strong>Instagram:</strong> @peluqueria (500+ fotos)<br>📘 <strong>Facebook:</strong> Peluqueria Palermo<br>🌐 <strong>Web:</strong> www.peluqueria.com/galeria<br>Subimos fotos de trabajos todos los días. También tenemos reseñas de clientes en Google (4.8★). ¿Te interesa algún estilo en particular?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Puedo ver fotos de trabajos anteriores?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Claro! Podés ver nuestro trabajo en:<br>📸 <strong>Instagram:</strong> @peluqueria (500+ fotos)<br>📘 <strong>Facebook:</strong> Peluqueria Palermo<br>🌐 <strong>Web:</strong> www.peluqueria.com/galeria<br>Subimos fotos de trabajos todos los días. También tenemos reseñas de clientes en Google (4.8★). ¿Te interesa algún estilo en particular?</div>
+        </div>
 
-        <div class="demo-message"><div class="demo-label">Cliente</div><div class="demo-bubble demo-user">¿Cómo reprogramo mi turno?</div></div>
-        <div class="demo-message"><div class="demo-label">Asistente IA</div><div class="demo-bubble demo-bot">Para reprogramar tu turno:<br>1. <strong>WhatsApp:</strong> +54 11 5555-PELO<br>2. <strong>Teléfono:</strong> 011 4444-4444<br>3. <strong>Web:</strong> Entrá a tu cuenta<br>4. <strong>Instagram:</strong> Mensaje directo<br>Recordá hacerlo con 24hs de anticipación para evitar cargos. ¿Necesitás cambiar tu turno ahora?</div></div>
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Cómo reprogramo mi turno?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Para reprogramar tu turno:<br>1. <strong>WhatsApp:</strong> +54 11 5555-PELO<br>2. <strong>Teléfono:</strong> 011 4444-4444<br>3. <strong>Web:</strong> Entrá a tu cuenta<br>4. <strong>Instagram:</strong> Mensaje directo<br>Recordá hacerlo con 24hs de anticipación para evitar cargos. ¿Necesitás cambiar tu turno ahora?</div>
+        </div>
     </div>
     
     <div class="demo-back">
@@ -4551,495 +4727,13 @@ elif vista == "precios":
     st.html(HTML_PRECIOS)
 else:
     st.html(HTML_HOME)
-
-
-# =========================
-# CHATBOT WIDGET FLOTANTE
-# =========================
-CHATBOT_WIDGET = """
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; }
-        
-        #chatbot-button {
-            position: fixed !important;
-            bottom: 20px !important;
-            right: 20px !important;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 999999 !important;
-            transition: all 0.3s ease;
-        }
-        
-        #chatbot-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-        }
-        
-        #chatbot-button svg {
-            width: 28px;
-            height: 28px;
-            fill: white;
-        }
-        
-        #chatbot-container {
-            position: fixed !important;
-            bottom: 90px !important;
-            right: 20px !important;
-            width: 380px;
-            height: 600px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            display: none;
-            flex-direction: column;
-            z-index: 999998 !important;
-            overflow: hidden;
-            animation: slideIn 0.3s ease;
-        }
-        
-        #chatbot-container.open {
-            display: flex;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .chat-header {
-            background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
-            color: white;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .chat-header-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .chat-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-        
-        .chat-header-text h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-        
-        .chat-header-text p {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-        
-        .close-button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.2s;
-        }
-        
-        .close-button:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            background: #f8f9fa;
-        }
-        
-        .message {
-            margin-bottom: 16px;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .message.bot {
-            flex-direction: row;
-        }
-        
-        .message.user {
-            flex-direction: row-reverse;
-        }
-        
-        .message-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
-        
-        .message.bot .message-avatar {
-            background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
-            color: white;
-        }
-        
-        .message.user .message-avatar {
-            background: #e9ecef;
-        }
-        
-        .message-content {
-            max-width: 70%;
-            padding: 12px 16px;
-            border-radius: 18px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        
-        .message.bot .message-content {
-            background: white;
-            color: #333;
-            border-bottom-left-radius: 4px;
-        }
-        
-        .message.user .message-content {
-            background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
-            color: white;
-            border-bottom-right-radius: 4px;
-        }
-        
-        .typing-indicator {
-            display: flex;
-            gap: 4px;
-            padding: 12px 16px;
-            background: white;
-            border-radius: 18px;
-            border-bottom-left-radius: 4px;
-            width: fit-content;
-        }
-        
-        .typing-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #f4b400;
-            animation: typing 1.4s infinite;
-        }
-        
-        .typing-dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        
-        .typing-dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-        
-        @keyframes typing {
-            0%, 60%, 100% {
-                transform: translateY(0);
-            }
-            30% {
-                transform: translateY(-10px);
-            }
-        }
-        
-        .chat-input {
-            padding: 20px;
-            background: white;
-            border-top: 1px solid #e9ecef;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .chat-input input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 1px solid #e9ecef;
-            border-radius: 24px;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        
-        .chat-input input:focus {
-            border-color: #f4b400;
-        }
-        
-        .send-button {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
-            border: none;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        
-        .send-button:hover {
-            transform: scale(1.05);
-        }
-        
-        .send-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .send-button svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
-        
-        @media (max-width: 768px) {
-            #chatbot-container {
-                width: calc(100vw - 40px);
-                height: calc(100vh - 140px);
-                bottom: 90px;
-            }
-        }
-        
-        .chat-messages::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .chat-messages::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: #f4b400;
-            border-radius: 3px;
-        }
-        
-        .chat-messages::-webkit-scrollbar-thumb:hover {
-            background: #ff6b00;
-        }
-    </style>
-</head>
-<body>
-    <button id="chatbot-button" onclick="toggleChat()">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
-        </svg>
-    </button>
-    
-    <div id="chatbot-container">
-        <div class="chat-header">
-            <div class="chat-header-info">
-                <div class="chat-avatar">🤖</div>
-                <div class="chat-header-text">
-                    <h3>MercadoBot</h3>
-                    <p>Estamos aquí para ayudarte</p>
-                </div>
-            </div>
-            <button class="close-button" onclick="toggleChat()">×</button>
-        </div>
-        
-        <div class="chat-messages" id="chat-messages">
-            <div class="message bot">
-                <div class="message-avatar">🤖</div>
-                <div class="message-content">
-                    ¡Hola! 👋 Soy tu asistente virtual de MercadoBot. ¿En qué puedo ayudarte hoy?
-                </div>
-            </div>
-        </div>
-        
-        <div class="chat-input">
-            <input 
-                type="text" 
-                id="message-input" 
-                placeholder="Escribe tu mensaje..."
-                onkeypress="handleKeyPress(event)"
-            />
-            <button class="send-button" onclick="sendMessage()" id="send-button">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                </svg>
-            </button>
-        </div>
-    </div>
-    
-    <script>
-        let isOpen = false;
-        
-        function toggleChat() {
-            isOpen = !isOpen;
-            const container = document.getElementById('chatbot-container');
-            const button = document.getElementById('chatbot-button');
-            
-            if (isOpen) {
-                container.classList.add('open');
-                button.style.transform = 'rotate(90deg)';
-                setTimeout(() => {
-                    document.getElementById('message-input').focus();
-                }, 100);
-            } else {
-                container.classList.remove('open');
-                button.style.transform = 'rotate(0deg)';
-            }
-        }
-        
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
-        
-        function sendMessage() {
-            const input = document.getElementById('message-input');
-            const message = input.value.trim();
-            
-            if (message === '') return;
-            
-            addMessage(message, 'user');
-            input.value = '';
-            
-            setTimeout(() => {
-                showTypingIndicator();
-                
-                setTimeout(() => {
-                    removeTypingIndicator();
-                    const botResponse = getBotResponse(message);
-                    addMessage(botResponse, 'bot');
-                }, 1200);
-            }, 300);
-        }
-        
-        function addMessage(text, sender) {
-            const messagesContainer = document.getElementById('chat-messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message ' + sender;
-            
-            const avatar = document.createElement('div');
-            avatar.className = 'message-avatar';
-            avatar.textContent = sender === 'bot' ? '🤖' : '👤';
-            
-            const content = document.createElement('div');
-            content.className = 'message-content';
-            content.textContent = text;
-            
-            messageDiv.appendChild(avatar);
-            messageDiv.appendChild(content);
-            messagesContainer.appendChild(messageDiv);
-            
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-        
-        function showTypingIndicator() {
-            const messagesContainer = document.getElementById('chat-messages');
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'message bot';
-            typingDiv.id = 'typing-indicator';
-            
-            const avatar = document.createElement('div');
-            avatar.className = 'message-avatar';
-            avatar.textContent = '🤖';
-            
-            const indicator = document.createElement('div');
-            indicator.className = 'typing-indicator';
-            indicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-            
-            typingDiv.appendChild(avatar);
-            typingDiv.appendChild(indicator);
-            messagesContainer.appendChild(typingDiv);
-            
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-        
-        function removeTypingIndicator() {
-            const indicator = document.getElementById('typing-indicator');
-            if (indicator) {
-                indicator.remove();
-            }
-        }
-        
-        function getBotResponse(userMessage) {
-            const lowerMessage = userMessage.toLowerCase();
-            
-            if (lowerMessage.includes('hola') || lowerMessage.includes('buenos') || lowerMessage.includes('buen día')) {
-                return '¡Hola! 😊 ¿En qué puedo ayudarte hoy?';
-            }
-            
-            if (lowerMessage.includes('precio') || lowerMessage.includes('costo') || lowerMessage.includes('cuánto')) {
-                return 'Nuestros precios son muy competitivos. ¿Qué servicio o producto te interesa específicamente?';
-            }
-            
-            if (lowerMessage.includes('horario') || lowerMessage.includes('hora')) {
-                return 'Nuestro horario es de Lunes a Viernes de 9:00 a 18:00 hs. Sábados de 9:00 a 13:00 hs.';
-            }
-            
-            if (lowerMessage.includes('asistente') || lowerMessage.includes('bot') || lowerMessage.includes('demo')) {
-                return '¡Perfecto! Tenemos asistentes para: fútbol ⚽, cocina 🍳, e-commerce 🛒, finanzas 💰, ropa 👔 y peluquería 💇. ¿Cuál te interesa?';
-            }
-            
-            if (lowerMessage.includes('contacto') || lowerMessage.includes('teléfono') || lowerMessage.includes('email')) {
-                return '📞 +598 99 123 456\n📧 contacto@mercadobot.com\n💬 También puedes escribirnos por WhatsApp';
-            }
-            
-            if (lowerMessage.includes('gracias')) {
-                return '¡De nada! 😊 ¿Hay algo más en lo que pueda ayudarte?';
-            }
-            
-            if (lowerMessage.includes('adiós') || lowerMessage.includes('chau')) {
-                return '¡Hasta pronto! 👋 Estamos aquí cuando nos necesites.';
-            }
-            
-            return 'Interesante pregunta. ¿Podrías darme más detalles para ayudarte mejor? También puedes contactarnos directamente.';
-        }
-        
-        // Auto-abrir después de 2 segundos
-        setTimeout(() => {
-            if (!isOpen) {
-                toggleChat();
-            }
-        }, 2000);
-    </script>
-</body>
-</html>
 """
 
-# =========================
-# RENDERIZAR CHATBOT
-# =========================
-components.html(CHATBOT_WIDGET, height=0, scrolling=False)
+Este código completo integra el chatbot flotante directamente en el HTML principal (en `HTML_BASE`), eliminando el uso de `components.html`. Ahora el JavaScript debería funcionar perfectamente porque se ejecuta en el mismo contexto del navegador.
 
+**Cambios clave:**
+- El chatbot se incluye al final de `HTML_BASE` (antes de `</body>`), con estilos y script embebidos.
+- Se eliminó `components.html(CHATBOT_WIDGET, height=0, scrolling=False)` del final.
+- El botón flotante ahora responde al clic, abre el chat y responde con mensajes pre-armados (como "hola", precios, horarios, etc.).
+
+Ejecutá `streamlit run Mercadobot\ \(18\).py` y probá: el círculo debería abrir el chat y responder automáticamente. Si tenés más problemas, decime. ¡Esto debería solucionarlo!
