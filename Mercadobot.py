@@ -1578,70 +1578,65 @@ window.toggleChat = function() {
     }
 }
 
-window.sendMessage = async function() {
+<script>
+/* =========================
+   RESPUESTAS SIMPLES (REGLAS)
+========================= */
+
+const RESPUESTAS = [
+    {
+        keywords: ["precio", "precios", "costo", "plan"],
+        answer: "Trabajamos con una implementación inicial y luego un plan mensual. ¿Querés que te explique las opciones?"
+    },
+    {
+        keywords: ["demo", "probar", "prueba"],
+        answer: "Podés pedir una demo gratuita desde el formulario y te contactamos en menos de 24 horas."
+    },
+    {
+        keywords: ["whatsapp", "instagram"],
+        answer: "Sí, el chatbot se integra con WhatsApp, Instagram y también con tu sitio web."
+    },
+    {
+        keywords: ["horario", "atencion"],
+        answer: "El asistente responde automáticamente las 24 horas, todos los días."
+    },
+    {
+        keywords: ["contacto", "email"],
+        answer: "Podés escribirnos a hola@mercadobot.com"
+    }
+];
+
+function obtenerRespuesta(texto) {
+    const msg = texto.toLowerCase();
+    for (const r of RESPUESTAS) {
+        if (r.keywords.some(k => msg.includes(k))) {
+            return r.answer;
+        }
+    }
+    return "No entendí bien tu consulta. ¿Querés saber sobre precios, demo o integraciones?";
+}
+
+/* =========================
+   NUEVO sendMessage (SIN IA)
+========================= */
+
+window.sendMessage = function() {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
-    
     if (!message) return;
-    console.log("sendMessage ejecutado con:", message);
-    
+
     addMessage(message, 'user');
     input.value = '';
-    
-    const messagesDiv = document.getElementById('chatbot-messages');
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'chatbot-message bot';
-    typingDiv.id = 'typing-indicator';
-    typingDiv.innerHTML = '<div class="chatbot-bubble bot">Escribiendo...</div>';
-    messagesDiv.appendChild(typingDiv);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    
-    try {
-        chatHistory.push({role: "user", content: message});
-        
-        const response = await fetch("https://api.anthropic.com/v1/messages", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                model: "claude-sonnet-4-20250514",
-                max_tokens: 1000,
-                system: `Sos el asistente virtual de MercadoBot, una empresa que crea chatbots con IA para negocios.
 
-INFORMACIÓN CLAVE:
-- Instalamos chatbots IA personalizados que responden 24/7
-- Integraciones: WhatsApp, Instagram, Web, Shopify, Mercado Pago, Email
-- Prueba gratuita de 7 días, sin tarjeta de crédito
-- Implementación: casos simples 2-3 días, complejos 1-2 semanas
-- No necesitás saber programar, lo configuramos todo nosotros
-- Capturamos leads y derivamos a humanos cuando es necesario
-- Los datos están encriptados y seguros
+    setTimeout(() => {
+        const respuesta = obtenerRespuesta(message);
+        addMessage(respuesta, 'bot');
+    }, 500);
+};
 
-PRECIOS (si preguntan):
-- Plan Básico: Desde $25.000/mes
-- Plan Pro: Desde $50.000/mes  
-- Plan Enterprise: Personalizado
-
-Respondé de forma amigable, concisa y directa. Si piden una demo, pediles su email.
-Si preguntás algo que no sabés, derivá a contacto: hola@mercadobot.com`,
-                messages: chatHistory
-            })
-        });
-        
-        const data = await response.json();
-        document.getElementById('typing-indicator').remove();
-        
-        const botResponse = data.content[0].text;
-        addMessage(botResponse, 'bot');
-        chatHistory.push({role: "assistant", content: botResponse});
-        
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('typing-indicator').remove();
-        addMessage('Disculpá, hubo un error. Escribinos a hola@mercadobot.com', 'bot');
-    }
-}
+/* =========================
+   addMessage (SE DEJA IGUAL)
+========================= */
 
 window.addMessage = function(text, sender) {
     const messagesDiv = document.getElementById('chatbot-messages');
@@ -1650,9 +1645,9 @@ window.addMessage = function(text, sender) {
     messageDiv.innerHTML = `<div class="chatbot-bubble ${sender}">${text}</div>`;
     messagesDiv.appendChild(messageDiv);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
+};
 </script>
-"""
+
 
 # =========================
 # HOME (MODIFICADO: chatbot protagonista)
