@@ -22,15 +22,8 @@ def _qp_get(key: str, default: str = "") -> str:
 if _qp_get("api") == "chat":
     msg = _qp_get("msg", "")
     if msg:
-        try:
-            respuesta = get_chatbot_response(msg)
-            respuesta_str = str(respuesta) if respuesta else "Error: No se pudo generar respuesta"
-            # NO usar html.escape para evitar problemas de codificación
-            st.markdown(f'<div id="mbot-response" style="display:none;">{respuesta_str}</div>', unsafe_allow_html=True)
-        except Exception as e:
-            st.markdown(f'<div id="mbot-response" style="display:none;">Error interno: {str(e)}</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div id="mbot-response" style="display:none;">Error: mensaje vacío</div>', unsafe_allow_html=True)
+        respuesta = get_chatbot_response(msg)
+        st.markdown(f'<pre id="mbot-response" style="display:none;">{respuesta}</pre>', unsafe_allow_html=True)
     st.stop()
 
 # =========================
@@ -5222,3 +5215,4 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
 
 # Footer + Chatbot juntos con components.html (para que funcione JS)
 components.html(FOOTER_CHATBOT, height=550)
+
