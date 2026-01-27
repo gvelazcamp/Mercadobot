@@ -4875,10 +4875,30 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
 """
 
 # =========================
-# RENDER - st.html() para página + iframe flotante para chatbot
+# RENDER
 # =========================
+
+# 1. Primero el chatbot flotante (components.html para JS)
+# Usamos un div contenedor con position fixed para sacarlo del flujo
+st.markdown("""
+<style>
+/* Hacer que el iframe del chatbot no ocupe espacio y flote */
+[data-testid="stHtml"] + div[data-testid="element-container"] iframe,
+div[data-testid="element-container"]:last-of-type iframe {
+    position: fixed !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    width: 420px !important;
+    height: 600px !important;
+    z-index: 999999 !important;
+    border: none !important;
+    background: transparent !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# 2. Página principal con st.html
 if vista == "demo":
-    # Obtener el tipo de asistente del query param
     try:
         asistente = st.query_params.get("asistente", "futbol")
     except:
@@ -4906,32 +4926,7 @@ elif vista == "precios":
     st.html(HTML_PRECIOS)
 
 else:
-    # Vista por defecto: home
     st.html(HTML_HOME)
 
-# CHATBOT FLOTANTE - Inyectado como iframe con position fixed
-import html
-chatbot_escaped = html.escape(CHATBOT_WIDGET)
-st.markdown(f'''
-<style>
-.chatbot-iframe-container {{
-    position: fixed !important;
-    bottom: 0 !important;
-    right: 0 !important;
-    width: 450px !important;
-    height: 620px !important;
-    z-index: 999999 !important;
-    pointer-events: none;
-}}
-.chatbot-iframe-container iframe {{
-    width: 100% !important;
-    height: 100% !important;
-    border: none !important;
-    background: transparent !important;
-    pointer-events: auto;
-}}
-</style>
-<div class="chatbot-iframe-container">
-    <iframe srcdoc="{chatbot_escaped}" scrolling="no"></iframe>
-</div>
-''', unsafe_allow_html=True)
+# 3. Chatbot con components.html (para que funcione JS)
+components.html(CHATBOT_WIDGET, height=600)
