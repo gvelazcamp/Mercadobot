@@ -4644,4 +4644,23 @@ function send(){var i=document.getElementById('in'),msg=i.value.trim();if(!msg)r
 </html>
 """
 
-components.html(CHATBOT, height=0)
+# CSS para que el iframe del chatbot no ocupe espacio visual
+st.markdown("""
+<style>
+iframe[height="600"] {
+    position: fixed !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    border: none !important;
+    pointer-events: none !important;
+    z-index: 999999 !important;
+}
+iframe[height="600"] * {
+    pointer-events: auto !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+components.html(CHATBOT, height=600)
