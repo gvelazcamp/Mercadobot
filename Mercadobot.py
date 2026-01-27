@@ -54,19 +54,7 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True
-)
-
-# =========================
-# VISTA
-# =========================
-try:
-    vista = st.query_params.get("vista", "home")
-except Exception:
-    qp = st.experimental_get_query_params()
-    vista = qp.get("vista", ["home"])[0]
-
-BASE_URL = "https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/"
-
+    
 # =========================
 # HTML COMPLETO
 # =========================
@@ -4398,5 +4386,6 @@ components.html(
     height=900,
     scrolling=False
 )
+
 
 
