@@ -33,10 +33,37 @@ st.markdown(
     [data-testid="stDecoration"],
     [data-testid="stStatusWidget"],
     button[data-testid="manage-app-button"],
-    ._terminalButton_rix23_138 {
+    ._terminalButton_rix23_138,
+    button[class*="terminalButton"],
+    button[class*="Terminal"],
+    div[class*="terminal"] button,
+    div[class*="stBottom"] button,
+    [class*="bottom"] button svg,
+    button:has(path[d*="L6.00016 12L7.41016"]) {
         display: none !important;
         visibility: hidden !important;
         height: 0 !important;
+        width: 0 !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+    
+    /* NO ocultar nuestro chatbot */
+    #chatbot-widget,
+    #chatbot-widget *,
+    #chatbot-button,
+    #chatbot-window {
+        display: revert !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+    
+    /* Ocultar TODA la barra inferior de Streamlit */
+    div[data-testid="stBottom"],
+    .stBottom,
+    [class*="BottomContainer"] {
+        display: none !important;
     }
 
     /* Eliminar scroll horizontal */
@@ -54,6 +81,30 @@ st.markdown(
         padding: 0 !important;
     }
     </style>
+    
+    <script>
+    // Eliminar botón "Manage app" por la fuerza
+    setInterval(function() {
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(btn => {
+            if (btn.textContent.includes('Manage app') || 
+                btn.textContent.includes('manage') ||
+                btn.classList.toString().includes('terminal') ||
+                btn.classList.toString().includes('Terminal')) {
+                btn.style.display = 'none';
+                btn.style.visibility = 'hidden';
+                btn.remove();
+            }
+        });
+        
+        // También buscar por data-testid
+        const manageBtn = document.querySelector('[data-testid="manage-app-button"]');
+        if (manageBtn) {
+            manageBtn.style.display = 'none';
+            manageBtn.remove();
+        }
+    }, 100);
+    </script>
     """,
     unsafe_allow_html=True
 )
