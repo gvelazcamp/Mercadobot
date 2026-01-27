@@ -1627,30 +1627,53 @@ HEADER = """
     </div>
 """
 
-# FOOTER SIN CHATBOT (para st.html)
+# FOOTER SIN CIERRE (para st.html) - el body/html se cierra en FOOTER_CHATBOT
 FOOTER = """
-    <div class="footer">
-        <div>Política de privacidad · Términos y condiciones · Contacto</div>
-        <div>Facebook · Twitter · LinkedIn</div>
+    <div class="footer" style="display: none;">
     </div>
 </div>
 </body>
 </html>
 """
 
-# CHATBOT FLOTANTE SEPARADO (para components.html)
-CHATBOT_WIDGET = """
+# FOOTER + CHATBOT JUNTOS (para components.html)
+FOOTER_CHATBOT = """
 <!DOCTYPE html>
 <html>
 <head>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: transparent !important; overflow: hidden; }
+body { 
+    background: #f6f7fb !important; 
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 5%;
+    background: #f6f7fb;
+    min-height: 60px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.footer-links div {
+    display: flex;
+    gap: 20px;
+}
 
 #chatbot-button {
-    position: absolute !important;
-    bottom: 10px !important;
-    right: 10px !important;
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
     width: 64px;
     height: 64px;
     border-radius: 50%;
@@ -1677,9 +1700,9 @@ body { background: transparent !important; overflow: hidden; }
 }
 
 #chatbot-container {
-    position: absolute !important;
-    top: 10px !important;
-    right: 10px !important;
+    position: fixed !important;
+    bottom: 100px !important;
+    right: 20px !important;
     width: 380px;
     height: 480px;
     background: white;
@@ -1786,7 +1809,6 @@ body { background: transparent !important; overflow: hidden; }
     border-radius: 16px;
     font-size: 14px;
     line-height: 1.4;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .message.bot .message-content {
@@ -1814,7 +1836,6 @@ body { background: transparent !important; overflow: hidden; }
     border-radius: 24px;
     font-size: 14px;
     outline: none;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .chat-input input:focus {
@@ -1863,18 +1884,16 @@ body { background: transparent !important; overflow: hidden; }
     0%, 60%, 100% { transform: translateY(0); }
     30% { transform: translateY(-6px); }
 }
-
-@media (max-width: 500px) {
-    #chatbot-container {
-        width: calc(100vw - 40px);
-        height: 450px;
-        right: 20px !important;
-        bottom: 90px !important;
-    }
-}
 </style>
 </head>
 <body>
+
+<div class="footer-container">
+    <div class="footer-links">
+        <div>Política de privacidad · Términos y condiciones · Contacto</div>
+        <div>Facebook · Twitter · LinkedIn</div>
+    </div>
+</div>
 
 <button id="chatbot-button" onclick="toggleChat()" title="Abrir chat">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -4878,31 +4897,9 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
 # RENDER
 # =========================
 
-# 1. CSS para hacer el iframe del chatbot flotante y subirlo
-st.markdown("""
-<style>
-/* Subir el contenedor del chatbot con margin negativo */
-div[data-testid="element-container"]:has(iframe[height="550"]) {
-    margin-top: -600px !important;
-    position: relative !important;
-    float: right !important;
-    width: 420px !important;
-    height: 550px !important;
-    z-index: 999999 !important;
-    background: transparent !important;
-    pointer-events: none;
-}
-div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
-    width: 420px !important;
-    height: 550px !important;
-    border: none !important;
-    background: transparent !important;
-    pointer-events: auto;
-}
-</style>
-""", unsafe_allow_html=True)
+# SIN CSS EXTRA - el footer+chatbot van juntos
 
-# 2. Página principal con st.html
+# Página principal con st.html
 if vista == "demo":
     try:
         asistente = st.query_params.get("asistente", "futbol")
@@ -4933,5 +4930,5 @@ elif vista == "precios":
 else:
     st.html(HTML_HOME)
 
-# 3. Chatbot con components.html (para que funcione JS)
-components.html(CHATBOT_WIDGET, height=550)
+# Footer + Chatbot juntos con components.html (para que funcione JS)
+components.html(FOOTER_CHATBOT, height=100)
