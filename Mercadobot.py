@@ -23,8 +23,10 @@ if _qp_get("api") == "chat":
     msg = _qp_get("msg", "")
     if msg:
         respuesta = get_chatbot_response(msg)
-        # Marcar con un delimitador único
-        st.markdown(f'<!--CHATBOT_START-->{respuesta}<!--CHATBOT_END-->', unsafe_allow_html=True)
+        # Devolver solo HTML limpio con la respuesta
+        st.components.v1.html(f"""
+        <html><body><div id="chatbot-response">{respuesta}</div></body></html>
+        """, height=0)
     st.stop()
 
 # =========================
@@ -2210,26 +2212,24 @@ function sendMessage() {
                 })
                 .then(html => {
                     try {
-                        // Buscar la respuesta entre los delimitadores
-                        const startMarker = '<!--CHATBOT_START-->';
-                        const endMarker = '<!--CHATBOT_END-->';
-                        const startIndex = html.indexOf(startMarker);
-                        const endIndex = html.indexOf(endMarker);
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const responseDiv = doc.querySelector('#chatbot-response');
                         
-                        if (startIndex !== -1 && endIndex !== -1) {
-                            const response = html.substring(startIndex + startMarker.length, endIndex).trim();
+                        if (responseDiv) {
+                            const response = responseDiv.innerHTML.trim();
                             if (response && response.length > 0) {
                                 addMessage(response, 'bot');
                             } else {
-                                addMessage('⚠️ Error: respuesta vacía del servidor.', 'bot');
+                                addMessage('⚠️ Respuesta vacía.', 'bot');
                             }
                         } else {
-                            console.error('No se encontraron los delimitadores de respuesta');
-                            addMessage('⚠️ Error: no pude leer la respuesta del servidor.', 'bot');
+                            console.error('HTML recibido:', html.substring(0, 500));
+                            addMessage('⚠️ Error: no pude leer la respuesta.', 'bot');
                         }
                     } catch (e) {
-                        console.error("Parse error:", e);
-                        addMessage('⚠️ Error: no pude procesar la respuesta del servidor.', 'bot');
+                        console.error("Error:", e);
+                        addMessage('⚠️ Error al procesar respuesta.', 'bot');
                     }
                 })
                 .catch(err => {
