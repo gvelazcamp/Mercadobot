@@ -22,11 +22,10 @@ def _qp_get(key: str, default: str = "") -> str:
 if _qp_get("api") == "chat":
     msg = _qp_get("msg", "")
     if msg:
+        from chatbot_responses import get_chatbot_response
         respuesta = get_chatbot_response(msg)
-        # Devolver solo HTML limpio con la respuesta
-        st.components.v1.html(f"""
-        <html><body><div id="chatbot-response">{respuesta}</div></body></html>
-        """, height=0)
+        # Escribir SOLO la respuesta como texto plano
+        st.text(respuesta)
     st.stop()
 
 # =========================
@@ -2212,24 +2211,29 @@ function sendMessage() {
                 })
                 .then(html => {
                     try {
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-                        const responseDiv = doc.querySelector('#chatbot-response');
+                        // Buscar el texto después de que Streamlit renderiza
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = html;
                         
-                        if (responseDiv) {
-                            const response = responseDiv.innerHTML.trim();
-                            if (response && response.length > 0) {
-                                addMessage(response, 'bot');
-                            } else {
-                                addMessage('⚠️ Respuesta vacía.', 'bot');
-                            }
+                        // Buscar cualquier <pre> o <div> que tenga nuestra respuesta
+                        const allText = tempDiv.textContent || tempDiv.innerText || '';
+                        
+                        // Nuestra respuesta siempre empieza con ¡ o tiene emojis
+                        const match = allText.match(/¡Hola![\s\S]*?demo|Nuestros planes[\s\S]*?gratis|Hmm, no tengo[\s\S]*?específicas/);
+                        
+                        if (match) {
+                            // Limpiar el texto extraído
+                            let response = match[0].trim();
+                            // Convertir <br> en saltos de línea si están como texto
+                            response = response.replace(/<br>/g, '\n');
+                            addMessage(response, 'bot');
                         } else {
-                            console.error('HTML recibido:', html.substring(0, 500));
-                            addMessage('⚠️ Error: no pude leer la respuesta.', 'bot');
+                            console.log('Texto completo:', allText.substring(0, 1000));
+                            addMessage('⚠️ No encontré la respuesta en el HTML.', 'bot');
                         }
                     } catch (e) {
                         console.error("Error:", e);
-                        addMessage('⚠️ Error al procesar respuesta.', 'bot');
+                        addMessage('⚠️ Error al procesar.', 'bot');
                     }
                 })
                 .catch(err => {
