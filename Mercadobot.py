@@ -4882,7 +4882,7 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
 st.markdown("""
 <style>
 /* Hacer que el iframe del chatbot flote */
-div[data-testid="element-container"]:has(iframe[height="1"]) {
+div[data-testid="element-container"]:has(iframe[height="550"]) {
     position: fixed !important;
     bottom: 20px !important;
     right: 20px !important;
@@ -4891,7 +4891,7 @@ div[data-testid="element-container"]:has(iframe[height="1"]) {
     z-index: 999999 !important;
     overflow: visible !important;
 }
-div[data-testid="element-container"]:has(iframe[height="1"]) iframe {
+div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
     width: 420px !important;
     height: 550px !important;
     border: none !important;
@@ -4933,4 +4933,4 @@ else:
     st.html(HTML_HOME)
 
 # 3. Chatbot con components.html (para que funcione JS)
-components.html(CHATBOT_WIDGET, height=1)
+components.html(CHATBOT_WIDGET, height=550)
