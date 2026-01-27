@@ -1762,7 +1762,7 @@ body {
 }
 
 #chatbot-button {
-    position: fixed !important;
+    position: absolute !important;
     bottom: 20px !important;
     right: 20px !important;
     width: 64px;
@@ -1791,11 +1791,11 @@ body {
 }
 
 #chatbot-container {
-    position: fixed !important;
-    bottom: 100px !important;
+    position: absolute !important;
+    bottom: 90px !important;
     right: 20px !important;
     width: 380px;
-    height: 480px;
+    height: 450px;
     background: white;
     border-radius: 20px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.25);
@@ -5054,5 +5054,17 @@ elif vista == "precios":
 else:
     st.html(HTML_HOME)
 
+# CSS para que el chatbot pueda salirse del iframe
+st.markdown("""
+<style>
+div[data-testid="element-container"]:has(iframe[height="600"]) {
+    overflow: visible !important;
+}
+div[data-testid="element-container"]:has(iframe[height="600"]) iframe {
+    overflow: visible !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Footer + Chatbot juntos con components.html (para que funcione JS)
-components.html(FOOTER_CHATBOT, height=280)
+components.html(FOOTER_CHATBOT, height=600)
