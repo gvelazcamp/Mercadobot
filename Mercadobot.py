@@ -31,7 +31,9 @@ st.markdown(
     #MainMenu,
     [data-testid="stToolbar"],
     [data-testid="stDecoration"],
-    [data-testid="stStatusWidget"] {
+    [data-testid="stStatusWidget"],
+    button[data-testid="manage-app-button"],
+    ._terminalButton_rix23_138 {
         display: none !important;
         visibility: hidden !important;
         height: 0 !important;
@@ -1334,8 +1336,15 @@ HEADER = """
 
 FOOTER = """
     <div class="footer">
-        <div>Política de privacidad · Términos y condiciones · Contacto</div>
-        <div>Facebook · Twitter · LinkedIn</div>
+        <div>
+            © 2026 MercadoBot. Todos los derechos reservados.<br>
+            📧 hola@mercadobot.com · 📞 +54 11 5555-CHAT
+        </div>
+        <div>
+            <a href="?vista=home" style="color: #888; text-decoration: none;">Inicio</a> · 
+            <a href="?vista=precios" style="color: #888; text-decoration: none;">Precios</a> · 
+            <a href="?vista=home#soporte" style="color: #888; text-decoration: none;">Contacto</a>
+        </div>
     </div>
 </div>
 </body>
@@ -1556,25 +1565,50 @@ CHATBOT_WIDGET = """
 </style>
 
 <script>
-let chatHistory = [];
+const responses = {
+    'hola': '¡Hola! 👋 Bienvenido a MercadoBot. ¿En qué puedo ayudarte?<br><br>Podés preguntarme sobre:<br>• Precios y planes<br>• Integraciones<br>• Cómo funciona<br>• Agendar demo',
+    'precio': 'Nuestros planes:<br><br>💰 <strong>Implementación inicial:</strong> Desde US$ 300 (pago único)<br>Dejamos tu asistente funcionando<br><br>💎 <strong>Pro mensual:</strong> US$ 120/mes<br>Mantenimiento y evolución continua<br><br>🚀 <strong>Enterprise:</strong> A medida/mes<br>IA integrada a tu empresa<br><br>¿Querés más detalles?',
+    'costo': 'Tenemos 3 opciones:<br><br>1️⃣ <strong>Implementación inicial:</strong> US$ 300 (pago único)<br>2️⃣ <strong>Pro mensual:</strong> US$ 120/mes<br>3️⃣ <strong>Enterprise:</strong> A medida<br><br>El Pro requiere la implementación previa. ¿Te interesa alguno?',
+    'cuanto': 'Para empezar:<br>• <strong>Implementación:</strong> US$ 300 (pago único)<br>• <strong>Plan Pro:</strong> US$ 120/mes<br><br>Total primer mes: US$ 420<br>Meses siguientes: US$ 120/mes',
+    'implementacion': '<strong>Implementación inicial</strong> - US$ 300:<br><br>✅ Creación del asistente IA<br>✅ Conexión a base de datos<br>✅ Configuración de preguntas<br>✅ Instalación en web<br>✅ Ajustes iniciales<br>✅ Soporte de arranque',
+    'pro': '<strong>Plan Pro</strong> - US$ 120/mes:<br><br>✅ Asistentes entrenados<br>✅ Interpretación avanzada<br>✅ Ajustes mensuales<br>✅ Reportes de uso<br>✅ Soporte prioritario<br><br>Requiere implementación previa.',
+    'enterprise': '<strong>Enterprise</strong> - A medida:<br><br>✅ Asistentes ilimitados<br>✅ Multi-sitio<br>✅ Integraciones ERP/CRM<br>✅ SLA y soporte dedicado<br>✅ Seguridad y escalabilidad<br><br>Escribinos para cotización.',
+    'whatsapp': '¡Sí! Integramos con:<br><br>✅ WhatsApp<br>✅ Instagram<br>✅ Web<br>✅ Shopify<br>✅ Mercado Pago<br>✅ Email<br><br>¿Cuál te interesa?',
+    'integra': 'Integramos con WhatsApp, Instagram, web, Shopify, Mercado Pago, Email y más. Enterprise incluye ERP/CRM. ¿Qué plataforma usás?',
+    'instagram': '¡Sí! Conectamos con Instagram Direct. Responde automáticamente 24/7. Incluido en todos los planes.',
+    'funciona': 'En 3 pasos:<br><br>🔌 <strong>1. Conectás</strong> tus datos<br>🧠 <strong>2. Entrenás</strong> al asistente<br>🚀 <strong>3. Lanzás</strong> y empieza a atender<br><br>Implementación: 2-3 días.',
+    'demo': '¡Perfecto! Contactanos:<br><br>📧 <strong>hola@mercadobot.com</strong><br>💬 <strong>+54 11 5555-CHAT</strong><br><br>Te respondemos en 24hs.',
+    'contacto': 'Contactanos por:<br><br>📧 hola@mercadobot.com<br>💬 +54 11 5555-CHAT<br>🤖 Este chat!<br><br>Respondemos en 24hs.',
+    'cancelar': 'Cancelás cuando quieras:<br><br>✅ Sin permanencia<br>✅ Sin penalizaciones<br>✅ Simple y rápido',
+    'programa': '¡NO necesitás programar! 🎉<br><br>Nosotros:<br>• Instalamos todo<br>• Entrenamos el bot<br>• Integramos tus sistemas<br>• Damos soporte<br><br>Vos solo pasás la info!',
+    'tiempo': 'Tiempos:<br><br>⚡ <strong>Simple:</strong> 2-3 días<br>🔧 <strong>Complejo:</strong> 1-2 semanas',
+    'seguro': 'Tu información 100% protegida:<br><br>🔒 Encriptación<br>🛡️ Servidores seguros<br>✅ Normativas cumplidas<br><br>Enterprise incluye SLA.',
+    'buenos': '¡Hola! 👋 ¿En qué puedo ayudarte?',
+    'buenas': '¡Buenas! 👋 ¿Qué querés saber?',
+    'ayuda': 'Puedo ayudarte con:<br><br>💰 Precios (US$ 300 + US$ 120/mes)<br>🔌 Integraciones<br>⚙️ Cómo funciona<br>📅 Agendar demo',
+    'gracias': '¡De nada! 😊 ¿Algo más?',
+    'chau': '¡Hasta pronto! 👋 Estoy 24/7 aquí',
+    'adios': '¡Nos vemos! 💬',
+    'default': 'No tengo info específica sobre eso 🤔<br><br>Puedo ayudarte con:<br>• Precios<br>• Integraciones<br>• Cómo funciona<br><br>O escribí a <strong>hola@mercadobot.com</strong>'
+};
 
 function toggleChat() {
-    const window = document.getElementById('chatbot-window');
+    const chatWindow = document.getElementById('chatbot-window');
     const icon = document.getElementById('chatbot-icon');
     const close = document.getElementById('chatbot-close');
     
-    if (window.style.display === 'none') {
-        window.style.display = 'flex';
+    if (chatWindow.style.display === 'none' || !chatWindow.style.display) {
+        chatWindow.style.display = 'flex';
         icon.style.display = 'none';
         close.style.display = 'block';
     } else {
-        window.style.display = 'none';
+        chatWindow.style.display = 'none';
         icon.style.display = 'block';
         close.style.display = 'none';
     }
 }
 
-async function sendMessage() {
+function sendMessage() {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
     
@@ -1583,59 +1617,22 @@ async function sendMessage() {
     addMessage(message, 'user');
     input.value = '';
     
-    const messagesDiv = document.getElementById('chatbot-messages');
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'chatbot-message bot';
-    typingDiv.id = 'typing-indicator';
-    typingDiv.innerHTML = '<div class="chatbot-bubble bot">Escribiendo...</div>';
-    messagesDiv.appendChild(typingDiv);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    setTimeout(() => {
+        const response = getBotResponse(message);
+        addMessage(response, 'bot');
+    }, 600);
+}
+
+function getBotResponse(message) {
+    const lowerMessage = message.toLowerCase();
     
-    try {
-        chatHistory.push({role: "user", content: message});
-        
-        const response = await fetch("https://api.anthropic.com/v1/messages", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                model: "claude-sonnet-4-20250514",
-                max_tokens: 1000,
-                system: `Sos el asistente virtual de MercadoBot, una empresa que crea chatbots con IA para negocios.
-
-INFORMACIÓN CLAVE:
-- Instalamos chatbots IA personalizados que responden 24/7
-- Integraciones: WhatsApp, Instagram, Web, Shopify, Mercado Pago, Email
-- Prueba gratuita de 7 días, sin tarjeta de crédito
-- Implementación: casos simples 2-3 días, complejos 1-2 semanas
-- No necesitás saber programar, lo configuramos todo nosotros
-- Capturamos leads y derivamos a humanos cuando es necesario
-- Los datos están encriptados y seguros
-
-PRECIOS (si preguntan):
-- Plan Básico: Desde $25.000/mes
-- Plan Pro: Desde $50.000/mes  
-- Plan Enterprise: Personalizado
-
-Respondé de forma amigable, concisa y directa. Si piden una demo, pediles su email.
-Si preguntás algo que no sabés, derivá a contacto: hola@mercadobot.com`,
-                messages: chatHistory
-            })
-        });
-        
-        const data = await response.json();
-        document.getElementById('typing-indicator').remove();
-        
-        const botResponse = data.content[0].text;
-        addMessage(botResponse, 'bot');
-        chatHistory.push({role: "assistant", content: botResponse});
-        
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('typing-indicator').remove();
-        addMessage('Disculpá, hubo un error. Escribinos a hola@mercadobot.com', 'bot');
+    for (const [keyword, response] of Object.entries(responses)) {
+        if (lowerMessage.includes(keyword)) {
+            return response;
+        }
     }
+    
+    return responses.default;
 }
 
 function addMessage(text, sender) {
