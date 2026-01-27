@@ -22,10 +22,9 @@ def _qp_get(key: str, default: str = "") -> str:
 if _qp_get("api") == "chat":
     msg = _qp_get("msg", "")
     if msg:
-        from chatbot_responses import get_chatbot_response
         respuesta = get_chatbot_response(msg)
-        # Escribir SOLO la respuesta como texto plano
-        st.text(respuesta)
+        # Devolver HTML limpio
+        st.html(f'<div id="chatbot-response">{respuesta}</div>')
     st.stop()
 
 # =========================
@@ -2211,25 +2210,20 @@ function sendMessage() {
                 })
                 .then(html => {
                     try {
-                        // Buscar el texto después de que Streamlit renderiza
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = html;
+                        const doc = new DOMParser().parseFromString(html, 'text/html');
+                        const el = doc.querySelector('#chatbot-response');
                         
-                        // Buscar cualquier <pre> o <div> que tenga nuestra respuesta
-                        const allText = tempDiv.textContent || tempDiv.innerText || '';
-                        
-                        // Nuestra respuesta siempre empieza con ¡ o tiene emojis
-                        const match = allText.match(/¡Hola![\s\S]*?demo|Nuestros planes[\s\S]*?gratis|Hmm, no tengo[\s\S]*?específicas/);
-                        
-                        if (match) {
-                            // Limpiar el texto extraído
-                            let response = match[0].trim();
-                            // Convertir <br> en saltos de línea si están como texto
-                            response = response.replace(/<br>/g, '\n');
-                            addMessage(response, 'bot');
+                        if (el) {
+                            const response = el.innerHTML.trim();
+                            if (response && response.length > 0) {
+                                addMessage(response, 'bot');
+                            } else {
+                                addMessage('⚠️ Respuesta vacía.', 'bot');
+                            }
                         } else {
-                            console.log('Texto completo:', allText.substring(0, 1000));
-                            addMessage('⚠️ No encontré la respuesta en el HTML.', 'bot');
+                            console.error('No encontré #chatbot-response');
+                            console.log('HTML:', html.substring(0, 300));
+                            addMessage('⚠️ Error: no pude leer la respuesta.', 'bot');
                         }
                     } catch (e) {
                         console.error("Error:", e);
@@ -5217,7 +5211,5 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
 </style>
 """, unsafe_allow_html=True)
 
-# Footer + Chatbot juntos con components.html (para que funcione JS)
-components.html(FOOTER_CHATBOT, height=550)
-
-
+# Usar st.html en lugar de components.html
+st.html(FOOTER_CHATBOT)
