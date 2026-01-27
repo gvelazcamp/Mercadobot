@@ -1320,14 +1320,14 @@ body {
     position: fixed !important;
     bottom: 20px !important;
     right: 20px !important;
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     background: linear-gradient(135deg, #f4b400 0%, #ff6b00 100%);
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    display: flex;
+    box-shadow: 0 4px 15px rgba(244, 180, 0, 0.5);
+    display: flex !important;
     align-items: center;
     justify-content: center;
     z-index: 999999 !important;
@@ -1336,21 +1336,26 @@ body {
 
 #chatbot-button:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 25px rgba(244, 180, 0, 0.6);
 }
 
 #chatbot-button svg {
-    width: 28px;
-    height: 28px;
-    fill: white;
+    width: 30px !important;
+    height: 30px !important;
+    fill: white !important;
+    display: block !important;
+}
+
+#chatbot-button svg path {
+    fill: white !important;
 }
 
 #chatbot-container {
     position: fixed !important;
-    bottom: 90px !important;
+    bottom: 100px !important;
     right: 20px !important;
     width: 380px;
-    height: 600px;
+    height: 550px;
     background: white;
     border-radius: 20px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.2);
@@ -1362,7 +1367,7 @@ body {
 }
 
 #chatbot-container.open {
-    display: flex;
+    display: flex !important;
 }
 
 @keyframes slideIn {
@@ -1630,9 +1635,9 @@ FOOTER = """
 </div>
 
 <!-- CHATBOT FLOTANTE -->
-<button id="chatbot-button" onclick="toggleChat()">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+<button id="chatbot-button" onclick="toggleChat()" title="Abrir chat">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white" width="28" height="28">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" fill="white"/>
     </svg>
 </button>
 
@@ -4698,7 +4703,7 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
 """
 
 # =========================
-# RENDER - Usar st.html() sin iframes
+# RENDER - Usar components.html() para que funcione JavaScript
 # =========================
 if vista == "demo":
     # Obtener el tipo de asistente del query param
@@ -4708,26 +4713,26 @@ if vista == "demo":
         asistente = "futbol"
     
     if asistente == "futbol":
-        st.html(HTML_DEMO_FUTBOL)
+        components.html(HTML_DEMO_FUTBOL, height=2500, scrolling=True)
     elif asistente == "cocina":
-        st.html(HTML_DEMO_COCINA)
+        components.html(HTML_DEMO_COCINA, height=2500, scrolling=True)
     elif asistente == "ecommerce":
-        st.html(HTML_DEMO_ECOMMERCE)
+        components.html(HTML_DEMO_ECOMMERCE, height=2500, scrolling=True)
     elif asistente == "finanzas":
-        st.html(HTML_DEMO_FINANZAS)
+        components.html(HTML_DEMO_FINANZAS, height=2500, scrolling=True)
     elif asistente == "ropa":
-        st.html(HTML_DEMO_ROPA)
+        components.html(HTML_DEMO_ROPA, height=2500, scrolling=True)
     elif asistente == "peluqueria":
-        st.html(HTML_DEMO_PELUQUERIA)
+        components.html(HTML_DEMO_PELUQUERIA, height=2500, scrolling=True)
     else:
-        st.html(HTML_DEMO_FUTBOL)
+        components.html(HTML_DEMO_FUTBOL, height=2500, scrolling=True)
 
 elif vista == "asistentes":
-    st.html(HTML_ASISTENTES)
+    components.html(HTML_ASISTENTES, height=2000, scrolling=True)
 
 elif vista == "precios":
-    st.html(HTML_PRECIOS)
+    components.html(HTML_PRECIOS, height=2000, scrolling=True)
 
 else:
     # Vista por defecto: home
-    st.html(HTML_HOME)
+    components.html(HTML_HOME, height=3000, scrolling=True)
