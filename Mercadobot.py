@@ -1559,8 +1559,9 @@ CHATBOT_WIDGET = """
 
 <script>
 let chatHistory = [];
+console.log("CHATBOT SCRIPT CARGADO");
 
-function toggleChat() {
+window.toggleChat = function() {
     console.log("toggleChat ejecutado");
     const chatWindow = document.getElementById('chatbot-window');
     const icon = document.getElementById('chatbot-icon');
@@ -1577,7 +1578,7 @@ function toggleChat() {
     }
 }
 
-async function sendMessage() {
+window.sendMessage = async function() {
     const input = document.getElementById('chatbot-input');
     const message = input.value.trim();
     
@@ -1642,7 +1643,7 @@ Si preguntás algo que no sabés, derivá a contacto: hola@mercadobot.com`,
     }
 }
 
-function addMessage(text, sender) {
+window.addMessage = function(text, sender) {
     const messagesDiv = document.getElementById('chatbot-messages');
     const messageDiv = document.createElement('div');
     messageDiv.className = `chatbot-message ${sender}`;
