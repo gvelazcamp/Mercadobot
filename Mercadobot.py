@@ -1,6 +1,5 @@
 import streamlit as st
 import streamlit.components.v1 as components
-import json
 
 st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
 
@@ -4382,4 +4381,3 @@ elif vista == "precios":
     st.html(HTML_PRECIOS)
 else:
     st.html(HTML_HOME)
-
