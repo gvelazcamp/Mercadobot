@@ -2186,11 +2186,12 @@ function sendMessage() {
             fetch(`${window.location.pathname}?api=chat&msg=${encodeURIComponent(message)}`)
                 .then(res => res.text())
                 .then(response => {
-                    addMessage(response, 'bot');
+                    const clean = response.replace(/^[\s\S]*?<body>/i, '').replace(/<\/body>[\s\S]*$/i, '');
+                    addMessage(clean || 'Lo siento, no entendí tu mensaje.', 'bot');
                 });
         }, 800);
     }, 200);
-}
+
 
 
 function addMessage(text, sender) {
@@ -5156,6 +5157,7 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
 
 # Footer + Chatbot juntos con components.html (para que funcione JS)
 components.html(FOOTER_CHATBOT, height=550)
+
 
 
 
