@@ -5219,5 +5219,3 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
 
 # Footer + Chatbot juntos con components.html (para que funcione JS)
 components.html(FOOTER_CHATBOT, height=550)
-
-
