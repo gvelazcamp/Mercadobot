@@ -810,7 +810,7 @@ Para finalizar necesito:
 2. Dirección de envío
 3. Teléfono
 
-Escribí todo junto, ej: "juan@mail.com, Av. Italia 1234, 099123456"""",
+Escribí todo junto, ej: 'juan@mail.com, Av. Italia 1234, 099123456'"",
                         "confirmar_compra"
                     )
                     st.rerun()
