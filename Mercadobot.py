@@ -4600,9 +4600,9 @@ CHATBOT = """
 <body style="margin:0;padding:0;overflow:visible;">
 
 <style>
-#bot-btn{position:fixed;bottom:20px;right:20px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#f4b400,#ff6b00);border:none;cursor:move;box-shadow:0 4px 15px rgba(244,180,0,0.5);font-size:28px;z-index:999999;transition:transform 0.3s;}
+#bot-btn{position:fixed;bottom:20px;right:20px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#f4b400,#ff6b00);border:none;cursor:move;box-shadow:0 4px 15px rgba(244,180,0,0.5);font-size:28px;z-index:9999999;transition:transform 0.3s;}
 #bot-btn:hover{transform:scale(1.1);}
-#bot-box{display:none;position:fixed;bottom:90px;right:20px;width:350px;height:450px;background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.3);flex-direction:column;z-index:999998;}
+#bot-box{display:none;position:fixed;bottom:90px;right:20px;width:350px;height:450px;background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.3);flex-direction:column;z-index:9999998;}
 #bot-box.open{display:flex;}
 .h{background:linear-gradient(135deg,#f4b400,#ff6b00);color:#fff;padding:16px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center;cursor:move;}
 .h h3{font-size:16px;font-weight:600;margin:0;}
@@ -4645,18 +4645,19 @@ function add(t,u){var m=document.getElementById('msgs'),d=document.createElement
 function send(){var i=document.getElementById('in'),msg=i.value.trim();if(!msg)return;add(msg,true);i.value='';setTimeout(function(){var l=msg.toLowerCase(),r;if(l.includes('hola')||l.includes('buenos')||l.includes('buenas'))r='¡Hola! 👋 ¿En qué puedo ayudarte hoy?';else if(l.includes('precio')||l.includes('costo')||l.includes('cuanto'))r='Nuestros planes arrancan desde $25.000/mes. ¿Te gustaría conocer más detalles?';else if(l.includes('gracias'))r='¡De nada! 😊 Estoy acá para ayudarte.';else if(l.includes('chau')||l.includes('adios'))r='¡Hasta pronto! 👋 Cualquier cosa, acá estoy.';else r='Interesante pregunta. Por ahora estoy en modo de prueba, pero pronto podré ayudarte con eso. ¿Algo más?';add(r,false);},500);}
 
 // DRAG & DROP - Botón
-var btnDrag = false, btnX, btnY;
+var btnDrag = false, btnX, btnY, btnMoved = false;
 var btn = document.getElementById('bot-btn');
 
 btn.addEventListener('mousedown', function(e) {
     btnDrag = true;
+    btnMoved = false;
     btnX = e.clientX - btn.offsetLeft;
     btnY = e.clientY - btn.offsetTop;
-    btn.style.cursor = 'grabbing';
 });
 
 document.addEventListener('mousemove', function(e) {
     if (btnDrag) {
+        btnMoved = true;
         e.preventDefault();
         var newX = e.clientX - btnX;
         var newY = e.clientY - btnY;
@@ -4668,9 +4669,13 @@ document.addEventListener('mousemove', function(e) {
 });
 
 document.addEventListener('mouseup', function() {
-    if (btnDrag) {
-        btnDrag = false;
-        btn.style.cursor = 'move';
+    btnDrag = false;
+});
+
+// Click en el botón (solo si no se movió)
+btn.addEventListener('click', function(e) {
+    if (!btnMoved) {
+        toggle();
     }
 });
 
@@ -4680,7 +4685,7 @@ var box = document.getElementById('bot-box');
 var header = document.getElementById('drag-header');
 
 header.addEventListener('mousedown', function(e) {
-    if (e.target.tagName === 'BUTTON') return; // No arrastrar si hace click en el botón X
+    if (e.target.tagName === 'BUTTON') return;
     boxDrag = true;
     boxX = e.clientX - box.offsetLeft;
     boxY = e.clientY - box.offsetTop;
