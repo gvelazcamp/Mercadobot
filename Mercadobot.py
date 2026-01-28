@@ -1675,7 +1675,7 @@ HTML_HOME = f"""{HTML_BASE}
             </p>
             <div class="hero-impact-actions">
                 <a class="hero-impact-btn-primary" href="?vista=asistentes">Ver asistentes →</a>
-                <a class="hero-impact-btn-secondary" href="#demo">Demo en vivo</a>
+                <a class="hero-impact-btn-secondary" href="https://demo-viajes.streamlit.app/" target="_blank" rel="noopener noreferrer">Demo en vivo</a>
             </div>
         </div>
     </div>
@@ -5454,5 +5454,6 @@ iframe[height="0"] * {
 """, unsafe_allow_html=True)
 
 components.html(CHATBOT, height=0)
+
 
 
