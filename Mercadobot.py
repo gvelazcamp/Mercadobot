@@ -4600,11 +4600,11 @@ CHATBOT = """
 <body style="margin:0;padding:0;overflow:visible;">
 
 <style>
-#bot-btn{position:fixed;bottom:20px;right:20px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#f4b400,#ff6b00);border:none;cursor:pointer;box-shadow:0 4px 15px rgba(244,180,0,0.5);font-size:28px;z-index:999999;transition:transform 0.3s;}
+#bot-btn{position:fixed;bottom:20px;right:20px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#f4b400,#ff6b00);border:none;cursor:move;box-shadow:0 4px 15px rgba(244,180,0,0.5);font-size:28px;z-index:999999;transition:transform 0.3s;}
 #bot-btn:hover{transform:scale(1.1);}
 #bot-box{display:none;position:fixed;bottom:90px;right:20px;width:350px;height:450px;background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.3);flex-direction:column;z-index:999998;}
 #bot-box.open{display:flex;}
-.h{background:linear-gradient(135deg,#f4b400,#ff6b00);color:#fff;padding:16px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center;}
+.h{background:linear-gradient(135deg,#f4b400,#ff6b00);color:#fff;padding:16px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center;cursor:move;}
 .h h3{font-size:16px;font-weight:600;margin:0;}
 .h button{background:none;border:none;color:#fff;font-size:24px;cursor:pointer;width:32px;height:32px;border-radius:50%;}
 .h button:hover{background:rgba(255,255,255,0.2);}
@@ -4624,7 +4624,7 @@ CHATBOT = """
 <button id="bot-btn" onclick="toggle()">💬</button>
 
 <div id="bot-box">
-<div class="h"><h3>🤖 MercadoBot</h3><button onclick="toggle()">×</button></div>
+<div class="h" id="drag-header"><h3>🤖 MercadoBot</h3><button onclick="toggle()">×</button></div>
 <div id="msgs">
 <div class="m"><div class="a">🤖</div><div class="b">¡Hola! 👋 Soy tu asistente virtual. ¿En qué puedo ayudarte?</div></div>
 </div>
@@ -4635,9 +4635,76 @@ CHATBOT = """
 </div>
 
 <script>
+// Toggle chatbot
 function toggle(){document.getElementById('bot-box').classList.toggle('open');}
+
+// Agregar mensajes
 function add(t,u){var m=document.getElementById('msgs'),d=document.createElement('div');d.className='m'+(u?' u':'');d.innerHTML='<div class="a">'+(u?'👤':'🤖')+'</div><div class="b">'+t+'</div>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
+
+// Enviar mensaje
 function send(){var i=document.getElementById('in'),msg=i.value.trim();if(!msg)return;add(msg,true);i.value='';setTimeout(function(){var l=msg.toLowerCase(),r;if(l.includes('hola')||l.includes('buenos')||l.includes('buenas'))r='¡Hola! 👋 ¿En qué puedo ayudarte hoy?';else if(l.includes('precio')||l.includes('costo')||l.includes('cuanto'))r='Nuestros planes arrancan desde $25.000/mes. ¿Te gustaría conocer más detalles?';else if(l.includes('gracias'))r='¡De nada! 😊 Estoy acá para ayudarte.';else if(l.includes('chau')||l.includes('adios'))r='¡Hasta pronto! 👋 Cualquier cosa, acá estoy.';else r='Interesante pregunta. Por ahora estoy en modo de prueba, pero pronto podré ayudarte con eso. ¿Algo más?';add(r,false);},500);}
+
+// DRAG & DROP - Botón
+var btnDrag = false, btnX, btnY;
+var btn = document.getElementById('bot-btn');
+
+btn.addEventListener('mousedown', function(e) {
+    btnDrag = true;
+    btnX = e.clientX - btn.offsetLeft;
+    btnY = e.clientY - btn.offsetTop;
+    btn.style.cursor = 'grabbing';
+});
+
+document.addEventListener('mousemove', function(e) {
+    if (btnDrag) {
+        e.preventDefault();
+        var newX = e.clientX - btnX;
+        var newY = e.clientY - btnY;
+        btn.style.left = newX + 'px';
+        btn.style.top = newY + 'px';
+        btn.style.right = 'auto';
+        btn.style.bottom = 'auto';
+    }
+});
+
+document.addEventListener('mouseup', function() {
+    if (btnDrag) {
+        btnDrag = false;
+        btn.style.cursor = 'move';
+    }
+});
+
+// DRAG & DROP - Chatbot
+var boxDrag = false, boxX, boxY;
+var box = document.getElementById('bot-box');
+var header = document.getElementById('drag-header');
+
+header.addEventListener('mousedown', function(e) {
+    if (e.target.tagName === 'BUTTON') return; // No arrastrar si hace click en el botón X
+    boxDrag = true;
+    boxX = e.clientX - box.offsetLeft;
+    boxY = e.clientY - box.offsetTop;
+    header.style.cursor = 'grabbing';
+});
+
+document.addEventListener('mousemove', function(e) {
+    if (boxDrag) {
+        e.preventDefault();
+        var newX = e.clientX - boxX;
+        var newY = e.clientY - boxY;
+        box.style.left = newX + 'px';
+        box.style.top = newY + 'px';
+        box.style.right = 'auto';
+        box.style.bottom = 'auto';
+    }
+});
+
+document.addEventListener('mouseup', function() {
+    if (boxDrag) {
+        boxDrag = false;
+        header.style.cursor = 'move';
+    }
+});
 </script>
 
 </body>
