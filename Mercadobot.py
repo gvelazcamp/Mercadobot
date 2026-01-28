@@ -1784,12 +1784,6 @@ HTML_HOME = f"""{HTML_BASE}
         <div class="subtitle">Estos son ejemplos. El producto principal es el <strong>chatbot instalado</strong>.</div>
 
         <div class="cards">
-            <div class="card">
-                <img src="{BASE_URL}Asistentefutbol.png" alt="Fútbol">
-                <h3>Asistente de Fútbol</h3>
-                <p>Resultados, noticias y estadísticas del mundo del fútbol.</p>
-                <a href="?vista=demo&asistente=futbol" style="text-decoration: none;"><button>Ver asistente</button></a>
-            </div>
 
             <div class="card">
                 <img src="{BASE_URL}Asistentedetiendaderopa.png" alt="Tienda de Ropa">
@@ -2014,12 +2008,6 @@ HTML_ASISTENTES = f"""{HTML_BASE}
         <div class="subtitle">Estos son los asistentes disponibles en MercadoBot.</div>
 
         <div class="cards">
-            <div class="card">
-                <img src="{BASE_URL}Asistentefutbol.png" alt="Fútbol">
-                <h3>Asistente de Fútbol</h3>
-                <p>Resultados, noticias y estadísticas del fútbol.</p>
-                <a href="?vista=demo&asistente=futbol" style="text-decoration: none;"><button>Ver asistente</button></a>
-            </div>
 
             <div class="card">
                 <img src="{BASE_URL}Asistentecocina.png" alt="Cocina">
