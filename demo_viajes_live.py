@@ -222,8 +222,7 @@ Si querés, te paso formas de pago o confirmamos la reserva.""",
         return {
             "content": """¡Excelente presupuesto! Con USD 1.500 en marzo tenés destinos de playa TOP 🌟""",
             "buttons": "playa_1500",
-            "image": img_path,
-            "bonus_once": True
+            "image": img_path
         }
 
     if any(word in p for word in ["playa", "relax", "marzo", "verano"]) and any(
