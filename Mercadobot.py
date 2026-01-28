@@ -4479,7 +4479,6 @@ CHATBOT = """
 
 <div id="bot-box">
 <div class="h"><h3>🤖 MercadoBot</h3><button onclick="toggle()">×</button></div>
-<div class="h"><h3>🤖 MercadoBot</h3><button onclick="toggle()">×</button></div>
 <div id="msgs">
 <div class="m"><div class="a">🤖</div><div class="b">¡Hola! 👋 Soy MercadoBot, tu asistente virtual. ¿En qué puedo ayudarte hoy?<br><br>Puedo contarte sobre:<br><span class="clickable-option" onclick="sendOption('Qué es MercadoBot')">• Qué es MercadoBot</span><br><span class="clickable-option" onclick="sendOption('Precios y planes')">• Precios y planes</span><br><span class="clickable-option" onclick="sendOption('Integraciones')">• Integraciones</span><br><span class="clickable-option" onclick="sendOption('Cómo funciona')">• Cómo funciona</span></div></div>
 </div>
