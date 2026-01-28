@@ -1813,7 +1813,7 @@ HTML_HOME = f"""{HTML_BASE}
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistenteviajes.png" alt="Viajes">
+                <img src="{BASE_URL}Asistentedeviaje.png" alt="Viajes">
                 <h3>Asistente de Viajes</h3>
                 <p>Paquetes turísticos, vuelos y hoteles.</p>
                 <a href="?vista=demo&asistente=viajes" style="text-decoration: none;"><button>Ver asistente</button></a>
@@ -2057,7 +2057,7 @@ HTML_ASISTENTES = f"""{HTML_BASE}
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistentedepeluqueria.png" alt="Agenda">
+                <img src="{BASE_URL}Asistenteagendas.png" alt="Agenda">
                 <h3>Asistente de Turnos</h3>
                 <p>Reserva de turnos y recordatorios.</p>
                 <button>Ver asistente</button>
@@ -2086,7 +2086,7 @@ HTML_ASISTENTES = f"""{HTML_BASE}
             </div>
 
             <div class="card">
-                <img src="{BASE_URL}Asistenteviajes.png" alt="Viajes">
+                <img src="{BASE_URL}Asistentedeviaje.png" alt="Viajes">
                 <h3>Asistente de Viajes</h3>
                 <p>Paquetes turísticos, vuelos y hoteles.</p>
                 <a href="?vista=demo&asistente=viajes" style="text-decoration: none;"><button>Ver asistente</button></a>
@@ -4499,7 +4499,7 @@ HTML_DEMO_VIAJES = f"""{HTML_BASE}
 
 <div class="demo-container">
     <div class="demo-header">
-        <img src="{BASE_URL}Asistenteviajes.png" alt="Viajes">
+        <img src="{BASE_URL}Asistentedeviaje.png" alt="Viajes">
         <h1>Asistente de Viajes</h1>
         <p>Demo interactivo - Agencia de Turismo</p>
     </div>
