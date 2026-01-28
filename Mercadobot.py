@@ -1811,6 +1811,13 @@ HTML_HOME = f"""{HTML_BASE}
                 <p>Turnos, servicios y precios de salón.</p>
                 <a href="?vista=demo&asistente=peluqueria" style="text-decoration: none;"><button>Ver asistente</button></a>
             </div>
+
+            <div class="card">
+                <img src="{BASE_URL}Asistenteviajes.png" alt="Viajes">
+                <h3>Asistente de Viajes</h3>
+                <p>Paquetes turísticos, vuelos y hoteles.</p>
+                <a href="?vista=demo&asistente=viajes" style="text-decoration: none;"><button>Ver asistente</button></a>
+            </div>
         </div>
     </div>
 
@@ -2082,6 +2089,13 @@ HTML_ASISTENTES = f"""{HTML_BASE}
                 <h3>Asistente de Peluquería</h3>
                 <p>Turnos, servicios y precios de salón.</p>
                 <a href="?vista=demo&asistente=peluqueria" style="text-decoration: none;"><button>Ver asistente</button></a>
+            </div>
+
+            <div class="card">
+                <img src="{BASE_URL}Asistenteviajes.png" alt="Viajes">
+                <h3>Asistente de Viajes</h3>
+                <p>Paquetes turísticos, vuelos y hoteles.</p>
+                <a href="?vista=demo&asistente=viajes" style="text-decoration: none;"><button>Ver asistente</button></a>
             </div>
         </div>
     </div>
@@ -4397,6 +4411,423 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
 # RENDER
 # =========================
 
+
+# =========================
+# DEMO VIAJES
+# =========================
+HTML_DEMO_VIAJES = f"""{HTML_BASE}
+{HEADER}
+
+<style>
+.demo-container {{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}}
+
+.demo-header {{
+    text-align: center;
+    margin-bottom: 40px;
+}}
+
+.demo-header img {{
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}}
+
+.demo-header h1 {{
+    font-size: 32px;
+    margin-bottom: 10px;
+}}
+
+.demo-header p {{
+    color: #666;
+    font-size: 16px;
+}}
+
+.demo-chat {{
+    background: #fff;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}}
+
+.demo-message {{
+    margin-bottom: 20px;
+}}
+
+.demo-bubble {{
+    padding: 12px 16px;
+    border-radius: 16px;
+    margin-bottom: 6px;
+    max-width: 85%;
+    font-size: 14px;
+    line-height: 1.5;
+}}
+
+.demo-user {{
+    background: #111;
+    color: #fff;
+    margin-left: auto;
+    border-bottom-right-radius: 6px;
+}}
+
+.demo-bot {{
+    background: #f6f7fb;
+    color: #222;
+    border-bottom-left-radius: 6px;
+}}
+
+.demo-label {{
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 4px;
+    font-weight: 600;
+}}
+
+.demo-back {{
+    text-align: center;
+    margin-top: 40px;
+}}
+
+.demo-back a {{
+    background: #f4b400;
+    color: #000;
+    padding: 12px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+}}
+</style>
+
+<div class="demo-container">
+    <div class="demo-header">
+        <img src="{BASE_URL}Asistenteviajes.png" alt="Viajes">
+        <h1>Asistente de Viajes</h1>
+        <p>Demo interactivo - Agencia de Turismo</p>
+    </div>
+    
+    <div class="demo-chat">
+        <!-- ESCENA 1: Entrada con inspiración inmediata -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">Hola, quiero viajar pero no sé a dónde</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">¡Hola! 🌍 Te ayudo a encontrar tu viaje perfecto.<br><br>
+            <strong>Decime:</strong><br>
+            • ¿Playa o montaña?<br>
+            • ¿Aventura o relax?<br>
+            • ¿Presupuesto? (económico/medio/premium)<br>
+            • ¿Cuándo querés viajar?<br><br>
+            💡 <strong>Trending ahora:</strong> Bariloche nieve ❄️ | Caribe playas 🏝️ | Europa cultura 🏛️</div>
+        </div>
+
+        <!-- ESCENA 2: Recomendación personalizada con urgencia -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">Playa, relax, presupuesto medio, en marzo</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">¡Perfecto! 🏖️ Te recomiendo:<br><br>
+            <strong>OPCIÓN 1 — Cancún, México 🇲🇽</strong><br>
+            • Vuelo + Hotel 5★ (7 días): USD 1.200/persona<br>
+            • Todo incluido (comidas + bebidas)<br>
+            • Playa turquesa + vida nocturna<br>
+            ⚠️ Quedan solo <strong>3 paquetes</strong> a este precio para marzo<br><br>
+            <strong>OPCIÓN 2 — Punta Cana 🇩🇴</strong><br>
+            • Vuelo + Resort (7 días): USD 1.350<br>
+            • All inclusive premium<br>
+            • Excursiones incluidas<br><br>
+            <strong>OPCIÓN 3 — Florianópolis 🇧🇷</strong><br>
+            • Vuelo + Hotel boutique (5 días): USD 800<br>
+            • Playas paradisíacas<br>
+            • Más económico, cerca<br><br>
+            ¿Cuál te llama más? 😊</div>
+        </div>
+
+        <!-- ESCENA 3: Profundizar en la opción elegida -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">Cancún me gusta</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">¡Excelente elección! 🇲🇽<br><br>
+            <strong>Paquete Cancún Premium incluye:</strong><br>
+            ✅ Vuelos directos Buenos Aires → Cancún<br>
+            ✅ Hotel 5★ frente al mar (7 noches)<br>
+            ✅ All inclusive (desayuno, almuerzo, cena, bar)<br>
+            ✅ Traslados aeropuerto ↔ hotel<br>
+            ✅ Excursión a Chichén Itzá GRATIS<br>
+            ✅ Snorkel en cenotes GRATIS<br><br>
+            <strong>Salidas disponibles:</strong><br>
+            • 5 de marzo → USD 1.200<br>
+            • 12 de marzo → USD 1.280<br>
+            • 19 de marzo → USD 1.350<br><br>
+            💡 Reservando HOY: <strong>$50 USD de descuento + upgrade de habitación</strong><br><br>
+            ¿Para cuántas personas es?</div>
+        </div>
+
+        <!-- ESCENA 4: Agregar valor (experiencias) -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">Para 2 personas</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Perfecto! Para 2 personas: <strong>USD 2.400 total</strong> ✈️<br><br>
+            <strong>¿Querés agregar experiencias VIP?</strong><br>
+            🌊 Nado con delfines — USD 120/persona<br>
+            🏛️ Tour privado Tulum + cenote — USD 150/persona<br>
+            🍽️ Cena romántica en la playa — USD 80 para 2<br>
+            🎉 Fiesta en catamarán — USD 90/persona<br><br>
+            🔥 <strong>Promo:</strong> Contratando 2 experiencias → 3ra al 50% OFF<br><br>
+            ¿Te sumo alguna? 😊</div>
+        </div>
+
+        <!-- ESCENA 5: Resolver objeciones (fechas/flexibilidad) -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Y si cambio las fechas después?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Buena pregunta! 🗓️<br><br>
+            <strong>Opciones de flexibilidad:</strong><br>
+            📌 <strong>Estándar:</strong> Cambio de fecha con 30 días anticipación — Cargo USD 100<br>
+            📌 <strong>Flex:</strong> Cambio GRATIS hasta 15 días antes — +USD 150<br>
+            📌 <strong>Total Flex:</strong> Cambio o cancelación hasta 48hs antes, reembolso 100% — +USD 280<br><br>
+            La mayoría elige <strong>Flex</strong> para viajar tranquilo.<br>
+            ¿Cuál preferís?</div>
+        </div>
+
+        <!-- ESCENA 6: Financiación (clave para cerrar) -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Puedo pagar en cuotas?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">¡Claro! 💳<br><br>
+            <strong>Formas de pago:</strong><br>
+            💵 <strong>Efectivo/Transferencia:</strong> 5% descuento adicional<br>
+            💳 <strong>Tarjeta de crédito:</strong><br>
+            &nbsp;&nbsp;&nbsp;• 3 cuotas sin interés<br>
+            &nbsp;&nbsp;&nbsp;• 6 cuotas sin interés<br>
+            &nbsp;&nbsp;&nbsp;• 12 cuotas (TNA 48%)<br>
+            🌎 <strong>Mercado Pago:</strong> Hasta 18 cuotas<br><br>
+            <strong>Ejemplo para 2 personas (USD 2.400):</strong><br>
+            → 6 cuotas de <strong>USD 400</strong> sin interés<br>
+            → 12 cuotas de <strong>USD 220</strong> c/interés<br><br>
+            ¿Cómo preferís pagar?</div>
+        </div>
+
+        <!-- ESCENA 7: Documentación y requisitos -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿Necesito visa para México?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">No 🎉 <strong>Argentinos NO necesitan visa para México</strong><br><br>
+            <strong>Requisitos:</strong><br>
+            ✅ Pasaporte válido (mínimo 6 meses)<br>
+            ✅ Formulario migratorio (te lo damos)<br>
+            ✅ Seguro de viaje (obligatorio, lo incluimos)<br><br>
+            <strong>¿No tenés pasaporte?</strong><br>
+            Te ayudamos a tramitarlo:<br>
+            • Turno online → 15 días<br>
+            • Entrega en 10-15 días hábiles<br><br>
+            🔔 <strong>Importante:</strong> Arrancar YA para viajar en marzo.<br>
+            ¿Ya tenés pasaporte vigente?</div>
+        </div>
+
+        <!-- ESCENA 8: Upsell de seguro premium -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">¿El seguro qué cubre?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Buena pregunta! 🛡️<br><br>
+            <strong>Seguro Básico (incluido):</strong><br>
+            ✅ Gastos médicos hasta USD 50.000<br>
+            ✅ Equipaje perdido USD 1.000<br>
+            ✅ Cancelación por enfermedad<br><br>
+            <strong>Seguro Premium (+USD 80):</strong><br>
+            ✅ Gastos médicos USD 150.000<br>
+            ✅ COVID cubierto 100%<br>
+            ✅ Deportes extremos<br>
+            ✅ Equipaje USD 3.000<br>
+            ✅ Cancelación por CUALQUIER motivo<br>
+            ✅ Asistencia 24/7 en español<br><br>
+            💡 El 70% de nuestros clientes elige <strong>Premium</strong> para viajar tranquilo.<br>
+            ¿Lo sumamos?</div>
+        </div>
+
+        <!-- ESCENA 9: Crear urgencia con disponibilidad real -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">Déjame pensarlo</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">¡Perfecto! 😊 Te entiendo.<br><br>
+            ⚠️ <strong>Datos importantes:</strong><br>
+            • Este precio es válido solo <strong>hasta mañana 18hs</strong><br>
+            • Quedan <strong>2 habitaciones</strong> disponibles para 5 de marzo<br>
+            • Los vuelos directos se agotan rápido en temporada alta<br><br>
+            🎁 <strong>Si reservás HOY:</strong><br>
+            → Te guardamos el precio 24hs SIN pagar<br>
+            → Upgrade de habitación GRATIS (vista al mar)<br>
+            → Late check-out incluido<br><br>
+            ¿Te lo reservo mientras pensás? (sin compromiso)</div>
+        </div>
+
+        <!-- ESCENA 10: Comparación con competencia -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">Vi en otra agencia más barato</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">Buenísimo que compares! 👍<br><br>
+            <strong>¿Qué incluye ese otro paquete?</strong><br>
+            Muchas veces no incluyen:<br>
+            ❌ Traslados (USD 80)<br>
+            ❌ Tasas e impuestos (USD 150)<br>
+            ❌ Seguro de viaje (USD 60)<br>
+            ❌ Excursiones<br><br>
+            <strong>Nuestro precio INCLUYE TODO:</strong><br>
+            ✅ Sin cargos ocultos<br>
+            ✅ Sin sorpresas al pagar<br>
+            ✅ Precio final USD 2.400<br><br>
+            Pasame el link y te hago el breakdown exacto 😊<br>
+            Seguro que nuestro paquete tiene más valor.</div>
+        </div>
+
+        <!-- ESCENA 11: Grupos/familias -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">Somos 6 personas (4 adultos + 2 niños)</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">¡Genial viaje en familia! 👨‍👩‍👧‍👦<br><br>
+            <strong>Paquete Familiar Cancún:</strong><br>
+            💰 <strong>Precio:</strong> USD 5.400 total (USD 900/adulto, niños 50% OFF)<br>
+            🏨 <strong>Habitaciones:</strong> 2 conectadas con vista al mar<br>
+            🍽️ <strong>All inclusive</strong> para toda la familia<br>
+            🎠 <strong>Kids club</strong> incluido (4-12 años)<br><br>
+            <strong>BONUS familiar:</strong><br>
+            🎁 1 adulto GRATIS en grupos de 6+<br>
+            🎢 Parque acuático 1 día GRATIS<br>
+            📸 Sesión de fotos familiar incluida<br><br>
+            ¿Los niños qué edad tienen? (importante para los servicios)</div>
+        </div>
+
+        <!-- ESCENA 12: Luna de miel / Romántico -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">Es para nuestra luna de miel</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">¡¡¡FELICITACIONES!!! 💍🥂<br><br>
+            <strong>Paquete Luna de Miel Cancún:</strong><br>
+            ✨ Todo lo del paquete normal +<br>
+            🍾 Champagne + fresas en la habitación<br>
+            🌹 Decoración romántica (pétalos de rosa)<br>
+            🍽️ Cena romántica en la playa (1 noche)<br>
+            💆 Masaje de pareja en el spa<br>
+            📸 Sesión de fotos profesional<br>
+            🛏️ Upgrade automático a suite<br><br>
+            <strong>Precio:</strong> USD 2.600 (solo USD 200 más)<br><br>
+            🎁 <strong>Regalo especial:</strong> Álbum digital de la luna de miel<br><br>
+            ¿Para cuándo es la boda? 😍</div>
+        </div>
+
+        <!-- ESCENA 13: Solo/aventurero -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">Viajo solo, busco algo más aventura</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">¡Perfecto! 🎒 Te armo algo épico.<br><br>
+            <strong>Ruta Aventura México (10 días):</strong><br>
+            🏛️ <strong>Día 1-2:</strong> CDMX (Teotihuacán, museos)<br>
+            🏖️ <strong>Día 3-5:</strong> Playa del Carmen (buceo, cenotes)<br>
+            🌴 <strong>Día 6-7:</strong> Tulum (ruinas, playa)<br>
+            🏔️ <strong>Día 8-10:</strong> Chiapas (selva, cascadas)<br><br>
+            <strong>Incluye:</strong><br>
+            ✅ Vuelos internos<br>
+            ✅ Hostels/hoteles<br>
+            ✅ Todas las excursiones<br>
+            ✅ Grupo de viajeros solos (conocés gente)<br><br>
+            <strong>Precio:</strong> USD 1.800 (todo incluido)<br><br>
+            ¿Te copa este estilo o preferís más playa?</div>
+        </div>
+
+        <!-- ESCENA 14: Última milla / Whatsapp -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">Ok, quiero reservar</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">¡GENIAAAL! 🎉<br><br>
+            <strong>Para confirmar necesito:</strong><br>
+            📝 Datos de los pasajeros (nombre completo, DNI, fecha nac.)<br>
+            📧 Email de contacto<br>
+            📱 WhatsApp<br><br>
+            <strong>Opciones para continuar:</strong><br>
+            💬 <strong>Opción 1:</strong> Seguimos por WhatsApp (+54 9 11 1234-5678)<br>
+            &nbsp;&nbsp;&nbsp;→ Te mando formulario + link de pago<br><br>
+            📞 <strong>Opción 2:</strong> Te llamo en 5 minutos<br>
+            &nbsp;&nbsp;&nbsp;→ Cerramos todo por teléfono<br><br>
+            📧 <strong>Opción 3:</strong> Te mando todo por email<br><br>
+            ¿Cuál preferís? 😊</div>
+        </div>
+
+        <!-- ESCENA 15: Post-reserva / Fidelización -->
+        <div class="demo-message">
+            <div class="demo-label">Cliente</div>
+            <div class="demo-bubble demo-user">Ya pagué, ¿ahora qué?</div>
+        </div>
+        <div class="demo-message">
+            <div class="demo-label">Asistente IA</div>
+            <div class="demo-bubble demo-bot">¡Excelente! ✅ Ya estás reservado.<br><br>
+            <strong>Próximos pasos:</strong><br>
+            📧 Te llega email con:<br>
+            &nbsp;&nbsp;&nbsp;• Vouchers de hotel y vuelos<br>
+            &nbsp;&nbsp;&nbsp;• Itinerario completo<br>
+            &nbsp;&nbsp;&nbsp;• Guía de Cancún (restaurants, tips)<br>
+            &nbsp;&nbsp;&nbsp;• Checklist para el viaje<br><br>
+            📱 <strong>App MercadoTravel:</strong><br>
+            &nbsp;&nbsp;&nbsp;• Descargala para tener todo en un lugar<br>
+            &nbsp;&nbsp;&nbsp;• Itinerario interactivo<br>
+            &nbsp;&nbsp;&nbsp;• Asistencia 24/7<br><br>
+            🎁 <strong>Bonus viajero frecuente:</strong><br>
+            En tu próximo viaje tenés 10% OFF automático.<br><br>
+            ¿Alguna duda antes de viajar? ¡Que lo disfrutes! 🌴✈️</div>
+        </div>
+    </div>
+    
+    <div class="demo-back">
+        <a href="?vista=asistentes">← Volver a Asistentes</a>
+    </div>
+</div>
+
+{FOOTER}
+"""
+
 # Página principal con st.html
 if vista == "demo":
     try:
@@ -4414,6 +4845,8 @@ if vista == "demo":
         st.html(HTML_DEMO_FINANZAS)
     elif asistente == "ropa":
         st.html(HTML_DEMO_ROPA)
+    elif asistente == "viajes":
+        st.html(HTML_DEMO_VIAJES)
     elif asistente == "peluqueria":
         st.html(HTML_DEMO_PELUQUERIA)
     else:
