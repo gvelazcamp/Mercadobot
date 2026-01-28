@@ -2034,7 +2034,7 @@ HTML_ASISTENTES = f"""{HTML_BASE}
                 <img src="{BASE_URL}Asistentestock.png" alt="Stock">
                 <h3>Asistente de Stock</h3>
                 <p>Control de inventario y alertas.</p>
-                <button>Ver asistente</button>
+                <a href="https://demostockuy.streamlit.app/" target="_blank" style="text-decoration: none;"><button>Ver asistente</button></a>
             </div>
 
             <div class="card">
