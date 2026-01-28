@@ -4728,20 +4728,23 @@ document.addEventListener('mouseup', function() {
 </html>
 """
 
-# CSS para que el iframe del chatbot no ocupe espacio visual
+# CSS para que el iframe del chatbot cubra TODA la pantalla
 st.markdown("""
 <style>
-/* Contenedor del iframe */
-div[data-testid="element-container"]:has(iframe[height="600"]) {
+/* TODOS los contenedores padre del iframe */
+div[data-testid="stVerticalBlock"]:has(iframe[height="600"]),
+div[data-testid="element-container"]:has(iframe[height="600"]),
+div[data-testid="column"]:has(iframe[height="600"]) {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
-    width: 100% !important;
+    width: 100vw !important;
     height: 100vh !important;
     pointer-events: none !important;
     z-index: 99999999 !important;
     margin: 0 !important;
     padding: 0 !important;
+    overflow: visible !important;
 }
 
 /* El iframe en sí */
@@ -4749,11 +4752,12 @@ iframe[height="600"] {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
-    width: 100% !important;
+    width: 100vw !important;
     height: 100vh !important;
     border: none !important;
     pointer-events: none !important;
     z-index: 99999999 !important;
+    overflow: visible !important;
 }
 
 /* Los elementos dentro del iframe sí pueden recibir clics */
