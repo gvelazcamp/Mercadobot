@@ -1689,7 +1689,7 @@ HTML_HOME = f"""{HTML_BASE}
             </p>
 
             <div class="hero-actions">
-                <a class="btn-primary" href="#demo">Ver chatbot en acción</a>
+                <a class="btn-primary" href="https://demorestaurante.streamlit.app/" target="_blank">Ver chatbot en acción</a>
                 <a class="btn-secondary" href="?vista=asistentes">Explorar asistentes</a>
             </div>
 
@@ -2970,7 +2970,7 @@ HTML_DEMO_COCINA = f"""{HTML_BASE}
     <div class="cta-demo">
         <h2>💬 ¿Querés probarlo en vivo?</h2>
         <p>Chateá con el asistente y hacele las preguntas que quieras</p>
-        <a href="https://DEPLOYAR-demo-cocina.streamlit.app" target="_blank" style="text-decoration: none;">
+        <a href="https://demorestaurante.streamlit.app/" target="_blank" style="text-decoration: none;">
             <button class="btn-live">🚀 Probar ahora</button>
         </a>
     </div>
@@ -5454,6 +5454,3 @@ iframe[height="0"] * {
 """, unsafe_allow_html=True)
 
 components.html(CHATBOT, height=0)
-
-
-
