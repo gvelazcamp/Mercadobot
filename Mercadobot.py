@@ -1954,7 +1954,7 @@ HTML_HOME = f"""{HTML_BASE}
 
             <div class="faq-item">
                 <div class="faq-question">¿Cuánto tarda la implementación?</div>
-                <div class="faq-answer">Depende de la complejidad. Casos simples: 2-3 días. Integraciones complejas: 1-2 semanas. Te damos un timeline al inicio.</div>
+                <div class="faq-answer">Depende de la complejidad. Te damos un timeline al inicio.</div>
             </div>
         </div>
     </div>
@@ -4852,6 +4852,7 @@ iframe[height="0"] * {
 """, unsafe_allow_html=True)
 
 components.html(CHATBOT, height=0)
+
 
 
 
