@@ -116,17 +116,23 @@ def add_message_and_hide_buttons(user_msg, bot_response, next_buttons=None):
     })
     st.session_state.button_clicked = True
 
+# =========================
 # Función para obtener respuesta del bot
+# =========================
 def get_bot_response(prompt):
     p = prompt.lower()
 
-    if any(word in p for word in ["1500", "1.500"]) and ("usd" in p or "dolares" in p or "dólares" in p) and any(word in p for word in ["playa", "marzo", "verano"]):
+    if any(word in p for word in ["1500", "1.500"]) and (
+        "usd" in p or "dolares" in p or "dólares" in p
+    ) and any(word in p for word in ["playa", "marzo", "verano"]):
         return {
             "content": """¡Excelente presupuesto! Con USD 1.500 en marzo tenés destinos de playa TOP 🌟""",
             "buttons": "playa_1500"
         }
 
-    elif any(word in p for word in ["playa", "relax", "marzo", "verano"]) and any(word in p for word in ["1500", "1.500"]):
+    elif any(word in p for word in ["playa", "relax", "marzo", "verano"]) and any(
+        word in p for word in ["1500", "1.500"]
+    ):
         return {
             "content": """¡Perfecto! 🏖️ Con USD 1.500 para playa en marzo te recomiendo:""",
             "buttons": "playa_1500"
@@ -139,9 +145,9 @@ def get_bot_response(prompt):
             "buttons": "destinos_playa"
         }
 
-elif "cancun" in p or "cancún" in p or "opción 1" in p:
-    return {
-        "content": """¡Excelente elección! 🇲🇽
+    elif "cancun" in p or "cancún" in p or "opción 1" in p:
+        return {
+            "content": """¡Excelente elección! 🇲🇽
 
 **Paquete Cancún Premium incluye:**
 ✅ Vuelos directos Buenos Aires → Cancún
@@ -154,9 +160,9 @@ elif "cancun" in p or "cancún" in p or "opción 1" in p:
 **Precio:** USD 1.200/persona
 
 🎁 **Reservando HOY:** $50 USD descuento + upgrade de habitación""",
-        "buttons": "acciones_cancun",
-        "image": "assets/Cancun.png"
-    }
+            "buttons": "acciones_cancun",
+            "image": "assets/Cancun.png"
+        }
 
     elif "punta cana" in p or "opción 2" in p:
         return {
@@ -175,7 +181,12 @@ elif "cancun" in p or "cancún" in p or "opción 1" in p:
             "buttons": "acciones_punta_cana"
         }
 
-    elif "florianopolis" in p or "florianópolis" in p or "opción 3" in p or "floripa" in p:
+    elif (
+        "florianopolis" in p
+        or "florianópolis" in p
+        or "opción 3" in p
+        or "floripa" in p
+    ):
         return {
             "content": """¡Excelente! 🇧🇷
 
@@ -194,7 +205,17 @@ elif "cancun" in p or "cancún" in p or "opción 1" in p:
 
     elif "montaña" in p or "nieve" in p or "esqui" in p or "bariloche" in p:
         return {
-            "content": """¡Genial! ❄️ Las mejores opciones de montaña:
+            "content": """¡Genial! ❄️ Las mejores opciones de montaña:""",
+            "buttons": "montana_opciones"
+        }
+
+    else:
+        return {
+            "content": """Puedo ayudarte con muchas cosas! 😊
+
+**¿Qué te gustaría saber?**""",
+            "buttons": "ayuda"
+        }
 
 **OPCIÓN 1 — Bariloche, Argentina 🇦🇷**
 • Hotel 4★ con vista al lago (5 días): USD 950/persona
