@@ -120,8 +120,20 @@ def add_message_and_hide_buttons(user_msg, bot_response, next_buttons=None):
 def get_bot_response(prompt):
     p = prompt.lower()
     
+    elif any(word in p for word in ["1500", "1.500"]) and ("usd" in p or "dolares" in p or "dólares" in p) and any(word in p for word in ["playa", "marzo", "verano"]):
+        return {
+            "content": """¡Excelente presupuesto! Con USD 1.500 en marzo tenés destinos de playa TOP 🌟""",
+            "buttons": "playa_1500"
+        }
+    
+    elif any(word in p for word in ["playa", "relax", "marzo", "verano"]) and any(word in p for word in ["1500", "1.500"]):
+        return {
+            "content": """¡Perfecto! 🏖️ Con USD 1.500 para playa en marzo te recomiendo:""",
+            "buttons": "playa_1500"
+        }
+    
     # Respuestas basadas en el flujo
-    if any(word in p for word in ["playa", "relax", "marzo", "verano"]):
+    elif any(word in p for word in ["playa", "relax", "marzo", "verano"]):
         return {
             "content": """¡Perfecto! 🏖️ Te recomiendo estas opciones:""",
             "buttons": "destinos_playa"
@@ -245,284 +257,46 @@ def get_bot_response(prompt):
         return {
             "content": """¡Perfecto viaje familiar! 👨‍👩‍👧‍👦
 
-Encontré opciones ideales para viajar con niños:
-
-**OPCIÓN 1 — Disney Orlando 🇺🇸**
-• 7 días parques + hotel: USD 3.200/adulto, USD 2.400/niño
-• Entradas 4 parques (Magic Kingdom, Epcot, Hollywood, Animal Kingdom)
-• Shuttle gratis a los parques
-• Character dining (desayuno con personajes)
-• Fast Pass incluido
-🎢 **Edad ideal:** 4-12 años
-
-**OPCIÓN 2 — Cancún Familiar 🇲🇽**
-• Resort all inclusive con Kids Club: USD 1.400/adulto, USD 700/niño
-• Niños menores de 6 años GRATIS
-• Parque acuático incluido
-• Actividades para niños TODO el día
-• Menú infantil especial
-🏖️ **Edad ideal:** 2-14 años
-
-**OPCIÓN 3 — Bariloche con Niños 🇦🇷**
-• 5 días naturaleza + chocolate: USD 850/adulto, USD 450/niño
-• Museo del Chocolate interactivo
-• Cerro Campanario (telesilla)
-• Paseo en catamarán Victoria
-• Mini trekking familiar
-🍫 **Edad ideal:** 5-12 años
-
-¿Qué edades tienen tus hijos? Así te personalizo mejor la recomendación.""",
-            "buttons": "familia_opciones"
+Encontré opciones ideales para viajar con niños:""",
+            "buttons": "familia_destinos"
         }
     
     elif any(word in p for word in ["luna de miel", "romántico", "pareja", "casamiento", "boda"]):
         return {
             "content": """¡¡¡FELICITACIONES!!! 💍✨
 
-Opciones ROMÁNTICAS para luna de miel:
-
-**OPCIÓN 1 — Maldivas 🇲🇻**
-• 7 noches en villa sobre el agua: USD 4.500/pareja
-• Bungalow privado con acceso directo al mar
-• Desayuno flotante en la piscina privada
-• Cena bajo las estrellas en la playa
-• Masaje de pareja al atardecer
-• Snorkel en arrecifes de coral
-🌴 **El destino más romántico del mundo**
-
-**OPCIÓN 2 — Santorini, Grecia 🇬🇷**
-• 6 noches en cave hotel: USD 3.200/pareja
-• Cueva tradicional con jacuzzi y vista al volcán
-• Tour privado en catamarán al atardecer
-• Cena en Oia con la mejor puesta de sol
-• Sesión de fotos profesional incluida
-• Wine tasting en bodega local
-🌅 **Instagram de ensueño**
-
-**OPCIÓN 3 — Punta Cana Luxury 🇩🇴**
-• 7 noches en resort adults-only: USD 2.800/pareja
-• Suite con jacuzzi privado
-• Butler service 24/7
-• Cena romántica en la playa (privada)
-• Spa couples massage incluido
-• Champagne y fresas todos los días
-🥂 **Lujo caribeño accesible**
-
-**REGALO ESPECIAL:** 
-🎁 Álbum digital profesional de la luna de miel
-📸 1 sesión de fotos incluida en el destino
-
-¿Para cuándo es la boda? Te armo un plan perfecto.""",
-            "buttons": "luna_miel_opciones"
+Opciones ROMÁNTICAS para luna de miel:""",
+            "buttons": "luna_miel_destinos"
         }
     
     elif any(word in p for word in ["solo", "sola", "mochilero", "backpacker", "viajo solo"]):
         return {
-            "content": """¡Genial! 🎒 Viajes para aventureros solitarios:
-
-**OPCIÓN 1 — Ruta Machu Picchu 🇵🇪**
-• 10 días Lima-Cusco-Machu Picchu: USD 1.650
-• Grupos pequeños (máx 12 personas)
-• Hostels + 1 hotel en Cusco
-• Trekking Camino Inca (4 días)
-• Valle Sagrado + Maras y Moray
-• Guías locales expertos
-• Conocés viajeros de todo el mundo
-👥 **Edad promedio grupo:** 25-35 años
-
-**OPCIÓN 2 — Colombia Adventure 🇨🇴**
-• 12 días ruta completa: USD 1.400
-• Cartagena (3 días) + Medellín (3) + Bogotá (2) + Salento (2) + Tayrona (2)
-• Alojamiento en hostels top
-• Algunas comidas incluidas
-• Actividades opcionales (parapente, coffee tour, buceo)
-• Transporte entre ciudades
-🌴 **Destino económico y seguro**
-
-**OPCIÓN 3 — Europa Interrail 🇪🇺**
-• 15 días, 5 países: USD 2.200
-• Pase de tren ilimitado
-• Barcelona → París → Amsterdam → Berlín → Praga
-• Hostels en zona céntrica
-• Free walking tours incluidos
-• Flexibilidad total de fechas
-🚂 **La clásica aventura europea**
-
-Todos los grupos tienen WhatsApp para conocerse antes del viaje.
-
-¿Qué tipo de vibe buscás? ¿Fiesta, cultura, naturaleza?""",
-            "buttons": "solo_opciones"
+            "content": """¡Genial! 🎒 Viajes para aventureros solitarios:""",
+            "buttons": "solo_destinos"
         }
     
-    elif any(word in p for word in ["800", "económico", "barato", "poco presupuesto"]) and "usd" in p:
+    elif any(word in p for word in ["800", "económico", "barato", "poco presupuesto"]) and ("usd" in p or "dolares" in p or "dólares" in p):
         return {
-            "content": """¡Perfecto! Con USD 800 tenés MUY buenas opciones 💰
-
-**OPCIÓN 1 — Florianópolis 🇧🇷**
-• 5 días todo incluido: USD 800
-• Hotel 3★ cerca de playa
-• Desayuno incluido
-• Tour por las mejores playas
-• Transfer aeropuerto
-🏖️ 42 playas + vida nocturna
-
-**OPCIÓN 2 — Mendoza 🇦🇷**
-• 4 días vino + montaña: USD 750
-• Hotel boutique en Luján de Cuyo
-• Tour 2 bodegas premium
-• Alta montaña (Aconcagua)
-• Rafting día completo
-🍷 El mejor vino de Argentina
-
-**OPCIÓN 3 — Iguazú 🇦🇷**
-• 3 días cataratas: USD 780
-• Hotel 4★ frente a la selva
-• Entradas ambos lados (ARG + BRA)
-• Paseo en lancha bajo las cataratas
-• Traslados incluidos
-💦 Una de las 7 maravillas naturales
-
-**OPCIÓN 4 — Salta 🇦🇷**
-• 5 días cultura + paisajes: USD 800
-• Hotel céntrico
-• Tour Cafayate + Quebrada de Humahuaca
-• Tren a las Nubes
-• Comidas típicas incluidas
-🏜️ Paisajes impresionantes
-
-Todas incluyen vuelos desde Buenos Aires. ¿Cuál te cierra más?""",
-            "buttons": "economicos_opciones"
+            "content": """¡Perfecto! Con USD 800 tenés MUY buenas opciones 💰""",
+            "buttons": "economicos_destinos"
         }
     
     elif any(word in p for word in ["spa", "relax", "tranquilo", "descanso", "wellness"]):
         return {
-            "content": """Perfecto para desconectar 🧘‍♀️💆‍♂️
-
-**OPCIÓN 1 — Termas de Cacheuta, Mendoza 🇦🇷**
-• 3 noches spa resort: USD 950/persona
-• Acceso ilimitado a 18 piscinas termales
-• 3 masajes incluidos (piedras calientes, aromaterapia, descontracturante)
-• Yoga al amanecer con vista a la montaña
-• All inclusive (comida orgánica)
-• Temazcal andino (ritual ancestral)
-🏔️ Relax + montaña
-
-**OPCIÓN 2 — Spa Resort Punta del Este 🇺🇾**
-• 4 noches wellness: USD 1.200/persona
-• Spa 5 estrellas frente al mar
-• Circuito spa diario (sauna, jacuzzi, piscinas)
-• 4 tratamientos incluidos
-• Clases yoga + meditación
-• Alimentación detox
-• Masaje shiatsu con vista al océano
-🌊 Frente al mar
-
-**OPCIÓN 3 — Entre Ríos Termal 🇦🇷**
-• 5 noches en complejo termal: USD 780/persona
-• Aguas termales todo el día
-• 2 masajes relajantes
-• Fangoterapia incluida
-• Pileta climatizada
-• Comida casera regional
-💚 Económico y cerca
-
-**OPCIÓN 4 — Tulum Wellness 🇲🇽**
-• 6 noches yoga + playa: USD 1.800/persona
-• Hotel boutique eco-friendly
-• 2 clases yoga diarias
-• 1 temazcal maya
-• Meditación guiada
-• Alimentación consciente
-• Masaje maya ancestral
-🌴 Experiencia holística
-
-¿Buscás algo más activo (yoga) o 100% relax (spa)?""",
-            "buttons": "relax_opciones"
+            "content": """Perfecto para desconectar 🧘‍♀️💆‍♂️""",
+            "buttons": "spa_destinos"
         }
     
-    elif any(word in p for word in ["1500", "1.500"]) and "usd" in p:
+    elif any(word in p for word in ["1500", "1.500"]) and ("usd" in p or "dolares" in p or "dólares" in p):
         return {
-            "content": """¡Excelente presupuesto! Con USD 1.500 accedés a destinos TOP 🌟
-
-**OPCIÓN 1 — Cancún Premium 🇲🇽**
-• 7 días all inclusive: USD 1.200
-• Hotel 5★ zona hotelera
-• TODO incluido (comidas, bebidas, excursiones)
-• Te sobran USD 300 para extras
-🏖️ Clásico que nunca falla
-
-**OPCIÓN 2 — Río de Janeiro 🇧🇷**
-• 6 días completos: USD 1.450
-• Hotel en Copacabana
-• City tour + Cristo + Pan de Azúcar
-• Favela tour con guía local
-• Samba show con cena
-• 2 días de playa
-🎭 Ciudad más vibrante de Brasil
-
-**OPCIÓN 3 — Miami + Crucero Bahamas 🇺🇸🇧🇸**
-• 2 días Miami + 3 días crucero: USD 1.500
-• Hotel en Miami Beach
-• Crucero all inclusive
-• Escalas en Nassau + Coco Cay
-• Piscinas, casino, shows
-🚢 2 destinos en 1
-
-**OPCIÓN 4 — Machu Picchu Comfort 🇵🇪**
-• 7 días Cusco + MP: USD 1.480
-• Hoteles 4★
-• Tren panorámico a Machu Picchu
-• Valle Sagrado completo
-• Guías en español
-• Montaña Arcoíris
-🏔️ Experiencia premium
-
-¿Playa, ciudad, aventura o cultura?""",
-            "buttons": "rango_medio_opciones"
+            "content": """¡Excelente presupuesto! Con USD 1.500 accedés a destinos TOP 🌟""",
+            "buttons": "rango_medio_destinos"
         }
     
-    elif any(word in p for word in ["25", "joven", "20", "30 años"]):
+    elif any(word in p for word in ["25", "joven", "20", "30 años", "jovenes", "jóvenes"]):
         return {
-            "content": """¡Dale! Para tu edad tengo opciones copadas 🎉
-
-**OPCIÓN 1 — Miami Beach 🇺🇸**
-• 5 días fiesta + playa: USD 1.350
-• Hotel en South Beach
-• Pool parties
-• Discotecas (Liv, Story)
-• Wynwood Walls (arte urbano)
-• Everglades tour
-🌴 Fiesta + playa USA
-
-**OPCIÓN 2 — Cartagena + San Andrés 🇨🇴**
-• 7 días: USD 1.200
-• 3 días Cartagena (ciudad amurallada, Getsemaní)
-• 4 días San Andrés (mar de 7 colores)
-• Hostels con bar en la playa
-• Rumba caribeña
-• Snorkel + Johnny Cay
-🏝️ Caribe económico
-
-**OPCIÓN 3 — Barcelona 🇪🇸**
-• 6 días: USD 1.600
-• Hostel top en Barrio Gótico
-• Sagrada Familia + Park Güell
-• Pub crawls (fiesta con otros viajeros)
-• Playa Barceloneta
-• Montserrat day trip
-🎨 Ciudad + playa + cultura
-
-**OPCIÓN 4 — Iguazú + Río 🇦🇷🇧🇷**
-• 8 días: USD 1.400
-• 3 días Iguazú (cataratas + aventura)
-• 5 días Río (playa + samba + Cristo)
-• Hostels party
-• Vida nocturna en Lapa
-• Conocés otros viajeros
-💃 Naturaleza + fiesta
-
-¿Solo o con amigos? ¿Más fiesta o más chill?""",
-            "buttons": "jovenes_opciones"
+            "content": """¡Dale! Para tu edad tengo opciones copadas 🎉""",
+            "buttons": "jovenes_destinos"
         }
     
     elif any(word in p for word in ["personas", "2", "dos", "3", "tres"]):
@@ -724,6 +498,177 @@ for i, msg in enumerate(st.session_state.messages):
                         add_message_and_hide_buttons("✅ Quiero reservar", response["content"], response["buttons"])
                         st.rerun()
             
+            # Botones familia
+            elif button_type == "familia_destinos":
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    if st.button("🇺🇸 Disney\nUSD 3.200/adulto", key=f"btn_disney_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Disney Orlando", "**Disney Orlando 🇺🇸**\n• 7 días parques + hotel\n• Entradas 4 parques (Magic Kingdom, Epcot, Hollywood, Animal Kingdom)\n• Character dining incluido\n• Fast Pass\n🎢 **Precio:** USD 3.200/adulto, USD 2.400/niño", "familia_acciones")
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇲🇽 Cancún Familiar\nUSD 1.400/adulto", key=f"btn_cancun_fam_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Cancún Familiar", "**Cancún Familiar 🇲🇽**\n• Resort all inclusive con Kids Club\n• Niños -6 años GRATIS\n• Parque acuático incluido\n• Menú infantil especial\n🏖️ **Precio:** USD 1.400/adulto, USD 700/niño", "familia_acciones")
+                        st.rerun()
+                
+                with col3:
+                    if st.button("🇦🇷 Bariloche\nUSD 850/adulto", key=f"btn_bari_fam_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Bariloche con Niños", "**Bariloche con Niños 🇦🇷**\n• 5 días naturaleza + chocolate\n• Museo del Chocolate interactivo\n• Cerro Campanario (telesilla)\n• Catamarán + mini trekking\n🍫 **Precio:** USD 850/adulto, USD 450/niño", "familia_acciones")
+                        st.rerun()
+            
+            # Botones luna de miel
+            elif button_type == "luna_miel_destinos":
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    if st.button("🇲🇻 Maldivas\nUSD 4.500", key=f"btn_maldivas_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Maldivas", "**Maldivas 🇲🇻**\n• 7 noches villa sobre el agua\n• Desayuno flotante\n• Cena bajo las estrellas\n• Masaje de pareja\n🌴 **Precio:** USD 4.500/pareja", "luna_miel_acciones")
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇬🇷 Santorini\nUSD 3.200", key=f"btn_santorini_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Santorini", "**Santorini 🇬🇷**\n• 6 noches cave hotel con jacuzzi\n• Tour catamarán al atardecer\n• Cena en Oia\n• Sesión fotos profesional\n🌅 **Precio:** USD 3.200/pareja", "luna_miel_acciones")
+                        st.rerun()
+                
+                with col3:
+                    if st.button("🇩🇴 Punta Cana Luxury\nUSD 2.800", key=f"btn_punta_luxury_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Punta Cana Luxury", "**Punta Cana Luxury 🇩🇴**\n• 7 noches adults-only resort\n• Suite con jacuzzi\n• Butler service 24/7\n• Champagne diario\n🥂 **Precio:** USD 2.800/pareja", "luna_miel_acciones")
+                        st.rerun()
+            
+            # Botones viajeros solos
+            elif button_type == "solo_destinos":
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    if st.button("🇵🇪 Machu Picchu\nUSD 1.650", key=f"btn_machu_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Machu Picchu", "**Machu Picchu 🇵🇪**\n• 10 días Lima-Cusco-MP\n• Grupos 12 personas máx\n• Trekking Camino Inca\n• Valle Sagrado completo\n👥 **Precio:** USD 1.650", "solo_acciones")
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇨🇴 Colombia\nUSD 1.400", key=f"btn_colombia_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Colombia Adventure", "**Colombia Adventure 🇨🇴**\n• 12 días ruta completa\n• Cartagena + Medellín + Tayrona\n• Hostels top\n• Actividades opcionales\n🌴 **Precio:** USD 1.400", "solo_acciones")
+                        st.rerun()
+                
+                with col3:
+                    if st.button("🇪🇺 Europa Interrail\nUSD 2.200", key=f"btn_europa_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Europa Interrail", "**Europa Interrail 🇪🇺**\n• 15 días, 5 países\n• Pase de tren ilimitado\n• Barcelona-París-Amsterdam-Berlín-Praga\n• Flexibilidad total\n🚂 **Precio:** USD 2.200", "solo_acciones")
+                        st.rerun()
+            
+            # Botones económicos
+            elif button_type == "economicos_destinos":
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("🇧🇷 Florianópolis\nUSD 800", key=f"btn_floripa_eco_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Florianópolis", "**Florianópolis 🇧🇷**\n• 5 días todo incluido\n• 42 playas + vida nocturna\n• Tour mejores playas\n🏖️ **Precio:** USD 800", "economico_acciones")
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇦🇷 Mendoza\nUSD 750", key=f"btn_mendoza_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Mendoza", "**Mendoza 🇦🇷**\n• 4 días vino + montaña\n• Tour 2 bodegas premium\n• Alta montaña + rafting\n🍷 **Precio:** USD 750", "economico_acciones")
+                        st.rerun()
+                
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("🇦🇷 Iguazú\nUSD 780", key=f"btn_iguazu_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Iguazú", "**Iguazú 🇦🇷**\n• 3 días cataratas\n• Ambos lados (ARG+BRA)\n• Lancha bajo las cataratas\n💦 **Precio:** USD 780", "economico_acciones")
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇦🇷 Salta\nUSD 800", key=f"btn_salta_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Salta", "**Salta 🇦🇷**\n• 5 días cultura + paisajes\n• Cafayate + Humahuaca\n• Tren a las Nubes\n🏜️ **Precio:** USD 800", "economico_acciones")
+                        st.rerun()
+            
+            # Botones spa/relax
+            elif button_type == "spa_destinos":
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("🇦🇷 Termas Cacheuta\nUSD 950", key=f"btn_cacheuta_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Termas Cacheuta", "**Termas de Cacheuta 🇦🇷**\n• 3 noches spa resort\n• 18 piscinas termales\n• 3 masajes incluidos\n• Yoga + temazcal\n🏔️ **Precio:** USD 950", "spa_acciones")
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇺🇾 Punta del Este Spa\nUSD 1.200", key=f"btn_punta_spa_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Punta del Este Spa", "**Spa Punta del Este 🇺🇾**\n• 4 noches wellness\n• Spa 5★ frente al mar\n• 4 tratamientos incluidos\n• Alimentación detox\n🌊 **Precio:** USD 1.200", "spa_acciones")
+                        st.rerun()
+                
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("🇦🇷 Entre Ríos\nUSD 780", key=f"btn_entrerios_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Entre Ríos Termal", "**Entre Ríos Termal 🇦🇷**\n• 5 noches termal\n• Aguas termales todo el día\n• 2 masajes + fangoterapia\n💚 **Precio:** USD 780", "spa_acciones")
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇲🇽 Tulum Wellness\nUSD 1.800", key=f"btn_tulum_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Tulum Wellness", "**Tulum Wellness 🇲🇽**\n• 6 noches yoga + playa\n• 2 clases yoga diarias\n• Temazcal maya\n• Alimentación consciente\n🌴 **Precio:** USD 1.800", "spa_acciones")
+                        st.rerun()
+            
+            # Botones rango medio
+            elif button_type == "rango_medio_destinos":
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("🇲🇽 Cancún\nUSD 1.200", key=f"btn_cancun_medio_{i}", use_container_width=True):
+                        response = get_bot_response("cancun")
+                        add_message_and_hide_buttons("Cancún Premium", response["content"], response["buttons"])
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇧🇷 Río de Janeiro\nUSD 1.450", key=f"btn_rio_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Río de Janeiro", "**Río de Janeiro 🇧🇷**\n• 6 días completos\n• Hotel Copacabana\n• Cristo + Pan de Azúcar\n• Samba show + favela tour\n🎭 **Precio:** USD 1.450", "rio_acciones")
+                        st.rerun()
+                
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("🇺🇸 Miami + Crucero\nUSD 1.500", key=f"btn_miami_crucero_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Miami + Crucero", "**Miami + Crucero Bahamas 🇺🇸🇧🇸**\n• 2 días Miami + 3 días crucero\n• Crucero all inclusive\n• Nassau + Coco Cay\n🚢 **Precio:** USD 1.500", "crucero_acciones")
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇵🇪 Machu Picchu\nUSD 1.480", key=f"btn_machu_medio_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Machu Picchu Comfort", "**Machu Picchu Comfort 🇵🇪**\n• 7 días Cusco + MP\n• Hoteles 4★\n• Tren panorámico\n• Valle Sagrado + Montaña Arcoíris\n🏔️ **Precio:** USD 1.480", "machu_acciones")
+                        st.rerun()
+            
+            # Botones jóvenes
+            elif button_type == "jovenes_destinos":
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("🇺🇸 Miami Beach\nUSD 1.350", key=f"btn_miami_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Miami Beach", "**Miami Beach 🇺🇸**\n• 5 días fiesta + playa\n• South Beach\n• Pool parties + discotecas\n• Wynwood Walls\n🌴 **Precio:** USD 1.350", "jovenes_acciones")
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇨🇴 Cartagena + San Andrés\nUSD 1.200", key=f"btn_cartagena_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Cartagena + San Andrés", "**Cartagena + San Andrés 🇨🇴**\n• 7 días\n• Ciudad amurallada + mar 7 colores\n• Hostels con bar en playa\n• Rumba caribeña\n🏝️ **Precio:** USD 1.200", "jovenes_acciones")
+                        st.rerun()
+                
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("🇪🇸 Barcelona\nUSD 1.600", key=f"btn_barcelona_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Barcelona", "**Barcelona 🇪🇸**\n• 6 días\n• Sagrada Familia + Park Güell\n• Pub crawls\n• Playa Barceloneta\n🎨 **Precio:** USD 1.600", "jovenes_acciones")
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇦🇷🇧🇷 Iguazú + Río\nUSD 1.400", key=f"btn_iguazu_rio_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Iguazú + Río", "**Iguazú + Río 🇦🇷🇧🇷**\n• 8 días\n• Cataratas + Cristo\n• Hostels party\n• Vida nocturna Lapa\n💃 **Precio:** USD 1.400", "jovenes_acciones")
+                        st.rerun()
+            
+            # Botones playa $1500
+            elif button_type == "playa_1500":
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    if st.button("🇲🇽 Cancún\nUSD 1.200", key=f"btn_cancun_1500_{i}", use_container_width=True):
+                        response = get_bot_response("cancun")
+                        add_message_and_hide_buttons("Cancún Premium", response["content"], response["buttons"])
+                        st.rerun()
+                
+                with col2:
+                    if st.button("🇩🇴 Punta Cana\nUSD 1.350", key=f"btn_punta_1500_{i}", use_container_width=True):
+                        response = get_bot_response("punta cana")
+                        add_message_and_hide_buttons("Punta Cana Premium", response["content"], response["buttons"])
+                        st.rerun()
+                
+                with col3:
+                    if st.button("🇧🇷 Río + Playa\nUSD 1.450", key=f"btn_rio_1500_{i}", use_container_width=True):
+                        add_message_and_hide_buttons("Río de Janeiro", "**Río de Janeiro 🇧🇷**\n• 6 días completos\n• Copacabana + Ipanema\n• Cristo + Pan de Azúcar\n• Samba show\n🎭 **Precio:** USD 1.450", "rio_acciones")
+                        st.rerun()
+            
             # Botones de experiencias
             elif button_type == "experiencias":
                 col1, col2 = st.columns(2)
@@ -776,12 +721,27 @@ for i, msg in enumerate(st.session_state.messages):
                 
                 with col2:
                     if st.button("📞 Llamada", key=f"btn_llamar_{i}", use_container_width=True):
-                        add_message_and_hide_buttons("📞 Prefiero llamada", "¡Dale! 📞\n\nTe llamamos en 5 minutos al número que nos dejes.\n\n**Dejanos tu teléfono en el chat o contactanos:**\n+54 9 11 1234-5678\n\n¡Gracias por elegir viajar con nosotros! ✈️", None)
+                        add_message_and_hide_buttons("📞 Prefiero llamada", "¡Dale! 📞\n\nTe llamamos en 5 minutos.\n\n**Contactanos:** +54 9 11 1234-5678\n\n¡Gracias por elegir viajar con nosotros! ✈️", None)
                         st.rerun()
                 
                 with col3:
                     if st.button("📧 Email", key=f"btn_email_{i}", use_container_width=True):
-                        add_message_and_hide_buttons("📧 Enviar por email", "Listo! 📧\n\n**Enviamos toda la info a tu email.**\n\nDejanos tu email en el chat o escribinos a:\nviajes@mercadobot.com\n\n¡Nos vemos en Cancún! 🏖️", None)
+                        add_message_and_hide_buttons("📧 Enviar por email", "Listo! 📧\n\n**Enviamos info a tu email.**\n\nviajes@mercadobot.com\n\n¡Nos vemos en el destino! 🏖️", None)
+                        st.rerun()
+            
+            # Botones de acciones genéricos para todos los destinos
+            elif button_type in ["familia_acciones", "luna_miel_acciones", "solo_acciones", "economico_acciones", "spa_acciones", "rio_acciones", "crucero_acciones", "machu_acciones", "jovenes_acciones"]:
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("💳 Ver formas de pago", key=f"btn_pago_gen_{i}", use_container_width=True):
+                        response = get_bot_response("formas de pago")
+                        add_message_and_hide_buttons("💳 ¿Cómo puedo pagar?", response["content"], response["buttons"])
+                        st.rerun()
+                
+                with col2:
+                    if st.button("✅ ¡Lo quiero!", key=f"btn_reservar_gen_{i}", use_container_width=True):
+                        response = get_bot_response("quiero reservar")
+                        add_message_and_hide_buttons("✅ Quiero reservar", response["content"], response["buttons"])
                         st.rerun()
             
             # Botones de ayuda
