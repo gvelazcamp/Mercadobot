@@ -2070,12 +2070,6 @@ HTML_ASISTENTES = f"""{HTML_BASE}
                 <button>Ver asistente</button>
             </div>
 
-            <div class="card">
-                <img src="{BASE_URL}Asistentedeviaje.png" alt="Viaje">
-                <h3>Asistente de Viaje</h3>
-                <p>Itinerarios y recomendaciones.</p>
-                <button>Ver asistente</button>
-            </div>
 
             <div class="card">
                 <img src="{BASE_URL}Asistentedetiendaderopa.png" alt="Tienda de Ropa">
