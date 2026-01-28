@@ -92,6 +92,29 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+BONUS_TEXTO = (
+    "Este asistente responde en tiempo real según presupuesto, fechas y preferencias del cliente.\n"
+    "No es un chat genérico."
+)
+
+def maybe_append_bonus_once():
+    if not st.session_state.get("bonus_shown", False):
+        st.session_state.messages.append({
+            "role": "assistant",
+            "content": f"💡 **{BONUS_TEXTO}**",
+            "show_buttons": None
+        })
+        st.session_state.bonus_shown = True
+
+def resolve_image(candidates, fallback):
+    for c in candidates:
+        try:
+            if os.path.exists(c):
+                return c
+        except Exception:
+            pass
+    return fallback
+
 # Inicializar el chat
 if "messages" not in st.session_state:
     st.session_state.messages = [
@@ -107,8 +130,17 @@ if "messages" not in st.session_state:
 if "button_clicked" not in st.session_state:
     st.session_state.button_clicked = False
 
+if "bonus_shown" not in st.session_state:
+    st.session_state.bonus_shown = False
+
 # Función para agregar mensaje y ocultar botones
-def add_message_and_hide_buttons(user_msg, bot_response, next_buttons=None, image_path=None):
+def add_message_and_hide_buttons(
+    user_msg,
+    bot_response,
+    next_buttons=None,
+    image_path=None,
+    show_bonus_once=False
+):
     st.session_state.messages.append({"role": "user", "content": user_msg})
 
     bot_msg = {
@@ -121,63 +153,99 @@ def add_message_and_hide_buttons(user_msg, bot_response, next_buttons=None, imag
         bot_msg["image"] = image_path
 
     st.session_state.messages.append(bot_msg)
+
+    if show_bonus_once:
+        maybe_append_bonus_once()
+
     st.session_state.button_clicked = True
 
 # =========================
 # Función para obtener respuesta del bot
 # =========================
 def get_bot_response(prompt):
-    p = prompt.lower()
+    p = (prompt or "").lower()
+
+    # 1) Comparador instantáneo (para que funcione también si lo escriben)
+    if ("compar" in p) and any(word in p for word in ["1500", "1.500"]) and any(word in p for word in ["playa", "marzo", "verano"]):
+        return {
+            "content": """🔍 **Comparador instantáneo (USD 1.500 · Marzo · Playa)**
+
+| Destino | Noches | Incluye | Precio |
+|---|---:|---|---:|
+| Cancún 🇲🇽 | 7 | All inclusive | USD 1.200 |
+| Punta Cana 🇩🇴 | 7 | All inclusive | USD 1.350 |
+| Río 🇧🇷 | 6 | Desayuno | USD 1.450 |
+
+¿Querés que lo personalice (familia / pareja / solo / relax / fiesta) o ver fechas disponibles?""",
+            "buttons": "playa_1500"
+        }
+
+    # 3) Explicación "tipo humano" (si lo escriben)
+    if (("por que" in p) or ("porque" in p)) and ("marzo" in p) and any(word in p for word in ["playa", "1500", "1.500", "verano"]):
+        return {
+            "content": """🤔 **¿Por qué este paquete es ideal en marzo?**
+
+Marzo suele ser de los mejores meses para playa porque:
+- **Menos turismo** (más tranquilidad y mejor servicio).
+- **Mejores precios** (bajan alojamientos y promos).
+- **Clima estable** (todavía es verano en muchos destinos).
+- **Vuelos más convenientes** (menos demanda que enero/febrero).
+
+¿Querés comparar opciones por USD 1.500 o ver fechas disponibles?""",
+            "buttons": "playa_1500"
+        }
+
+    # 4) Fechas disponibles (si lo escriben)
+    if ("fechas" in p) and any(word in p for word in ["dispon", "ver", "hay"]) and any(word in p for word in ["marzo", "playa", "1500", "1.500"]):
+        return {
+            "content": """📅 **Fechas disponibles (DEMO) — Marzo**
+
+- **03 → 10 Mar (7 noches)** — quedan **4** lugares  
+- **10 → 17 Mar (7 noches)** — quedan **7** lugares  
+- **17 → 24 Mar (7 noches)** — quedan **3** lugares *(alta demanda)*  
+- **24 → 31 Mar (7 noches)** — quedan **6** lugares  
+
+Si querés, te paso formas de pago o confirmamos la reserva.""",
+            "buttons": "contacto"
+        }
 
     # Playa con 1500 USD (caso específico) + FLYER Playa.png
     if any(word in p for word in ["1500", "1.500"]) and (
         "usd" in p or "dolares" in p or "dólares" in p
     ) and any(word in p for word in ["playa", "marzo", "verano"]):
 
-        img_candidates = ["assets/Playa.png", "Playa.png", "assets/playa.png", "playa.png"]
-        img_path = None
-        for c in img_candidates:
-            if os.path.exists(c):
-                img_path = c
-                break
-        if img_path is None:
-            img_path = "assets/Playa.png"
+        img_path = resolve_image(
+            ["assets/Playa.png", "Playa.png", "assets/playa.png", "playa.png"],
+            "assets/Playa.png"
+        )
 
         return {
             "content": """¡Excelente presupuesto! Con USD 1.500 en marzo tenés destinos de playa TOP 🌟""",
             "buttons": "playa_1500",
-            "image": img_path
+            "image": img_path,
+            "bonus_once": True
         }
 
     if any(word in p for word in ["playa", "relax", "marzo", "verano"]) and any(
         word in p for word in ["1500", "1.500"]
     ):
-        img_candidates = ["assets/Playa.png", "Playa.png", "assets/playa.png", "playa.png"]
-        img_path = None
-        for c in img_candidates:
-            if os.path.exists(c):
-                img_path = c
-                break
-        if img_path is None:
-            img_path = "assets/Playa.png"
-
+        img_path = resolve_image(
+            ["assets/Playa.png", "Playa.png", "assets/playa.png", "playa.png"],
+            "assets/Playa.png"
+        )
         return {
             "content": """¡Perfecto! 🏖️ Con USD 1.500 para playa en marzo te recomiendo:""",
             "buttons": "playa_1500",
-            "image": img_path
+            "image": img_path,
+            "bonus_once": True
         }
 
     # Cancún (incluye la pregunta "¿Qué está incluido en el paquete a Cancún?")
     if "cancun" in p or "cancún" in p or "opción 1" in p:
-        img_candidates = ["assets/Cancun.png", "Cancun.png", "assets/cancun.png", "cancun.png"]
-        img_path = None
-        for c in img_candidates:
-            if os.path.exists(c):
-                img_path = c
-                break
-        if img_path is None:
-            img_path = "assets/Cancun.png"
-
+        img_path = resolve_image(
+            ["assets/Cancun.png", "Cancun.png", "assets/cancun.png", "cancun.png"],
+            "assets/Cancun.png"
+        )
         return {
             "content": """¡Excelente elección! 🇲🇽
 
@@ -406,19 +474,34 @@ for i, msg in enumerate(st.session_state.messages):
                 with col1:
                     if st.button("🏖️ Playa", key=f"btn_playa_{i}", use_container_width=True):
                         response = get_bot_response("playa")
-                        add_message_and_hide_buttons("🏖️ Playa", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "🏖️ Playa",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col2:
                     if st.button("⛰️ Montaña", key=f"btn_montana_{i}", use_container_width=True):
                         response = get_bot_response("montaña")
-                        add_message_and_hide_buttons("⛰️ Montaña", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "⛰️ Montaña",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col3:
                     if st.button("🎒 Aventura", key=f"btn_aventura_{i}", use_container_width=True):
                         response = get_bot_response("aventura")
-                        add_message_and_hide_buttons("🎒 Aventura", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "🎒 Aventura",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
             # Botones de destinos playa
@@ -427,19 +510,34 @@ for i, msg in enumerate(st.session_state.messages):
                 with col1:
                     if st.button("🇲🇽 Cancún\nUSD 1.200", key=f"btn_cancun_{i}", use_container_width=True):
                         response = get_bot_response("cancun")
-                        add_message_and_hide_buttons("Opción 1 - Cancún", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "Opción 1 - Cancún",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col2:
                     if st.button("🇩🇴 Punta Cana\nUSD 1.350", key=f"btn_punta_{i}", use_container_width=True):
                         response = get_bot_response("punta cana")
-                        add_message_and_hide_buttons("Opción 2 - Punta Cana", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "Opción 2 - Punta Cana",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col3:
                     if st.button("🇧🇷 Florianópolis\nUSD 800", key=f"btn_floripa_{i}", use_container_width=True):
                         response = get_bot_response("florianopolis")
-                        add_message_and_hide_buttons("Opción 3 - Florianópolis", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "Opción 3 - Florianópolis",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
             # Botones de acciones Cancún
@@ -448,19 +546,34 @@ for i, msg in enumerate(st.session_state.messages):
                 with col1:
                     if st.button("👥 ¿Para cuántos?", key=f"btn_personas_{i}", use_container_width=True):
                         response = get_bot_response("2 personas")
-                        add_message_and_hide_buttons("¿Cuánto para 2 personas?", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "¿Cuánto para 2 personas?",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col2:
                     if st.button("💳 Formas de pago", key=f"btn_pago_{i}", use_container_width=True):
                         response = get_bot_response("formas de pago")
-                        add_message_and_hide_buttons("💳 ¿Cómo puedo pagar?", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "💳 ¿Cómo puedo pagar?",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col3:
                     if st.button("✅ ¡Lo quiero!", key=f"btn_reservar_{i}", use_container_width=True):
                         response = get_bot_response("quiero reservar")
-                        add_message_and_hide_buttons("✅ Quiero reservar", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "✅ Quiero reservar",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
             # Botones de acciones Punta Cana
@@ -469,19 +582,34 @@ for i, msg in enumerate(st.session_state.messages):
                 with col1:
                     if st.button("👥 ¿Para cuántos?", key=f"btn_personas_pc_{i}", use_container_width=True):
                         response = get_bot_response("2 personas")
-                        add_message_and_hide_buttons("¿Cuánto para 2 personas?", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "¿Cuánto para 2 personas?",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col2:
                     if st.button("💳 Formas de pago", key=f"btn_pago_pc_{i}", use_container_width=True):
                         response = get_bot_response("formas de pago")
-                        add_message_and_hide_buttons("💳 ¿Cómo puedo pagar?", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "💳 ¿Cómo puedo pagar?",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col3:
                     if st.button("✅ ¡Lo quiero!", key=f"btn_reservar_pc_{i}", use_container_width=True):
                         response = get_bot_response("quiero reservar")
-                        add_message_and_hide_buttons("✅ Quiero reservar", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "✅ Quiero reservar",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
             # Botones de acciones Floripa
@@ -490,19 +618,34 @@ for i, msg in enumerate(st.session_state.messages):
                 with col1:
                     if st.button("👥 ¿Para cuántos?", key=f"btn_personas_fl_{i}", use_container_width=True):
                         response = get_bot_response("2 personas")
-                        add_message_and_hide_buttons("¿Cuánto para 2 personas?", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "¿Cuánto para 2 personas?",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col2:
                     if st.button("💳 Formas de pago", key=f"btn_pago_fl_{i}", use_container_width=True):
                         response = get_bot_response("formas de pago")
-                        add_message_and_hide_buttons("💳 ¿Cómo puedo pagar?", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "💳 ¿Cómo puedo pagar?",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col3:
                     if st.button("✅ ¡Lo quiero!", key=f"btn_reservar_fl_{i}", use_container_width=True):
                         response = get_bot_response("quiero reservar")
-                        add_message_and_hide_buttons("✅ Quiero reservar", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "✅ Quiero reservar",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
             # Montaña opciones
@@ -741,7 +884,12 @@ for i, msg in enumerate(st.session_state.messages):
                 with col1:
                     if st.button("🇲🇽 Cancún\nUSD 1.200", key=f"btn_cancun_medio_{i}", use_container_width=True):
                         response = get_bot_response("cancun")
-                        add_message_and_hide_buttons("Cancún Premium", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "Cancún Premium",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col2:
@@ -812,19 +960,30 @@ for i, msg in enumerate(st.session_state.messages):
                         )
                         st.rerun()
 
-            # Botones playa $1500
+            # Botones playa $1500 (incluye los 4 pasos)
             elif button_type == "playa_1500":
+                # 0) Elegir destino (igual que antes)
                 col1, col2, col3 = st.columns(3)
                 with col1:
                     if st.button("🇲🇽 Cancún\nUSD 1.200", key=f"btn_cancun_1500_{i}", use_container_width=True):
                         response = get_bot_response("cancun")
-                        add_message_and_hide_buttons("Cancún Premium", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "Cancún Premium",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col2:
                     if st.button("🇩🇴 Punta Cana\nUSD 1.350", key=f"btn_punta_1500_{i}", use_container_width=True):
                         response = get_bot_response("punta cana")
-                        add_message_and_hide_buttons("Punta Cana Premium", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "Punta Cana Premium",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col3:
@@ -833,6 +992,156 @@ for i, msg in enumerate(st.session_state.messages):
                             "Río de Janeiro",
                             "**Río de Janeiro 🇧🇷**\n• 6 días completos\n• Copacabana + Ipanema\n• Cristo + Pan de Azúcar\n• Samba show\n🎭 **Precio:** USD 1.450",
                             "rio_acciones"
+                        )
+                        st.rerun()
+
+                # 1) Comparador instantáneo
+                st.markdown("**1️⃣ Comparador instantáneo**")
+                colA, colB, colC = st.columns(3)
+                with colA:
+                    if st.button("🔍 Comparar (USD 1.500)", key=f"btn_compare_1500_{i}", use_container_width=True):
+                        response = get_bot_response("comparar playa marzo 1500")
+                        add_message_and_hide_buttons(
+                            "🔍 Comparar con otras opciones por USD 1.500",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
+                        st.rerun()
+
+                # 3) Explicación tipo humano
+                with colB:
+                    if st.button("🤔 ¿Por qué en marzo?", key=f"btn_por_que_marzo_{i}", use_container_width=True):
+                        response = get_bot_response("por que es ideal en marzo playa 1500")
+                        add_message_and_hide_buttons(
+                            "🤔 ¿Por qué este paquete es ideal en marzo?",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
+                        st.rerun()
+
+                # 4) Conversión real
+                with colC:
+                    if st.button("📅 Ver fechas", key=f"btn_fechas_1500_{i}", use_container_width=True):
+                        response = get_bot_response("ver fechas disponibles marzo playa 1500")
+                        add_message_and_hide_buttons(
+                            "📅 Ver fechas disponibles",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
+                        st.rerun()
+
+                # 2) Personalización en 1 clic
+                st.markdown("**2️⃣ Personalización en 1 clic**")
+
+                colp1, colp2, colp3 = st.columns(3)
+                with colp1:
+                    if st.button("👨‍👩‍👧‍👦 Familia", key=f"btn_perfil_familia_{i}", use_container_width=True):
+                        add_message_and_hide_buttons(
+                            "👨‍👩‍👧‍👦 Viajo con familia",
+                            """👨‍👩‍👧‍👦 **Plan ideal para familia (USD 1.500 · Marzo)**
+
+Para ir con chicos, lo que más rinde es **All inclusive**: evitás gastos sorpresa y tenés todo resuelto.
+
+✅ Lo que priorizo para familia:
+- **Kids Club / actividades** (entretenimiento real)
+- **Playa tranquila** y zonas seguras
+- **Habitaciones familiares** y traslados incluidos
+
+📍 Dentro de este rango:
+- **Punta Cana**: resort + playa súper tranquila.
+- **Cancún**: más actividades y excursiones suaves.
+- **Río**: ciudad + playa (no suele ser all inclusive, pero es muy movido).
+
+¿Querés comparar o ver fechas disponibles?""",
+                            "playa_1500"
+                        )
+                        st.rerun()
+
+                with colp2:
+                    if st.button("💑 Pareja", key=f"btn_perfil_pareja_{i}", use_container_width=True):
+                        add_message_and_hide_buttons(
+                            "💑 Viaje en pareja",
+                            """💑 **Plan ideal para pareja (USD 1.500 · Marzo)**
+
+Si es en pareja, te conviene algo con:
+- **All inclusive** (cero logística)
+- **Habitación premium** / upgrade
+- **Experiencias románticas** (cena, spa, sunset)
+
+✨ Top del comparador:
+- **Cancún**: nivel premium + excursión incluida.
+- **Punta Cana**: resorts adults-friendly + spa.
+- **Río**: ciudad + playa + noches (más “movimiento”).
+
+¿Querés ver fechas o formas de pago?""",
+                            "playa_1500"
+                        )
+                        st.rerun()
+
+                with colp3:
+                    if st.button("🎒 Voy solo", key=f"btn_perfil_solo_{i}", use_container_width=True):
+                        add_message_and_hide_buttons(
+                            "🎒 Voy solo",
+                            """🎒 **Plan ideal viajando solo (USD 1.500 · Marzo)**
+
+Busco 3 cosas para que sea fácil y social:
+- **Traslados incluidos** (menos stress)
+- **Hotel bien ubicado** (movilidad)
+- **Excursiones** para conocer gente
+
+✅ En este rango:
+- **Cancún**: excursión incluida + tours.
+- **Río**: buen balance de playa, city y vida nocturna.
+- **Punta Cana**: relax total en resort.
+
+¿Querés comparar opciones o ver fechas disponibles?""",
+                            "playa_1500"
+                        )
+                        st.rerun()
+
+                colp4, colp5 = st.columns(2)
+                with colp4:
+                    if st.button("🧘 Relax", key=f"btn_perfil_relax_{i}", use_container_width=True):
+                        add_message_and_hide_buttons(
+                            "🧘 Quiero relax",
+                            """🧘 **Plan relax (USD 1.500 · Marzo)**
+
+Para desconectar de verdad:
+- **All inclusive** (sin pensar en nada)
+- **Spa / playa tranquila**
+- **Pocas excursiones, más descanso**
+
+✅ Mejor fit:
+- **Punta Cana**: resort + playa Bávaro (relax total).
+- **Cancún**: si querés relax + 1 excursión.
+- **Río**: más urbano y movido.
+
+¿Querés ver fechas disponibles?""",
+                            "playa_1500"
+                        )
+                        st.rerun()
+
+                with colp5:
+                    if st.button("🎉 Fiesta", key=f"btn_perfil_fiesta_{i}", use_container_width=True):
+                        add_message_and_hide_buttons(
+                            "🎉 Quiero fiesta",
+                            """🎉 **Plan fiesta (USD 1.500 · Marzo)**
+
+Si lo tuyo es movimiento:
+- **Noche + beach clubs**
+- **Zonas con vida nocturna**
+- **Excursiones con grupos**
+
+🔥 Mejor fit:
+- **Cancún**: fiesta + all inclusive (muy completo).
+- **Río**: noche fuerte y playas increíbles.
+- **Punta Cana**: más relax, pero tiene opciones.
+
+¿Te interesa Cancún o Río para este estilo?""",
+                            "playa_1500"
                         )
                         st.rerun()
 
@@ -891,7 +1200,12 @@ for i, msg in enumerate(st.session_state.messages):
                 with col2:
                     if st.button("💳 Ir a formas de pago", key=f"btn_exp_pago_{i}", use_container_width=True):
                         response = get_bot_response("formas de pago")
-                        add_message_and_hide_buttons("💳 Ver formas de pago", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "💳 Ver formas de pago",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
             # Botones de pago
@@ -964,13 +1278,23 @@ for i, msg in enumerate(st.session_state.messages):
                 with col1:
                     if st.button("💳 Ver formas de pago", key=f"btn_pago_gen_{i}", use_container_width=True):
                         response = get_bot_response("formas de pago")
-                        add_message_and_hide_buttons("💳 ¿Cómo puedo pagar?", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "💳 ¿Cómo puedo pagar?",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col2:
                     if st.button("✅ ¡Lo quiero!", key=f"btn_reservar_gen_{i}", use_container_width=True):
                         response = get_bot_response("quiero reservar")
-                        add_message_and_hide_buttons("✅ Quiero reservar", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "✅ Quiero reservar",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
             # Botones de ayuda
@@ -979,13 +1303,23 @@ for i, msg in enumerate(st.session_state.messages):
                 with col1:
                     if st.button("🏖️ Ver destinos", key=f"btn_destinos_{i}", use_container_width=True):
                         response = get_bot_response("playa")
-                        add_message_and_hide_buttons("Mostrame destinos", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "Mostrame destinos",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 with col2:
                     if st.button("💳 Formas de pago", key=f"btn_pago_ayuda_{i}", use_container_width=True):
                         response = get_bot_response("formas de pago")
-                        add_message_and_hide_buttons("¿Cómo puedo pagar?", response["content"], response["buttons"], response.get("image"))
+                        add_message_and_hide_buttons(
+                            "¿Cómo puedo pagar?",
+                            response["content"],
+                            response.get("buttons"),
+                            response.get("image")
+                        )
                         st.rerun()
 
                 col1, col2 = st.columns(2)
@@ -1082,6 +1416,9 @@ if "temp_input" in st.session_state:
         "image": response.get("image")
     })
 
+    if response.get("bonus_once"):
+        maybe_append_bonus_once()
+
     st.rerun()
 
 # =========================
@@ -1098,6 +1435,9 @@ if prompt := st.chat_input("Escribí tu pregunta o hacé click en las opciones..
         "show_buttons": response.get("buttons"),
         "image": response.get("image")
     })
+
+    if response.get("bonus_once"):
+        maybe_append_bonus_once()
 
     st.rerun()
 
@@ -1120,4 +1460,5 @@ with col2:
             }
         ]
         st.session_state.button_clicked = False
+        st.session_state.bonus_shown = False
         st.rerun()
