@@ -1595,29 +1595,7 @@ body {
         width: calc(100vw - 40px);
         height: calc(100vh - 140px);
         bottom: 90px;
-    
-    
-    /* Demo section responsive */
-    .demo-section {
-        padding: 40px 3% !important;
     }
-    
-    .demo-section h2 {
-        font-size: 26px !important;
-    }
-    
-    .demo-section p {
-        font-size: 16px !important;
-    }
-    
-    .demo-iframe-container {
-        padding: 15px !important;
-    }
-    
-    .demo-iframe {
-        height: 600px !important;
-    }
-}
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -1834,34 +1812,6 @@ HTML_HOME = f"""{HTML_BASE}
                 <p>Paquetes turísticos, vuelos y hoteles.</p>
                 <a href="?vista=demo&asistente=viajes" style="text-decoration: none;"><button>Ver asistente</button></a>
             </div>
-        </div>
-    </div>
-
-    <!-- =====================
-         DEMO ANIMADA MERCADOBOT
-    ===================== -->
-    <div style="padding: 60px 5%; background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);" class="demo-section">
-        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-            <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 15px; color: #1a1a1a;">
-                ¿Cómo responden nuestros asistentes?
-            </h2>
-            <p style="font-size: 18px; color: #666; margin-bottom: 40px;">
-                Mirá conversaciones reales con clientes en diferentes industrias
-            </p>
-            
-            <div style="background: white; border-radius: 20px; padding: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);" class="demo-iframe-container">
-                <iframe 
-                    src="https://gvelazcamp.github.io/Mercadobot/mercadobot-demo.html" 
-                    style="width: 100%; height: 800px; border: none; border-radius: 15px;"
-                    frameborder="0"
-                    allowfullscreen
-                    class="demo-iframe">
-                </iframe>
-            </div>
-            
-            <p style="margin-top: 25px; font-size: 15px; color: #666;">
-                ⚡ Demo interactiva - Seleccioná una industria y mirá cómo responde el asistente
-            </p>
         </div>
     </div>
 
@@ -5211,6 +5161,39 @@ elif vista == "precios":
 
 else:
     st.html(HTML_HOME)
+    
+    # =========================
+    # DEMO COMPONENT (solo en home, después del HTML)
+    # =========================
+    components.html("""
+    <div style="width: 100%; background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%); padding: 60px 5%; margin: 0;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 15px; color: #1a1a1a; font-family: Inter, sans-serif;">
+                    ¿Cómo responden nuestros asistentes?
+                </h2>
+                <p style="font-size: 18px; color: #666; font-family: Inter, sans-serif;">
+                    Mirá conversaciones reales con clientes en diferentes industrias
+                </p>
+            </div>
+            
+            <div style="background: white; border-radius: 20px; padding: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                <iframe 
+                    src="https://gvelazcamp.github.io/Mercadobot/mercadobot-demo.html" 
+                    style="width: 100%; height: 800px; border: none; border-radius: 15px; display: block;"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            
+            <div style="text-align: center; margin-top: 25px;">
+                <p style="font-size: 15px; color: #666; font-family: Inter, sans-serif;">
+                    ⚡ Demo interactiva - Seleccioná una industria y mirá cómo responde el asistente
+                </p>
+            </div>
+        </div>
+    </div>
+    """, height=1050, scrolling=False)
 
 # CSS para overflow visible
 st.markdown("""
@@ -5479,43 +5462,6 @@ function send(){
 </body>
 </html>
 """
-
-
-# =========================
-# DEMO COMPONENT (solo en home)
-# =========================
-if vista == "home":
-    # Renderizo iframe de demo usando components
-    components.html("""
-    <div style="width: 100%; background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%); padding: 60px 5%;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 15px; color: #1a1a1a;">
-                    ¿Cómo responden nuestros asistentes?
-                </h2>
-                <p style="font-size: 18px; color: #666;">
-                    Mirá conversaciones reales con clientes en diferentes industrias
-                </p>
-            </div>
-            
-            <div style="background: white; border-radius: 20px; padding: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
-                <iframe 
-                    src="https://gvelazcamp.github.io/Mercadobot/mercadobot-demo.html" 
-                    style="width: 100%; height: 800px; border: none; border-radius: 15px; display: block;"
-                    frameborder="0"
-                    allowfullscreen>
-                </iframe>
-            </div>
-            
-            <div style="text-align: center; margin-top: 25px;">
-                <p style="font-size: 15px; color: #666;">
-                    ⚡ Demo interactiva - Seleccioná una industria y mirá cómo responde el asistente
-                </p>
-            </div>
-        </div>
-    </div>
-    """, height=1000, scrolling=False)
-
 
 # CSS para que el iframe del chatbot NO ocupe espacio visual
 st.markdown("""
