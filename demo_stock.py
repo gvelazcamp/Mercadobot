@@ -469,34 +469,42 @@ Necesitas ver algun movimiento en detalle?""",
                 "content": """🏢 **Deposito Central - Info Completa**
 
 **DATOS GENERALES:**
-- Ubicacion: Av. Italia 2500, Montevideo
-- Responsable: Juan Martinez
-- Contacto: +598 2408 1234
-- Horario: Lun-Vie 8:00-18:00
-- Capacidad: 1.200 m² (85% ocupado)
+
+| Campo | Detalle |
+|-------|---------|
+| 📍 Ubicacion | Av. Italia 2500, Montevideo |
+| 👤 Responsable | Juan Martinez |
+| 📞 Contacto | +598 2408 1234 |
+| ⏰ Horario | Lun-Vie 8:00-18:00 |
+| 📦 Capacidad | 1.200 m² (85% ocupado) |
 
 **STOCK POR CATEGORIA:**
 
-💻 **Notebooks** (105 unidades - $9.450.000)
-- Dell Latitude: 45u
-- HP ProBook: 32u
-- Lenovo ThinkPad: 28u
+| Categoria | Producto | Stock | Valor Unit | Total |
+|-----------|----------|-------|------------|-------|
+| 💻 **Notebooks** | Dell Latitude | 45u | $210.000 | $9.450.000 |
+| | HP ProBook | 32u | | |
+| | Lenovo ThinkPad | 28u | | |
+| | **Subtotal** | **105u** | | **$9.450.000** |
+| 🖥️ **Monitores** | LG 24" | 45u | $47.500 | $4.230.000 |
+| | Samsung 27" | 32u | | |
+| | Dell 32" | 12u | | |
+| | **Subtotal** | **89u** | | **$4.230.000** |
+| 🖱️ **Accesorios** | Mouse | 145u | - | $892.000 |
+| | Teclados | 89u | | |
+| | Webcams | 15u | | |
+| | Otros | 207u | | |
+| | **Subtotal** | **456u** | | **$892.000** |
 
-🖥️ **Monitores** (89 unidades - $4.230.000)
-- LG 24": 45u
-- Samsung 27": 32u
-- Dell 32": 12u
+**RESUMEN:**
+- 💰 Valor Total: **$23.517.000**
+- 📦 Total Unidades: **650**
+- 🚨 Alertas: 1
 
-🖱️ **Accesorios** (456 unidades - $892.000)
-- Mouse: 145u
-- Teclados: 89u
-- Webcams: 15u
-- Otros: 207u
-
-**VALOR TOTAL:** $23.517.000
-
-**ALERTAS:**
-⚠️ Webcams nivel bajo (15 unid - min: 25)
+**ALERTAS ACTIVAS:**
+| Producto | Stock | Minimo | Estado |
+|----------|-------|--------|--------|
+| Webcam C920 | 15u | 25u | ⚠️ Bajo |
 
 Necesitas ver otro deposito?""",
                 "buttons": "depositos_otros"
@@ -506,29 +514,40 @@ Necesitas ver otro deposito?""",
                 "content": """🏢 **Deposito Norte - Info Completa**
 
 **DATOS GENERALES:**
-- Ubicacion: Ruta 8 Km 23, Zonamerica
-- Responsable: Maria Rodriguez
-- Contacto: +598 2518 5678
-- Capacidad: 800 m² (62% ocupado)
+
+| Campo | Detalle |
+|-------|---------|
+| 📍 Ubicacion | Ruta 8 Km 23, Zonamerica |
+| 👤 Responsable | Maria Rodriguez |
+| 📞 Contacto | +598 2518 5678 |
+| 📦 Capacidad | 800 m² (62% ocupado) |
 
 **STOCK POR CATEGORIA:**
 
-💻 **Notebooks** (35 unidades - $3.150.000)
-- Dell Latitude: 12u
-- HP ProBook: 8u 🔴 CRITICO
-- Lenovo ThinkPad: 15u
+| Categoria | Producto | Stock | Estado | Valor |
+|-----------|----------|-------|--------|-------|
+| 💻 **Notebooks** | Dell Latitude | 12u | ✅ OK | $3.150.000 |
+| | HP ProBook | 8u | 🔴 **CRITICO** | |
+| | Lenovo ThinkPad | 15u | ✅ OK | |
+| | **Subtotal** | **35u** | | **$3.150.000** |
+| 🖥️ **Monitores** | LG/Samsung/Dell | 34u | ✅ OK | **$1.615.000** |
+| 🖱️ **Accesorios** | Varios | 234u | ⚠️ Algunos bajos | **$456.000** |
 
-🖥️ **Monitores** (34 unidades - $1.615.000)
-🖱️ **Accesorios** (234 unidades - $456.000)
+**RESUMEN:**
+- 💰 Valor Total: **$11.455.000**
+- 📦 Total Unidades: **303**
+- 🚨 Alertas: 2 críticas
 
-**VALOR TOTAL:** $11.455.000
+**EN TRANSITO:**
+| Producto | Cantidad | Origen | Llegada |
+|----------|----------|--------|---------|
+| 🚚 Mouse MX Master | 20u | Central | Hoy 18:00 |
 
-**EN TRANSITO (llegada hoy 18:00):**
-🚚 Mouse MX Master: 20u desde Central
-
-**ALERTAS:**
-🔴 HP ProBook: Solo 8 unidades (min: 15)
-⚠️ Webcams: 8 unidades (min: 15)
+**ALERTAS CRITICAS:**
+| Producto | Stock Actual | Minimo | Estado |
+|----------|--------------|--------|--------|
+| HP ProBook | 8u | 15u | 🔴 Crítico |
+| Webcams | 8u | 15u | ⚠️ Bajo |
 
 Queres ver otro deposito?""",
                 "buttons": "depositos_otros"
