@@ -125,7 +125,6 @@ if "button_clicked" not in st.session_state:
 if "bonus_shown" not in st.session_state:
     st.session_state.bonus_shown = False
 
-# Funcion para agregar mensaje y ocultar botones
 def add_message_and_hide_buttons(user_msg, bot_response, next_buttons=None, show_bonus_once=False):
     st.session_state.messages.append({"role": "user", "content": user_msg})
     bot_msg = {
@@ -138,13 +137,17 @@ def add_message_and_hide_buttons(user_msg, bot_response, next_buttons=None, show
         maybe_append_bonus_once()
     st.session_state.button_clicked = True
 
-# Funcion para obtener respuesta del bot
+# FUNCION PRINCIPAL - MEJORADA CON MUCHAS MAS RESPUESTAS
 def get_bot_response(prompt):
     p = (prompt or "").lower()
 
-    # 1) Consulta de stock general
-    if any(word in p for word in ["stock", "inventario", "cuanto hay", "cuánto hay", "disponible"]):
-        if "notebook" in p or "laptop" in p:
+    # 1) CONSULTA DE STOCK - AMPLIADO
+    stock_kw = ["stock", "inventario", "cuanto", "cuánto", "hay", "disponible", "tengo", "tenemos", 
+                "cantidad", "unidades", "productos", "articulos", "artículos", "mercaderia", "mercadería"]
+    
+    if any(w in p for w in stock_kw):
+        # Notebooks
+        if any(w in p for w in ["notebook", "laptop", "computadora", "pc", "dell", "hp", "lenovo", "thinkpad", "latitude", "probook"]):
             return {
                 "content": """📊 **Stock de Notebooks - Actualizado HOY 11:45am**
 
@@ -166,7 +169,9 @@ Necesitas mas detalles de algun modelo?""",
                 "buttons": "stock_notebook_acciones",
                 "bonus_once": True
             }
-        elif "mouse" in p or "teclado" in p or "accesorio" in p:
+        
+        # Accesorios
+        elif any(w in p for w in ["mouse", "teclado", "accesorio", "periférico", "periferico", "logitech", "webcam", "auricular", "cable"]):
             return {
                 "content": """📊 **Stock de Accesorios - Actualizado HOY**
 
@@ -188,116 +193,191 @@ Necesitas mas detalles de algun modelo?""",
 Queres ver proveedores disponibles?""",
                 "buttons": "stock_accesorios_acciones"
             }
+        
+        # Monitores
+        elif any(w in p for w in ["monitor", "pantalla", "display", "lg", "samsung"]):
+            return {
+                "content": """📊 **Stock de Monitores - Actualizado HOY**
+
+| Modelo | Central | Norte | Sur | Total | Precio Unit | Estado |
+|--------|---------|-------|-----|-------|-------------|--------|
+| LG 24" IPS Full HD | 45 | 18 | 15 | 78 | $47.500 | ✅ OK |
+| Samsung 27" Curved | 32 | 12 | 12 | 56 | $68.900 | ✅ OK |
+| Dell 32" 4K UHD | 12 | 4 | 6 | 22 | $125.000 | ⚠️ Bajo |
+
+**Total monitores:** 156 unidades
+**Valor inventario:** $10.234.500
+
+**Análisis:**
+- LG 24" es el más vendido (5/semana)
+- Dell 32" 4K tiene baja rotación pero alto valor
+- Samsung 27" Curved tiene demanda estable
+
+Necesitas generar orden o ver más detalles?""",
+                "buttons": "stock_monitores_acciones"
+            }
+        
+        # Celulares
+        elif any(w in p for w in ["celular", "telefono", "teléfono", "smartphone", "iphone", "samsung", "motorola", "móvil", "movil"]):
+            return {
+                "content": """📱 **Stock de Celulares - Actualizado HOY**
+
+**SAMSUNG**
+| Modelo | Stock | Precio | Estado |
+|--------|-------|--------|--------|
+| Galaxy S23 | 28 | $189.900 | ✅ OK |
+| Galaxy A54 | 45 | $98.500 | ✅ OK |
+| Galaxy A34 | 16 | $76.900 | ⚠️ Bajo |
+
+**APPLE IPHONE**
+| Modelo | Stock | Precio | Estado |
+|--------|-------|--------|--------|
+| iPhone 14 | 18 | $245.000 | ⚠️ Bajo |
+| iPhone 13 | 27 | $198.500 | ✅ OK |
+
+**MOTOROLA**
+| Modelo | Stock | Precio | Estado |
+|--------|-------|--------|--------|
+| Moto G73 | 34 | $67.900 | ✅ OK |
+| Moto Edge 40 | 21 | $125.000 | ✅ OK |
+
+**Total celulares:** 189 unidades
+**Valor total:** $24.567.800
+
+Necesitas ver por deposito o generar pedidos?""",
+                "buttons": "stock_celulares_acciones"
+            }
+        
+        # Stock general
         else:
             return {
                 "content": """📦 **Resumen General de Stock**
 
 **CATEGORIAS PRINCIPALES:**
 
-💻 **Informatica** (423 unidades)
+💻 **Informatica** (423 unidades - $32.914.500)
 - Notebooks: 215 unid.
 - Monitores: 156 unid.
 - Impresoras: 52 unid.
 
-🖱️ **Accesorios** (847 unidades)
+🖱️ **Accesorios** (847 unidades - $1.892.300)
 - Mouse: 344 unid.
 - Teclados: 247 unid.
 - Auriculares: 129 unid.
 - Webcams: 27 unid. 🔴 CRITICO
 - Otros: 100 unid.
 
-📱 **Celulares** (189 unidades)
+📱 **Celulares** (189 unidades - $24.567.800)
 - Samsung: 89 unid.
 - iPhone: 45 unid.
 - Motorola: 55 unid.
 
-**VALOR TOTAL INVENTARIO:** $45.678.900
+**VALOR TOTAL INVENTARIO:** $59.374.600
 
-**ALERTAS:** 3 productos en stock critico
+**ALERTAS:** 5 productos en stock critico
+**PRODUCTOS EN TRANSITO:** $3.456.700
 
-Que categoria queres consultar?""",
+Que categoria queres consultar en detalle?""",
                 "buttons": "stock_categorias"
             }
 
-    # 2) Alertas de stock bajo
-    if any(word in p for word in ["alerta", "bajo", "critico", "crítico", "reponer", "reposicion", "reposición"]):
+    # 2) ALERTAS - MEJORADO
+    alerta_kw = ["alerta", "alertas", "bajo", "critico", "crítico", "reponer", "reposicion", "reposición", 
+                 "falta", "faltan", "acabando", "poco", "minimo", "mínimo", "urgente"]
+    
+    if any(w in p for w in alerta_kw):
         return {
-            "content": """🚨 **Alertas de Stock - Requieren atencion**
+            "content": """🚨 **Alertas de Stock - Requieren atencion URGENTE**
 
-**NIVEL CRITICO (menos de 30 dias)**
-🔴 Webcam Logitech C920
+**NIVEL CRITICO 🔴 (menos de 2 semanas)**
+
+🔴 **Webcam Logitech C920**
 - Stock actual: 27 unidades
 - Stock minimo: 50 unidades
 - Venta promedio: 12/semana
-- Dias restantes: 14 dias
-- **ACCION:** Pedir YA 100 unidades
+- **Dias restantes: 14 dias**
+- ACCION: Pedir YA 100 unidades
+- Proveedor recomendado: ImportGlobal ($4.200/u)
 
-🔴 Cable HDMI 2m
+🔴 **Cable HDMI 2m**
 - Stock: 18 unidades
 - Minimo: 40 unidades
 - Promedio: 8/semana
-- Dias: 16 dias
-- **ACCION:** Pedir 80 unidades
+- **Dias: 16 dias**
+- ACCION: Pedir 80 unidades
+- Proveedor: DistriTech ($890/u)
 
-**NIVEL BAJO (menos de 60 dias)**
-⚠️ Mouse MX Master
-- Stock: 43 unidades
-- Minimo: 60 unidades
-- Promedio: 6/semana
-- Dias: 48 dias
+🔴 **iPhone 14**
+- Stock: 18 unidades
+- Minimo: 30 unidades
+- Promedio: 4/semana
+- **Dias: 30 dias**
+- ACCION: Pedir 25 unidades
 
-⚠️ Teclado Mecanico RGB
-- Stock: 61 unidades
-- Minimo: 80 unidades
-- Promedio: 8/semana
-- Dias: 52 dias
+**NIVEL BAJO ⚠️ (menos de 45 dias)**
+
+⚠️ **Mouse MX Master** - 43u (Min: 60) → 48 dias
+⚠️ **Teclado Mecanico RGB** - 61u (Min: 80) → 52 dias
+⚠️ **Dell 32" 4K** - 22u (Min: 30) → 73 dias
+
+**TOTAL INVERSIÓN NECESARIA:** $847.300
 
 Queres generar ordenes de compra automaticas?""",
             "buttons": "alertas_acciones"
         }
 
-    # 3) Consulta de proveedores
-    if any(word in p for word in ["proveedor", "proveedores", "comprar", "precio", "cotizacion", "cotización"]):
+    # 3) PROVEEDORES - AMPLIADO
+    prov_kw = ["proveedor", "proveedores", "comprar", "compra", "precio", "precios", "cotizacion", "cotización",
+               "distribuidor", "importador", "supplier", "quien", "quién", "vende", "contacto"]
+    
+    if any(w in p for w in prov_kw):
         return {
-            "content": """🏢 **Proveedores Activos**
+            "content": """🏢 **Proveedores Activos - Base de Datos**
 
-**TECNOLOGIA**
+**TECNOLOGIA & INFORMATICA**
 
-📌 **TechSupply SA**
-- Productos: Notebooks, monitores
-- Calificacion: ⭐⭐⭐⭐⭐ (98%)
+📌 **TechSupply SA** ⭐⭐⭐⭐⭐ (98%)
+- Productos: Notebooks, monitores, impresoras
 - Tiempo entrega: 5-7 dias
 - Forma pago: 30 dias
-- Ultimo pedido: 15/01/2026
+- Descuento volumen: 8% en +50 unid
+- Ultimo pedido: 15/01/2026 - $2.350.000
+- Contacto: ventas@techsupply.com.uy
 
-📌 **Importadora Global**
+📌 **Importadora Global** ⭐⭐⭐⭐ (87%)
 - Productos: Perifericos, accesorios
-- Calificacion: ⭐⭐⭐⭐ (87%)
 - Tiempo entrega: 10-15 dias
 - Forma pago: 15 dias
-- Ultimo pedido: 08/01/2026
+- Descuento: 10% en primera compra
+- Ultimo pedido: 08/01/2026 - $890.000
+- Contacto: pedidos@impglobal.com
 
-📌 **DistriTech Uruguay**
+📌 **DistriTech Uruguay** ⭐⭐⭐⭐½ (92%)
 - Productos: Todo tipo
-- Calificacion: ⭐⭐⭐⭐½ (92%)
-- Tiempo entrega: 3-5 dias (LOCAL)
+- Tiempo entrega: 3-5 dias (LOCAL) ⚡
 - Forma pago: 45 dias
-- Ultimo pedido: 22/01/2026
+- Stock propio: Entrega inmediata
+- Ultimo pedido: 22/01/2026 - $456.000
+- Contacto: +598 2900 1234
 
-**CELULARES**
+**CELULARES & SMARTPHONES**
 
-📌 **MobileWorld**
-- Productos: iPhone, Samsung
-- Calificacion: ⭐⭐⭐⭐⭐ (96%)
+📌 **MobileWorld** ⭐⭐⭐⭐⭐ (96%)
+- Productos: iPhone, Samsung, Motorola
 - Tiempo entrega: 7-10 dias
 - Forma pago: 30 dias
+- Garantia: 12 meses oficial
+- Ultimo pedido: 18/01/2026 - $3.450.000
 
-Queres comparar precios de algun producto?""",
+Queres comparar precios de algun producto especifico?""",
             "buttons": "proveedores_acciones"
         }
 
-    # 4) Comparacion de precios
-    if any(word in p for word in ["comparar", "comparacion", "comparación", "mejor precio", "mas barato", "más barato"]):
+    # 4) COMPARACION - MEJORADO
+    comp_kw = ["comparar", "comparacion", "comparación", "mejor", "mas barato", "más barato", "economico", "económico",
+               "conveniente", "opciones", "alternativas", "cotizar"]
+    
+    if any(w in p for w in comp_kw):
         return {
             "content": """💰 **Comparacion de Precios - Webcam Logitech C920**
 
@@ -310,7 +390,7 @@ Queres comparar precios de algun producto?""",
 **Analisis:**
 - **Mejor precio:** ImportGlobal (ahorro: $65.000)
 - **Mas rapido:** DistriTech (3-5 dias)
-- **Mejor balance:** ImportGlobal (precio + cantidad minima)
+- **Mejor balance:** ImportGlobal
 
 **Recomendacion:**
 Pedir a ImportGlobal 100 unidades
@@ -322,54 +402,78 @@ Genero la orden de compra?""",
             "buttons": "comparacion_acciones"
         }
 
-    # 5) Movimientos de stock
-    if any(word in p for word in ["movimiento", "entrada", "salida", "historial", "registro"]):
+    # 5) MOVIMIENTOS - AMPLIADO
+    mov_kw = ["movimiento", "movimientos", "entrada", "entradas", "salida", "salidas", "historial", "registro", 
+              "operacion", "operaciones", "transaccion", "transacciones", "actividad", "ultimos", "últimos", "hoy"]
+    
+    if any(w in p for w in mov_kw):
         return {
-            "content": """📋 **Ultimos Movimientos - HOY 28/01/2026**
+            "content": """📋 **Movimientos de Stock - HOY 29/01/2026**
 
-**ENTRADAS (Recepciones)**
-✅ 09:15 - Dell Latitude 50u - Deposito Central
+**ENTRADAS (Recepciones) ✅**
+
+✅ **09:15** - Dell Latitude E5470 (50 unidades)
 - Orden: #OC-2024-0089
 - Proveedor: TechSupply
+- Deposito: Central
+- Valor: $4.375.000
+- Recibido por: J.Martinez
 
-✅ 10:30 - Mouse Logitech 120u - Deposito Norte
+✅ **10:30** - Mouse Logitech M170 (120 unidades)
 - Orden: #OC-2024-0091
 - Proveedor: ImportGlobal
+- Deposito: Norte
+- Valor: $180.000
 
-**SALIDAS (Ventas/Despachos)**
-📤  08:45 - Notebook HP 5u - Cliente: Empresa XYZ
+**SALIDAS (Ventas/Despachos) 📤**
+
+📤 **08:45** - Notebook HP ProBook x5
+- Cliente: Empresa XYZ SA
 - Deposito: Central
-- Valor: $87.500
+- Valor: $437.500
 
-📤 11:20 - Teclados varios 45u - Cliente: Retail ABC
+📤 **11:20** - Teclados Logitech K120 x45
+- Cliente: Retail ABC
 - Deposito: Sur
-- Valor: $34.200
+- Valor: $171.000
 
-**TRANSFERENCIAS ENTRE DEPOSITOS**
-🔄 14:30 - Mouse MX Master 20u
-- Origen: Central
-- Destino: Norte
-- Estado: En transito
+**TRANSFERENCIAS ENTRE DEPOSITOS 🔄**
 
-**AJUSTES DE INVENTARIO**
-⚙️ 16:00 - Webcam C920 -2u
+🔄 **14:30** - Mouse MX Master (20 unidades)
+- Origen: Deposito Central
+- Destino: Deposito Norte
+- Estado: En transito (llegada 18:00)
+
+**AJUSTES DE INVENTARIO ⚙️**
+
+⚙️ **16:00** - Webcam C920 (-2 unidades)
 - Deposito: Sur
 - Motivo: Producto defectuoso
-- Responsable: J.Perez
 
-Necesitas ver mas detalle de algun movimiento?""",
+**RESUMEN DEL DIA:**
+- Entradas: $7.017.500 (195 unidades)
+- Salidas: $1.254.000 (53 unidades)
+- Balance: +$5.763.500 (+142 unidades)
+
+Necesitas ver algun movimiento en detalle?""",
             "buttons": "movimientos_acciones"
         }
 
-    # 6) Stock por deposito especifico
-    if "deposito" in p or "depósito" in p:
+    # 6) DEPOSITOS - MEJORADO
+    dep_kw = ["deposito", "depósito", "almacen", "almacén", "bodega", "central", "norte", "sur", 
+              "ubicacion", "ubicación", "donde", "dónde"]
+    
+    if any(w in p for w in dep_kw):
         if "central" in p:
             return {
-                "content": """🏢 **Deposito Central - Stock Detallado**
+                "content": """🏢 **Deposito Central - Info Completa**
 
-**Ubicacion:** Av. Italia 2500, Montevideo
-**Responsable:** Juan Martinez
-**Capacidad:** 85% ocupado
+**DATOS GENERALES:**
+- Ubicacion: Av. Italia 2500, Montevideo
+- Responsable: Juan Martinez
+- Contacto: +598 2408 1234
+- Horario: Lun-Vie 8:00-18:00
+- Capacidad: 1.200 m² (85% ocupado)
 
 **STOCK POR CATEGORIA:**
 
@@ -389,65 +493,61 @@ Necesitas ver mas detalle de algun movimiento?""",
 - Webcams: 15u
 - Otros: 207u
 
-**ULTIMOS MOVIMIENTOS:**
-- Entrada: Dell Latitude 50u (hoy 09:15)
-- Salida: HP ProBook 5u (hoy 08:45)
-- Transferencia: Mouse MX 20u a Norte (hoy 14:30)
+**VALOR TOTAL:** $23.517.000
 
 **ALERTAS:**
-⚠️ Webcams en nivel bajo (15 unidades)
+⚠️ Webcams nivel bajo (15 unid - min: 25)
 
-Necesitas otro deposito?""",
+Necesitas ver otro deposito?""",
                 "buttons": "depositos_otros"
             }
         elif "norte" in p:
             return {
-                "content": """🏢 **Deposito Norte - Stock Detallado**
+                "content": """🏢 **Deposito Norte - Info Completa**
 
-**Ubicacion:** Ruta 8 Km 23, Zonamerica
-**Responsable:** Maria Rodriguez
-**Capacidad:** 62% ocupado
+**DATOS GENERALES:**
+- Ubicacion: Ruta 8 Km 23, Zonamerica
+- Responsable: Maria Rodriguez
+- Contacto: +598 2518 5678
+- Capacidad: 800 m² (62% ocupado)
 
 **STOCK POR CATEGORIA:**
 
 💻 **Notebooks** (35 unidades - $3.150.000)
 - Dell Latitude: 12u
-- HP ProBook: 8u ⚠️
+- HP ProBook: 8u 🔴 CRITICO
 - Lenovo ThinkPad: 15u
 
 🖥️ **Monitores** (34 unidades - $1.615.000)
-- LG 24": 18u
-- Samsung 27": 12u
-- Dell 32": 4u
-
 🖱️ **Accesorios** (234 unidades - $456.000)
-- Mouse: 67u
-- Teclados: 45u
-- Webcams: 8u
-- Otros: 114u
 
-**EN TRANSITO (llegada estimada hoy 18:00):**
+**VALOR TOTAL:** $11.455.000
+
+**EN TRANSITO (llegada hoy 18:00):**
 🚚 Mouse MX Master: 20u desde Central
 
 **ALERTAS:**
-🔴 HP ProBook: Solo 8 unidades (critico)
-⚠️ Webcams: 8 unidades (bajo)
+🔴 HP ProBook: Solo 8 unidades (min: 15)
+⚠️ Webcams: 8 unidades (min: 15)
 
 Queres ver otro deposito?""",
                 "buttons": "depositos_otros"
             }
 
-    # 7) Generar orden de compra
-    if any(word in p for word in ["orden", "pedido", "compra", "generar", "solicitar"]):
+    # 7) ORDENES - AMPLIADO
+    orden_kw = ["orden", "ordenes", "pedido", "pedidos", "compra", "compras", "generar", "crear", 
+                "solicitar", "pedir", "oc"]
+    
+    if any(w in p for w in orden_kw):
         return {
             "content": """📝 **Generar Orden de Compra**
 
-Basado en alertas actuales, te sugiero:
+Basado en alertas actuales:
 
 **ORDEN RECOMENDADA #1**
 🔴 **URGENTE - Webcam Logitech C920**
 - Cantidad: 100 unidades
-- Proveedor: ImportGlobal (mejor precio)
+- Proveedor: ImportGlobal
 - Precio unitario: $4.200
 - **Total: $420.000**
 - Entrega: 10-15 dias
@@ -456,11 +556,10 @@ Basado en alertas actuales, te sugiero:
 **ORDEN RECOMENDADA #2**
 ⚠️ **Cable HDMI 2m**
 - Cantidad: 80 unidades
-- Proveedor: DistriTech (rapido)
+- Proveedor: DistriTech
 - Precio unitario: $890
 - **Total: $71.200**
 - Entrega: 3-5 dias
-- Stock actual: 18u (critico)
 
 **ORDEN RECOMENDADA #3**
 ⚠️ **Mouse MX Master**
@@ -468,8 +567,6 @@ Basado en alertas actuales, te sugiero:
 - Proveedor: ImportGlobal
 - Precio unitario: $4.850
 - **Total: $242.500**
-- Entrega: 10-15 dias
-- Stock actual: 43u (bajo)
 
 **TOTAL ORDENES:** $733.700
 
@@ -477,8 +574,11 @@ Queres generar estas ordenes?""",
             "buttons": "generar_ordenes"
         }
 
-    # 8) Reportes
-    if any(word in p for word in ["reporte", "informe", "analisis", "análisis", "estadistica", "estadística"]):
+    # 8) REPORTES - AMPLIADO
+    rep_kw = ["reporte", "reportes", "informe", "analisis", "análisis", "estadistica", "estadística",
+              "grafico", "gráfico", "dashboard", "kpi"]
+    
+    if any(w in p for w in rep_kw):
         return {
             "content": """📊 **Reportes y Analisis Disponibles**
 
@@ -507,25 +607,96 @@ Que reporte necesitas?""",
             "buttons": "reportes_opciones"
         }
 
-    # Respuesta por defecto
+    # 9) VENTAS - NUEVO
+    venta_kw = ["venta", "ventas", "vendido", "vendimos", "factura", "cliente", "ingreso"]
+    
+    if any(w in p for w in venta_kw):
+        return {
+            "content": """💰 **Resumen de Ventas**
+
+**HOY (29/01/2026):**
+- Total: $1.254.000
+- Unidades: 53
+- Facturas: 7
+
+**SEMANA:**
+- Total: $8.945.600
+- Crecimiento: +12.3%
+
+**MES (Enero):**
+- Total: $34.567.800
+- Meta: $38.000.000 (91%)
+
+**TOP 5 CLIENTES:**
+1. Empresa XYZ: $4.567.000
+2. Retail ABC: $3.234.000
+3. TechCorp: $2.890.000
+
+Queres ver mas detalles?""",
+            "buttons": "ventas_analisis"
+        }
+
+    # 10) VALOR INVENTARIO - NUEVO
+    valor_kw = ["valor", "vale", "cuanto vale", "cuánto vale", "precio total"]
+    
+    if any(w in p for w in valor_kw) and "inventario" in p:
+        return {
+            "content": """💰 **Valorizacion Total de Inventario**
+
+**POR CATEGORIA:**
+- 💻 Informatica: $32.914.000
+- 📱 Celulares: $24.567.800
+- 🖱️ Accesorios: $1.892.300
+
+**VALOR TOTAL:** $59.374.100
+
+**POR DEPOSITO:**
+- Central: $23.517.000 (40%)
+- Norte: $11.455.000 (19%)
+- Sur: $15.942.800 (27%)
+- En transito: $8.459.300 (14%)
+
+**INDICADORES:**
+- Rotacion promedio: 45 dias
+- Stock critico: $1.567.800
+
+Queres ver detalle de alguna categoria?""",
+            "buttons": "valor_acciones"
+        }
+
+    # RESPUESTA DEFAULT - MEJORADA
     return {
-        "content": """No entiendo bien tu consulta
+        "content": """❓ No entendi tu consulta. Puedo ayudarte con:
 
-Puedo ayudarte con:
+**📦 STOCK & INVENTARIO**
+• Consultar stock de productos
+• Ver por categoria o deposito
+• Valor total del inventario
 
-• 📦 Consultar stock de productos
-• 🚨 Ver alertas de reposicion
-• 🏢 Informacion de proveedores
-• 💰 Comparar precios
-• 📋 Ver movimientos
-• 📝 Generar ordenes de compra
-• 📊 Reportes y analisis
+**🚨 ALERTAS**
+• Productos con stock bajo
+• Alertas urgentes
 
-Que necesitas?""",
-        "buttons": "ayuda"
-    }
+**🏢 PROVEEDORES**
+• Lista de proveedores
+• Comparar precios
+• Generar ordenes
 
-# Mostrar mensajes del chat
+**📊 REPORTES**
+• Ventas y analisis
+• Movimientos del dia
+
+**Ejemplos:**
+- "Cuanto stock de notebooks"
+- "Que productos estan criticos"
+- "Comparar precios webcams"
+- "Ver deposito central"
+
+Proba escribir tu consulta! 😊""",
+            "buttons": "ayuda_ampliada"
+        }
+
+# Mostrar mensajes
 for i, message in enumerate(st.session_state.messages):
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -533,229 +704,183 @@ for i, message in enumerate(st.session_state.messages):
         if message.get("show_buttons"):
             button_type = message["show_buttons"]
 
-            # Botones iniciales
             if button_type == "inicial":
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("📦 Consultar stock", key="btn_stock_{}".format(i), use_container_width=True):
+                    if st.button("📦 Consultar stock", key=f"btn_stock_{i}", use_container_width=True):
                         response = get_bot_response("stock general")
                         add_message_and_hide_buttons("Ver stock general", response["content"], response.get("buttons"))
                         st.rerun()
 
                 with col2:
-                    if st.button("🚨 Ver alertas", key="btn_alertas_{}".format(i), use_container_width=True):
+                    if st.button("🚨 Ver alertas", key=f"btn_alertas_{i}", use_container_width=True):
                         response = get_bot_response("alertas")
-                        add_message_and_hide_buttons("Ver alertas de stock", response["content"], response.get("buttons"))
+                        add_message_and_hide_buttons("Ver alertas", response["content"], response.get("buttons"))
                         st.rerun()
 
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("🏢 Proveedores", key="btn_prov_{}".format(i), use_container_width=True):
+                    if st.button("🏢 Proveedores", key=f"btn_prov_{i}", use_container_width=True):
                         response = get_bot_response("proveedores")
                         add_message_and_hide_buttons("Ver proveedores", response["content"], response.get("buttons"))
                         st.rerun()
 
                 with col2:
-                    if st.button("📊 Reportes", key="btn_rep_{}".format(i), use_container_width=True):
+                    if st.button("📊 Reportes", key=f"btn_rep_{i}", use_container_width=True):
                         response = get_bot_response("reportes")
                         add_message_and_hide_buttons("Ver reportes", response["content"], response.get("buttons"))
                         st.rerun()
 
-            # Acciones de stock notebooks
+            # Acciones stock notebooks
             elif button_type == "stock_notebook_acciones":
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("💰 Comparar precios", key="btn_comp_{}".format(i), use_container_width=True):
+                    if st.button("💰 Comparar precios", key=f"btn_comp_{i}", use_container_width=True):
                         response = get_bot_response("comparar precios")
                         add_message_and_hide_buttons("Comparar precios", response["content"], response.get("buttons"))
                         st.rerun()
 
                 with col2:
-                    if st.button("📝 Generar orden", key="btn_orden_{}".format(i), use_container_width=True):
+                    if st.button("📝 Generar orden", key=f"btn_orden_{i}", use_container_width=True):
                         response = get_bot_response("generar orden")
-                        add_message_and_hide_buttons("Generar orden de compra", response["content"], response.get("buttons"))
+                        add_message_and_hide_buttons("Generar orden", response["content"], response.get("buttons"))
                         st.rerun()
 
-            # Acciones de alertas
+            # Alertas acciones
             elif button_type == "alertas_acciones":
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("✅ Generar ordenes auto", key="btn_auto_{}".format(i), use_container_width=True):
+                    if st.button("✅ Generar ordenes auto", key=f"btn_auto_{i}", use_container_width=True):
                         add_message_and_hide_buttons(
                             "Generar ordenes automaticas",
                             """✅ **Ordenes generadas automaticamente**
 
 🔴 Orden #OC-2026-0156
-- Producto: Webcam C920
-- Cantidad: 100u
-- Proveedor: ImportGlobal
+- Webcam C920: 100u
 - Total: $420.000
 - Estado: Pendiente aprobacion
 
 🔴 Orden #OC-2026-0157
-- Producto: Cable HDMI 2m
-- Cantidad: 80u
-- Proveedor: DistriTech
+- Cable HDMI 2m: 80u
 - Total: $71.200
-- Estado: Pendiente aprobacion
+- Estado: Pendiente
 
 **Total:** $491.200
 
-Las ordenes fueron enviadas a compras para aprobacion.
-Recibiras notificacion cuando sean procesadas.
+Las ordenes fueron enviadas a compras.
 
 Necesitas algo mas?""",
-                            "ayuda"
+                            "ayuda_ampliada"
                         )
                         st.rerun()
 
                 with col2:
-                    if st.button("📊 Ver reporte completo", key="btn_rep_comp_{}".format(i), use_container_width=True):
+                    if st.button("📊 Ver reporte", key=f"btn_rep_comp_{i}", use_container_width=True):
                         response = get_bot_response("reportes")
                         add_message_and_hide_buttons("Ver reportes", response["content"], response.get("buttons"))
                         st.rerun()
 
-            # Acciones de categorias de stock
+            # Categorias stock
             elif button_type == "stock_categorias":
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("💻 Informatica", key="btn_info_{}".format(i), use_container_width=True):
+                    if st.button("💻 Informatica", key=f"btn_info_{i}", use_container_width=True):
                         response = get_bot_response("stock notebook")
-                        add_message_and_hide_buttons("Ver stock informatica", response["content"], response.get("buttons"))
+                        add_message_and_hide_buttons("Ver informatica", response["content"], response.get("buttons"))
                         st.rerun()
 
                 with col2:
-                    if st.button("🖱️ Accesorios", key="btn_acc_{}".format(i), use_container_width=True):
+                    if st.button("🖱️ Accesorios", key=f"btn_acc_{i}", use_container_width=True):
                         response = get_bot_response("stock accesorios")
-                        add_message_and_hide_buttons("Ver stock accesorios", response["content"], response.get("buttons"))
+                        add_message_and_hide_buttons("Ver accesorios", response["content"], response.get("buttons"))
                         st.rerun()
 
-            # Acciones de proveedores
+            # Proveedores acciones
             elif button_type == "proveedores_acciones":
-                if st.button("💰 Comparar precios producto", key="btn_comp_prod_{}".format(i), use_container_width=True):
+                if st.button("💰 Comparar precios", key=f"btn_comp_prod_{i}", use_container_width=True):
                     response = get_bot_response("comparar precios")
                     add_message_and_hide_buttons("Comparar precios", response["content"], response.get("buttons"))
                     st.rerun()
 
-            # Acciones de comparacion
+            # Comparacion acciones
             elif button_type == "comparacion_acciones":
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("✅ Generar orden ImportGlobal", key="btn_gen_imp_{}".format(i), use_container_width=True):
+                    if st.button("✅ Generar orden", key=f"btn_gen_imp_{i}", use_container_width=True):
                         add_message_and_hide_buttons(
-                            "Generar orden a ImportGlobal",
+                            "Generar orden",
                             """✅ **Orden de Compra Generada**
 
 **Orden:** #OC-2026-0158
-**Fecha:** 28/01/2026 15:45
-
 **Proveedor:** Importadora Global
-**Producto:** Webcam Logitech C920
-**Cantidad:** 100 unidades
-**Precio unitario:** $4.200
+**Producto:** Webcam C920
+**Cantidad:** 100u
 **Total:** $420.000
 
-**Condiciones:**
-- Entrega: 10-15 dias habiles
-- Forma pago: 15 dias fecha factura
-- Entrega estimada: 02-07 Febrero
+**Entrega:** 10-15 dias
+**Estado:** Enviada
 
-**Estado:** Enviada al proveedor
-**Tracking:** Se enviara por email
-
-La orden fue registrada y enviada.
-Te notificaremos cuando sea confirmada.
+La orden fue registrada.
 
 Necesitas algo mas?""",
-                            "ayuda"
+                            "ayuda_ampliada"
                         )
                         st.rerun()
 
                 with col2:
-                    if st.button("🔍 Ver otras opciones", key="btn_otras_{}".format(i), use_container_width=True):
+                    if st.button("🔍 Ver otras opciones", key=f"btn_otras_{i}", use_container_width=True):
                         response = get_bot_response("proveedores")
-                        add_message_and_hide_buttons("Ver otros proveedores", response["content"], response.get("buttons"))
+                        add_message_and_hide_buttons("Ver proveedores", response["content"], response.get("buttons"))
                         st.rerun()
 
-            # Otros depositos
+            # Depositos
             elif button_type == "depositos_otros":
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("🏢 Ver Deposito Norte", key="btn_norte_{}".format(i), use_container_width=True):
+                    if st.button("🏢 Deposito Norte", key=f"btn_norte_{i}", use_container_width=True):
                         response = get_bot_response("deposito norte")
-                        add_message_and_hide_buttons("Ver Deposito Norte", response["content"], response.get("buttons"))
+                        add_message_and_hide_buttons("Ver Norte", response["content"], response.get("buttons"))
                         st.rerun()
 
                 with col2:
-                    if st.button("🏢 Ver Deposito Sur", key="btn_sur_{}".format(i), use_container_width=True):
-                        add_message_and_hide_buttons(
-                            "Ver Deposito Sur",
-                            """🏢 **Deposito Sur - Stock Detallado**
-
-**Ubicacion:** Ruta 1 Km 18, Canelones
-**Responsable:** Carlos Lopez
-**Capacidad:** 71% ocupado
-
-**STOCK POR CATEGORIA:**
-
-💻 **Notebooks** (52 unidades - $4.680.000)
-- Dell Latitude: 23u
-- HP ProBook: 18u
-- Lenovo ThinkPad: 11u ⚠️
-
-🖥️ **Monitores** (33 unidades - $1.568.000)
-- LG 24": 15u
-- Samsung 27": 12u
-- Dell 32": 6u
-
-🖱️ **Accesorios** (157 unidades - $306.000)
-- Mouse: 89u
-- Teclados: 52u
-- Webcams: 4u 🔴
-- Otros: 12u
-
-**ALERTAS:**
-🔴 Webcams: Solo 4 unidades (critico)
-⚠️ Lenovo ThinkPad: 11 unidades (bajo)
-
-Necesitas ver movimientos o generar ordenes?""",
-                            "depositos_otros"
-                        )
+                    if st.button("🏢 Deposito Central", key=f"btn_cent_{i}", use_container_width=True):
+                        response = get_bot_response("deposito central")
+                        add_message_and_hide_buttons("Ver Central", response["content"], response.get("buttons"))
                         st.rerun()
 
-            # Ayuda general
-            elif button_type == "ayuda":
+            # Ayuda
+            elif button_type == "ayuda_ampliada":
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("📦 Ver stock", key="btn_stock_ayuda_{}".format(i), use_container_width=True):
-                        response = get_bot_response("stock general")
+                    if st.button("📦 Ver stock", key=f"btn_stock_ayuda_{i}", use_container_width=True):
+                        response = get_bot_response("stock")
                         add_message_and_hide_buttons("Ver stock", response["content"], response.get("buttons"))
                         st.rerun()
 
                 with col2:
-                    if st.button("🚨 Ver alertas", key="btn_alert_ayuda_{}".format(i), use_container_width=True):
+                    if st.button("🚨 Ver alertas", key=f"btn_alert_ayuda_{i}", use_container_width=True):
                         response = get_bot_response("alertas")
                         add_message_and_hide_buttons("Ver alertas", response["content"], response.get("buttons"))
                         st.rerun()
 
-# Ejemplos de consultas
+# Ejemplos
 st.markdown("---")
 st.markdown("**💬 Ejemplos de consultas:**")
 col1, col2 = st.columns(2)
 with col1:
     st.caption("• Cual es el stock de notebooks")
-    st.caption("• Mostrame las alertas de productos criticos")
-    st.caption("• Quiero comparar precios de webcams")
-    st.caption("• Ver stock del deposito central")
-    st.caption("• Cuales son los ultimos movimientos")
+    st.caption("• Mostrame las alertas criticas")
+    st.caption("• Comparar precios de webcams")
+    st.caption("• Ver deposito central")
+    st.caption("• Ultimos movimientos")
 with col2:
-    st.caption("• Que proveedores tenemos activos")
-    st.caption("• Generar orden de compra automatica")
-    st.caption("• Stock de accesorios por deposito")
-    st.caption("• Ver reporte de productos mas vendidos")
-    st.caption("• Cuanto vale todo el inventario")
+    st.caption("• Proveedores activos")
+    st.caption("• Generar orden automatica")
+    st.caption("• Stock de accesorios")
+    st.caption("• Productos mas vendidos")
+    st.caption("• Cuanto vale el inventario")
 
-# Input del chat
+# Input
 if prompt := st.chat_input("Escribi tu consulta..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     response = get_bot_response(prompt)
@@ -770,10 +895,10 @@ if prompt := st.chat_input("Escribi tu consulta..."):
 
 # Footer
 st.divider()
-st.caption("💡 **Este es un demo interactivo.** El bot responde con datos de ejemplo.")
-st.caption("🔌 En produccion conecta con tu ERP, sistema de inventario y proveedores reales.")
+st.caption("💡 **Demo interactivo.** Datos de ejemplo.")
+st.caption("🔌 En produccion conecta con tu ERP real.")
 
-# Boton reset
+# Reset
 col1, col2 = st.columns([3, 1])
 with col2:
     if st.button("🔄 Reiniciar"):
