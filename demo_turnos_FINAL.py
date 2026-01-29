@@ -1,4 +1,5 @@
 import streamlit as st
+from datetime import datetime, timedelta
 
 st.set_page_config(
     page_title="Demo Turnos - AppointmentBot",
@@ -7,13 +8,16 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+# CSS SUPER VISUAL
 st.markdown("""
 <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
-    .stChatMessage { max-width: 800px; margin: 0 auto; }
-    .stChatFloatingInputContainer { max-width: 800px; margin: 0 auto; }
+    
+    .stChatMessage { max-width: 900px; margin: 0 auto; }
+    .stChatFloatingInputContainer { max-width: 900px; margin: 0 auto; }
+    
     .custom-header {
         text-align: center; padding: 25px;
         background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
@@ -22,18 +26,206 @@ st.markdown("""
     }
     .custom-header h1 { margin: 0; font-size: 28px; font-weight: 600; }
     .custom-header p { margin: 10px 0 0 0; opacity: 0.9; font-size: 15px; }
-    div[data-testid="column"] > div > div > button {
-        width: 100%; border-radius: 8px; padding: 14px 20px; font-weight: 500;
-        font-size: 15px; transition: all 0.2s ease; border: 1.5px solid #e5e7eb;
-        background: white; color: #374151; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    
+    /* Calendario super visual */
+    .calendar-wrapper {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        margin: 20px 0;
     }
+    
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #e5e7eb;
+    }
+    
+    .calendar-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1f2937;
+    }
+    
+    .calendar-legend {
+        display: flex;
+        gap: 15px;
+        font-size: 12px;
+    }
+    
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+        margin-top: 15px;
+    }
+    
+    .calendar-day {
+        aspect-ratio: 1;
+        padding: 12px 8px;
+        text-align: center;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 90px;
+    }
+    
+    .calendar-day:hover {
+        transform: translateY(-4px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(74, 144, 226, 0.25);
+        z-index: 10;
+    }
+    
+    /* Estilos por disponibilidad */
+    .day-excellent {
+        background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+        border: 2px solid #22c55e;
+        color: #166534;
+    }
+    
+    .day-excellent:hover {
+        background: linear-gradient(135deg, #bbf7d0 0%, #86efac 100%);
+        border-color: #16a34a;
+    }
+    
+    .day-good {
+        background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+        border: 2px solid #0ea5e9;
+        color: #075985;
+    }
+    
+    .day-good:hover {
+        background: linear-gradient(135deg, #bae6fd 0%, #7dd3fc 100%);
+        border-color: #0284c7;
+    }
+    
+    .day-few {
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        border: 2px solid #f59e0b;
+        color: #92400e;
+    }
+    
+    .day-few:hover {
+        background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%);
+        border-color: #d97706;
+    }
+    
+    .day-closed {
+        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        border: 2px solid #d1d5db;
+        color: #9ca3af;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+    
+    .day-closed:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .day-number {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 4px;
+        line-height: 1;
+    }
+    
+    .day-name {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+        opacity: 0.8;
+    }
+    
+    .day-slots {
+        font-size: 12px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    
+    /* Horarios visuales */
+    .time-slots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+        margin: 20px 0;
+    }
+    
+    .time-slot-btn {
+        padding: 14px;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: 2px solid #e5e7eb;
+        background: white;
+    }
+    
+    .time-slot-available {
+        border-color: #4a90e2;
+        color: #4a90e2;
+    }
+    
+    .time-slot-available:hover {
+        background: #4a90e2;
+        color: white;
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    }
+    
+    .time-slot-taken {
+        background: #f3f4f6;
+        border-color: #d1d5db;
+        color: #9ca3af;
+        cursor: not-allowed;
+        text-decoration: line-through;
+    }
+    
+    div[data-testid="column"] > div > div > button {
+        width: 100%; border-radius: 10px; padding: 16px 24px; font-weight: 600;
+        font-size: 15px; transition: all 0.3s ease; border: 2px solid #e5e7eb;
+        background: white; color: #374151; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
     div[data-testid="column"] > div > div > button:hover {
         background: #4a90e2; border-color: #4a90e2; color: white;
-        transform: translateY(-1px); box-shadow: 0 4px 8px rgba(74, 144, 226, 0.3);
+        transform: translateY(-2px); box-shadow: 0 6px 16px rgba(74, 144, 226, 0.3);
+    }
+    
+    .section-header {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        border-left: 4px solid #4a90e2;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin: 20px 0 15px 0;
+        font-weight: 600;
+        color: #075985;
     }
 </style>
 """, unsafe_allow_html=True)
 
+# Badge
 st.markdown("""
 <div style="text-align: center; margin-bottom: 15px;">
     <span style="display: inline-block; background: linear-gradient(135deg, #4a90e2 0%, #5ba3f5 100%);
@@ -44,10 +236,11 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+# Header
 st.markdown("""
 <div class="custom-header">
-    <h1>📅 AppointmentBot - Sistema de Turnos Inteligente</h1>
-    <p>Reservá tu turno en segundos con nuestro asistente</p>
+    <h1>📅 AppointmentBot - Reservá tu Turno</h1>
+    <p>Sistema inteligente de gestión de turnos - Simple, rápido y efectivo</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -65,15 +258,14 @@ def maybe_bonus():
 if "messages" not in st.session_state:
     st.session_state.messages = [{
         "role": "assistant",
-        "content": """¡Hola! Soy tu asistente de turnos 📅
+        "content": """¡Hola! 👋 Soy tu asistente de turnos
 
-Puedo ayudarte con:
-✅ Ver disponibilidad y reservar
-✅ Cambiar o cancelar turnos
-✅ Información y horarios
-✅ Recordatorios automáticos
+**Reservá en 3 simples pasos:**
+1️⃣ Elegí el día en el calendario
+2️⃣ Seleccioná el horario
+3️⃣ Confirmá tus datos
 
-¿Qué necesitás?""",
+¿Empezamos?""",
         "show_buttons": "inicial"
     }]
 
@@ -95,140 +287,181 @@ def add_msg(user, bot, btns=None, bonus=False):
     if bonus:
         maybe_bonus()
 
+def get_calendar_visual():
+    """Genera calendario SUPER visual con CSS"""
+    today = datetime.now()
+    
+    # Disponibilidad simulada
+    availability = {
+        0: ("excellent", 8, "🟢"),  # Lunes
+        1: ("excellent", 9, "🟢"),  # Martes
+        2: ("good", 7, "🔵"),        # Miércoles
+        3: ("excellent", 8, "🟢"),  # Jueves
+        4: ("few", 6, "🟡"),         # Viernes
+        5: ("few", 3, "🟡"),         # Sábado
+        6: ("closed", 0, "⚫"),      # Domingo
+    }
+    
+    html = """
+    <div class="calendar-wrapper">
+        <div class="calendar-header">
+            <div class="calendar-title">📅 Calendario de Turnos - Próximos 14 Días</div>
+            <div class="calendar-legend">
+                <div class="legend-item"><span>🟢</span> Muchos turnos</div>
+                <div class="legend-item"><span>🔵</span> Disponible</div>
+                <div class="legend-item"><span>🟡</span> Pocos turnos</div>
+                <div class="legend-item"><span>⚫</span> Cerrado</div>
+            </div>
+        </div>
+        <div class="calendar-grid">
+    """
+    
+    day_names = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"]
+    
+    for i in range(14):
+        date = today + timedelta(days=i)
+        day_num = date.day
+        day_name = day_names[date.weekday()]
+        month = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"][date.month - 1]
+        
+        style_class, slots, emoji = availability[date.weekday()]
+        
+        if slots == 0:
+            status_text = "Cerrado"
+        else:
+            status_text = f"{slots} turnos"
+        
+        html += f"""
+            <div class="calendar-day day-{style_class}">
+                <div class="day-name">{day_name}</div>
+                <div class="day-number">{day_num}</div>
+                <div style="font-size: 10px; opacity: 0.7; margin-bottom: 4px;">{month}</div>
+                <div class="day-slots">{emoji} {status_text}</div>
+            </div>
+        """
+    
+    html += """
+        </div>
+        <p style="text-align: center; margin-top: 20px; color: #6b7280; font-size: 13px;">
+            💡 <strong>Tip:</strong> Clickeá en un día para ver los horarios disponibles o usá los botones de acceso rápido abajo
+        </p>
+    </div>
+    """
+    
+    return html
+
+def get_time_slots_visual(fecha):
+    """Genera horarios visuales"""
+    morning = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30"]
+    afternoon = ["14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"]
+    
+    occupied = ["10:00", "15:00", "17:00"]
+    
+    html = f"""
+    <div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h3 style="margin: 0; color: #1f2937; font-size: 22px;">⏰ Horarios Disponibles</h3>
+            <p style="margin: 8px 0 0 0; color: #6b7280; font-size: 14px;">{fecha}</p>
+        </div>
+        
+        <div class="section-header">🌅 Turno Mañana (9:00 - 13:00)</div>
+        <div class="time-slots-grid">
+    """
+    
+    for slot in morning:
+        if slot in occupied:
+            html += f'<div class="time-slot-btn time-slot-taken">{slot}</div>'
+        else:
+            html += f'<div class="time-slot-btn time-slot-available">{slot}</div>'
+    
+    html += """
+        </div>
+        
+        <div class="section-header">🌇 Turno Tarde (14:00 - 19:00)</div>
+        <div class="time-slots-grid">
+    """
+    
+    for slot in afternoon:
+        if slot in occupied:
+            html += f'<div class="time-slot-btn time-slot-taken">{slot}</div>'
+        else:
+            html += f'<div class="time-slot-btn time-slot-available">{slot}</div>'
+    
+    html += """
+        </div>
+        
+        <div style="background: #f0f9ff; border-radius: 8px; padding: 12px; margin-top: 20px;">
+            <p style="margin: 0; color: #0369a1; font-size: 13px; text-align: center;">
+                💡 <strong>Menos espera:</strong> 9:00am, 11:00am y 14:30pm | 
+                <strong>Más pedidos:</strong> 10:00am, 15:00pm, 17:00pm
+            </p>
+        </div>
+    </div>
+    """
+    
+    return html
+
 def get_response(prompt):
     p = (prompt or "").lower().strip()
     
     # VER CALENDARIO
-    if any(k in p for k in ["turno", "reserva", "disponible", "agenda", "cuando", "cuándo", "calendario", "ver", "mostrar"]):
+    if any(k in p for k in ["calendario", "disponible", "turno", "reserva", "agenda", "ver", "mostrar"]):
+        calendar_html = get_calendar_visual()
+        
         return {
-            "content": """📅 **Calendario de Turnos - Próximos 14 Días**
+            "content": f"""{calendar_html}
 
-**SEMANA 1 (Ene-Feb 2024)**
+**🎯 Para reservar tu turno:**
 
-| Día | Fecha | Disponibilidad |
-|-----|-------|----------------|
-| 🟦 **Lun** | 29 Ene | ✅ **8 turnos** - Muy disponible |
-| 🟦 **Mar** | 30 Ene | ✅ **9 turnos** - Muy disponible |
-| 🟦 **Mié** | 31 Ene | ✅ **7 turnos** - Disponible |
-| 🟦 **Jue** | 1 Feb | ✅ **8 turnos** - Muy disponible |
-| 🟧 **Vie** | 2 Feb | ⚡ **6 turnos** - Pocos espacios |
-| 🟧 **Sáb** | 3 Feb | ⚠️ **3 turnos** - Casi lleno |
-| ⬜ **Dom** | 4 Feb | ❌ **Cerrado** |
-
-**SEMANA 2 (Feb 2024)**
-
-| Día | Fecha | Disponibilidad |
-|-----|-------|----------------|
-| 🟦 **Lun** | 5 Feb | ✅ **8 turnos** - Muy disponible |
-| 🟦 **Mar** | 6 Feb | ✅ **9 turnos** - Muy disponible |
-| 🟦 **Mié** | 7 Feb | ✅ **7 turnos** - Disponible |
-| 🟦 **Jue** | 8 Feb | ✅ **8 turnos** - Muy disponible |
-| 🟧 **Vie** | 9 Feb | ⚡ **6 turnos** - Pocos espacios |
-| 🟧 **Sáb** | 10 Feb | ⚠️ **3 turnos** - Casi lleno |
-| ⬜ **Dom** | 11 Feb | ❌ **Cerrado** |
-
----
-
-**📊 LEYENDA:**
-- 🟦 Azul: Muchos turnos (6-9)
-- 🟧 Naranja: Pocos turnos (3-5)
-- ⬜ Gris: Cerrado
-
-**💡 RECOMENDACIONES:**
-- Los **miércoles y jueves** tienen más espacios
-- **Sábados** se llenan rápido - reservá con anticipación
-- **Lunes mañana** suele ser tranquilo
-
-**🎯 PARA RESERVAR:**
-Elegí un día usando los botones o escribí:
+Usá los botones de acceso rápido abajo o escribí directamente:
 - "Quiero el martes 30"
-- "Dame turno para el jueves 1"
-- "El viernes 2 de febrero"
-- "Próximo miércoles"
+- "Dame turno para el jueves"
+- "El viernes 2"
 
-👇 **Usá los botones para reservar rápido**""",
+👇 **Días más solicitados**""",
             "buttons": "fecha_rapida",
             "bonus_once": True
         }
     
     # SELECCIÓN DE DÍA
-    if any(k in p for k in ["lunes", "martes", "miercoles", "miércoles", "jueves", "viernes", "sabado", "sábado"]) or any(k in p for k in ["30", "31", "1 ", "2 ", "3 "]):
+    if any(k in p for k in ["lunes", "martes", "miercoles", "miércoles", "jueves", "viernes", "sabado", "sábado"]) or any(k in p for k in ["30", "31", "1", "2", "3"]):
         
         if "martes" in p or "30" in p:
             fecha = "Martes 30 de Enero"
-            turnos_totales = 9
         elif "miercoles" in p or "miércoles" in p or "31" in p:
             fecha = "Miércoles 31 de Enero"
-            turnos_totales = 7
-        elif "jueves" in p or ("1" in p and "feb" in p):
+        elif "jueves" in p or "1" in p:
             fecha = "Jueves 1 de Febrero"
-            turnos_totales = 8
-        elif "viernes" in p or ("2" in p and ("feb" in p or "febrero" in p)):
+        elif "viernes" in p or "2" in p:
             fecha = "Viernes 2 de Febrero"
-            turnos_totales = 6
         else:
             fecha = "Martes 30 de Enero"
-            turnos_totales = 9
         
         st.session_state.selected_date = fecha
         
+        time_html = get_time_slots_visual(fecha)
+        
         return {
-            "content": f"""✅ **Perfecto! {fecha}**
+            "content": f"""✅ **¡Perfecto! Elegiste {fecha}**
 
-⏰ **Horarios Disponibles - {turnos_totales} espacios**
+{time_html}
 
----
+**Para elegir tu horario:**
 
-**🌅 TURNO MAÑANA (9:00 - 13:00)**
-
-| Hora | Estado | Duración |
-|------|--------|----------|
-| 09:00 | ✅ **Disponible** | 30-45 min |
-| 09:30 | ✅ **Disponible** | 30-45 min |
-| 10:00 | ❌ Ocupado | - |
-| 10:30 | ✅ **Disponible** | 30-45 min |
-| 11:00 | ✅ **Disponible** | 30-45 min |
-| 11:30 | ✅ **Disponible** | 30-45 min |
-| 12:00 | ✅ **Disponible** | 30-45 min |
-| 12:30 | ✅ **Disponible** | 30-45 min |
-
-**🌇 TURNO TARDE (14:30 - 19:00)**
-
-| Hora | Estado | Duración |
-|------|--------|----------|
-| 14:00 | ✅ **Disponible** | 30-45 min |
-| 14:30 | ✅ **Disponible** | 30-45 min |
-| 15:00 | ❌ Ocupado | - |
-| 15:30 | ✅ **Disponible** | 30-45 min |
-| 16:00 | ✅ **Disponible** | 30-45 min |
-| 16:30 | ✅ **Disponible** | 30-45 min |
-| 17:00 | ❌ Ocupado | - |
-| 17:30 | ✅ **Disponible** | 30-45 min |
-| 18:00 | ✅ **Disponible** | 30-45 min |
-
----
-
-**💡 RECOMENDACIONES:**
-- **Menos espera:** 9:00am, 11:00am, 14:30pm
-- **Más popular:** 10:00am, 15:00pm, 17:00pm
-- **Último turno:** 18:00pm
-
-**🎯 PARA CONFIRMAR:**
-Elegí el horario con los botones o escribí:
+Seleccioná con los botones rápidos o escribí:
 - "Quiero a las 9:30"
-- "El de las 14:00"
-- "15:30 está bien"
-- "A las 11"
+- "El de las 14:00"  
+- "15:30 por favor"
 
-👇 **Horarios más solicitados**""",
+👇 **Horarios populares**""",
             "buttons": "horario_rapido"
         }
     
-    # SELECCIÓN DE HORARIO
-    if any(h in p for h in ["9:", "10:", "11:", "12:", "14:", "15:", "16:", "17:", "18:"]) or any(h in p for h in ["9am", "2pm", "3pm"]):
+    # SELECCIÓN HORARIO
+    if any(h in p for h in ["9:", "10:", "11:", "12:", "14:", "15:", "16:", "17:", "18:"]):
         if "9:30" in p or "930" in p:
             hora = "09:30"
-        elif "14:00" in p or "1400" in p or "2pm" in p or "14" in p:
+        elif "14:00" in p or "1400" in p or "14" in p:
             hora = "14:00"
         elif "15:30" in p or "1530" in p:
             hora = "15:30"
@@ -241,433 +474,210 @@ Elegí el horario con los botones o escribí:
         fecha = st.session_state.selected_date or "Martes 30 de Enero"
         
         return {
-            "content": f"""🎉 **¡Excelente elección!**
+            "content": f"""🎉 **¡Turno Pre-Reservado!**
+
+<div style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); border-radius: 16px; padding: 24px; border-left: 6px solid #0ea5e9; margin: 20px 0;">
+    <h3 style="margin: 0 0 15px 0; color: #075985;">📋 Resumen de Tu Turno</h3>
+    <div style="display: grid; gap: 10px;">
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 20px;">📅</span>
+            <div><strong>Fecha:</strong> {fecha}</div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 20px;">🕐</span>
+            <div><strong>Hora:</strong> {hora}</div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 20px;">⏱️</span>
+            <div><strong>Duración:</strong> 30-45 minutos</div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <span style="font-size: 20px;">📍</span>
+            <div><strong>Lugar:</strong> Av. 18 de Julio 1850</div>
+        </div>
+    </div>
+</div>
+
+**✅ Para CONFIRMAR necesito tus datos:**
+
+Por favor escribí en este formato:
+`Nombre completo, Teléfono, Email`
+
+**Ejemplo:**
+`Juan Pérez, 099123456, juan@email.com`
 
 ---
 
-**📋 RESUMEN DE TU TURNO:**
-
-📅 **Fecha:** {fecha}  
-🕐 **Hora:** {hora}  
-⏱️ **Duración:** 30-45 minutos  
-📍 **Lugar:** Av. 18 de Julio 1850, Montevideo
-
----
-
-**✅ PARA CONFIRMAR NECESITO:**
-
-Por favor dame estos datos:
-1️⃣ **Nombre completo**
-2️⃣ **Teléfono / WhatsApp**
-3️⃣ **Email**
-4️⃣ **Motivo** (opcional)
-
-**EJEMPLO:**
-"Juan Pérez, 099 123 456, juan@email.com, control general"
-
-O simplemente:
-"Juan Pérez, 099123456, juan@email.com"
-
----
-
-**🔔 INCLUYE:**
-✅ Confirmación inmediata por email
+**🔔 Al confirmar recibirás:**
+✅ Email de confirmación inmediata
 ✅ Recordatorio WhatsApp 24hs antes
-✅ Recordatorio SMS 2hs antes
-✅ Link Google Calendar
+✅ SMS 2 horas antes del turno
+✅ Link para agregar a tu calendario
 
-**📋 POLÍTICAS:**
-✅ Cancelación gratis (+24hs antes)
-✅ Llegá 10 minutos antes
-✅ Traé documento de identidad
+**📋 Recordá traer:**
+• Documento de identidad
+• Credencial (si tenés)
+• Estudios previos
 
----
-
-💬 **Dame tus datos para confirmar el turno**""",
-            "buttons": "confirmar_datos"
+💬 **Escribí tus datos para confirmar**""",
+            "buttons": "confirmar_directo"
         }
     
     # CONFIRMACIÓN
-    if (any(k in p for k in ["confirmo", "confirmar", "si", "sí", "ok", "dale"]) and 
-        ("@" in p or "099" in p or "098" in p or "095" in p or "094" in p or "093" in p or "092" in p or "091" in p)):
-        
+    if (any(k in p for k in ["confirmo", "confirmar", "ok"]) and ("@" in p or "099" in p or "098" in p)):
         return {
-            "content": """✅ **¡TURNO CONFIRMADO EXITOSAMENTE!**
+            "content": """✅ **¡TURNO CONFIRMADO!** 🎉
 
-🎊 Tu reserva está confirmada
+<div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-radius: 16px; padding: 32px; text-align: center; border: 3px solid #22c55e; margin: 20px 0;">
+    <div style="font-size: 48px; margin-bottom: 10px;">✓</div>
+    <h2 style="margin: 0; color: #166534;">¡Tu turno está confirmado!</h2>
+    <p style="margin: 10px 0 0 0; color: #166534; font-size: 16px;">Código: <strong>#TURNO-300124-1400</strong></p>
+</div>
 
----
+**📋 DETALLES:**
 
-**📋 DETALLES DE TU TURNO:**
+<div style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: 15px 0;">
+    <div style="display: grid; gap: 12px;">
+        <div style="border-left: 4px solid #4a90e2; padding-left: 12px;">
+            <div style="color: #6b7280; font-size: 12px;">FECHA Y HORA</div>
+            <div style="font-size: 18px; font-weight: 600; color: #1f2937;">Martes 30 de Enero - 14:00hs</div>
+        </div>
+        <div style="border-left: 4px solid #4a90e2; padding-left: 12px;">
+            <div style="color: #6b7280; font-size: 12px;">PACIENTE</div>
+            <div style="font-size: 16px; font-weight: 600; color: #1f2937;">Juan Pérez</div>
+        </div>
+        <div style="border-left: 4px solid #4a90e2; padding-left: 12px;">
+            <div style="color: #6b7280; font-size: 12px;">CONTACTO</div>
+            <div style="font-size: 16px; color: #1f2937;">📱 099 123 456 | ✉️ juan@email.com</div>
+        </div>
+        <div style="border-left: 4px solid #4a90e2; padding-left: 12px;">
+            <div style="color: #6b7280; font-size: 12px;">UBICACIÓN</div>
+            <div style="font-size: 16px; color: #1f2937;">Av. 18 de Julio 1850, Montevideo</div>
+        </div>
+    </div>
+</div>
 
-📅 **Fecha:** Martes 30 de Enero 2024  
-🕐 **Hora:** 14:00 hs  
-👤 **Paciente:** Juan Pérez  
-📱 **WhatsApp:** 099 123 456  
-📧 **Email:** juan@email.com  
+**📨 YA TE ENVIAMOS:**
 
-**📍 Ubicación:**  
-Av. 18 de Julio 1850, Montevideo  
-🚇 Metro Tres Cruces (3 cuadras)  
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 15px 0;">
+    <div style="background: #f0fdf4; padding: 12px; border-radius: 8px; text-align: center;">
+        <div style="font-size: 24px;">📧</div>
+        <div style="font-size: 13px; font-weight: 600; color: #166534;">Email Enviado ✅</div>
+    </div>
+    <div style="background: #f0f9ff; padding: 12px; border-radius: 8px; text-align: center;">
+        <div style="font-size: 24px;">📅</div>
+        <div style="font-size: 13px; font-weight: 600; color: #075985;">Google Calendar ✅</div>
+    </div>
+    <div style="background: #fef3c7; padding: 12px; border-radius: 8px; text-align: center;">
+        <div style="font-size: 24px;">📱</div>
+        <div style="font-size: 13px; font-weight: 600; color: #92400e;">WhatsApp 24hs ⏰</div>
+    </div>
+    <div style="background: #f3e8ff; padding: 12px; border-radius: 8px; text-align: center;">
+        <div style="font-size: 24px;">💬</div>
+        <div style="font-size: 13px; font-weight: 600; color: #6b21a8;">SMS 2hs ⏰</div>
+    </div>
+</div>
+
+**🗺️ CÓMO LLEGAR:**
+
+🚇 Metro Tres Cruces (3 cuadras)
 🚌 Ómnibus 64, 180, 187, 121
+🚗 Estacionamiento en la puerta
 
-**🔖 Código:** #TURNO-300124-1400
+**📋 QUÉ TRAER:**
 
----
-
-**📨 TE ENVIAMOS:**
-
-✅ **Confirmación por email** → Enviado ✅  
-✅ **Recordatorio 24hs antes** → Programado 📅  
-✅ **Recordatorio 2hs antes** → Programado ⏰  
-✅ **Link Google Calendar** → Enviado 📆
+✓ Documento de identidad
+✓ Credencial mutual (si tenés)
+✓ Estudios previos
+✓ Lista de medicamentos
 
 ---
 
-**💡 TIPS PARA TU VISITA:**
+**¿Necesitás cambiar o cancelar?**
+Avisá con 24hs: 📱 099 123 456
 
-🎒 **Qué traer:**
-• Documento de identidad
-• Credencial (si tenés)
-• Estudios previos (si hay)
-• Lista de medicamentos
-
-⏰ **Cuándo llegar:**
-• Llegá 10 minutos antes
-• Evitá llegar muy temprano
-
-🚗 **Estacionamiento:**
-• En la puerta: $100/hora
-• Garaje cercano: $150
-• Zona azul disponible
-
----
-
-**🔄 ¿NECESITÁS CAMBIAR O CANCELAR?**
-
-Avisá con 24hs de anticipación:
-📱 WhatsApp: 099 123 456  
-📞 Teléfono: 2908 5555  
-✉️ Email: turnos@clinica.uy
-
----
-
-**🎉 ¡Nos vemos el martes 30 a las 14:00!**
-
-¿Necesitás algo más?""",
+**¡Nos vemos el martes 30! 😊**""",
             "buttons": "post_confirmacion"
         }
     
     # CANCELAR/CAMBIAR
-    if any(k in p for k in ["cancelar", "cambiar", "modificar", "mover", "reprogramar", "no puedo"]):
+    if any(k in p for k in ["cancelar", "cambiar", "modificar", "no puedo"]):
         return {
             "content": """🔄 **Gestión de Turnos**
 
-**OPCIONES DISPONIBLES:**
+**¿QUÉ NECESITÁS HACER?**
 
-1️⃣ **CAMBIAR DE FECHA/HORA**
-2️⃣ **CANCELAR TURNO**
-3️⃣ **CONSULTAR MI TURNO**
+Usá los botones o escribí directamente
 
----
+**Para cambiar o cancelar dame:**
+• Tu nombre
+• Fecha del turno
+• Hora del turno
 
-**📝 PARA GESTIONAR TU TURNO:**
-
-Dame esta información:
-• Tu nombre completo
-• Fecha actual del turno
-• Hora actual del turno
-• Qué querés hacer (cambiar/cancelar)
-
-**Si es cambio:**
-• Nueva fecha preferida
-• Nuevo horario preferido
+**Ejemplo:**
+"Juan Pérez, turno martes 30/1 a las 14:00, quiero cambiar al jueves 1/2"
 
 ---
 
 **📋 POLÍTICAS:**
 
-✅ **+48 horas antes**
-- Cambio o cancelación SIN CARGO
-- Reprogramación inmediata
-- Total flexibilidad
+✅ +48hs: Cambio/Cancelación gratis
+✅ 24-48hs: Sin problema
+⚠️ -24hs: Avisá igual
 
-✅ **24-48 horas antes**
-- Cambio o cancelación OK
-- Sin penalización
-- Avisá cuanto antes
-
-⚠️ **Menos de 24hs**
-- Entendemos emergencias
-- Avisá igual para liberar el turno
-- Alguien más puede necesitarlo
-
-🔴 **Sin aviso**
-- Afecta a otros pacientes
-- Próximo turno requiere confirmación
-
----
-
-**💡 EXCEPCIONES (sin cargo):**
-- Emergencias médicas
-- Casos de fuerza mayor
-- Primera cancelación
-- Problemas de transporte
-
----
-
-**📱 FORMAS DE CONTACTO:**
-
-1. **Este chat** - Dame los datos ahora
-2. **WhatsApp:** 099 123 456 ⚡ Más rápido
-3. **Teléfono:** 2908 5555
-4. **Email:** turnos@clinica.uy
-
----
-
-**EJEMPLO:**
-"Juan Pérez, tengo turno el martes 30/1 a las 14:00, quiero cambiarlo al jueves 1/2 a las 10:00"
-
-¿Qué necesitás gestionar?""",
-            "buttons": "gestion_opciones"
+**📱 Contacto rápido:**
+WhatsApp: 099 123 456
+Tel: 2908 5555""",
+            "buttons": "gestion_turno"
         }
     
-    # INFORMACIÓN
-    if any(k in p for k in ["horario", "atencion", "atención", "donde", "dónde", "ubicacion", "ubicación", "info", "información"]):
+    # INFO
+    if any(k in p for k in ["horario", "donde", "dónde", "ubicacion", "ubicación", "info"]):
         return {
             "content": """ℹ️ **Información del Consultorio**
 
----
-
-**⏰ HORARIOS DE ATENCIÓN:**
-
-**Lunes a Viernes:**
-🕐 Mañana: 9:00 - 13:00
-🕒 Tarde: 14:30 - 19:00
-
-**Sábados:**
-🕐 Mañana: 9:00 - 13:00
-❌ Tarde: Cerrado
-
-**Domingos y Feriados:**
-❌ Cerrado
-
----
+**⏰ HORARIOS:**
+• Lun-Vie: 9:00-13:00 y 14:30-19:00
+• Sábados: 9:00-13:00
 
 **📍 UBICACIÓN:**
-
-🏢 **Dirección:**  
-Av. 18 de Julio 1850, Montevideo  
-Entre Yaguarón y Río Branco
-
-🗺️ **Referencias:**
-• Frente a la plaza
-• A 2 cuadras del banco
-• Edificio de 3 pisos
-
----
+Av. 18 de Julio 1850, Montevideo
 
 **🚇 CÓMO LLEGAR:**
-
-**En Metro:**
-• Estación Tres Cruces (3 cuadras)
-• 5 minutos caminando
-
-**En Ómnibus:**
-• Líneas: 64, 180, 187, 121, 142
-• Parada: 18 de Julio y Yaguarón
-
-**En Auto:**
-• Estacionamiento en la puerta ($100/h)
-• Garaje cercano ($150 - convenio)
-• Zona azul disponible
-
-**En Taxi/Uber:**
-• Dirección exacta en GPS
-• Hay dónde parar al frente
-
----
+• Metro Tres Cruces (3 cuadras)
+• Ómnibus 64, 180, 187
 
 **📞 CONTACTO:**
+• Tel: 2908 5555
+• WhatsApp: 099 123 456
 
-☎️ **Teléfono:** 2908 5555  
-📱 **WhatsApp:** 099 123 456  
-✉️ **Email:** info@clinica.uy  
-🌐 **Web:** www.clinica.uy
-
-**Horario de atención telefónica:**  
-Lun-Vie: 9:00-18:00  
-Sáb: 9:00-13:00
-
----
-
-**🏥 SERVICIOS:**
-
-✅ Consultas generales  
-✅ Primera consulta  
-✅ Seguimientos  
-✅ Certificados médicos  
-✅ Estudios básicos  
-✅ Atención familiar
-
----
-
-**💳 MEDIOS DE PAGO:**
-
-✅ Efectivo  
-✅ Débito (todas)  
-✅ Crédito (hasta 3 cuotas)  
-✅ Transferencia  
-✅ Mutuales con convenio
-
----
-
-**♿ ACCESIBILIDAD:**
-
-✅ Rampa de acceso  
-✅ Ascensor disponible  
-✅ Baño adaptado  
-✅ Estacionamiento preferencial
-
-¿Necesitás algo más?""",
+¿Querés reservar un turno?""",
             "buttons": "info_acciones"
-        }
-    
-    # RECORDATORIOS
-    if any(k in p for k in ["recordatorio", "aviso", "notificacion", "notificación", "mensaje", "whatsapp", "sms"]):
-        return {
-            "content": """🔔 **Sistema de Recordatorios Automáticos**
-
-Todos los turnos incluyen recordatorios sin cargo!
-
----
-
-**📱 CÓMO FUNCIONA:**
-
-**48 horas antes:**
-📧 **Email con confirmación**
-• Detalle completo del turno
-• Botón "Confirmar asistencia"
-• Botón "Cancelar/Modificar"
-• Cómo llegar + mapa
-
-**24 horas antes:**
-📱 **WhatsApp**
-• "Hola Juan! Mañana tenés turno a las 14:00"
-• Link Google Maps
-• Respuesta rápida: 1=Confirmo, 2=Cancelo
-
-**2 horas antes:**
-💬 **SMS recordatorio**
-• "Tu turno es HOY a las 14:00"
-• "Te esperamos!"
-• Mensaje corto y directo
-
----
-
-**📊 RESULTADOS:**
-
-Con recordatorios automáticos:
-✅ 60% menos inasistencias
-✅ 85% tasa de confirmación
-✅ Mejor organización de agenda
-✅ Menos llamadas manuales
-
----
-
-**⚙️ PERSONALIZACIÓN:**
-
-Podés elegir:
-📧 Solo email
-📱 Solo WhatsApp
-💬 Solo SMS
-🔔 Todos los canales (recomendado)
-
-**También podés:**
-• Elegir horario preferido
-• Frecuencia de recordatorios
-• Idioma del mensaje
-
----
-
-**🔕 DESACTIVAR:**
-
-Si no querés recordatorios:
-• Respondé STOP a cualquier mensaje
-• Avisanos por este chat
-• Llamá al 2908 5555
-
----
-
-**❓ PREGUNTAS FRECUENTES:**
-
-**¿Me cobran?**
-No, todos los recordatorios son gratis
-
-**¿Puedo cambiar mis preferencias?**
-Sí, en cualquier momento
-
-**¿Y si cambié de número?**
-Avisanos para actualizar
-
-**¿Funcionan de madrugada?**
-No, solo entre 9am y 8pm
-
----
-
-¿Querés activar los recordatorios?""",
-            "buttons": "recordatorios_config"
         }
     
     # DEFAULT
     return {
-        "content": """❓ **No entendí bien, pero puedo ayudarte con:**
+        "content": """❓ **¿Qué necesitás?**
 
-**📅 RESERVAR TURNO**
-• Ver calendario completo
-• Elegir fecha disponible
-• Seleccionar horario
-• Confirmar tu turno
+**Elegí una opción:**
 
-**🔄 GESTIONAR TURNO**
-• Cambiar fecha/hora
-• Cancelar turno
-• Consultar mi turno
-• Reprogramar
+📅 **Ver calendario** - Mirá todos los días disponibles
+🔄 **Gestionar turno** - Cambiar o cancelar
+ℹ️ **Información** - Horarios y ubicación
 
-**ℹ️ INFORMACIÓN**
-• Horarios de atención
-• Ubicación y cómo llegar
-• Servicios disponibles
-• Medios de pago
-• Contacto
+**O escribí directamente:**
+"Ver calendario"
+"Cambiar mi turno"
+"Dónde queda"
 
-**🔔 RECORDATORIOS**
-• Cómo funcionan
-• Activar/desactivar
-• Personalizar
-
----
-
-**💡 INTENTÁ CON ESTAS FRASES:**
-
-"Ver calendario"  
-"Quiero turno para el martes"  
-"Cambiar mi turno"  
-"Dónde queda el consultorio"  
-"Cómo llego"  
-"Activar recordatorios"  
-"Cancelar turno"  
-"Horarios de atención"
-
-¿Qué necesitás?""",
+¿Qué hacemos?""",
         "buttons": "ayuda"
     }
 
 # Mostrar mensajes
 for i, msg in enumerate(st.session_state.messages):
     with st.chat_message(msg["role"]):
-        st.markdown(msg["content"])
+        st.markdown(msg["content"], unsafe_allow_html=True)
         
         if msg.get("show_buttons"):
             bt = msg["show_buttons"]
@@ -675,49 +685,37 @@ for i, msg in enumerate(st.session_state.messages):
             if bt == "inicial":
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("📅 Ver calendario", key=f"cal_{i}", use_container_width=True):
+                    if st.button("📅 Ver Calendario", key=f"cal_{i}", use_container_width=True):
                         r = get_response("calendario")
-                        add_msg("Ver calendario completo", r["content"], r.get("buttons"), r.get("bonus_once"))
+                        add_msg("Ver calendario", r["content"], r.get("buttons"), r.get("bonus_once"))
                         st.rerun()
                 with col2:
                     if st.button("ℹ️ Información", key=f"info_{i}", use_container_width=True):
                         r = get_response("informacion")
                         add_msg("Ver información", r["content"], r.get("buttons"))
                         st.rerun()
-                
-                col1, col2 = st.columns(2)
-                with col1:
-                    if st.button("🔄 Gestionar turno", key=f"gest_{i}", use_container_width=True):
-                        r = get_response("cancelar")
-                        add_msg("Gestionar mi turno", r["content"], r.get("buttons"))
-                        st.rerun()
-                with col2:
-                    if st.button("🔔 Recordatorios", key=f"rec_{i}", use_container_width=True):
-                        r = get_response("recordatorios")
-                        add_msg("Sobre recordatorios", r["content"], r.get("buttons"))
-                        st.rerun()
             
             elif bt == "fecha_rapida":
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("Mar 30 Ene", key=f"mar_{i}", use_container_width=True):
+                    if st.button("🟢 Mar 30 - 9 turnos", key=f"mar_{i}", use_container_width=True):
                         r = get_response("martes 30")
                         add_msg("Martes 30 de Enero", r["content"], r.get("buttons"))
                         st.rerun()
                 with col2:
-                    if st.button("Mié 31 Ene", key=f"mie_{i}", use_container_width=True):
+                    if st.button("🔵 Mié 31 - 7 turnos", key=f"mie_{i}", use_container_width=True):
                         r = get_response("miércoles 31")
                         add_msg("Miércoles 31 de Enero", r["content"], r.get("buttons"))
                         st.rerun()
                 
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("Jue 1 Feb", key=f"jue_{i}", use_container_width=True):
+                    if st.button("🟢 Jue 1 - 8 turnos", key=f"jue_{i}", use_container_width=True):
                         r = get_response("jueves 1")
                         add_msg("Jueves 1 de Febrero", r["content"], r.get("buttons"))
                         st.rerun()
                 with col2:
-                    if st.button("Vie 2 Feb", key=f"vie_{i}", use_container_width=True):
+                    if st.button("🟡 Vie 2 - 6 turnos", key=f"vie_{i}", use_container_width=True):
                         r = get_response("viernes 2")
                         add_msg("Viernes 2 de Febrero", r["content"], r.get("buttons"))
                         st.rerun()
@@ -725,82 +723,76 @@ for i, msg in enumerate(st.session_state.messages):
             elif bt == "horario_rapido":
                 col1, col2, col3 = st.columns(3)
                 with col1:
-                    if st.button("09:30", key=f"h1_{i}", use_container_width=True):
+                    if st.button("🌅 09:30", key=f"h1_{i}", use_container_width=True):
                         r = get_response("9:30")
-                        add_msg("Quiero a las 9:30", r["content"], r.get("buttons"))
+                        add_msg("09:30", r["content"], r.get("buttons"))
                         st.rerun()
                 with col2:
-                    if st.button("14:00", key=f"h2_{i}", use_container_width=True):
-                        r = get_response("14:00")
-                        add_msg("Quiero a las 14:00", r["content"], r.get("buttons"))
+                    if st.button("🌅 11:00", key=f"h2_{i}", use_container_width=True):
+                        r = get_response("11:00")
+                        add_msg("11:00", r["content"], r.get("buttons"))
                         st.rerun()
                 with col3:
-                    if st.button("15:30", key=f"h3_{i}", use_container_width=True):
-                        r = get_response("15:30")
-                        add_msg("Quiero a las 15:30", r["content"], r.get("buttons"))
+                    if st.button("🌇 14:00", key=f"h3_{i}", use_container_width=True):
+                        r = get_response("14:00")
+                        add_msg("14:00", r["content"], r.get("buttons"))
                         st.rerun()
                 
                 col1, col2, col3 = st.columns(3)
                 with col1:
-                    if st.button("11:00", key=f"h4_{i}", use_container_width=True):
-                        r = get_response("11:00")
-                        add_msg("Quiero a las 11:00", r["content"], r.get("buttons"))
+                    if st.button("🌇 15:30", key=f"h4_{i}", use_container_width=True):
+                        r = get_response("15:30")
+                        add_msg("15:30", r["content"], r.get("buttons"))
                         st.rerun()
                 with col2:
-                    if st.button("16:00", key=f"h5_{i}", use_container_width=True):
+                    if st.button("🌇 16:00", key=f"h5_{i}", use_container_width=True):
                         r = get_response("16:00")
-                        add_msg("Quiero a las 16:00", r["content"], r.get("buttons"))
+                        add_msg("16:00", r["content"], r.get("buttons"))
                         st.rerun()
                 with col3:
-                    if st.button("18:00", key=f"h6_{i}", use_container_width=True):
+                    if st.button("🌇 18:00", key=f"h6_{i}", use_container_width=True):
                         r = get_response("18:00")
-                        add_msg("Quiero a las 18:00", r["content"], r.get("buttons"))
+                        add_msg("18:00", r["content"], r.get("buttons"))
                         st.rerun()
             
             elif bt == "ayuda":
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("📅 Ver calendario", key=f"cal_h_{i}", use_container_width=True):
+                    if st.button("📅 Ver Calendario", key=f"cal_h_{i}", use_container_width=True):
                         r = get_response("calendario")
                         add_msg("Ver calendario", r["content"], r.get("buttons"))
                         st.rerun()
                 with col2:
                     if st.button("ℹ️ Info", key=f"info_h_{i}", use_container_width=True):
                         r = get_response("informacion")
-                        add_msg("Ver info", r["content"], r.get("buttons"))
+                        add_msg("Info", r["content"], r.get("buttons"))
                         st.rerun()
 
-# EJEMPLOS - MUCHOS MÁS!
+# EJEMPLOS
 st.markdown("---")
 st.markdown("**💬 Probá estas consultas:**")
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    st.caption("**📅 Reservas:**")
+    st.caption("**📅 Reservar:**")
     st.caption("• Ver calendario")
-    st.caption("• Quiero turno martes")
-    st.caption("• El jueves 1")
+    st.caption("• Martes 30")
     st.caption("• A las 14:00")
-    st.caption("• 9:30 de la mañana")
-    st.caption("• Confirmo mi turno")
+    st.caption("• Confirmo")
 
 with col2:
-    st.caption("**🔄 Gestión:**")
-    st.caption("• Cambiar mi turno")
-    st.caption("• Cancelar turno")
+    st.caption("**🔄 Gestionar:**")
+    st.caption("• Cambiar turno")
+    st.caption("• Cancelar")
     st.caption("• No puedo ir")
     st.caption("• Reprogramar")
-    st.caption("• Consultar mi turno")
-    st.caption("• Mover para otro día")
 
 with col3:
-    st.caption("**ℹ️ Información:**")
+    st.caption("**ℹ️ Info:**")
     st.caption("• Dónde queda")
-    st.caption("• Cómo llego")
     st.caption("• Horarios")
+    st.caption("• Cómo llego")
     st.caption("• Teléfono")
-    st.caption("• Recordatorios")
-    st.caption("• Qué servicios tienen")
 
 # Input
 if prompt := st.chat_input("Escribí tu consulta..."):
@@ -817,28 +809,13 @@ if prompt := st.chat_input("Escribí tu consulta..."):
 
 # Footer
 st.divider()
-st.caption("💡 Demo interactivo - Sistema profesional de turnos con calendario")
-st.caption("🔌 En producción sincroniza con Google Calendar, WhatsApp API y tu CRM")
+st.caption("💡 Demo con calendario visual interactivo - Sistema profesional de turnos")
+st.caption("🔌 En producción sincroniza con tu agenda, WhatsApp API y sistema de pagos")
 
 # Reset
 col1, col2 = st.columns([3, 1])
 with col2:
     if st.button("🔄 Reiniciar"):
-        st.session_state.messages = [{
-            "role": "assistant",
-            "content": """¡Hola! Soy tu asistente de turnos 📅
-
-Puedo ayudarte con:
-✅ Ver disponibilidad y reservar
-✅ Cambiar o cancelar turnos
-✅ Información y horarios
-✅ Recordatorios automáticos
-
-¿Qué necesitás?""",
-            "show_buttons": "inicial"
-        }]
-        st.session_state.selected_date = None
-        st.session_state.selected_time = None
-        st.session_state.button_clicked = False
-        st.session_state.bonus_shown = False
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
         st.rerun()
