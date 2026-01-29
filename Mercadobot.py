@@ -1819,10 +1819,7 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
 {FOOTER}
 """
 
-HTML_HOME_PARTE_2 = f"""{HTML_BASE}
-{HEADER}
-
-    <!-- TESTIMONIOS -->
+HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
     <div class="testimonios">
         <h2>Lo que dicen nuestros clientes</h2>
         
