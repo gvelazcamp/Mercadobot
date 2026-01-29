@@ -1798,7 +1798,7 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
                 <img src="{BASE_URL}Asistentedepeluqueria.png" alt="Peluquería">
                 <h3>Asistente de Peluquería</h3>
                 <p>Turnos, servicios y precios de salón.</p>
-                <a href="?vista=demo&asistente=peluqueria" style="text-decoration: none;"><button>Ver asistente</button></a>
+                <a href="https://demopelu.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
@@ -2069,7 +2069,7 @@ HTML_ASISTENTES = f"""{HTML_BASE}
                 <img src="{BASE_URL}Asistentedepeluqueria.png" alt="Peluquería">
                 <h3>Asistente de Peluquería</h3>
                 <p>Turnos, servicios y precios de salón.</p>
-                <a href="?vista=demo&asistente=peluqueria" style="text-decoration: none;"><button>Ver asistente</button></a>
+                <a href="https://demopelu.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
