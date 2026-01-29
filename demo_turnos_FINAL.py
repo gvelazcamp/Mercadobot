@@ -8,7 +8,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# CSS mejorado
+# CSS
 st.markdown("""
 <style>
     #MainMenu {visibility: hidden;}
@@ -49,7 +49,7 @@ st.markdown("""
 st.markdown("""
 <div class="custom-header">
     <h1>📅 AppointmentBot - Reservá tu Turno</h1>
-    <p>Sistema inteligente de gestión de turnos - Simple, rápido y efectivo</p>
+    <p>Sistema inteligente de gestión de turnos</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -69,45 +69,17 @@ if "messages" not in st.session_state:
         "role": "assistant",
         "content": """¡Hola! 👋 Soy tu asistente de turnos
 
-**Reservá en 3 pasos simples:**
+**Reservá en 3 pasos:**
+1️⃣ Elegí el día  
+2️⃣ Seleccioná horario  
+3️⃣ Confirmá datos
 
-1️⃣ **Elegí el día** en el calendario
-2️⃣ **Seleccioná el horario** que prefieras  
-3️⃣ **Confirmá tus datos** y listo!
+**Ventajas:**
+⚡ Rápido (30 segundos)
+🔔 Recordatorios automáticos
+🌙 Disponible 24/7
 
----
-
-**✨ Lo que puedo hacer por vos:**
-
-📅 **Gestión de Turnos:**
-• Ver calendario con disponibilidad
-• Reservar turnos en segundos
-• Cambiar o cancelar turnos
-• Consultar turnos existentes
-
-🔔 **Recordatorios Automáticos:**
-• Email 24hs antes
-• WhatsApp 2hs antes
-• SMS 30min antes
-• Sin que tengas que hacer nada
-
-ℹ️ **Información Completa:**
-• Horarios de atención
-• Ubicación y cómo llegar
-• Servicios disponibles
-• Contacto y soporte
-
----
-
-**💡 Ventajas de usar este sistema:**
-
-⚡ **Rápido:** Reservás en menos de 1 minuto
-🌙 **24/7:** Disponible cualquier día, cualquier hora
-📱 **Práctico:** No necesitás llamar ni esperar
-✅ **Confiable:** Confirmación inmediata por email
-🔔 **Sin olvidos:** Recordatorios automáticos
-
-**¿Empezamos?** Presioná "Ver Calendario" para elegir tu día 👇""",
+¿Empezamos?""",
         "show_buttons": "inicial"
     }]
 
@@ -132,58 +104,41 @@ def get_response(prompt):
     # VER CALENDARIO
     if any(k in p for k in ["calendario", "disponible", "turno", "reserva", "agenda", "ver"]):
         return {
-            "content": """📅 **Calendario Visual - Próximos 14 Días**
+            "content": """📅 **Turnos Disponibles - Próximos 14 Días**
 
-╔════════════════════════════════════════════════════════╗
-║           📅 SEMANA 1 (Ene-Feb 2024)                  ║
-╚════════════════════════════════════════════════════════╝
+**🟢 DÍAS CON MUCHOS TURNOS (6-9 espacios):**
+• Lun 29 Ene - 8 turnos ✅
+• Mar 30 Ene - 9 turnos ✅ ⭐ Mejor día
+• Mié 31 Ene - 7 turnos ✅
+• Jue 1 Feb - 8 turnos ✅
+• Lun 5 Feb - 8 turnos ✅
+• Mar 6 Feb - 9 turnos ✅
+• Jue 8 Feb - 8 turnos ✅
 
-```
-┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│   LUN   │   MAR   │   MIÉ   │   JUE   │   VIE   │   SÁB   │   DOM   │
-├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│   29    │   30    │   31    │    1    │    2    │    3    │    4    │
-│   Ene   │   Ene   │   Ene   │   Feb   │   Feb   │   Feb   │   Feb   │
-├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│  🟢 8   │  🟢 9   │  🔵 7   │  🟢 8   │  🟡 6   │  🟡 3   │  ⚫ 0   │
-│ turnos  │ turnos  │ turnos  │ turnos  │ turnos  │ turnos  │ Cerrado │
-└─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
-```
+**🟡 DÍAS CON POCOS TURNOS (3-5 espacios):**
+• Vie 2 Feb - 6 turnos ⚡
+• Sáb 3 Feb - 3 turnos ⚠️
+• Vie 9 Feb - 6 turnos ⚡
+• Sáb 10 Feb - 3 turnos ⚠️
 
-╔════════════════════════════════════════════════════════╗
-║           📅 SEMANA 2 (Feb 2024)                      ║
-╚════════════════════════════════════════════════════════╝
+**⚫ CERRADO:**
+• Dom 4 Feb - Cerrado ❌
+• Dom 11 Feb - Cerrado ❌
 
-```
-┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│   LUN   │   MAR   │   MIÉ   │   JUE   │   VIE   │   SÁB   │   DOM   │
-├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│    5    │    6    │    7    │    8    │    9    │   10    │   11    │
-│   Feb   │   Feb   │   Feb   │   Feb   │   Feb   │   Feb   │   Feb   │
-├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│  🟢 8   │  🟢 9   │  🔵 7   │  🟢 8   │  🟡 6   │  🟡 3   │  ⚫ 0   │
-│ turnos  │ turnos  │ turnos  │ turnos  │ turnos  │ turnos  │ Cerrado │
-└─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
-```
-
-**LEYENDA:**
-🟢 Verde = Muchos turnos (6-9)  
-🔵 Azul = Disponible (5-7)  
-🟡 Amarillo = Pocos turnos (2-4)  
-⚫ Negro = Cerrado
+---
 
 **💡 RECOMENDACIONES:**
-• **Más disponibilidad:** Martes, Miércoles, Jueves
-• **Se llenan rápido:** Sábados (reservá con anticipación)
-• **Menos espera:** Lunes mañana, Miércoles tarde
+✅ **Más disponibilidad:** Martes y Jueves
+⚠️ **Reservá con anticipación:** Sábados
+🌟 **Mejor día esta semana:** Martes 30 (9 turnos)
 
 **🎯 PARA RESERVAR:**
-Usá los botones o escribí:
+Elegí un día usando los botones o escribí:
 • "Quiero el martes 30"
 • "Dame turno jueves 1"
 • "El viernes 2"
 
-👇 **Días más pedidos**""",
+👇 **Días más solicitados**""",
             "buttons": "fecha_rapida",
             "bonus_once": True
         }
@@ -194,65 +149,59 @@ Usá los botones o escribí:
         if "martes" in p or "30" in p:
             fecha = "Martes 30 de Enero"
             emoji = "🟢"
+            espacios = 9
         elif "miercoles" in p or "miércoles" in p or "31" in p:
             fecha = "Miércoles 31 de Enero"
-            emoji = "🔵"
+            emoji = "🟢"
+            espacios = 7
         elif "jueves" in p or "1" in p:
             fecha = "Jueves 1 de Febrero"
             emoji = "🟢"
+            espacios = 8
         elif "viernes" in p or "2" in p:
             fecha = "Viernes 2 de Febrero"
             emoji = "🟡"
+            espacios = 6
         else:
             fecha = "Martes 30 de Enero"
             emoji = "🟢"
+            espacios = 9
         
         st.session_state.selected_date = fecha
         
         return {
-            "content": f"""✅ **¡Perfecto! {emoji} {fecha}**
+            "content": f"""✅ **{emoji} {fecha}** ({espacios} espacios)
 
 ⏰ **Horarios Disponibles**
 
-╔════════════════════════════════════════════════════════╗
-║         🌅 TURNO MAÑANA (9:00 - 13:00)                ║
-╚════════════════════════════════════════════════════════╝
+**🌅 TURNO MAÑANA (9:00 - 13:00)**
 
-```
-┌─────────┬─────────┬─────────┬─────────┐
-│  09:00  │  09:30  │  10:00  │  10:30  │
-│   ✅    │   ✅    │   ❌    │   ✅    │
-├─────────┼─────────┼─────────┼─────────┤
-│  11:00  │  11:30  │  12:00  │  12:30  │
-│   ✅    │   ✅    │   ✅    │   ✅    │
-└─────────┴─────────┴─────────┴─────────┘
-```
+✅ Disponibles:
+• 09:00 | 09:30 | 10:30 | 11:00
+• 11:30 | 12:00 | 12:30
 
-╔════════════════════════════════════════════════════════╗
-║         🌇 TURNO TARDE (14:00 - 19:00)                ║
-╚════════════════════════════════════════════════════════╝
+❌ Ocupados:
+• 10:00
 
-```
-┌─────────┬─────────┬─────────┬─────────┬─────────┐
-│  14:00  │  14:30  │  15:00  │  15:30  │  16:00  │
-│   ✅    │   ✅    │   ❌    │   ✅    │   ✅    │
-├─────────┼─────────┼─────────┼─────────┼─────────┤
-│  16:30  │  17:00  │  17:30  │  18:00  │         │
-│   ✅    │   ❌    │   ✅    │   ✅    │         │
-└─────────┴─────────┴─────────┴─────────┴─────────┘
-```
+**🌇 TURNO TARDE (14:00 - 19:00)**
 
-✅ = Disponible | ❌ = Ocupado
+✅ Disponibles:
+• 14:00 | 14:30 | 15:30 | 16:00
+• 16:30 | 17:30 | 18:00
+
+❌ Ocupados:
+• 15:00 | 17:00
+
+---
 
 **💡 MENOS ESPERA:**
-• Mañana: 9:00, 9:30, 11:00, 11:30
-• Tarde: 14:00, 14:30, 16:00, 18:00
+• Mañana: 9:00, 9:30, 11:00
+• Tarde: 14:00, 14:30, 16:00
 
-**🎯 PARA ELEGIR HORARIO:**
-Usá los botones o escribí:
+**🎯 ELEGÍ TU HORARIO:**
 • "Quiero a las 9:30"
 • "El de las 14:00"
-• "15:30 está bien"
+• "15:30 por favor"
 
 👇 **Horarios populares**""",
             "buttons": "horario_rapido"
@@ -277,20 +226,19 @@ Usá los botones o escribí:
         return {
             "content": f"""🎉 **¡Turno Pre-Reservado!**
 
-╔════════════════════════════════════════════════════════╗
-║           📋 RESUMEN DE TU TURNO                      ║
-╚════════════════════════════════════════════════════════╝
+**📋 RESUMEN:**
 
-```
-  📅 Fecha:     {fecha}
-  🕐 Hora:      {hora}
-  ⏱️  Duración:  30-45 minutos
-  📍 Lugar:     Av. 18 de Julio 1850
-```
+📅 **Fecha:** {fecha}  
+🕐 **Hora:** {hora}  
+⏱️ **Duración:** 30-45 minutos  
+📍 **Lugar:** Av. 18 de Julio 1850
 
-**✅ PARA CONFIRMAR DAME TUS DATOS:**
+---
 
-Formato: `Nombre, Teléfono, Email`
+**✅ PARA CONFIRMAR:**
+
+Dame tus datos en este formato:
+`Nombre, Teléfono, Email`
 
 **Ejemplo:**
 `Juan Pérez, 099123456, juan@email.com`
@@ -298,22 +246,16 @@ Formato: `Nombre, Teléfono, Email`
 ---
 
 **🔔 AL CONFIRMAR RECIBIRÁS:**
+✅ Email confirmación (inmediato)
+✅ Recordatorio WhatsApp (24hs antes)
+✅ SMS recordatorio (2hs antes)
+✅ Link Google Calendar
 
-```
-┌────────────────────────────────────────┐
-│ ✅ Email confirmación → Inmediato     │
-│ 📅 Google Calendar   → Inmediato     │
-│ 📱 WhatsApp 24hs     → Programado     │
-│ 💬 SMS 2 horas       → Programado     │
-└────────────────────────────────────────┘
-```
-
-**📋 RECORDÁ TRAER:**
+**📋 TRAÉ:**
 • Documento de identidad
 • Credencial (si tenés)
-• Estudios previos
 
-💬 **Escribí tus datos para confirmar**""",
+💬 **Escribí tus datos**""",
             "buttons": "confirmar_directo"
         }
     
@@ -322,61 +264,42 @@ Formato: `Nombre, Teléfono, Email`
         return {
             "content": """✅ **¡TURNO CONFIRMADO!** 🎉
 
-╔════════════════════════════════════════════════════════╗
-║                                                        ║
-║              ✓  TU TURNO ESTÁ CONFIRMADO              ║
-║         Código: #TURNO-300124-1400                    ║
-║                                                        ║
-╚════════════════════════════════════════════════════════╝
-
 **📋 DETALLES:**
 
-```
-╔══════════════════════════════════════════════════╗
-║ FECHA Y HORA                                     ║
-║ Martes 30 de Enero 2024 - 14:00hs              ║
-╠══════════════════════════════════════════════════╣
-║ PACIENTE                                         ║
-║ Juan Pérez                                       ║
-╠══════════════════════════════════════════════════╣
-║ CONTACTO                                         ║
-║ 📱 099 123 456 | ✉️ juan@email.com              ║
-╠══════════════════════════════════════════════════╣
-║ UBICACIÓN                                        ║
-║ Av. 18 de Julio 1850, Montevideo                ║
-╚══════════════════════════════════════════════════╝
-```
+📅 Martes 30 de Enero 2024 - 14:00hs  
+👤 Juan Pérez  
+📱 099 123 456  
+✉️ juan@email.com  
+📍 Av. 18 de Julio 1850
 
-**📨 YA TE ENVIAMOS:**
-
-```
-┌─────────┬─────────┬─────────┬─────────┐
-│   📧    │   📅    │   📱    │   💬    │
-│  Email  │Calendar │WhatsApp │   SMS   │
-│   ✅    │   ✅    │   ⏰    │   ⏰    │
-│ Enviado │ Enviado │24hs ant │ 2hs ant │
-└─────────┴─────────┴─────────┴─────────┘
-```
-
-**🗺️ CÓMO LLEGAR:**
-
-• 🚇 Metro Tres Cruces (3 cuadras)
-• 🚌 Ómnibus 64, 180, 187, 121
-• 🚗 Estacionamiento en la puerta
-
-**📋 QUÉ TRAER:**
-
-✓ Documento de identidad
-✓ Credencial mutual (si tenés)
-✓ Estudios previos
-✓ Lista de medicamentos
+🔖 **Código:** #TURNO-300124-1400
 
 ---
 
-**¿Necesitás cambiar o cancelar?**
+**📨 ENVIADO:**
+✅ Email confirmación ✅  
+✅ Google Calendar ✅  
+⏰ WhatsApp 24hs antes (programado)  
+⏰ SMS 2hs antes (programado)
+
+---
+
+**🗺️ CÓMO LLEGAR:**
+🚇 Metro Tres Cruces (3 cuadras)  
+🚌 Ómnibus 64, 180, 187  
+🚗 Estacionamiento en la puerta
+
+**📋 QUÉ TRAER:**
+• Documento de identidad
+• Credencial mutual (si tenés)
+• Estudios previos
+
+---
+
+**¿Cambiar o cancelar?**
 📱 Avisá con 24hs: 099 123 456
 
-**¡Nos vemos el martes 30 a las 14:00! 😊**""",
+**¡Nos vemos el martes 30! 😊**""",
             "buttons": "post_confirmacion"
         }
     
@@ -390,27 +313,24 @@ Formato: `Nombre, Teléfono, Email`
 • Fecha del turno
 • Hora del turno
 
-**Si es cambio:**
+**Si es cambio, también:**
 • Nueva fecha preferida
-
-**Ejemplo:**
-"Juan Pérez, turno martes 30/1 a las 14:00, quiero cambiar al jueves 1/2"
 
 ---
 
 **📋 POLÍTICAS:**
+✅ +48hs: Sin cargo, cambio libre  
+✅ 24-48hs: Sin problema  
+⚠️ -24hs: Avisá igual
 
-```
-┌──────────────────────────────────────┐
-│ +48hs → Sin cargo, cambio libre     │
-│ 24-48hs → Sin problema              │
-│ -24hs → Avisá igual                 │
-└──────────────────────────────────────┘
-```
-
-**📱 CONTACTO RÁPIDO:**
+**📱 CONTACTO:**
 • WhatsApp: 099 123 456
-• Tel: 2908 5555""",
+• Tel: 2908 5555
+
+**Ejemplo:**
+"Juan Pérez, turno martes 30/1 a las 14:00, quiero cambiar al jueves 1/2"
+
+¿Qué turno gestionar?""",
             "buttons": "gestion_turno"
         }
     
@@ -420,21 +340,9 @@ Formato: `Nombre, Teléfono, Email`
             "content": """ℹ️ **Información del Consultorio**
 
 **⏰ HORARIOS:**
-
-```
-┌─────────────────────────────┐
-│ Lun-Vie                     │
-│ • Mañana: 9:00 - 13:00     │
-│ • Tarde: 14:30 - 19:00     │
-├─────────────────────────────┤
-│ Sábados                     │
-│ • Mañana: 9:00 - 13:00     │
-│ • Tarde: Cerrado            │
-├─────────────────────────────┤
-│ Domingos y Feriados         │
-│ • Cerrado                   │
-└─────────────────────────────┘
-```
+• Lun-Vie: 9:00-13:00 y 14:30-19:00
+• Sábados: 9:00-13:00
+• Domingos: Cerrado
 
 **📍 UBICACIÓN:**
 Av. 18 de Julio 1850, Montevideo
@@ -447,7 +355,7 @@ Av. 18 de Julio 1850, Montevideo
 • Tel: 2908 5555
 • WhatsApp: 099 123 456
 
-¿Querés reservar un turno?""",
+¿Reservar turno?""",
             "buttons": "info_acciones"
         }
     
@@ -455,13 +363,11 @@ Av. 18 de Julio 1850, Montevideo
     return {
         "content": """❓ **¿Qué necesitás?**
 
-**Elegí una opción:**
-
-📅 **Ver calendario** - Todos los días
-🔄 **Gestionar turno** - Cambiar/cancelar
+📅 **Ver calendario** - Todos los días  
+🔄 **Gestionar turno** - Cambiar/cancelar  
 ℹ️ **Información** - Horarios/ubicación
 
-**O escribí:**
+**Escribí:**
 • "Ver calendario"
 • "Cambiar turno"
 • "Información"
@@ -499,16 +405,16 @@ for i, msg in enumerate(st.session_state.messages):
                         add_msg("Martes 30 de Enero", r["content"], r.get("buttons"))
                         st.rerun()
                 with col2:
-                    if st.button("🔵 Mié 31 - 7 turnos", key=f"mie_{i}", use_container_width=True):
-                        r = get_response("miércoles 31")
-                        add_msg("Miércoles 31 de Enero", r["content"], r.get("buttons"))
+                    if st.button("🟢 Jue 1 - 8 turnos", key=f"jue_{i}", use_container_width=True):
+                        r = get_response("jueves 1")
+                        add_msg("Jueves 1 de Febrero", r["content"], r.get("buttons"))
                         st.rerun()
                 
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("🟢 Jue 1 - 8 turnos", key=f"jue_{i}", use_container_width=True):
-                        r = get_response("jueves 1")
-                        add_msg("Jueves 1 de Febrero", r["content"], r.get("buttons"))
+                    if st.button("🟢 Mié 31 - 7 turnos", key=f"mie_{i}", use_container_width=True):
+                        r = get_response("miércoles 31")
+                        add_msg("Miércoles 31 de Enero", r["content"], r.get("buttons"))
                         st.rerun()
                 with col2:
                     if st.button("🟡 Vie 2 - 6 turnos", key=f"vie_{i}", use_container_width=True):
@@ -564,35 +470,32 @@ for i, msg in enumerate(st.session_state.messages):
                         add_msg("Info", r["content"], r.get("buttons"))
                         st.rerun()
 
-# EJEMPLOS SIMPLES Y CHIQUITOS
+# EJEMPLOS SIMPLES
 st.markdown("---")
 st.markdown("**💬 Ejemplos de consultas:**")
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.caption("**📅 Reservar turno:**")
-    st.caption("• Ver calendario completo")
-    st.caption("• Quiero el martes a las 14:00")
-    st.caption("• Dame turno para mañana")
-    st.caption("• Reservar jueves 11:00")
-    st.caption("• Confirmo mi turno")
+    st.caption("**📅 Reservar:**")
+    st.caption("• Ver calendario")
+    st.caption("• Martes 30")
+    st.caption("• A las 14:00")
+    st.caption("• Confirmo")
 
 with col2:
-    st.caption("**🔄 Gestionar turnos:**")
-    st.caption("• Cambiar mi turno del viernes")
-    st.caption("• Cancelar turno del martes")
-    st.caption("• No puedo ir, reprogramar")
-    st.caption("• Mover para el jueves")
-    st.caption("• Consultar mi próximo turno")
+    st.caption("**🔄 Gestionar:**")
+    st.caption("• Cambiar turno")
+    st.caption("• Cancelar")
+    st.caption("• No puedo ir")
+    st.caption("• Reprogramar")
 
 with col3:
-    st.caption("**ℹ️ Información:**")
-    st.caption("• Dónde queda el consultorio")
-    st.caption("• Horarios de atención")
-    st.caption("• Cómo llego en ómnibus")
-    st.caption("• Teléfono de contacto")
-    st.caption("• Activar recordatorios")
+    st.caption("**ℹ️ Info:**")
+    st.caption("• Dónde queda")
+    st.caption("• Horarios")
+    st.caption("• Cómo llego")
+    st.caption("• Teléfono")
 
 # Input
 if prompt := st.chat_input("Escribí tu consulta..."):
@@ -609,7 +512,7 @@ if prompt := st.chat_input("Escribí tu consulta..."):
 
 # Footer
 st.divider()
-st.caption("💡 Demo con calendario ASCII visual - Sistema profesional de turnos")
+st.caption("💡 Demo profesional - Sistema de turnos con recordatorios automáticos")
 st.caption("🔌 En producción sincroniza con tu agenda, WhatsApp API y sistema de pagos")
 
 # Reset
