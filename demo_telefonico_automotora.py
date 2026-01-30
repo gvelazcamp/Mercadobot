@@ -183,17 +183,6 @@ st.markdown("""
 }
 
 /* =========================
-   CHAT CUSTOMIZATION
-   ========================= */
-.stChatMessage-user {
-    background: #000000 !important; /* Fondo negro simple para preguntas (usuario) */
-    color: white !important;
-    border-radius: 12px !important;
-    padding: 12px 16px !important;
-    margin: 4px 0 !important;
-}
-
-/* =========================
    CTA
    ========================= */
 .cta {
@@ -340,43 +329,34 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =========================
-# CONVERSACIÓN - SIMPLE: PREGUNTA (USUARIO) A LA DERECHA CON FONDO NEGRO, RESPUESTA (ASISTENTE) A LA IZQUIERDA
+# CONVERSACIÓN - SIMPLE Y LINDA
 # =========================
-st.markdown("### 💬 Ejemplo de conversación real")
-st.caption("Así atiende a tus clientes potenciales")
+st.markdown("""
+<h3 style="text-align: center;">💬 Ejemplo de conversación real</h3>
+<p style="text-align: center; color: #666;">Así atiende a tus clientes potenciales</p>
 
-with st.chat_message("assistant", avatar="🤖"):
-    st.write("¡Hola! Bienvenido a AutoCenter. ¿En qué puedo ayudarte hoy?")
+<p><strong>🤖</strong> ¡Hola! Bienvenido a AutoCenter. ¿En qué puedo ayudarte hoy?</p>
 
-with st.chat_message("user", avatar="👤"):
-    st.write("Busco un auto usado")
+<p style="text-align: right; background: #000; color: white; padding: 8px; border-radius: 8px;"><strong>👤</strong> Busco un auto usado</p>
 
-with st.chat_message("assistant", avatar="🤖"):
-    st.write("Dale, perfecto. ¿Qué presupuesto tenés más o menos?")
+<p><strong>🤖</strong> Dale, perfecto. ¿Qué presupuesto tenés más o menos?</p>
 
-with st.chat_message("user", avatar="👤"):
-    st.write("Unos 10 millones")
+<p style="text-align: right; background: #000; color: white; padding: 8px; border-radius: 8px;"><strong>👤</strong> Unos 10 millones</p>
 
-with st.chat_message("assistant", avatar="🤖"):
-    st.write("Genial. Tengo 2 opciones excelentes: un Gol Trend 2020 a 9.8 millones con 55 mil km, único dueño. O un Focus 2019 a 12.9 millones con 65 mil km y service al día. ¿Cuál te copa más?")
+<p><strong>🤖</strong> Genial. Tengo 2 opciones excelentes: un Gol Trend 2020 a 9.8 millones con 55 mil km, único dueño. O un Focus 2019 a 12.9 millones con 65 mil km y service al día. ¿Cuál te copa más?</p>
 
-with st.chat_message("user", avatar="👤"):
-    st.write("El Gol. ¿Puedo hacer un test drive?")
+<p style="text-align: right; background: #000; color: white; padding: 8px; border-radius: 8px;"><strong>👤</strong> El Gol. ¿Puedo hacer un test drive?</p>
 
-with st.chat_message("assistant", avatar="🤖"):
-    st.write("¡Claro! Te agendo el test drive del Gol. ¿Tu nombre completo?")
+<p><strong>🤖</strong> ¡Claro! Te agendo el test drive del Gol. ¿Tu nombre completo?</p>
 
-with st.chat_message("user", avatar="👤"):
-    st.write("Juan Pérez")
+<p style="text-align: right; background: #000; color: white; padding: 8px; border-radius: 8px;"><strong>👤</strong> Juan Pérez</p>
 
-with st.chat_message("assistant", avatar="🤖"):
-    st.write("Perfecto Juan. ¿Tu teléfono?")
+<p><strong>🤖</strong> Perfecto Juan. ¿Tu teléfono?</p>
 
-with st.chat_message("user", avatar="👤"):
-    st.write("099 123 456")
+<p style="text-align: right; background: #000; color: white; padding: 8px; border-radius: 8px;"><strong>👤</strong> 099 123 456</p>
 
-with st.chat_message("assistant", avatar="🤖"):
-    st.write("Listo Juan, cero nueve nueve, uno dos tres, cuatro cinco seis. Agendé tu test drive del Gol Trend. Un vendedor te contacta en 10 minutos para confirmar día y horario. ¡Gracias por llamar!")
+<p><strong>🤖</strong> Listo Juan, cero nueve nueve, uno dos tres, cuatro cinco seis. Agendé tu test drive del Gol Trend. Un vendedor te contacta en 10 minutos para confirmar día y horario. ¡Gracias por llamar!</p>
+""", unsafe_allow_html=True)
 
 # =========================
 # CTA
