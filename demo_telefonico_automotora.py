@@ -9,6 +9,42 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+st.markdown("""
+<style>
+
+/* Fondo suave para la zona de chat */
+section[data-testid="stChatMessage"] {
+    background: transparent;
+}
+
+/* Mensajes del asistente (derecha) */
+section[data-testid="stChatMessage"]:has(div[data-testid="chat-avatar-assistant"]) 
+div[data-testid="stMarkdownContainer"] {
+    background: #e5efff;
+    color: #0b3b60;
+    padding: 14px 18px;
+    border-radius: 18px;
+    max-width: 75%;
+}
+
+/* Mensajes del usuario (izquierda) */
+section[data-testid="stChatMessage"]:has(div[data-testid="chat-avatar-user"]) 
+div[data-testid="stMarkdownContainer"] {
+    background: #f1f5f9;
+    color: #111827;
+    padding: 14px 18px;
+    border-radius: 18px;
+    max-width: 75%;
+}
+
+/* Separación entre mensajes */
+section[data-testid="stChatMessage"] {
+    margin-bottom: 14px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 # =========================
 # CSS GLOBAL
 # =========================
