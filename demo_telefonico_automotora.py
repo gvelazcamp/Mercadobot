@@ -333,92 +333,49 @@ st.markdown("""
 # EJEMPLO DE CONVERSACIÓN
 # =========================
 
-st.markdown("""
-<div class="conversation-example">
-    <div class="conv-title">💬 Ejemplo de Conversación Real</div>
+st.subheader("💬 Ejemplo de Conversación Real")
 
-    <div class="message message-bot">
-        <div class="message-label">Asistente</div>
-        <div class="message-bubble">
-            ¡Hola! Bienvenido a AutoCenter. ¿En qué puedo ayudarte hoy?
-        </div>
-    </div>
+with st.chat_message("assistant"):
+    st.write("¡Hola! Bienvenido a AutoCenter. ¿En qué puedo ayudarte hoy?")
 
-    <div class="message message-user">
-        <div class="message-label">Cliente</div>
-        <div class="message-bubble">
-            Busco un auto usado
-        </div>
-    </div>
+with st.chat_message("user"):
+    st.write("Busco un auto usado")
 
-    <div class="message message-bot">
-        <div class="message-label">Asistente</div>
-        <div class="message-bubble">
-            Dale, perfecto. ¿Qué presupuesto tenés más o menos?
-        </div>
-    </div>
+with st.chat_message("assistant"):
+    st.write("Dale, perfecto. ¿Qué presupuesto tenés más o menos?")
 
-    <div class="message message-user">
-        <div class="message-label">Cliente</div>
-        <div class="message-bubble">
-            Unos 10 millones
-        </div>
-    </div>
+with st.chat_message("user"):
+    st.write("Unos 10 millones")
 
-    <div class="message message-bot">
-        <div class="message-label">Asistente</div>
-        <div class="message-bubble">
-            Genial. Tengo 2 opciones excelentes: un Gol Trend 2020 a 9.8 millones con 55 mil km,
-            único dueño. O un Focus 2019 a 12.9 millones con 65 mil km y service al día.
-            ¿Cuál te copa más?
-        </div>
-    </div>
+with st.chat_message("assistant"):
+    st.write(
+        "Genial. Tengo 2 opciones excelentes: un Gol Trend 2020 a 9.8 millones con 55 mil km, "
+        "único dueño. O un Focus 2019 a 12.9 millones con 65 mil km y service al día. "
+        "¿Cuál te copa más?"
+    )
 
-    <div class="message message-user">
-        <div class="message-label">Cliente</div>
-        <div class="message-bubble">
-            El Gol. ¿Puedo hacer un test drive?
-        </div>
-    </div>
+with st.chat_message("user"):
+    st.write("El Gol. ¿Puedo hacer un test drive?")
 
-    <div class="message message-bot">
-        <div class="message-label">Asistente</div>
-        <div class="message-bubble">
-            ¡Claro! Te agendo el test drive del Gol. ¿Tu nombre completo?
-        </div>
-    </div>
+with st.chat_message("assistant"):
+    st.write("¡Claro! Te agendo el test drive del Gol. ¿Tu nombre completo?")
 
-    <div class="message message-user">
-        <div class="message-label">Cliente</div>
-        <div class="message-bubble">
-            Juan Pérez
-        </div>
-    </div>
+with st.chat_message("user"):
+    st.write("Juan Pérez")
 
-    <div class="message message-bot">
-        <div class="message-label">Asistente</div>
-        <div class="message-bubble">
-            Perfecto Juan. ¿Tu teléfono?
-        </div>
-    </div>
+with st.chat_message("assistant"):
+    st.write("Perfecto Juan. ¿Tu teléfono?")
 
-    <div class="message message-user">
-        <div class="message-label">Cliente</div>
-        <div class="message-bubble">
-            099 123 456
-        </div>
-    </div>
+with st.chat_message("user"):
+    st.write("099 123 456")
 
-    <div class="message message-bot">
-        <div class="message-label">Asistente</div>
-        <div class="message-bubble">
-            Listo Juan. Agendé tu test drive del Gol Trend.
-            Un vendedor te contacta en 10 minutos para confirmar día y horario.
-            ¡Gracias por comunicarte!
-        </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+with st.chat_message("assistant"):
+    st.write(
+        "Listo Juan, cero nueve nueve, uno dos tres, cuatro cinco seis. "
+        "Agendé tu test drive del Gol Trend. "
+        "Un vendedor te contacta en 10 minutos para confirmar día y horario. "
+        "¡Gracias por llamar!"
+    )
 
 
 # =========================
