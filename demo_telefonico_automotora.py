@@ -183,6 +183,17 @@ st.markdown("""
 }
 
 /* =========================
+   CHAT CUSTOMIZATION
+   ========================= */
+.stChatMessage-user {
+    background: #000000 !important; /* Fondo negro simple para preguntas (usuario) */
+    color: white !important;
+    border-radius: 12px !important;
+    padding: 12px 16px !important;
+    margin: 4px 0 !important;
+}
+
+/* =========================
    CTA
    ========================= */
 .cta {
@@ -329,7 +340,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =========================
-# CONVERSACIÓN - SIMPLE Y LINDA (usando st.chat_message para simplicidad)
+# CONVERSACIÓN - SIMPLE: PREGUNTA (USUARIO) A LA DERECHA CON FONDO NEGRO, RESPUESTA (ASISTENTE) A LA IZQUIERDA
 # =========================
 st.markdown("### 💬 Ejemplo de conversación real")
 st.caption("Así atiende a tus clientes potenciales")
