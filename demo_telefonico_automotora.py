@@ -335,27 +335,24 @@ st.markdown("""
 
 st.markdown("""
 <style>
-.conversation-example {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 25px;
-    background: #f9fafb;
-    border-radius: 14px;
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+.chat-demo {
+    max-width: 720px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.conv-title {
-    font-size: 20px;
+.chat-title {
+    font-size: 18px;
     font-weight: 600;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     color: #1f2937;
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
 
 .message {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
     display: flex;
     flex-direction: column;
 }
@@ -386,14 +383,14 @@ st.markdown("""
 }
 
 .message-user .message-bubble {
-    background: #d1fae5;
+    background: #dcfce7;
     color: #065f46;
     align-self: flex-end;
 }
 </style>
 
-<div class="conversation-example">
-    <div class="conv-title">💬 Ejemplo de Conversación Real</div>
+<div class="chat-demo">
+    <div class="chat-title">💬 Ejemplo de Conversación Real</div>
 
     <div class="message message-bot">
         <div class="message-label">Asistente</div>
@@ -412,7 +409,7 @@ st.markdown("""
     <div class="message message-bot">
         <div class="message-label">Asistente</div>
         <div class="message-bubble">
-            Perfecto. ¿Qué presupuesto tenés aproximadamente?
+            Dale, perfecto. ¿Qué presupuesto tenés más o menos?
         </div>
     </div>
 
@@ -426,9 +423,9 @@ st.markdown("""
     <div class="message message-bot">
         <div class="message-label">Asistente</div>
         <div class="message-bubble">
-            Genial. Tengo dos opciones muy buenas: un Gol Trend 2020 a 9.8 millones con 55.000 km,
-            único dueño; o un Focus 2019 a 12.9 millones con 65.000 km y service al día.
-            ¿Cuál te interesa más?
+            Genial. Tengo 2 opciones excelentes: un Gol Trend 2020 a 9.8 millones con 55 mil km,
+            único dueño. O un Focus 2019 a 12.9 millones con 65 mil km y service al día.
+            ¿Cuál te copa más?
         </div>
     </div>
 
@@ -442,7 +439,7 @@ st.markdown("""
     <div class="message message-bot">
         <div class="message-label">Asistente</div>
         <div class="message-bubble">
-            Claro que sí. ¿Me decís tu nombre completo?
+            ¡Claro! Te agendo el test drive del Gol. ¿Tu nombre completo?
         </div>
     </div>
 
@@ -456,7 +453,7 @@ st.markdown("""
     <div class="message message-bot">
         <div class="message-label">Asistente</div>
         <div class="message-bubble">
-            Gracias, Juan. ¿Un teléfono de contacto?
+            Perfecto Juan. ¿Tu teléfono?
         </div>
     </div>
 
@@ -470,13 +467,14 @@ st.markdown("""
     <div class="message message-bot">
         <div class="message-label">Asistente</div>
         <div class="message-bubble">
-            Perfecto. Ya dejé agendado tu test drive del Gol Trend.
-            Un vendedor te va a contactar en los próximos minutos para coordinar día y horario.
-            Gracias por comunicarte con AutoCenter.
+            Listo Juan. Agendé tu test drive del Gol Trend.
+            Un vendedor te contacta en 10 minutos para confirmar día y horario.
+            ¡Gracias por comunicarte!
         </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
+
 
 # =========================
 # CTA
