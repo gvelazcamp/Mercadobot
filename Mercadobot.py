@@ -1961,64 +1961,54 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
     </div>
 
     <!-- NOVEDAD SIVO -->
-    <div class="novedad-sivo">
-        <div class="novedad-badge-container">
-            <span class="novedad-badge">🔥 Recién Lanzado - Enero 2026</span>
-        </div>
-        
+    <div class="launch-section">
+        <div class="launch-badge">🔥 Recién Lanzado - Enero 2026</div>
         <h2>SIVO - Tu Asistente Telefónico IA</h2>
+        <p class="launch-subtitle">Atiende llamadas automáticamente, agenda citas y responde consultas mientras vos te enfocás en hacer crecer tu negocio</p>
         
-        <div class="sivo-card">
-            <div class="sivo-image">
-                <div class="sivo-phone">
-                    <div class="phone-content">
-                        <div class="phone-icon">📞</div>
-                        <div class="phone-name">SIVO</div>
-                        <div class="phone-status">
-                            <span class="status-dot"></span>
-                            Atendiendo llamada
-                        </div>
+        <div class="launch-card">
+            <div class="launch-features">
+                <div class="launch-feature">
+                    <span class="launch-check">✅</span>
+                    <div>
+                        <strong>Atiende 24/7:</strong> Nunca más pierdas un cliente por no atender
+                    </div>
+                </div>
+                <div class="launch-feature">
+                    <span class="launch-check">✅</span>
+                    <div>
+                        <strong>Agenda automática:</strong> Reserva turnos directo en tu calendario
+                    </div>
+                </div>
+                <div class="launch-feature">
+                    <span class="launch-check">✅</span>
+                    <div>
+                        <strong>Voz natural:</strong> Conversaciones fluidas y profesionales
+                    </div>
+                </div>
+                <div class="launch-feature">
+                    <span class="launch-check">✅</span>
+                    <div>
+                        <strong>Derivación inteligente:</strong> Transfiere a humano cuando es necesario
+                    </div>
+                </div>
+                <div class="launch-feature">
+                    <span class="launch-check">✅</span>
+                    <div>
+                        <strong>Respuestas instantáneas:</strong> Info de productos, precios y disponibilidad
+                    </div>
+                </div>
+                <div class="launch-feature">
+                    <span class="launch-check">✅</span>
+                    <div>
+                        <strong>Integración total:</strong> Se conecta con tu sistema de gestión
                     </div>
                 </div>
             </div>
             
-            <div class="sivo-info">
-                <p class="sivo-description">
-                    Atiende llamadas automáticamente, agenda citas y responde consultas 
-                    mientras vos te enfocás en hacer crecer tu negocio
-                </p>
-                
-                <div class="sivo-features">
-                    <div class="sivo-feature">
-                        <span class="feature-check">✅</span>
-                        <span><strong>Atiende 24/7:</strong> Nunca más pierdas un cliente por no atender</span>
-                    </div>
-                    <div class="sivo-feature">
-                        <span class="feature-check">✅</span>
-                        <span><strong>Agenda automática:</strong> Reserva turnos directo en tu calendario</span>
-                    </div>
-                    <div class="sivo-feature">
-                        <span class="feature-check">✅</span>
-                        <span><strong>Voz natural:</strong> Conversaciones fluidas y profesionales</span>
-                    </div>
-                    <div class="sivo-feature">
-                        <span class="feature-check">✅</span>
-                        <span><strong>Derivación inteligente:</strong> Transfiere a humano cuando es necesario</span>
-                    </div>
-                    <div class="sivo-feature">
-                        <span class="feature-check">✅</span>
-                        <span><strong>Respuestas instantáneas:</strong> Info de productos, precios y disponibilidad</span>
-                    </div>
-                    <div class="sivo-feature">
-                        <span class="feature-check">✅</span>
-                        <span><strong>Integración total:</strong> Se conecta con tu sistema de gestión</span>
-                    </div>
-                </div>
-                
-                <div class="sivo-buttons">
-                    <a href="#" class="sivo-btn-primary">Probá SIVO Gratis</a>
-                    <a href="#" class="sivo-btn-secondary">→ Ver demo en vivo</a>
-                </div>
+            <div class="launch-actions">
+                <a href="#" class="launch-btn-primary">Probá SIVO Gratis</a>
+                <a href="#" class="launch-btn-link">→ Ver demo en vivo</a>
             </div>
         </div>
     </div>
