@@ -131,8 +131,14 @@ body {
 }
 
 .logo-img {
-    height: 40px;
+    height: 55px;
     width: auto;
+}
+
+.logo-text {
+    font-size: 22px;
+    font-weight: 800;
+    color: #000;
 }
 .logo span { color: #60a5fa; }
 
@@ -1804,10 +1810,11 @@ body {
 <div class="page-container">
 """
 
-HEADER = """
+HEADER = f"""
     <div class="header">
         <a class="logo" href="?vista=home">
-            <img src="{BASE_URL}LogoMercadobot.png" alt="MercadoBot" class="logo-img">
+            <img src="{BASE_URL}LogoMercadobot.png" alt="MercadoBot" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+            <span class="logo-text" style="display:none;">MERCADO<span style="color:#60a5fa;">BOT</span></span>
         </a>
         <div class="nav">
             <a href="?vista=home">Inicio</a>
