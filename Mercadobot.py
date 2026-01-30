@@ -1043,6 +1043,157 @@ body {
 }
 
 /* =========================
+   SIVO LAUNCH CARD
+========================= */
+.sivo-launch {
+    padding: 80px 5%;
+    background: white;
+    display: flex;
+    justify-content: center;
+}
+
+.sivo-card-big {
+    max-width: 700px;
+    width: 100%;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    border-radius: 24px;
+    padding: 50px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
+    color: white;
+}
+
+.sivo-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 25px;
+    backdrop-filter: blur(10px);
+}
+
+.sivo-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.sivo-card-big h3 {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0 0 20px 0;
+    color: white;
+}
+
+.sivo-desc {
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0 0 35px 0;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.sivo-list {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 35px;
+    text-align: left;
+    backdrop-filter: blur(10px);
+}
+
+.sivo-item {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+    color: white;
+}
+
+.sivo-item:last-child {
+    margin-bottom: 0;
+}
+
+.sivo-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sivo-btn-main {
+    background: white;
+    color: #ff6b35;
+    padding: 15px 32px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.sivo-btn-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+.sivo-btn-demo {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 15px 32px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.sivo-btn-demo:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+    .sivo-launch {
+        padding: 60px 5%;
+    }
+    
+    .sivo-card-big {
+        padding: 40px 30px;
+    }
+    
+    .sivo-card-big h3 {
+        font-size: 26px;
+    }
+    
+    .sivo-desc {
+        font-size: 15px;
+    }
+    
+    .sivo-list {
+        padding: 25px 20px;
+    }
+    
+    .sivo-item {
+        font-size: 14px;
+    }
+    
+    .sivo-buttons {
+        flex-direction: column;
+    }
+    
+    .sivo-btn-main,
+    .sivo-btn-demo {
+        width: 100%;
+    }
+}
+
+/* =========================
    INTEGRACIONES
 ========================= */
 .integrations-section {
