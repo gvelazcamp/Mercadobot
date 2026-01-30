@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 # =========================
-# CSS GLOBAL - VERSIÓN AGRESIVA
+# CSS GLOBAL
 # =========================
 st.markdown("""
 <style>
@@ -23,60 +23,72 @@ st.markdown("""
 }
 
 /* =========================
-   BURBUJAS DE CHAT - MÉTODO AGRESIVO
+   BURBUJAS DE CHAT PERSONALIZADAS
    ========================= */
 
-/* Resetear todos los estilos de chat */
-.stChatMessage {
-    background: transparent !important;
-    border: none !important;
-    padding: 0.75rem 0 !important;
+.chat-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 0;
 }
 
-/* Forzar contenedor de contenido */
-.stChatMessage > div {
-    background: transparent !important;
+.message {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: flex-start;
 }
 
-/* USUARIO - Burbuja NEGRA */
-.stChatMessage:has(img[alt="user"]) div[data-testid="stMarkdownContainer"],
-.stChatMessage:has(img[alt="user"]) .stMarkdown,
-.stChatMessage:has(img[alt="user"]) div[data-testid="stMarkdownContainer"] > div,
-.stChatMessage:has(img[alt="user"]) p {
-    background-color: #0f172a !important;
-    color: #ffffff !important;
+.message-assistant {
+    justify-content: flex-start;
 }
 
-.stChatMessage:has(img[alt="user"]) div[data-testid="stMarkdownContainer"] {
-    padding: 14px 20px !important;
-    border-radius: 18px 18px 4px 18px !important;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.4) !important;
-    max-width: 75% !important;
-    margin-left: auto !important;
+.message-user {
+    justify-content: flex-end;
 }
 
-/* ASISTENTE - Burbuja BLANCA */
-.stChatMessage:has(img[alt="assistant"]) div[data-testid="stMarkdownContainer"],
-.stChatMessage:has(img[alt="assistant"]) .stMarkdown,
-.stChatMessage:has(img[alt="assistant"]) div[data-testid="stMarkdownContainer"] > div,
-.stChatMessage:has(img[alt="assistant"]) p {
-    background-color: #ffffff !important;
-    color: #1f2937 !important;
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
 }
 
-.stChatMessage:has(img[alt="assistant"]) div[data-testid="stMarkdownContainer"] {
-    padding: 14px 20px !important;
-    border-radius: 18px 18px 18px 4px !important;
-    border: 1px solid #e5e7eb !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-    max-width: 75% !important;
-    margin-right: auto !important;
+.avatar-assistant {
+    background: linear-gradient(135deg, #ff7a18, #ff9f43);
+    margin-right: 12px;
 }
 
-/* Asegurar que el texto sea visible */
-.stChatMessage p {
-    margin: 0 !important;
-    line-height: 1.5 !important;
+.avatar-user {
+    background: #0f172a;
+    margin-left: 12px;
+    order: 2;
+}
+
+.bubble {
+    padding: 14px 18px;
+    border-radius: 18px;
+    max-width: 75%;
+    line-height: 1.5;
+    font-size: 15px;
+}
+
+.bubble-assistant {
+    background: #ffffff;
+    color: #1f2937;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 18px 18px 18px 4px;
+}
+
+.bubble-user {
+    background: #0f172a;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.3);
+    border-radius: 18px 18px 4px 18px;
 }
 
 /* =========================
@@ -343,8 +355,8 @@ st.markdown("""
 # =========================
 st.markdown("""
 <div class="phone-card">
-    <h2>Hablá con SIVO en vivo</h2>
-    <p>Llamá ahora y conversá con el asistente telefónico</p>
+    <h2>Probalo en vivo</h2>
+    <p>Llamá ahora y conversá con el asistente</p>
     <div class="phone-number">
         <a href="tel:+5981234567">+598 1234 5678</a>
     </div>
@@ -359,7 +371,7 @@ st.markdown("""
 <div class="features-header">
     <div class="phone-icon">📞</div>
     <div class="divider-line"></div>
-    <h2>Qué hace SIVO por tu negocio</h2>
+    <h2>Qué hace por tu negocio</h2>
 </div>
 
 <div class="section">
@@ -399,57 +411,104 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =========================
-# EJEMPLO DE CONVERSACIÓN
+# EJEMPLO DE CONVERSACIÓN CON HTML CUSTOM
 # =========================
 
 st.markdown("""
 <div class="conversation-header">
-    <h2>💬 Mirá cómo <span class="sivo-highlight">SIVO</span> atiende a tus clientes</h2>
-    <p class="conversation-subtitle">Conversación real simulada con un cliente potencial</p>
+    <h2>💬 Ejemplo de conversación real</h2>
+    <p class="conversation-subtitle">Así atiende a tus clientes potenciales</p>
 </div>
 """, unsafe_allow_html=True)
 
-with st.chat_message("assistant"):
-    st.write("¡Hola! Soy SIVO, tu asistente de AutoCenter. ¿En qué puedo ayudarte hoy?")
-
-with st.chat_message("user"):
-    st.write("Busco un auto usado")
-
-with st.chat_message("assistant"):
-    st.write("Dale, perfecto. ¿Qué presupuesto tenés más o menos?")
-
-with st.chat_message("user"):
-    st.write("Unos 10 millones")
-
-with st.chat_message("assistant"):
-    st.write(
-        "Genial. Tengo 2 opciones excelentes: un Gol Trend 2020 a 9.8 millones con 55 mil km, "
-        "único dueño. O un Focus 2019 a 12.9 millones con 65 mil km y service al día. "
-        "¿Cuál te copa más?"
-    )
-
-with st.chat_message("user"):
-    st.write("El Gol. ¿Puedo hacer un test drive?")
-
-with st.chat_message("assistant"):
-    st.write("¡Claro! Te agendo el test drive del Gol. ¿Tu nombre completo?")
-
-with st.chat_message("user"):
-    st.write("Juan Pérez")
-
-with st.chat_message("assistant"):
-    st.write("Perfecto Juan. ¿Tu teléfono?")
-
-with st.chat_message("user"):
-    st.write("099 123 456")
-
-with st.chat_message("assistant"):
-    st.write(
-        "Listo Juan, cero nueve nueve, uno dos tres, cuatro cinco seis. "
-        "Agendé tu test drive del Gol Trend. "
-        "Un vendedor te contacta en 10 minutos para confirmar día y horario. "
-        "¡Gracias por llamar!"
-    )
+# Conversación con burbujas HTML personalizadas
+st.markdown("""
+<div class="chat-container">
+    
+    <div class="message message-assistant">
+        <div class="avatar avatar-assistant">🤖</div>
+        <div class="bubble bubble-assistant">
+            ¡Hola! Bienvenido a AutoCenter. ¿En qué puedo ayudarte hoy?
+        </div>
+    </div>
+    
+    <div class="message message-user">
+        <div class="bubble bubble-user">
+            Busco un auto usado
+        </div>
+        <div class="avatar avatar-user">👤</div>
+    </div>
+    
+    <div class="message message-assistant">
+        <div class="avatar avatar-assistant">🤖</div>
+        <div class="bubble bubble-assistant">
+            Dale, perfecto. ¿Qué presupuesto tenés más o menos?
+        </div>
+    </div>
+    
+    <div class="message message-user">
+        <div class="bubble bubble-user">
+            Unos 10 millones
+        </div>
+        <div class="avatar avatar-user">👤</div>
+    </div>
+    
+    <div class="message message-assistant">
+        <div class="avatar avatar-assistant">🤖</div>
+        <div class="bubble bubble-assistant">
+            Genial. Tengo 2 opciones excelentes: un Gol Trend 2020 a 9.8 millones con 55 mil km, 
+            único dueño. O un Focus 2019 a 12.9 millones con 65 mil km y service al día. 
+            ¿Cuál te copa más?
+        </div>
+    </div>
+    
+    <div class="message message-user">
+        <div class="bubble bubble-user">
+            El Gol. ¿Puedo hacer un test drive?
+        </div>
+        <div class="avatar avatar-user">👤</div>
+    </div>
+    
+    <div class="message message-assistant">
+        <div class="avatar avatar-assistant">🤖</div>
+        <div class="bubble bubble-assistant">
+            ¡Claro! Te agendo el test drive del Gol. ¿Tu nombre completo?
+        </div>
+    </div>
+    
+    <div class="message message-user">
+        <div class="bubble bubble-user">
+            Juan Pérez
+        </div>
+        <div class="avatar avatar-user">👤</div>
+    </div>
+    
+    <div class="message message-assistant">
+        <div class="avatar avatar-assistant">🤖</div>
+        <div class="bubble bubble-assistant">
+            Perfecto Juan. ¿Tu teléfono?
+        </div>
+    </div>
+    
+    <div class="message message-user">
+        <div class="bubble bubble-user">
+            099 123 456
+        </div>
+        <div class="avatar avatar-user">👤</div>
+    </div>
+    
+    <div class="message message-assistant">
+        <div class="avatar avatar-assistant">🤖</div>
+        <div class="bubble bubble-assistant">
+            Listo Juan, cero nueve nueve, uno dos tres, cuatro cinco seis. 
+            Agendé tu test drive del Gol Trend. 
+            Un vendedor te contacta en 10 minutos para confirmar día y horario. 
+            ¡Gracias por llamar!
+        </div>
+    </div>
+    
+</div>
+""", unsafe_allow_html=True)
 
 
 # =========================
@@ -457,9 +516,9 @@ with st.chat_message("assistant"):
 # =========================
 st.markdown("""
 <div class="cta">
-    <h2>SIVO no es un chatbot genérico</h2>
+    <h2>No es un chatbot genérico</h2>
     <p>
-        Es un asistente entrenado con datos reales,
+        Es un asistente entrenado con tus datos reales,
         diseñado para atender, vender y escalar tu negocio.
     </p>
 </div>
@@ -470,7 +529,7 @@ st.markdown("""
 # =========================
 col1, col2, col3 = st.columns([1,2,1])
 with col2:
-    if st.button("📞 Llamar a SIVO ahora", use_container_width=True):
+    if st.button("📞 Llamar ahora", use_container_width=True):
         st.markdown("""
         <script>
         window.location.href = "tel:+5981234567";
