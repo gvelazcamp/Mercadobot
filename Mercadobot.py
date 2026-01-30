@@ -5223,28 +5223,284 @@ CHATBOT = """
 <body style="margin:0;padding:0;overflow:visible;">
 
 <style>
-#bot-btn{position:fixed;bottom:20px;right:20px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#f4b400,#ff6b00);border:none;cursor:pointer;box-shadow:0 4px 15px rgba(244,180,0,0.5);font-size:28px;z-index:999999;transition:transform 0.3s;}
-#bot-btn:hover{transform:scale(1.1);}
-#bot-box{display:none;position:fixed;bottom:90px;right:20px;width:350px;height:450px;background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.3);flex-direction:column;z-index:999998;}
-#bot-box.open{display:flex;}
-.h{background:linear-gradient(135deg,#f4b400,#ff6b00);color:#fff;padding:16px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center;}
-.h h3{font-size:16px;font-weight:600;margin:0;}
-.h button{background:none;border:none;color:#fff;font-size:24px;cursor:pointer;width:32px;height:32px;border-radius:50%;}
-.h button:hover{background:rgba(255,255,255,0.2);}
-#msgs{flex:1;overflow-y:auto;padding:16px;background:#f8f9fa;}
-.m{margin-bottom:12px;display:flex;gap:8px;}
-.m.u{flex-direction:row-reverse;}
-.m .a{font-size:24px;width:32px;height:32px;flex-shrink:0;}
-.m .b{max-width:75%;padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.4;}
-.m:not(.u) .b{background:#fff;border:1px solid #e9ecef;color:#333;}
-.m.u .b{background:linear-gradient(135deg,#f4b400,#ff6b00);color:#fff;}
-.inp{padding:12px;background:#fff;border-top:1px solid #e9ecef;display:flex;gap:8px;}
-.inp input{flex:1;padding:10px 16px;border:1px solid #e0e0e0;border-radius:20px;font-size:14px;outline:none;}
-.inp input:focus{border-color:#f4b400;}
-.inp button{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#f4b400,#ff6b00);border:none;cursor:pointer;font-size:18px;color:#fff;}
-.clickable-option{cursor:pointer;color:#f4b400;text-decoration:none;display:inline-block;padding:4px 0;transition:all 0.2s;}
-.clickable-option:hover{color:#ff6b00;transform:translateX(4px);}
+/* ============================================
+   ESTILOS DEL CHATBOT - RESPONSIVE COMPLETO
+============================================ */
+#bot-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f4b400, #ff6b00);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(244, 180, 0, 0.5);
+    font-size: 28px;
+    z-index: 999999;
+    transition: transform 0.3s;
+}
+
+#bot-btn:hover {
+    transform: scale(1.1);
+}
+
+#bot-box {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    height: 450px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+    z-index: 999998;
+    overflow: hidden;
+}
+
+#bot-box.open {
+    display: flex;
+}
+
+.h {
+    background: linear-gradient(135deg, #f4b400, #ff6b00);
+    color: #fff;
+    padding: 16px;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.h h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.h button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.h button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#msgs {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background: #f8f9fa;
+}
+
+#msgs::-webkit-scrollbar {
+    width: 6px;
+}
+
+#msgs::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+
+.m {
+    margin-bottom: 12px;
+    display: flex;
+    gap: 8px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.m.u {
+    flex-direction: row-reverse;
+}
+
+.m .a {
+    font-size: 24px;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.m .b {
+    max-width: calc(100% - 50px);
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.m:not(.u) .b {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    color: #333;
+}
+
+.m.u .b {
+    background: linear-gradient(135deg, #f4b400, #ff6b00);
+    color: #fff;
+}
+
+.inp {
+    padding: 12px;
+    background: #fff;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.inp input {
+    flex: 1;
+    padding: 10px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    min-width: 0;
+}
+
+.inp input:focus {
+    border-color: #f4b400;
+}
+
+.inp button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f4b400, #ff6b00);
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.clickable-option {
+    cursor: pointer;
+    color: #f4b400;
+    text-decoration: none;
+    display: inline-block;
+    padding: 4px 0;
+    transition: all 0.2s;
+}
+
+.clickable-option:hover {
+    color: #ff6b00;
+    transform: translateX(4px);
+}
+
+/* ============================================
+   RESPONSIVE PARA MÓVILES (CRÍTICO)
+============================================ */
+@media (max-width: 768px) {
+    /* Botón más pequeño en móvil */
+    #bot-btn {
+        width: 56px;
+        height: 56px;
+        bottom: 16px;
+        right: 16px;
+        font-size: 26px;
+    }
+    
+    /* Chatbot FULLSCREEN en móviles */
+    #bot-box {
+        bottom: 0 !important;
+        right: 0 !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* Header en móvil */
+    .h {
+        padding: 14px 16px;
+        border-radius: 0 !important;
+    }
+    
+    .h h3 {
+        font-size: 16px;
+    }
+    
+    /* Mensajes con menos padding */
+    #msgs {
+        padding: 16px 12px;
+    }
+    
+    /* Avatares más pequeños */
+    .m .a {
+        width: 28px;
+        height: 28px;
+        font-size: 20px;
+    }
+    
+    /* Mensajes con ancho ajustado */
+    .m .b {
+        padding: 10px 14px;
+        font-size: 14px;
+        max-width: calc(100% - 48px);
+    }
+    
+    /* Input más compacto */
+    .inp {
+        padding: 12px;
+        gap: 8px;
+    }
+    
+    .inp input {
+        padding: 10px 14px;
+        font-size: 15px;
+    }
+    
+    .inp button {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}
+
+/* Para pantallas MUY pequeñas */
+@media (max-width: 400px) {
+    .m .b {
+        font-size: 13px;
+        padding: 9px 12px;
+    }
+    
+    .inp input {
+        font-size: 14px;
+        padding: 9px 12px;
+    }
+}
 </style>
+
 
 <button id="bot-btn" onclick="toggle()">💬</button>
 
