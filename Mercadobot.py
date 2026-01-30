@@ -124,11 +124,15 @@ body {
 }
 
 .logo {
-    font-size: 22px;
-    font-weight: 800;
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    color: #000;
     white-space: nowrap;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
 }
 .logo span { color: #60a5fa; }
 
@@ -1802,7 +1806,9 @@ body {
 
 HEADER = """
     <div class="header">
-        <a class="logo" href="?vista=home">MERCADO<span>BOT</span></a>
+        <a class="logo" href="?vista=home">
+            <img src="{BASE_URL}miniaturaLogoMercadobot.png" alt="MercadoBot" class="logo-img">
+        </a>
         <div class="nav">
             <a href="?vista=home">Inicio</a>
             <a href="?vista=asistentes">Asistentes</a>
