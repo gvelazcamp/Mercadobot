@@ -188,7 +188,7 @@ st.markdown("""
 .response {
     background: white;
     color: black;
-    padding: 16px 8px;
+    padding: 20px 8px;
     border-radius: 8px;
     max-width: 50%;
     word-wrap: break-word;
@@ -354,23 +354,23 @@ st.markdown("""
 <h3 style="text-align: center;">💬 Ejemplo de conversación real</h3>
 <p style="text-align: center; color: #666;">Así atiende a tus clientes potenciales</p>
 
-<p style="text-align: left; background: #000; color: white; padding: 16px 8px; border-radius: 8px;"><strong>👤</strong> Busco un auto usado</p>
+<p style="text-align: left; background: #000; color: white; padding: 20px 8px; border-radius: 8px;"><strong>👤</strong> Busco un auto usado</p>
 
 <p class="response"><strong>🤖</strong> ¡Hola! Bienvenido a AutoCenter. ¿En qué puedo ayudarte hoy?</p>
 
-<p style="text-align: left; background: #000; color: white; padding: 16px 8px; border-radius: 8px;"><strong>👤</strong> Unos 10 millones</p>
+<p style="text-align: left; background: #000; color: white; padding: 20px 8px; border-radius: 8px;"><strong>👤</strong> Unos 10 millones</p>
 
 <p class="response"><strong>🤖</strong> Dale, perfecto. ¿Qué presupuesto tenés más o menos?</p>
 
-<p style="text-align: left; background: #000; color: white; padding: 16px 8px; border-radius: 8px;"><strong>👤</strong> El Gol. ¿Puedo hacer un test drive?</p>
+<p style="text-align: left; background: #000; color: white; padding: 20px 8px; border-radius: 8px;"><strong>👤</strong> El Gol. ¿Puedo hacer un test drive?</p>
 
 <p class="response"><strong>🤖</strong> Genial. Tengo 2 opciones excelentes: un Gol Trend 2020 a 9.8 millones con 55 mil km, único dueño. O un Focus 2019 a 12.9 millones con 65 mil km y service al día. ¿Cuál te copa más?</p>
 
-<p style="text-align: left; background: #000; color: white; padding: 16px 8px; border-radius: 8px;"><strong>👤</strong> Juan Pérez</p>
+<p style="text-align: left; background: #000; color: white; padding: 20px 8px; border-radius: 8px;"><strong>👤</strong> Juan Pérez</p>
 
 <p class="response"><strong>🤖</strong> ¡Claro! Te agendo el test drive del Gol. ¿Tu nombre completo?</p>
 
-<p style="text-align: left; background: #000; color: white; padding: 16px 8px; border-radius: 8px;"><strong>👤</strong> 099 123 456</p>
+<p style="text-align: left; background: #000; color: white; padding: 20px 8px; border-radius: 8px;"><strong>👤</strong> 099 123 456</p>
 
 <p class="response"><strong>🤖</strong> Perfecto Juan. ¿Tu teléfono?</p>
 
