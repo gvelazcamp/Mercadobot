@@ -4,52 +4,10 @@ import streamlit as st
 # CONFIGURACIÓN DE PÁGINA
 # =========================
 st.set_page_config(
-    page_title="Demo Asistente Telefónico IA - MercadoBot",
+    page_title="SIVO - Asistente Telefónico IA",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
-
-# =========================
-# ESTILOS CHAT (CLIENTE / ASISTENTE)
-# =========================
-st.markdown("""
-<style>
-
-/* Espacio entre mensajes */
-section[data-testid="stChatMessage"] {
-    margin-bottom: 16px;
-}
-
-/* ===== CLIENTE (burbuja oscura) ===== */
-section[data-testid="stChatMessage"]:has(div[data-testid="chat-avatar-user"])
-div[data-testid="stMarkdownContainer"] {
-    background: #0f172a;              /* negro azulado */
-    color: #ffffff;
-    padding: 14px 18px;
-    border-radius: 18px;
-    max-width: 75%;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-}
-
-/* ===== ASISTENTE (burbuja clara) ===== */
-section[data-testid="stChatMessage"]:has(div[data-testid="chat-avatar-assistant"])
-div[data-testid="stMarkdownContainer"] {
-    background: #ffffff;
-    color: #111827;
-    padding: 14px 18px;
-    border-radius: 18px;
-    max-width: 75%;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-}
-
-/* Opcional: achicar un poco los avatares */
-div[data-testid^="chat-avatar"] {
-    transform: scale(0.85);
-}
-
-</style>
-""", unsafe_allow_html=True)
-
 
 # =========================
 # CSS GLOBAL
@@ -61,6 +19,43 @@ st.markdown("""
 .stApp {
     background: #ffffff;
     font-family: Inter, sans-serif;
+}
+
+/* =========================
+   BURBUJAS DE CHAT
+   ========================= */
+
+/* Espacio entre mensajes */
+section[data-testid="stChatMessage"] {
+    margin-bottom: 16px;
+}
+
+/* CLIENTE (burbuja negra) */
+section[data-testid="stChatMessage"]:has(div[data-testid="chat-avatar-user"])
+div[data-testid="stMarkdownContainer"] {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 14px 18px;
+    border-radius: 18px;
+    max-width: 75%;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* ASISTENTE (burbuja blanca) */
+section[data-testid="stChatMessage"]:has(div[data-testid="chat-avatar-assistant"])
+div[data-testid="stMarkdownContainer"] {
+    background: #ffffff;
+    color: #111827;
+    padding: 14px 18px;
+    border-radius: 18px;
+    max-width: 75%;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border: 1px solid #e5e7eb;
+}
+
+/* Avatares más pequeños */
+div[data-testid^="chat-avatar"] {
+    transform: scale(0.85);
 }
 
 /* =========================
@@ -76,6 +71,11 @@ st.markdown("""
     font-weight: 800;
     color: #111;
     margin-bottom: 16px;
+}
+
+.hero .sivo-name {
+    color: #ff7a18;
+    font-size: 52px;
 }
 
 .hero p {
@@ -202,59 +202,26 @@ st.markdown("""
 /* =========================
    CONVERSACIÓN
    ========================= */
-.conversation-example {
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 28px;
-    margin: 60px auto;
-    max-width: 900px;
-    box-shadow: 0 15px 45px rgba(0,0,0,0.1);
+.conversation-header {
+    text-align: center;
+    margin: 50px 0 30px;
 }
 
-.conv-title {
-    font-size: 28px;
+.conversation-header h2 {
+    font-size: 32px;
     font-weight: 800;
     color: #111;
-    margin-bottom: 35px;
-    text-align: center;
+    margin-bottom: 10px;
 }
 
-.message {
-    margin: 16px 0;
-    display: flex;
-    flex-direction: column;
+.conversation-subtitle {
+    font-size: 18px;
+    color: #666;
 }
 
-.message-user {
-    align-items: flex-end;
-}
-
-.message-bot {
-    align-items: flex-start;
-}
-
-.message-label {
-    font-size: 11px;
+.sivo-highlight {
+    color: #ff7a18;
     font-weight: 700;
-    color: #888;
-    margin-bottom: 6px;
-    text-transform: uppercase;
-}
-
-.message-bubble {
-    padding: 16px 22px;
-    border-radius: 18px;
-    max-width: 75%;
-    font-size: 15px;
-    line-height: 1.6;
-}
-
-.message-user .message-bubble {
-    background: #eaeaea;
-}
-
-.message-bot .message-bubble {
-    background: #ffe8d6;
 }
 
 /* =========================
@@ -303,10 +270,10 @@ st.markdown("""
 # =========================
 st.markdown("""
 <div class="hero">
-    <h1>Asistente Telefónico con IA</h1>
+    <h1>Conocé a <span class="sivo-name">SIVO</span></h1>
     <p>
-        Atiende llamadas reales, conversa como una persona
-        y responde usando los datos de tu negocio.
+        Tu asistente telefónico con IA que atiende llamadas reales,
+        conversa como una persona y responde usando los datos de tu negocio.
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -316,8 +283,8 @@ st.markdown("""
 # =========================
 st.markdown("""
 <div class="phone-card">
-    <h2>Probalo en vivo</h2>
-    <p>Llamá ahora y hablá con el asistente telefónico</p>
+    <h2>Hablá con SIVO en vivo</h2>
+    <p>Llamá ahora y conversá con el asistente telefónico</p>
     <div class="phone-number">
         <a href="tel:+5981234567">+598 1234 5678</a>
     </div>
@@ -332,7 +299,7 @@ st.markdown("""
 <div class="features-header">
     <div class="phone-icon">📞</div>
     <div class="divider-line"></div>
-    <h2>Qué hace este asistente</h2>
+    <h2>Qué hace SIVO por tu negocio</h2>
 </div>
 
 <div class="section">
@@ -375,10 +342,15 @@ st.markdown("""
 # EJEMPLO DE CONVERSACIÓN
 # =========================
 
-st.subheader("💬 Ejemplo de Conversación Real")
+st.markdown("""
+<div class="conversation-header">
+    <h2>💬 Mirá cómo <span class="sivo-highlight">SIVO</span> atiende a tus clientes</h2>
+    <p class="conversation-subtitle">Conversación real simulada con un cliente potencial</p>
+</div>
+""", unsafe_allow_html=True)
 
 with st.chat_message("assistant"):
-    st.write("¡Hola! Bienvenido a AutoCenter. ¿En qué puedo ayudarte hoy?")
+    st.write("¡Hola! Soy SIVO, tu asistente de AutoCenter. ¿En qué puedo ayudarte hoy?")
 
 with st.chat_message("user"):
     st.write("Busco un auto usado")
@@ -425,7 +397,7 @@ with st.chat_message("assistant"):
 # =========================
 st.markdown("""
 <div class="cta">
-    <h2>No es un chatbot genérico</h2>
+    <h2>SIVO no es un chatbot genérico</h2>
     <p>
         Es un asistente entrenado con datos reales,
         diseñado para atender, vender y escalar tu negocio.
@@ -436,11 +408,11 @@ st.markdown("""
 # =========================
 # BOTÓN LLAMAR
 # =========================
-if st.button("📞 Llamar y probar ahora"):
+if st.button("📞 Llamar a SIVO ahora"):
     st.markdown("""
     <script>
     window.location.href = "tel:+5981234567";
     </script>
     """, unsafe_allow_html=True)
 
-st.caption("Demo visual del Asistente Telefónico · MercadoBot")
+st.caption("Demo visual de SIVO - Asistente Telefónico Inteligente")
