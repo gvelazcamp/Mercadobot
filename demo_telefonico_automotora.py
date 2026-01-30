@@ -6,14 +6,13 @@ st.set_page_config(
     layout="centered"
 )
 
-# CSS limpio y profesional - estilo MercadoBot
+# CSS limpio
 st.markdown("""
 <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
     
-    /* Fondo blanco limpio */
     .stApp {
         background: #f8f9fa;
     }
@@ -23,14 +22,14 @@ st.markdown("""
         max-width: 900px;
     }
     
-    /* Mejorar métricas */
+    /* Métricas naranjas */
     div[data-testid="stMetricValue"] {
         font-size: 2.5rem !important;
         color: #ff6b00 !important;
         font-weight: bold !important;
     }
     
-    /* Botones con gradiente naranja */
+    /* Botones naranjas */
     .stButton > button, .stLinkButton > a {
         background: linear-gradient(135deg, #f4b400, #ff6b00) !important;
         color: white !important;
@@ -40,175 +39,248 @@ st.markdown("""
         font-weight: 700 !important;
         border-radius: 12px !important;
         box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3) !important;
-        transition: all 0.3s !important;
     }
     
     .stButton > button:hover, .stLinkButton > a:hover {
         transform: translateY(-2px) !important;
         box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4) !important;
     }
-    
-    /* Success boxes naranjas */
-    .element-container div[data-testid="stMarkdownContainer"] div[data-baseweb="notification"] {
-        background-color: #fff3e0 !important;
-        border-left: 4px solid #ff6b00 !important;
-    }
 </style>
 """, unsafe_allow_html=True)
 
-# ==========================================
-# HEADER PROFESIONAL
-# ==========================================
+# HEADER con imagen SVG inline
 st.markdown("""
-<div style="background: linear-gradient(135deg, #f4b400, #ff6b00); padding: 50px 30px; border-radius: 15px; text-align: center; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-    <h1 style="margin: 0; font-size: 48px; font-weight: 700; color: white;">
+<svg width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#f4b400;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ff6b00;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    <rect width="100%" height="200" rx="15" fill="url(#grad1)"/>
+    <text x="50%" y="90" font-size="42" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial, sans-serif">
         📞 Asistente Telefónico con IA
-    </h1>
-    <p style="margin: 20px 0 0 0; color: white; font-size: 20px; opacity: 0.95;">
+    </text>
+    <text x="50%" y="130" font-size="18" fill="white" text-anchor="middle" font-family="Arial, sans-serif" opacity="0.95">
         Conversá con nuestro vendedor virtual. Atiende 24/7 como una persona real.
-    </p>
-</div>
+    </text>
+</svg>
 """, unsafe_allow_html=True)
 
-# ==========================================
-# NÚMERO DE TELÉFONO - DESTACADO
-# ==========================================
+st.markdown("<br>", unsafe_allow_html=True)
+
+# NÚMERO DE TELÉFONO - Usando SVG para que se vea perfecto
 st.markdown("""
-<div style="background: white; padding: 60px 40px; border-radius: 15px; text-align: center; margin: 30px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
-    <h2 style="color: #333; font-size: 32px; margin-bottom: 15px; font-weight: 700;">
+<svg width="100%" height="550" xmlns="http://www.w3.org/2000/svg">
+    <!-- Fondo blanco principal -->
+    <rect width="100%" height="550" rx="15" fill="white" filter="url(#shadow)"/>
+    
+    <!-- Sombra -->
+    <defs>
+        <filter id="shadow">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+            <feOffset dx="0" dy="2" result="offsetblur"/>
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.1"/>
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <linearGradient id="phoneGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#f4b400;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ff6b00;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    
+    <!-- Título -->
+    <text x="50%" y="50" font-size="28" font-weight="bold" fill="#333" text-anchor="middle" font-family="Arial, sans-serif">
         🎙️ Probalo Ahora
-    </h2>
-    <p style="color: #666; font-size: 18px; margin-bottom: 40px; line-height: 1.6;">
-        Llamá desde tu celular y conversá con el asistente.<br>
+    </text>
+    
+    <!-- Subtítulo -->
+    <text x="50%" y="85" font-size="16" fill="#666" text-anchor="middle" font-family="Arial, sans-serif">
+        Llamá desde tu celular y conversá con el asistente.
+    </text>
+    <text x="50%" y="110" font-size="16" fill="#666" text-anchor="middle" font-family="Arial, sans-serif">
         Te va a sorprender lo natural que suena.
-    </p>
+    </text>
     
-    <div style="background: linear-gradient(135deg, #f4b400, #ff6b00); padding: 50px 30px; border-radius: 15px; margin: 30px auto; max-width: 500px;">
-        <div style="font-size: 80px; margin-bottom: 20px;">📞</div>
-        <div style="font-size: 48px; font-weight: bold; color: white; letter-spacing: 2px; margin: 20px 0;">
-            <a href="tel:+5981234567" style="color: white; text-decoration: none;">+598 1234 5678</a>
-        </div>
-        <p style="color: white; opacity: 0.95; font-size: 16px; margin-top: 15px; font-weight: 500;">
-            👆 Tap para llamar desde móvil
-        </p>
-    </div>
+    <!-- Box del teléfono con gradiente -->
+    <rect x="10%" y="140" width="80%" height="280" rx="15" fill="url(#phoneGrad)"/>
     
-    <div style="background: #e8f5e9; padding: 15px 30px; border-radius: 50px; display: inline-block; margin: 25px 0; font-weight: 600; color: #2e7d32;">
-        <span style="display: inline-block; width: 12px; height: 12px; background: #4caf50; border-radius: 50%; margin-right: 10px;"></span>
+    <!-- Ícono de teléfono -->
+    <text x="50%" y="220" font-size="80" text-anchor="middle">📞</text>
+    
+    <!-- Número de teléfono -->
+    <text x="50%" y="310" font-size="48" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial, sans-serif" letter-spacing="2">
+        +598 1234 5678
+    </text>
+    
+    <!-- Instrucción -->
+    <text x="50%" y="355" font-size="14" fill="white" text-anchor="middle" font-family="Arial, sans-serif" opacity="0.95">
+        👆 Tap para llamar desde móvil
+    </text>
+    
+    <!-- Badge disponibilidad -->
+    <rect x="25%" y="450" width="50%" height="50" rx="25" fill="#e8f5e9"/>
+    <circle cx="32%" cy="475" r="6" fill="#4caf50"/>
+    <text x="50%" y="482" font-size="14" font-weight="600" fill="#2e7d32" text-anchor="middle" font-family="Arial, sans-serif">
         Disponible 24/7 · Llamá cuando quieras
-    </div>
+    </text>
     
-    <p style="margin-top: 30px; font-size: 15px; color: #888;">
+    <!-- Nota final -->
+    <text x="50%" y="530" font-size="13" fill="#888" text-anchor="middle" font-family="Arial, sans-serif">
         💡 Es un demo gratuito. Probá todas las funciones sin costo.
-    </p>
-</div>
+    </text>
+</svg>
 """, unsafe_allow_html=True)
 
-# ==========================================
-# CARACTERÍSTICAS
-# ==========================================
+st.markdown("<br><br>", unsafe_allow_html=True)
+
+# CARACTERÍSTICAS - Con SVG para cards
 st.markdown("""
-<div style="margin: 40px 0 30px 0;">
-    <h2 style="text-align: center; color: #333; font-size: 36px; font-weight: 700;">
+<div style="text-align: center; margin: 40px 0 30px 0;">
+    <h2 style="color: #333; font-size: 36px; font-weight: 700;">
         ✨ Qué Puede Hacer
     </h2>
 </div>
 """, unsafe_allow_html=True)
 
-col1, col2 = st.columns(2, gap="large")
+col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("""
-    <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #ff6b00;">
-        <div style="font-size: 40px; margin-bottom: 15px;">🗣️</div>
-        <h3 style="color: #333; font-size: 20px; font-weight: 700; margin-bottom: 10px;">Conversación Natural</h3>
-        <p style="color: #666; font-size: 15px; line-height: 1.6; margin: 0;">
-            Habla como una persona real. Entiende español argentino perfectamente con todas sus expresiones.
-        </p>
-    </div>
+    <svg width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="180" rx="12" fill="white" filter="url(#cardShadow)"/>
+        <line x1="0" y1="0" x2="0" y2="180" stroke="#ff6b00" stroke-width="4"/>
+        <text x="20" y="60" font-size="40">🗣️</text>
+        <text x="20" y="100" font-size="18" font-weight="bold" fill="#333" font-family="Arial">Conversación Natural</text>
+        <text x="20" y="125" font-size="14" fill="#666" font-family="Arial">Habla como una persona real.</text>
+        <text x="20" y="145" font-size="14" fill="#666" font-family="Arial">Entiende español argentino</text>
+        <text x="20" y="165" font-size="14" fill="#666" font-family="Arial">perfectamente.</text>
+    </svg>
+    <br>
     """, unsafe_allow_html=True)
     
     st.markdown("""
-    <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #ff6b00;">
-        <div style="font-size: 40px; margin-bottom: 15px;">💳</div>
-        <h3 style="color: #333; font-size: 20px; font-weight: 700; margin-bottom: 10px;">Explica Financiación</h3>
-        <p style="color: #666; font-size: 15px; line-height: 1.6; margin: 0;">
-            Detalla cuotas, tasas, anticipo y todas las formas de pago disponibles. Calcula en el momento.
-        </p>
-    </div>
+    <svg width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="180" rx="12" fill="white" filter="url(#cardShadow)"/>
+        <line x1="0" y1="0" x2="0" y2="180" stroke="#ff6b00" stroke-width="4"/>
+        <text x="20" y="60" font-size="40">💳</text>
+        <text x="20" y="100" font-size="18" font-weight="bold" fill="#333" font-family="Arial">Explica Financiación</text>
+        <text x="20" y="125" font-size="14" fill="#666" font-family="Arial">Detalla cuotas, tasas,</text>
+        <text x="20" y="145" font-size="14" fill="#666" font-family="Arial">anticipo y formas de pago.</text>
+        <text x="20" y="165" font-size="14" fill="#666" font-family="Arial">Calcula en el momento.</text>
+    </svg>
+    <br>
     """, unsafe_allow_html=True)
     
     st.markdown("""
-    <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #ff6b00;">
-        <div style="font-size: 40px; margin-bottom: 15px;">🔄</div>
-        <h3 style="color: #333; font-size: 20px; font-weight: 700; margin-bottom: 10px;">Tasa Usado</h3>
-        <p style="color: #666; font-size: 15px; line-height: 1.6; margin: 0;">
-            Pregunta por tu auto usado y coordina la tasación sin cargo. Toma marca, modelo, año y km.
-        </p>
-    </div>
+    <svg width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="180" rx="12" fill="white" filter="url(#cardShadow)"/>
+        <line x1="0" y1="0" x2="0" y2="180" stroke="#ff6b00" stroke-width="4"/>
+        <text x="20" y="60" font-size="40">🔄</text>
+        <text x="20" y="100" font-size="18" font-weight="bold" fill="#333" font-family="Arial">Tasa Usado</text>
+        <text x="20" y="125" font-size="14" fill="#666" font-family="Arial">Pregunta por tu auto y</text>
+        <text x="20" y="145" font-size="14" fill="#666" font-family="Arial">coordina tasación sin cargo.</text>
+        <text x="20" y="165" font-size="14" fill="#666" font-family="Arial">Toma marca, modelo, año.</text>
+    </svg>
+    <br>
     """, unsafe_allow_html=True)
     
     st.markdown("""
-    <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #ff6b00;">
-        <div style="font-size: 40px; margin-bottom: 15px;">📝</div>
-        <h3 style="color: #333; font-size: 20px; font-weight: 700; margin-bottom: 10px;">Califica Leads</h3>
-        <p style="color: #666; font-size: 15px; line-height: 1.6; margin: 0;">
-            Identifica clientes reales preguntando presupuesto, urgencia y necesidades. Filtra curiosos.
-        </p>
-    </div>
+    <svg width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="180" rx="12" fill="white" filter="url(#cardShadow)"/>
+        <line x1="0" y1="0" x2="0" y2="180" stroke="#ff6b00" stroke-width="4"/>
+        <text x="20" y="60" font-size="40">📝</text>
+        <text x="20" y="100" font-size="18" font-weight="bold" fill="#333" font-family="Arial">Califica Leads</text>
+        <text x="20" y="125" font-size="14" fill="#666" font-family="Arial">Identifica clientes reales.</text>
+        <text x="20" y="145" font-size="14" fill="#666" font-family="Arial">Pregunta presupuesto,</text>
+        <text x="20" y="165" font-size="14" fill="#666" font-family="Arial">urgencia y necesidades.</text>
+    </svg>
     """, unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
-    <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #ff6b00;">
-        <div style="font-size: 40px; margin-bottom: 15px;">🚗</div>
-        <h3 style="color: #333; font-size: 20px; font-weight: 700; margin-bottom: 10px;">Conoce el Stock</h3>
-        <p style="color: #666; font-size: 15px; line-height: 1.6; margin: 0;">
-            Sabe todos los autos disponibles, precios y características al detalle. Nunca se confunde.
-        </p>
-    </div>
+    <svg width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="180" rx="12" fill="white" filter="url(#cardShadow)"/>
+        <line x1="0" y1="0" x2="0" y2="180" stroke="#ff6b00" stroke-width="4"/>
+        <text x="20" y="60" font-size="40">🚗</text>
+        <text x="20" y="100" font-size="18" font-weight="bold" fill="#333" font-family="Arial">Conoce el Stock</text>
+        <text x="20" y="125" font-size="14" fill="#666" font-family="Arial">Sabe todos los autos</text>
+        <text x="20" y="145" font-size="14" fill="#666" font-family="Arial">disponibles, precios y</text>
+        <text x="20" y="165" font-size="14" fill="#666" font-family="Arial">características al detalle.</text>
+    </svg>
+    <br>
     """, unsafe_allow_html=True)
     
     st.markdown("""
-    <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #ff6b00;">
-        <div style="font-size: 40px; margin-bottom: 15px;">📅</div>
-        <h3 style="color: #333; font-size: 20px; font-weight: 700; margin-bottom: 10px;">Agenda Test Drives</h3>
-        <p style="color: #666; font-size: 15px; line-height: 1.6; margin: 0;">
-            Toma tus datos y coordina visitas o pruebas de manejo automáticamente. Confirma fechas.
-        </p>
-    </div>
+    <svg width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="180" rx="12" fill="white" filter="url(#cardShadow)"/>
+        <line x1="0" y1="0" x2="0" y2="180" stroke="#ff6b00" stroke-width="4"/>
+        <text x="20" y="60" font-size="40">📅</text>
+        <text x="20" y="100" font-size="18" font-weight="bold" fill="#333" font-family="Arial">Agenda Test Drives</text>
+        <text x="20" y="125" font-size="14" fill="#666" font-family="Arial">Toma tus datos y coordina</text>
+        <text x="20" y="145" font-size="14" fill="#666" font-family="Arial">visitas o pruebas de manejo</text>
+        <text x="20" y="165" font-size="14" fill="#666" font-family="Arial">automáticamente.</text>
+    </svg>
+    <br>
     """, unsafe_allow_html=True)
     
     st.markdown("""
-    <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #ff6b00;">
-        <div style="font-size: 40px; margin-bottom: 15px;">⏰</div>
-        <h3 style="color: #333; font-size: 20px; font-weight: 700; margin-bottom: 10px;">24/7 Disponible</h3>
-        <p style="color: #666; font-size: 15px; line-height: 1.6; margin: 0;">
-            Nunca pierde una llamada. Atiende de madrugada, fines de semana, feriados. Siempre profesional.
-        </p>
-    </div>
+    <svg width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="180" rx="12" fill="white" filter="url(#cardShadow)"/>
+        <line x1="0" y1="0" x2="0" y2="180" stroke="#ff6b00" stroke-width="4"/>
+        <text x="20" y="60" font-size="40">⏰</text>
+        <text x="20" y="100" font-size="18" font-weight="bold" fill="#333" font-family="Arial">24/7 Disponible</text>
+        <text x="20" y="125" font-size="14" fill="#666" font-family="Arial">Nunca pierde una llamada.</text>
+        <text x="20" y="145" font-size="14" fill="#666" font-family="Arial">Atiende de madrugada,</text>
+        <text x="20" y="165" font-size="14" fill="#666" font-family="Arial">fines de semana, feriados.</text>
+    </svg>
+    <br>
     """, unsafe_allow_html=True)
     
     st.markdown("""
-    <div style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #ff6b00;">
-        <div style="font-size: 40px; margin-bottom: 15px;">🎯</div>
-        <h3 style="color: #333; font-size: 20px; font-weight: 700; margin-bottom: 10px;">Sin Errores</h3>
-        <p style="color: #666; font-size: 15px; line-height: 1.6; margin: 0;">
-            Siempre profesional, nunca se olvida información, nunca tiene un mal día. Consistencia garantizada.
-        </p>
-    </div>
+    <svg width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="180" rx="12" fill="white" filter="url(#cardShadow)"/>
+        <line x1="0" y1="0" x2="0" y2="180" stroke="#ff6b00" stroke-width="4"/>
+        <text x="20" y="60" font-size="40">🎯</text>
+        <text x="20" y="100" font-size="18" font-weight="bold" fill="#333" font-family="Arial">Sin Errores</text>
+        <text x="20" y="125" font-size="14" fill="#666" font-family="Arial">Siempre profesional.</text>
+        <text x="20" y="145" font-size="14" fill="#666" font-family="Arial">Nunca se olvida información.</text>
+        <text x="20" y="165" font-size="14" fill="#666" font-family="Arial">Consistencia garantizada.</text>
+    </svg>
     """, unsafe_allow_html=True)
 
-# ==========================================
-# CONVERSACIÓN DE EJEMPLO
-# ==========================================
+# Definir shadow para los cards
+st.markdown("""
+<svg width="0" height="0">
+    <defs>
+        <filter id="cardShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+            <feOffset dx="0" dy="2" result="offsetblur"/>
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.08"/>
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+</svg>
+""", unsafe_allow_html=True)
+
+# CONVERSACIÓN
 st.markdown("<br><br>", unsafe_allow_html=True)
 st.markdown("""
-<div style="margin: 40px 0 30px 0;">
-    <h2 style="text-align: center; color: #333; font-size: 36px; font-weight: 700;">
+<div style="text-align: center; margin: 40px 0 30px 0;">
+    <h2 style="color: #333; font-size: 36px; font-weight: 700;">
         💬 Conversación Real
     </h2>
-    <p style="text-align: center; color: #666; font-size: 16px; margin-top: 10px;">
+    <p style="color: #666; font-size: 16px;">
         Así suena una llamada típica con el asistente
     </p>
 </div>
@@ -227,33 +299,25 @@ with st.chat_message("user", avatar="👤"):
     st.write("Unos 10 millones")
 
 with st.chat_message("assistant", avatar="🤖"):
-    st.write("Genial. Tengo 2 opciones excelentes: un **Gol Trend 2020** a **$9.8 millones** con 55 mil km, único dueño, service al día. O un **Focus 2019** a **$12.9 millones** con 65 mil km. ¿Cuál te copa más?")
+    st.write("Genial. Tengo 2 opciones: un **Gol Trend 2020** a **$9.8 millones** o un **Focus 2019** a **$12.9 millones**. ¿Cuál te copa más?")
 
 with st.chat_message("user", avatar="👤"):
     st.write("El Gol. ¿Puedo hacer un test drive?")
 
 with st.chat_message("assistant", avatar="🤖"):
-    st.write("¡Claro que sí! Te agendo el test drive del Gol Trend. ¿Cuál es tu nombre completo?")
+    st.write("¡Claro! Te agendo el test drive. ¿Tu nombre completo?")
 
 with st.chat_message("user", avatar="👤"):
     st.write("Juan Pérez")
 
 with st.chat_message("assistant", avatar="🤖"):
-    st.write("Perfecto Juan. ¿Y tu número de teléfono?")
+    st.write("Listo Juan, **cero nueve nueve, uno dos tres, cuatro cinco seis**. Agendé tu test drive del Gol Trend. Un vendedor te contacta en 10 minutos. ¡Gracias!")
 
-with st.chat_message("user", avatar="👤"):
-    st.write("099 123 456")
-
-with st.chat_message("assistant", avatar="🤖"):
-    st.write("Listo Juan, confirmo: **cero nueve nueve, uno dos tres, cuatro cinco seis**. Agendé tu test drive del Gol Trend 2020. Un vendedor te va a contactar en los próximos 10 minutos para confirmar el día y horario que mejor te venga. ¡Muchas gracias por comunicarte con AutoCenter!")
-
-# ==========================================
 # ESTADÍSTICAS
-# ==========================================
 st.markdown("<br><br>", unsafe_allow_html=True)
 st.markdown("""
-<div style="margin: 40px 0 30px 0;">
-    <h2 style="text-align: center; color: #333; font-size: 36px; font-weight: 700;">
+<div style="text-align: center; margin: 40px 0 30px 0;">
+    <h2 style="color: #333; font-size: 36px; font-weight: 700;">
         📊 Resultados Comprobados
     </h2>
 </div>
@@ -265,30 +329,33 @@ with col1:
     st.metric(label="Disponibilidad", value="24/7")
 
 with col2:
-    st.metric(label="Llamadas Atendidas", value="100%", delta="vs. humanos 70%")
+    st.metric(label="Llamadas", value="100%", delta="+30%")
 
 with col3:
-    st.metric(label="Tiempo Promedio", value="3 min", delta="-5 min vs. humanos")
+    st.metric(label="Tiempo", value="3 min", delta="-5 min")
 
 with col4:
-    st.metric(label="Leads Calificados", value="85%", delta="+40% vs. humanos")
+    st.metric(label="Leads", value="85%", delta="+40%")
 
-# ==========================================
 # CTA FINAL
-# ==========================================
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 st.markdown("""
-<div style="background: white; padding: 60px 40px; border-radius: 15px; text-align: center; margin: 30px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
-    <h2 style="color: #333; font-size: 40px; font-weight: 700; margin-bottom: 20px;">
+<svg width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100%" height="200" rx="15" fill="white" filter="url(#shadow)"/>
+    <text x="50%" y="60" font-size="32" font-weight="bold" fill="#333" text-anchor="middle" font-family="Arial">
         ¿Listo para Probarlo?
-    </h2>
-    <p style="color: #666; font-size: 20px; margin-bottom: 40px; line-height: 1.6;">
-        Llamá ahora y conversá con el asistente.<br>
-        Es completamente <strong>gratis</strong> y podés probar todas las funciones.
-    </p>
-</div>
+    </text>
+    <text x="50%" y="95" font-size="16" fill="#666" text-anchor="middle" font-family="Arial">
+        Llamá ahora y conversá con el asistente.
+    </text>
+    <text x="50%" y="120" font-size="16" fill="#666" text-anchor="middle" font-family="Arial">
+        Es completamente gratis y podés probar todas las funciones.
+    </text>
+</svg>
 """, unsafe_allow_html=True)
+
+st.markdown("<br>", unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
@@ -298,6 +365,6 @@ st.markdown("<br><br>", unsafe_allow_html=True)
 
 # FOOTER
 st.divider()
-st.caption("💡 **Nota:** Este es un demo funcional. El asistente está configurado para una automotora de ejemplo. En producción se personaliza 100% con tu negocio, stock real y precios actualizados.")
-st.caption("🔒 Todas las llamadas son procesadas con IA de última generación (GPT-4 + ElevenLabs). Funcionamiento garantizado 24/7. Integración con CRM disponible.")
-st.caption("⚡ **ROI Promedio:** El sistema se paga solo en 30 días. Clientes reportan aumento del 40% en conversión de llamadas.")
+st.caption("💡 Este es un demo funcional. En producción se personaliza 100% con tu negocio.")
+st.caption("🔒 IA de última generación (GPT-4 + ElevenLabs). Funcionamiento 24/7.")
+st.caption("⚡ ROI: Se paga solo en 30 días. +40% conversión en llamadas.")
