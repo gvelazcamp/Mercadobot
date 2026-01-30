@@ -430,7 +430,9 @@ st.markdown("""
     <h2>💬 Ejemplo de conversación real</h2>
     <p>Así atiende a tus clientes potenciales</p>
 </div>
+""", unsafe_allow_html=True)
 
+st.markdown("""
 <div class="chat-box">
     
     <div class="msg msg-left">
