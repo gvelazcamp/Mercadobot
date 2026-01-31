@@ -5602,6 +5602,60 @@ elif vista == "precios":
 else:
     st.html(HTML_HOME_PARTE_1)
     
+    
+    # JavaScript para detectar si es móvil y ajustar altura del DEMO
+    components.html("""
+    <script>
+    // Detectar si es móvil INMEDIATAMENTE
+    var isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {{
+        // En móvil: colapsar todo a altura 0
+        document.documentElement.style.cssText = 'height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;';
+        document.body.style.cssText = 'height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;display:none!important;';
+    }}
+    </script>
+    
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; }
+    </style>
+    
+    <div class="demo-container" style="width: 100%; background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%); padding: 80px 5%; margin: 0;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 15px; color: #1a1a1a; font-family: 'Inter', sans-serif;">
+                    ¿Cómo responden nuestros asistentes?
+                </h2>
+                <p style="font-size: 18px; color: #666; font-family: 'Inter', sans-serif;">
+                    Mirá conversaciones reales con clientes en diferentes industrias
+                </p>
+            </div>
+            
+            <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                <iframe 
+                    src="https://gvelazcamp.github.io/Mercadobot/mercadobot-demo.html" 
+                    style="width: 100%; height: 850px; border: none; border-radius: 15px; display: block;"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="font-size: 16px; color: #666; font-family: 'Inter', sans-serif;">
+                    ⚡ Demo interactiva - Seleccioná una industria y mirá cómo responde el asistente
+                </p>
+            </div>
+        </div>
+    </div>
+    """, height=1100, scrolling=False)
+    
+    st.html(HTML_HOME_PARTE_2)
+    
+    # =========================
+    # CARRUSEL FUNCIONAL (DESPUÉS DE INTEGRACIONES)
+    # =========================
     # =========================
     # CARRUSEL FUNCIONAL
     # =========================
@@ -6006,57 +6060,7 @@ else:
 
     </body>
     </html>
-    """, height=600, scrolling=False)
-    
-    # JavaScript para detectar si es móvil y ajustar altura del DEMO
-    components.html("""
-    <script>
-    // Detectar si es móvil INMEDIATAMENTE
-    var isMobile = window.innerWidth <= 768;
-    
-    if (isMobile) {{
-        // En móvil: colapsar todo a altura 0
-        document.documentElement.style.cssText = 'height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;';
-        document.body.style.cssText = 'height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;display:none!important;';
-    }}
-    </script>
-    
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; }
-    </style>
-    
-    <div class="demo-container" style="width: 100%; background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%); padding: 80px 5%; margin: 0;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="text-align: center; margin-bottom: 50px;">
-                <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 15px; color: #1a1a1a; font-family: 'Inter', sans-serif;">
-                    ¿Cómo responden nuestros asistentes?
-                </h2>
-                <p style="font-size: 18px; color: #666; font-family: 'Inter', sans-serif;">
-                    Mirá conversaciones reales con clientes en diferentes industrias
-                </p>
-            </div>
-            
-            <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
-                <iframe 
-                    src="https://gvelazcamp.github.io/Mercadobot/mercadobot-demo.html" 
-                    style="width: 100%; height: 850px; border: none; border-radius: 15px; display: block;"
-                    frameborder="0"
-                    allowfullscreen>
-                </iframe>
-            </div>
-            
-            <div style="text-align: center; margin-top: 30px;">
-                <p style="font-size: 16px; color: #666; font-family: 'Inter', sans-serif;">
-                    ⚡ Demo interactiva - Seleccioná una industria y mirá cómo responde el asistente
-                </p>
-            </div>
-        </div>
-    </div>
-    """, height=1100, scrolling=False)
-    
-    st.html(HTML_HOME_PARTE_2)
+    """, height=550, scrolling=False)
 
 # CSS para overflow visible y ocultar demo en móviles
 st.markdown("""
