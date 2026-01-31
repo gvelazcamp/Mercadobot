@@ -2164,6 +2164,169 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
     </div>
 
 
+    <!-- CARRUSEL DE ASISTENTES -->
+    <div class="assistants-carousel-section">
+        <h2>Nuestros Asistentes Virtuales</h2>
+        <p class="carousel-subtitle">Especializados en diferentes industrias</p>
+        
+        <div class="carousel-container">
+            <div class="carousel-slide active">
+                <div class="carousel-content">
+                    <div class="carousel-image">
+                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentetelefonico.png" alt="Asistente Telefónico">
+                    </div>
+                    <div class="carousel-text">
+                        <h3>Asistente Telefónico</h3>
+                        <p>Atiende llamadas 24/7, agenda citas y califica leads automáticamente</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <div class="carousel-image">
+                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteecommerce.png" alt="Asistente E-commerce">
+                    </div>
+                    <div class="carousel-text">
+                        <h3>Asistente E-commerce</h3>
+                        <p>Responde consultas de productos, gestiona pedidos y aumenta conversiones</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <div class="carousel-image">
+                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteagendas.png" alt="Asistente de Agendas">
+                    </div>
+                    <div class="carousel-text">
+                        <h3>Asistente de Turnos</h3>
+                        <p>Gestiona reservas, recordatorios y cancelaciones automáticamente</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <div class="carousel-image">
+                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedental.png" alt="Asistente Dental">
+                    </div>
+                    <div class="carousel-text">
+                        <h3>Asistente Dental</h3>
+                        <p>Agenda turnos, envía recordatorios y responde consultas odontológicas</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <div class="carousel-image">
+                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteinmobiliaria.png" alt="Asistente Inmobiliaria">
+                    </div>
+                    <div class="carousel-text">
+                        <h3>Asistente Inmobiliario</h3>
+                        <p>Información de propiedades, coordina visitas y califica compradores</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <div class="carousel-image">
+                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentefinanzas.png" alt="Asistente Finanzas">
+                    </div>
+                    <div class="carousel-text">
+                        <h3>Asistente Financiero</h3>
+                        <p>Cotizaciones, análisis de inversión y asesoramiento personalizado</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <div class="carousel-image">
+                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentestock.png" alt="Asistente Stock">
+                    </div>
+                    <div class="carousel-text">
+                        <h3>Asistente de Stock</h3>
+                        <p>Control de inventario, alertas de stock bajo y gestión de pedidos</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <div class="carousel-image">
+                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentecocina.png" alt="Asistente Cocina">
+                    </div>
+                    <div class="carousel-text">
+                        <h3>Asistente de Cocina</h3>
+                        <p>Recetas personalizadas, conversiones y consejos culinarios</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="carousel-dots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+            <span class="dot" data-index="3"></span>
+            <span class="dot" data-index="4"></span>
+            <span class="dot" data-index="5"></span>
+            <span class="dot" data-index="6"></span>
+            <span class="dot" data-index="7"></span>
+        </div>
+    </div>
+
+<script>
+// CARRUSEL DE ASISTENTES
+(function() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dots .dot');
+    let currentSlide = 0;
+    let carouselInterval;
+
+    function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        if (slides[index]) slides[index].classList.add('active');
+        if (dots[index]) dots[index].classList.add('active');
+        currentSlide = index;
+    }
+
+    function nextSlide() {
+        let next = (currentSlide + 1) % slides.length;
+        showSlide(next);
+    }
+
+    function startCarousel() {
+        carouselInterval = setInterval(nextSlide, 4000);
+    }
+
+    function stopCarousel() {
+        clearInterval(carouselInterval);
+    }
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            stopCarousel();
+            showSlide(index);
+            startCarousel();
+        });
+    });
+
+    const carouselContainer = document.querySelector('.carousel-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', stopCarousel);
+        carouselContainer.addEventListener('mouseleave', startCarousel);
+    }
+
+    if (slides.length > 0) {
+        startCarousel();
+    }
+})();
+</script>
 {FOOTER}
 """
 
@@ -2379,174 +2542,6 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
         </div>
     </div>
 
-    <!-- CARRUSEL DE ASISTENTES -->
-    <div class="assistants-carousel-section">
-        <h2>Nuestros Asistentes Virtuales</h2>
-        <p class="carousel-subtitle">Especializados en diferentes industrias</p>
-        
-        <div class="carousel-container">
-            <div class="carousel-slide active">
-                <div class="carousel-content">
-                    <div class="carousel-image">
-                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentetelefonico.png" alt="Asistente Telefónico">
-                    </div>
-                    <div class="carousel-text">
-                        <h3>Asistente Telefónico</h3>
-                        <p>Atiende llamadas 24/7, agenda citas y califica leads automáticamente</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="carousel-slide">
-                <div class="carousel-content">
-                    <div class="carousel-image">
-                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteecommerce.png" alt="Asistente E-commerce">
-                    </div>
-                    <div class="carousel-text">
-                        <h3>Asistente E-commerce</h3>
-                        <p>Responde consultas de productos, gestiona pedidos y aumenta conversiones</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="carousel-slide">
-                <div class="carousel-content">
-                    <div class="carousel-image">
-                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteagendas.png" alt="Asistente de Agendas">
-                    </div>
-                    <div class="carousel-text">
-                        <h3>Asistente de Turnos</h3>
-                        <p>Gestiona reservas, recordatorios y cancelaciones automáticamente</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="carousel-slide">
-                <div class="carousel-content">
-                    <div class="carousel-image">
-                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedental.png" alt="Asistente Dental">
-                    </div>
-                    <div class="carousel-text">
-                        <h3>Asistente Dental</h3>
-                        <p>Agenda turnos, envía recordatorios y responde consultas odontológicas</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="carousel-slide">
-                <div class="carousel-content">
-                    <div class="carousel-image">
-                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteinmobiliaria.png" alt="Asistente Inmobiliaria">
-                    </div>
-                    <div class="carousel-text">
-                        <h3>Asistente Inmobiliario</h3>
-                        <p>Información de propiedades, coordina visitas y califica compradores</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="carousel-slide">
-                <div class="carousel-content">
-                    <div class="carousel-image">
-                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentefinanzas.png" alt="Asistente Finanzas">
-                    </div>
-                    <div class="carousel-text">
-                        <h3>Asistente Financiero</h3>
-                        <p>Cotizaciones, análisis de inversión y asesoramiento personalizado</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="carousel-slide">
-                <div class="carousel-content">
-                    <div class="carousel-image">
-                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentestock.png" alt="Asistente Stock">
-                    </div>
-                    <div class="carousel-text">
-                        <h3>Asistente de Stock</h3>
-                        <p>Control de inventario, alertas de stock bajo y gestión de pedidos</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="carousel-slide">
-                <div class="carousel-content">
-                    <div class="carousel-image">
-                        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentecocina.png" alt="Asistente Cocina">
-                    </div>
-                    <div class="carousel-text">
-                        <h3>Asistente de Cocina</h3>
-                        <p>Recetas personalizadas, conversiones y consejos culinarios</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="carousel-dots">
-            <span class="dot active" data-index="0"></span>
-            <span class="dot" data-index="1"></span>
-            <span class="dot" data-index="2"></span>
-            <span class="dot" data-index="3"></span>
-            <span class="dot" data-index="4"></span>
-            <span class="dot" data-index="5"></span>
-            <span class="dot" data-index="6"></span>
-            <span class="dot" data-index="7"></span>
-        </div>
-    </div>
-
-<script>
-// CARRUSEL DE ASISTENTES
-(function() {
-    const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.carousel-dots .dot');
-    let currentSlide = 0;
-    let carouselInterval;
-
-    function showSlide(index) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-        if (slides[index]) slides[index].classList.add('active');
-        if (dots[index]) dots[index].classList.add('active');
-        currentSlide = index;
-    }
-
-    function nextSlide() {
-        let next = (currentSlide + 1) % slides.length;
-        showSlide(next);
-    }
-
-    function startCarousel() {
-        carouselInterval = setInterval(nextSlide, 4000);
-    }
-
-    function stopCarousel() {
-        clearInterval(carouselInterval);
-    }
-
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            stopCarousel();
-            showSlide(index);
-            startCarousel();
-        });
-    });
-
-    const carouselContainer = document.querySelector('.carousel-container');
-    if (carouselContainer) {
-        carouselContainer.addEventListener('mouseenter', stopCarousel);
-        carouselContainer.addEventListener('mouseleave', startCarousel);
-    }
-
-    if (slides.length > 0) {
-        startCarousel();
-    }
-})();
-</script>
-
-{FOOTER}
-"""
-
-# =========================
 # ASISTENTES
 # =========================
 HTML_ASISTENTES = f"""{HTML_BASE}
