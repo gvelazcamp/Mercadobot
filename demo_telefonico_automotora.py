@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 
 # =========================
 # CONFIGURACIÓN DE PÁGINA
@@ -104,6 +105,28 @@ st.markdown("""
     font-weight: 600;
     margin-top: 10px;
     font-size: 14px;
+}
+
+/* Estilo personalizado para el botón de audio */
+.audio-btn {
+    display: inline-block;
+    background: white;
+    color: #ff7a18;
+    padding: 18px 40px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.audio-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
 
 /* =========================
@@ -238,6 +261,15 @@ st.markdown("""
     margin-top: 40px;
 }
 
+/* Audio player personalizado */
+audio {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    display: block;
+    outline: none;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .hero h1 {
@@ -269,26 +301,48 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =========================
-# PHONE DEMO (WHATSAPP)
+# PHONE DEMO CON AUDIO
 # =========================
 st.markdown("""
 <div class="phone-card">
     <h2>Probá SIVO ahora</h2>
-    <p>Escribime por WhatsApp y coordinamos una demo en vivo</p>
-    <div style="margin: 20px 0;">
-        <a href="https://wa.me/59892748175?text=Hola!%20Quiero%20probar%20SIVO%20🤖" 
-           target="_blank" 
-           style="display: inline-block; background: white; color: #ff7a18; 
-                  padding: 18px 40px; border-radius: 999px; text-decoration: none;
-                  font-weight: 800; font-size: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-                  transition: all 0.3s ease;">
-            💬 Escribir por WhatsApp
-        </a>
+    <p>Escuchá una conversación real de SIVO atendiendo a un cliente</p>
+""", unsafe_allow_html=True)
+
+# Verificar si existe el archivo de audio
+audio_file = "Sivo.mp4"
+if os.path.exists(audio_file):
+    # Mostrar el reproductor de audio
+    audio_bytes = open(audio_file, 'rb').read()
+    st.audio(audio_bytes, format='audio/mp4')
+else:
+    st.markdown("""
+    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 12px; margin: 20px 0;">
+        <p style="margin: 0; font-size: 15px;">
+            🎧 Archivo de audio no encontrado. Por favor, asegúrate de que el archivo "Sivo.mp4" esté en el mismo directorio.
+        </p>
     </div>
-    <div class="badge">🇺🇾 Respuesta en minutos</div>
+    """, unsafe_allow_html=True)
+
+st.markdown("""
+    <div class="badge">🇺🇾 Conversación real en español uruguayo</div>
     <p style="font-size: 15px; opacity: 0.85; margin-top: 15px;">
-        Te contacto para coordinar una demo personalizada
+        Así atiende SIVO a tus clientes potenciales
     </p>
+</div>
+""", unsafe_allow_html=True)
+
+# Botón adicional para contactar
+st.markdown("""
+<div style="text-align: center; margin: 30px 0;">
+    <a href="https://wa.me/59892748175?text=Hola!%20Quiero%20probar%20SIVO%20🤖" 
+       target="_blank" 
+       style="display: inline-block; background: #25D366; color: white; 
+              padding: 14px 32px; border-radius: 999px; text-decoration: none;
+              font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(37,211,102,0.3);
+              transition: all 0.3s ease;">
+        💬 Contactar por WhatsApp
+    </a>
 </div>
 """, unsafe_allow_html=True)
 
@@ -355,7 +409,7 @@ st.markdown("""
 
 <div style="background: #000; color: white; padding: 20px 8px; border-radius: 8px; max-width: 50%; margin-bottom: 10px; display: block;"><strong>👤</strong> El Gol. ¿Puedo hacer un test drive?</div>
 
-<div style="background: white; color: black; padding: 20px 8px; border-radius: 8px; max-width: 50%; margin-bottom: 10px; margin-left: auto; margin-right: 0; border: 1px solid #e0e0e0; transition: background 0.2s;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='white'"><strong>����</strong> Genial. Tengo 2 opciones excelentes: un Gol Trend 2020 a 9.8 millones con 55 mil km, único dueño. O un Focus 2019 a 12.9 millones con 65 mil km y service al día. ¿Cuál te copa más?</div>
+<div style="background: white; color: black; padding: 20px 8px; border-radius: 8px; max-width: 50%; margin-bottom: 10px; margin-left: auto; margin-right: 0; border: 1px solid #e0e0e0; transition: background 0.2s;" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='white'"><strong>🤖</strong> Genial. Tengo 2 opciones excelentes: un Gol Trend 2020 a 9.8 millones con 55 mil km, único dueño. O un Focus 2019 a 12.9 millones con 65 mil km y service al día. ¿Cuál te copa más?</div>
 
 <div style="background: #000; color: white; padding: 20px 8px; border-radius: 8px; max-width: 50%; margin-bottom: 10px; display: block;"><strong>👤</strong> Juan Pérez</div>
 
