@@ -1541,7 +1541,7 @@ body {
     .page-container,
     .stApp,
     [data-testid="stAppViewContainer"],
-    section.main,
+    [data-testid="stApp"],
     .hero,
     .hero-content,
     .section,
@@ -2550,144 +2550,116 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
     <!-- FIN CARRUSEL -->
 
 <script>
-// =========================
-// CARRUSEL FUNCIONAL - VERSION FIJA
-// =========================
-let carouselCurrentSlide = 0;
-let carouselAutoplayInterval = null;
-let carouselSlides = [];
-let carouselDots = [];
+var carouselCurrentSlide = 0;
+var carouselAutoplayInterval = null;
 
-function initCarousel() {
-    console.log('Iniciando carrusel...');
+function initCarousel() {{
+    var slides = document.querySelectorAll('.carousel-slide');
+    var dots = document.querySelectorAll('.dot');
     
-    carouselSlides = document.querySelectorAll('.carousel-slide');
-    carouselDots = document.querySelectorAll('.dot');
+    console.log('Carrusel iniciado - Slides encontrados:', slides.length);
     
-    console.log('Slides encontrados:', carouselSlides.length);
-    console.log('Dots encontrados:', carouselDots.length);
-    
-    if (carouselSlides.length === 0) {
-        console.log('ERROR: No se encontraron slides del carrusel');
+    if (slides.length === 0) {{
+        console.log('No se encontraron slides');
         return;
-    }
-    
-    // Limpiar clases anteriores
-    carouselSlides.forEach(function(slide, i) {
-        slide.classList.remove('active');
-        if (i === 0) slide.classList.add('active');
-    });
-    
-    carouselDots.forEach(function(dot, i) {
-        dot.classList.remove('active');
-        if (i === 0) dot.classList.add('active');
-    });
+    }}
     
     // Event listeners para los dots
-    carouselDots.forEach(function(dot, index) {
-        dot.addEventListener('click', function() {
+    dots.forEach(function(dot, index) {{
+        dot.addEventListener('click', function() {{
             console.log('Click en dot:', index);
             showCarouselSlide(index);
             resetCarouselAutoplay();
-        });
-    });
+        }});
+    }});
     
-    // Pausar autoplay al pasar el mouse
-    const container = document.querySelector('.carousel-container');
-    if (container) {
-        container.addEventListener('mouseenter', function() {
-            console.log('Mouse sobre carrusel - pausando');
+    // Pausar al pasar el mouse
+    var container = document.querySelector('.carousel-container');
+    if (container) {{
+        container.addEventListener('mouseenter', function() {{
+            console.log('Pausado');
             stopCarouselAutoplay();
-        });
+        }});
         
-        container.addEventListener('mouseleave', function() {
-            console.log('Mouse fuera del carrusel - reanudando');
+        container.addEventListener('mouseleave', function() {{
+            console.log('Reanudado');
             startCarouselAutoplay();
-        });
-    }
+        }});
+    }}
     
-    // Iniciar autoplay
+    // Iniciar
     startCarouselAutoplay();
-    
-    // Mostrar primer slide
     showCarouselSlide(0);
     
-    console.log('Carrusel configurado exitosamente');
-}
+    console.log('Carrusel configurado');
+}}
 
-function showCarouselSlide(index) {
-    const totalSlides = carouselSlides.length;
+function showCarouselSlide(index) {{
+    var slides = document.querySelectorAll('.carousel-slide');
+    var dots = document.querySelectorAll('.dot');
+    var totalSlides = slides.length;
     
-    // Ajustar índice
-    if (index >= totalSlides) {
+    if (index >= totalSlides) {{
         carouselCurrentSlide = 0;
-    } else if (index < 0) {
+    }} else if (index < 0) {{
         carouselCurrentSlide = totalSlides - 1;
-    } else {
+    }} else {{
         carouselCurrentSlide = index;
-    }
+    }}
     
     console.log('Mostrando slide:', carouselCurrentSlide + 1, 'de', totalSlides);
     
-    // Actualizar slides
-    carouselSlides.forEach(function(slide, i) {
-        if (i === carouselCurrentSlide) {
+    slides.forEach(function(slide, i) {{
+        if (i === carouselCurrentSlide) {{
             slide.classList.add('active');
-        } else {
+        }} else {{
             slide.classList.remove('active');
-        }
-    });
+        }}
+    }});
     
-    // Actualizar dots
-    carouselDots.forEach(function(dot, i) {
-        if (i === carouselCurrentSlide) {
+    dots.forEach(function(dot, i) {{
+        if (i === carouselCurrentSlide) {{
             dot.classList.add('active');
-        } else {
+        }} else {{
             dot.classList.remove('active');
-        }
-    });
-}
+        }}
+    }});
+}}
 
-function nextCarouselSlide() {
-    console.log('Siguiente slide');
+function nextCarouselSlide() {{
+    console.log('Siguiente');
     showCarouselSlide(carouselCurrentSlide + 1);
-}
+}}
 
-function prevCarouselSlide() {
-    console.log('Slide anterior');
+function prevCarouselSlide() {{
+    console.log('Anterior');
     showCarouselSlide(carouselCurrentSlide - 1);
-}
+}}
 
-function startCarouselAutoplay() {
+function startCarouselAutoplay() {{
     stopCarouselAutoplay();
     carouselAutoplayInterval = setInterval(nextCarouselSlide, 4000);
     console.log('Autoplay iniciado');
-}
+}}
 
-function stopCarouselAutoplay() {
-    if (carouselAutoplayInterval) {
+function stopCarouselAutoplay() {{
+    if (carouselAutoplayInterval) {{
         clearInterval(carouselAutoplayInterval);
         carouselAutoplayInterval = null;
-        console.log('Autoplay detenido');
-    }
-}
+    }}
+}}
 
-function resetCarouselAutoplay() {
+function resetCarouselAutoplay() {{
     stopCarouselAutoplay();
     startCarouselAutoplay();
-}
+}}
 
-// Iniciar carrusel cuando el DOM esté listo
-if (document.readyState === 'loading') {
+// Iniciar cuando el DOM este listo
+if (document.readyState === 'loading') {{
     document.addEventListener('DOMContentLoaded', initCarousel);
-} else {
-    // DOM ya está listo
+}} else {{
     initCarousel();
-}
-
-// Tambien intentar iniciar después de un tiempo por si Streamlit tarda
-setTimeout(initCarousel, 1000);
-setTimeout(initCarousel, 2000);
+}}
 </script>
 
 {FOOTER}
@@ -3202,8 +3174,7 @@ HTML_DEMO_FUTBOL = f"""{HTML_BASE}
             <div class="demo-label">Asistente IA</div>
             <div class="demo-bubble demo-bot">Sí! Contamos con pileta climatizada semiolímpica (25m) disponible todo el año para socios Pleno y VIP. Horarios:<br>
             • <strong>Lunes a viernes:</strong> 8:00 a 21:00 hs<br>
-            • <strong>Sábados:</strong> 10:00 a 19:00 hs<br>
-            • <strong>Domingos:</strong> 10:00 a 18:00 hs<br>
+            • <strong>Fines de semana:</strong> 10:00 a 19:00 hs<br>
             También dictamos clases de natación para todas las edades.</div>
         </div>
 
@@ -3255,8 +3226,7 @@ HTML_DEMO_FUTBOL = f"""{HTML_BASE}
             <div class="demo-label">Asistente IA</div>
             <div class="demo-bubble demo-bot">Sí! Nuestro buffet está abierto todos los días:<br>
             • <strong>Lunes a viernes:</strong> 12:00 a 23:00 hs<br>
-            • <strong>Sábados:</strong> 11:00 a 00:00 hs<br>
-            • <strong>Domingos:</strong> 11:00 a 23:00 hs<br>
+            • <strong>Fines de semana:</strong> 11:00 a 00:00 hs<br>
             Ofrecemos minutas, parrilla, pizzas y bebidas. Los socios tienen 20% de descuento. En días de partido, menú especial disponible.</div>
         </div>
 
@@ -3519,7 +3489,7 @@ HTML_DEMO_COCINA = f"""{HTML_BASE}
         </div>
         <div class="demo-message">
             <div class="demo-label">Asistente IA</div>
-            <div class="demo-bubble demo-bot">🍷 <strong>Carta de vinos (60+ etiquetas):</strong><br><br>
+            <div class="demo-bubble demo-bot">🍷 <strong>Carta de vinos (60+ etiquetas):</strong><br>
             <strong>Tintos recomendados:</strong><br>
             • Malbec reserva - $12.000<br>
             • Cabernet blend - $15.500<br>
@@ -3541,8 +3511,8 @@ HTML_DEMO_COCINA = f"""{HTML_BASE}
             • Puré de calabaza<br>
             • Verduras grilladas<br>
             • Reducción de cítricos<br><br>
-            ⚠️ <strong>Aviso:</strong> Quedan solo <strong>3 porciones</strong> de salmón para esta noche (ingrediente del día).<br><br>
-            💡 ¿Lo reservamos para vos?</div>
+            ⚠️ <strong>Aviso:</strong> Quedan solo <strong>3 porciones</strong> de salmón para esta noche (ingrediente del día).<br>
+            ¿Lo reservamos para vos?</div>
         </div>
 
         <!-- ESCENA 8: Agregar valor con experiencia -->
@@ -3573,7 +3543,7 @@ HTML_DEMO_COCINA = f"""{HTML_BASE}
             • Cheesecake frutos rojos - $5.800<br>
             • Tiramisú del chef - $6.000<br>
             • Flan mixto - $4.500<br><br>
-            🔥 <strong>Combo dulce:</strong> Principal + Postre + Café = $8.000 descuento<br><br>
+            🔥 <strong>Combo dulce:</strong> Principal + Postre + Café = $8.000 descuento<br>
             ¿Ya sabés qué vas a pedir de principal?</div>
         </div>
 
@@ -3657,17 +3627,17 @@ HTML_DEMO_COCINA = f"""{HTML_BASE}
         <!-- ESCENA 15: Fidelización con programa de beneficios -->
         <div class="demo-message">
             <div class="demo-label">Cliente</div>
-            <div class="demo-bubble demo-user">¿Tienen programa de puntos?</div>
+            <div class="demo-bubble demo-user">¿Tienen descuentos para clientes frecuentes?</div>
         </div>
         <div class="demo-message">
             <div class="demo-label">Asistente IA</div>
             <div class="demo-bubble demo-bot">Sí ⭐ <strong>Club Gourmet:</strong><br>
             • 1 punto cada $100<br>
-            • 100 puntos = $500 de descuento<br><br>
-            <strong>BENEFICIOS VIP:</strong><br>
+            • 100 puntos = $1.000 descuento<br><br>
+            <strong>Beneficios VIP:</strong><br>
             🥉 Bronce: 5% descuento permanente<br>
-            🥈 Plata: 10% descuento + reserva prioritaria<br>
-            🥇 Oro: 15% descuento + acceso a cenas privadas con el chef<br><br>
+            🥈 Plata: 10% + reserva prioritaria<br>
+            🥇 Oro: 15% + acceso a cenas privadas con el chef<br><br>
             ¿Te registro? Es gratis y empezás a sumar hoy 🎁</div>
         </div>
     </div>
@@ -3857,7 +3827,7 @@ HTML_DEMO_ECOMMERCE = f"""{HTML_BASE}
             ✅ <strong>Stock:</strong> 8 unidades<br>
             🚚 Llega mañana<br>
             💳 6 cuotas sin interés<br><br>
-            ⚠️ <strong>Alerta:</strong> El Pro en azul tiene bajo stock, ¡aprovechá!<br><br>
+            ⚠️ <strong>Alerta:</strong> El Pro en azul tiene bajo stock, ¡aprovechá!<br>
             ¿Cuál te interesa?</div>
         </div>
 
@@ -4309,7 +4279,7 @@ HTML_DEMO_FINANZAS = f"""{HTML_BASE}
             📈 <strong>Fondos Comunes de Inversión:</strong><br>
             • Money Market: 120% anual - Riesgo bajo<br>
             • Renta fija: 130-150% - Riesgo medio<br>
-            • Renta mixta: 160%+ - Riesgo medio-alto<br>
+            • Renta mixta: Potencial 160%+ - Riesgo medio-alto<br>
             <strong>Mi recomendación:</strong> Diversificá: 50% PF + 50% FCI. ¿Cuánto querés invertir?</div>
         </div>
 
@@ -4406,7 +4376,7 @@ HTML_DEMO_FINANZAS = f"""{HTML_BASE}
             <strong>Recomendación inicial:</strong><br>
             Con $50.000 podés armar un portafolio diversificado:<br>
             • 40% FCI Money Market<br>
-            • 30% CEDEARs blue chips<br>
+            • 30% CEDEARs<br>
             • 30% Bonos CER<br>
             ¿Con cuánto te gustaría empezar?</div>
         </div>
@@ -4917,7 +4887,8 @@ HTML_DEMO_ROPA = f"""{HTML_BASE}
             <div class="demo-label">Asistente IA</div>
             <div class="demo-bubble demo-bot">Sí 💳<br>
             • Hasta 12 cuotas sin interés<br>
-            • Mercado Pago: hasta 18 cuotas<br><br>
+            • Mercado Pago: hasta 18 cuotas<br>
+            • Transferencia: 15% OFF adicional<br><br>
             ¿Preferís cuotas o aprovechar el descuento por transferencia?</div>
         </div>
 
@@ -5366,6 +5337,11 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
 """
 
 # =========================
+# RENDER
+# =========================
+
+
+# =========================
 # DEMO VIAJES
 # =========================
 HTML_DEMO_VIAJES = f"""{HTML_BASE}
@@ -5612,14 +5588,12 @@ HTML_DEMO_VIAJES = f"""{HTML_BASE}
             💳 <strong>Tarjeta de crédito:</strong><br>
             &nbsp;&nbsp;&nbsp;• 3 cuotas sin interés<br>
             &nbsp;&nbsp;&nbsp;• 6 cuotas sin interés<br>
-            &nbsp;&nbsp;&nbsp;• 12 cuotas (TNA 48%)<br><br>
-            <strong>Mercado Pago:</strong> Hasta 18 cuotas<br><br>
-            <strong>AHORA 12/18:</strong><br>
-            ✅ 12 cuotas - $108.332/mes<br><br>
+            &nbsp;&nbsp;&nbsp;• 12 cuotas (TNA 48%)<br>
+            🌎 <strong>Mercado Pago:</strong> Hasta 18 cuotas<br><br>
             <strong>Ejemplo para 2 personas (USD 2.400):</strong><br>
             → 6 cuotas de <strong>USD 400</strong> sin interés<br>
             → 12 cuotas de <strong>USD 220</strong> c/interés<br><br>
-            ¿Cómo querés pagar?</div>
+            ¿Cómo preferís pagar?</div>
         </div>
 
         <!-- ESCENA 7: Documentación y requisitos -->
@@ -5935,7 +5909,7 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
     overflow: visible !important;
 }
 
-/* Ocultar COMPLETAMENTE el espacio del demo en móviles */
+/* Eliminar COMPLETAMENTE el espacio del demo en móviles */
 @media (max-width: 768px) {
     /* Ocultar el contenedor del iframe */
     div[data-testid="stVerticalBlock"]:has(iframe[height="1100"]),
@@ -6253,32 +6227,18 @@ let carouselSlides = [];
 let carouselDots = [];
 
 function initCarousel() {
-    console.log('Iniciando carrusel...');
-    
     carouselSlides = document.querySelectorAll('.carousel-slide');
     carouselDots = document.querySelectorAll('.dot');
     
-    console.log('Slides encontrados:', carouselSlides.length);
-    console.log('Dots encontrados:', carouselDots.length);
+    console.log('Carrusel iniciado - Slides encontrados:', carouselSlides.length);
     
     if (carouselSlides.length === 0) {
-        console.log('ERROR: No se encontraron slides del carrusel');
+        console.log('No se encontraron slides del carrusel');
         return;
     }
     
-    // Limpiar clases anteriores
-    carouselSlides.forEach(function(slide, i) {
-        slide.classList.remove('active');
-        if (i === 0) slide.classList.add('active');
-    });
-    
-    carouselDots.forEach(function(dot, i) {
-        dot.classList.remove('active');
-        if (i === 0) dot.classList.add('active');
-    });
-    
     // Event listeners para los dots
-    carouselDots.forEach(function(dot, index) {
+    carouselDots.forEach((dot, index) => {
         dot.addEventListener('click', function() {
             console.log('Click en dot:', index);
             showCarouselSlide(index);
@@ -6321,7 +6281,7 @@ function showCarouselSlide(index) {
         carouselCurrentSlide = index;
     }
     
-    console.log('Mostrando slide:', carouselCurrentSlide + 1, 'de', totalSlides);
+    console.log('Mostrando slide:', carouselCurrentSlide);
     
     // Actualizar slides
     carouselSlides.forEach(function(slide, i) {
@@ -6379,12 +6339,6 @@ if (document.readyState === 'loading') {
     initCarousel();
 }
 
-// Tambien intentar iniciar después de un tiempo por si Streamlit tarda
-setTimeout(initCarousel, 1000);
-setTimeout(initCarousel, 2000);
-</script>
-
-<script>
 // =========================
 // CHATBOT
 // =========================
@@ -6690,6 +6644,37 @@ st.markdown("""
     }
 }
 
+</style>
+""", unsafe_allow_html=True)
+
+# CSS para que el iframe del chatbot NO ocupe espacio visual
+st.markdown("""
+<style>
+/* Ocultar el contenedor del iframe */
+div[data-testid="stVerticalBlock"]:has(iframe[height="0"]),
+div[data-testid="element-container"]:has(iframe[height="0"]) {
+    height: 0 !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+}
+
+/* El iframe en sí */
+iframe[height="0"] {
+    position: fixed !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    border: none !important;
+    pointer-events: none !important;
+    z-index: 999999 !important;
+}
+
+iframe[height="0"] * {
+    pointer-events: auto !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
