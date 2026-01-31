@@ -1284,6 +1284,9 @@ body {
 /* =========================
    CARRUSEL DE ASISTENTES
 ========================= */
+/* =========================
+   CARRUSEL (SECCIÓN SEPARADA)
+========================= */
 .assistants-carousel-section {
     padding: 70px 5%;
     background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
@@ -1320,12 +1323,14 @@ body {
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    visibility: hidden;
+    transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
     pointer-events: none;
 }
 
 .carousel-slide.active {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
 }
 
@@ -1374,6 +1379,41 @@ body {
     line-height: 1.7;
 }
 
+/* BOTONES DE NAVEGACIÓN */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #1e3a8a;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-nav:hover {
+    background: #1e3a8a;
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav.prev {
+    left: -60px;
+}
+
+.carousel-nav.next {
+    right: -60px;
+}
+
 .carousel-dots {
     display: flex;
     justify-content: center;
@@ -1388,6 +1428,8 @@ body {
     background: rgba(30, 58, 138, 0.2);
     cursor: pointer;
     transition: all 0.3s ease;
+    border: none;
+    padding: 0;
 }
 
 .dot:hover {
@@ -1437,6 +1479,10 @@ body {
     
     .carousel-text p {
         font-size: 16px;
+    }
+    
+    .carousel-nav {
+        display: none;
     }
 }
 
@@ -2387,6 +2433,9 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
         <p class="carousel-subtitle">Especializados en diferentes industrias</p>
         
         <div class="carousel-container">
+            <!-- Botón anterior -->
+            <button class="carousel-nav prev" onclick="prevCarouselSlide()">‹</button>
+            
             <div class="carousel-slide active">
                 <div class="carousel-content">
                     <div class="carousel-image">
@@ -2482,6 +2531,9 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
                     </div>
                 </div>
             </div>
+            
+            <!-- Botón siguiente -->
+            <button class="carousel-nav next" onclick="nextCarouselSlide()">›</button>
         </div>
         
         <div class="carousel-dots">
@@ -6009,61 +6061,123 @@ CHATBOT = """
 // =========================
 // CARRUSEL FUNCIONAL
 // =========================
-(function() {
-    let currentSlide = 0;
-    let autoplayInterval;
+let carouselCurrentSlide = 0;
+let carouselAutoplayInterval = null;
+let carouselSlides = [];
+let carouselDots = [];
+
+function initCarousel() {
+    carouselSlides = document.querySelectorAll('.carousel-slide');
+    carouselDots = document.querySelectorAll('.dot');
     
-    function initCarousel() {
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.dot');
-        const totalSlides = slides.length;
-        
-        if (totalSlides === 0) return;
-        
-        function showSlide(index) {
-            if (index >= totalSlides) currentSlide = 0;
-            else if (index < 0) currentSlide = totalSlides - 1;
-            else currentSlide = index;
-            
-            slides.forEach((slide, i) => {
-                slide.classList.remove('active');
-                if (i === currentSlide) slide.classList.add('active');
-            });
-            
-            dots.forEach((dot, i) => {
-                dot.classList.remove('active');
-                if (i === currentSlide) dot.classList.add('active');
-            });
-        }
-        
-        function nextSlide() { showSlide(currentSlide + 1); }
-        
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                showSlide(index);
-                clearInterval(autoplayInterval);
-                autoplayInterval = setInterval(nextSlide, 5000);
-            });
+    console.log('Carrusel iniciado - Slides encontrados:', carouselSlides.length);
+    
+    if (carouselSlides.length === 0) {
+        console.log('No se encontraron slides del carrusel');
+        return;
+    }
+    
+    // Event listeners para los dots
+    carouselDots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            console.log('Click en dot:', index);
+            showCarouselSlide(index);
+            resetCarouselAutoplay();
+        });
+    });
+    
+    // Pausar autoplay al pasar el mouse
+    const container = document.querySelector('.carousel-container');
+    if (container) {
+        container.addEventListener('mouseenter', function() {
+            console.log('Mouse sobre carrusel - pausando');
+            stopCarouselAutoplay();
         });
         
-        const container = document.querySelector('.carousel-container');
-        if (container) {
-            container.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
-            container.addEventListener('mouseleave', () => {
-                autoplayInterval = setInterval(nextSlide, 5000);
-            });
-        }
-        
-        autoplayInterval = setInterval(nextSlide, 5000);
-        showSlide(0);
+        container.addEventListener('mouseleave', function() {
+            console.log('Mouse fuera del carrusel - reanudando');
+            startCarouselAutoplay();
+        });
     }
     
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initCarousel);
+    // Iniciar autoplay
+    startCarouselAutoplay();
+    
+    // Mostrar primer slide
+    showCarouselSlide(0);
+    
+    console.log('Carrusel configurado exitosamente');
+}
+
+function showCarouselSlide(index) {
+    const totalSlides = carouselSlides.length;
+    
+    // Ajustar índice
+    if (index >= totalSlides) {
+        carouselCurrentSlide = 0;
+    } else if (index < 0) {
+        carouselCurrentSlide = totalSlides - 1;
     } else {
-        initCarousel();
+        carouselCurrentSlide = index;
     }
-})();
+    
+    console.log('Mostrando slide:', carouselCurrentSlide);
+    
+    // Actualizar slides
+    carouselSlides.forEach(function(slide, i) {
+        if (i === carouselCurrentSlide) {
+            slide.classList.add('active');
+        } else {
+            slide.classList.remove('active');
+        }
+    });
+    
+    // Actualizar dots
+    carouselDots.forEach(function(dot, i) {
+        if (i === carouselCurrentSlide) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+function nextCarouselSlide() {
+    console.log('Siguiente slide');
+    showCarouselSlide(carouselCurrentSlide + 1);
+}
+
+function prevCarouselSlide() {
+    console.log('Slide anterior');
+    showCarouselSlide(carouselCurrentSlide - 1);
+}
+
+function startCarouselAutoplay() {
+    stopCarouselAutoplay();
+    carouselAutoplayInterval = setInterval(nextCarouselSlide, 4000);
+    console.log('Autoplay iniciado');
+}
+
+function stopCarouselAutoplay() {
+    if (carouselAutoplayInterval) {
+        clearInterval(carouselAutoplayInterval);
+        carouselAutoplayInterval = null;
+        console.log('Autoplay detenido');
+    }
+}
+
+function resetCarouselAutoplay() {
+    stopCarouselAutoplay();
+    startCarouselAutoplay();
+}
+
+// Iniciar carrusel cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCarousel);
+} else {
+    // DOM ya está listo
+    initCarousel();
+}
 
 // =========================
 // CHATBOT
