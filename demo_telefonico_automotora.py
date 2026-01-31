@@ -311,39 +311,33 @@ st.markdown("""
 
 # Verificar si existe el archivo de audio
 audio_file = "Sivo.mp4"
-if os.path.exists(audio_file):
-    # Mostrar el reproductor de audio
-    audio_bytes = open(audio_file, 'rb').read()
-    st.audio(audio_bytes, format='audio/mp4')
-else:
-    st.markdown("""
-    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 12px; margin: 20px 0;">
-        <p style="margin: 0; font-size: 15px;">
-            🎧 Archivo de audio no encontrado. Por favor, asegúrate de que el archivo "Sivo.mp4" esté en el mismo directorio.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+
+# Contenedor centrado para el audio
+st.markdown('<div style="display: flex; justify-content: center; margin: 30px 0;">', unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    if os.path.exists(audio_file):
+        # Mostrar el reproductor de audio
+        audio_bytes = open(audio_file, 'rb').read()
+        st.audio(audio_bytes, format='audio/mp4')
+    else:
+        st.markdown("""
+        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 12px; margin: 20px 0;">
+            <p style="margin: 0; font-size: 15px;">
+                🎧 Archivo de audio no encontrado. Por favor, asegúrate de que el archivo "Sivo.mp4" esté en el mismo directorio.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("""
-    <div style="background: rgba(255,255,255,0.2); padding: 12px 20px; border-radius: 12px; margin: 20px auto; max-width: 400px;">
-        <p style="margin: 0; font-size: 14px; opacity: 0.9;">
+    <div style="background: white; padding: 16px 30px; border-radius: 999px; margin: 20px auto; max-width: 400px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <p style="margin: 0; font-size: 15px; color: #333; font-weight: 600;">
             Así atiende SIVO a tus clientes potenciales
         </p>
     </div>
-</div>
-""", unsafe_allow_html=True)
-
-# Botón adicional para contactar
-st.markdown("""
-<div style="text-align: center; margin: 30px 0;">
-    <a href="https://wa.me/59892748175?text=Hola!%20Quiero%20probar%20SIVO%20🤖" 
-       target="_blank" 
-       style="display: inline-block; background: #25D366; color: white; 
-              padding: 14px 32px; border-radius: 999px; text-decoration: none;
-              font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(37,211,102,0.3);
-              transition: all 0.3s ease;">
-        💬 Contactar por WhatsApp
-    </a>
 </div>
 """, unsafe_allow_html=True)
 
