@@ -6203,6 +6203,7 @@ function send(){
     }
 })();
 
+
 // =========================
 // CARRUSEL DE ASISTENTES
 // =========================
@@ -6213,18 +6214,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let carouselInterval;
 
     function showSlide(index) {
-        // Remover active de todos
         slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
-        
-        // Agregar active al slide e indicador actual
-        if (slides[index]) {
-            slides[index].classList.add('active');
-        }
-        if (dots[index]) {
-            dots[index].classList.add('active');
-        }
-        
+        if (slides[index]) slides[index].classList.add('active');
+        if (dots[index]) dots[index].classList.add('active');
         currentSlide = index;
     }
 
@@ -6234,14 +6227,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startCarousel() {
-        carouselInterval = setInterval(nextSlide, 4000); // Cambia cada 4 segundos
+        carouselInterval = setInterval(nextSlide, 4000);
     }
 
     function stopCarousel() {
         clearInterval(carouselInterval);
     }
 
-    // Eventos de click en los dots
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             stopCarousel();
@@ -6250,14 +6242,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Pausar al hacer hover en el carrusel
     const carouselContainer = document.querySelector('.carousel-container');
     if (carouselContainer) {
         carouselContainer.addEventListener('mouseenter', stopCarousel);
         carouselContainer.addEventListener('mouseleave', startCarousel);
     }
 
-    // Iniciar el carrusel
     if (slides.length > 0) {
         startCarousel();
     }
