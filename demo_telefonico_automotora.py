@@ -346,8 +346,6 @@ st.markdown("""
 # =========================
 st.markdown("""
 <div class="features-header">
-    <div class="phone-icon">📞</div>
-    <div class="divider-line"></div>
     <h2>Qué hace por tu negocio</h2>
 </div>
 
