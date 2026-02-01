@@ -2059,40 +2059,26 @@ body { background: #1a1a2e; font-family: Inter, sans-serif; margin: 0; padding: 
 # =========================
 # HOME (MODIFICADO: chatbot protagonista)
 # =========================
-
-# =========================
-# VIDEO PRESENTACIÓN
-# =========================
-VIDEO_PRESENTACION = """
-<div style="width: 100%; height: 100vh; position: relative; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-    <iframe src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Mercadobot.html" 
-            style="width: 100%; height: 100%; border: none;" 
-            allowfullscreen>
-    </iframe>
-    <button onclick="this.parentElement.style.display='none';" 
-            style="position: fixed; bottom: 30px; right: 30px; padding: 12px 24px; background: rgba(255,255,255,0.95); 
-                   color: #667eea; border: none; border-radius: 25px; font-weight: bold; font-size: 14px; 
-                   cursor: pointer; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease;">
-        Saltar intro →
-    </button>
-</div>
-<script>
-setTimeout(function() {
-    var videoDiv = document.querySelector('div[style*="height: 100vh"]');
-    if(videoDiv) videoDiv.style.display = 'none';
-}, 110000);
-</script>
-"""
-
-# =========================
-# HOME (MODIFICADO: Video como portada)
-# =========================
 HTML_HOME_PARTE_1 = f"""{HTML_BASE}
 {HEADER}
 
-    <!-- VIDEO PRESENTACIÓN -->
-    {VIDEO_PRESENTACION}
-
+    <!-- HERO IMPACT -->
+    <div class="hero-impact">
+        <div class="hero-impact-content">
+            <h1 class="hero-impact-title">
+                Preguntale a tus datos.<br>
+                <span class="hero-impact-subtitle">No esperes por la informacion, el asistente la encuentra por vos.</span>
+            </h1>
+            <p class="hero-impact-text">
+                    Asistentes IA que responden al instante con la información de tu negocio,
+                    tanto para uso interno como para atención a clientes.
+            </p>
+            <div class="hero-impact-actions">
+                <a class="hero-impact-btn-primary" href="?vista=asistentes">Ver asistentes →</a>
+                <a class="hero-impact-btn-secondary" href="https://demo-viajes.streamlit.app/" target="_blank" rel="noopener noreferrer">Demo en vivo</a>
+            </div>
+        </div>
+    </div>
 
     <div class="hero">
         <div class="hero-content">
