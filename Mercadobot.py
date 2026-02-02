@@ -634,34 +634,6 @@ body {
 }
 
 /* =========================
-   CATEGORÍAS
-========================= */
-.cats-block {
-    text-align: center;
-    padding: 20px 5%;
-    width: 100%;
-}
-
-.cats {
-    display: inline-flex;
-    gap: 12px;
-    background: #fff;
-    padding: 10px 14px;
-    border-radius: 999px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    flex-wrap: wrap;
-}
-
-.cat {
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 600;
-    background: #f6f7fb;
-    white-space: nowrap;
-}
-
-/* =========================
    SECTION
 ========================= */
 .section {
@@ -1954,14 +1926,7 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
         </div>
     </div>
 
-    <div class="cats-block">
-        <div class="cats">
-            
-            
-            
-            
-        </div>
-    </div>
+    
 
     <div class="section">
         <h2>Cómo funciona</h2>
