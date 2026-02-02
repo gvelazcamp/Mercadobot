@@ -5388,75 +5388,11 @@ else:
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; }    /* Swap: desktop vs mobile */
-    #demo-conversaciones-mobile { display: none; }
-    #demo-conversaciones-desktop { display: block; }
+    body { font-family: 'Inter', sans-serif; }
+    </style>
 
-    .mobile-demo-video {
-        width: 100%;
-        max-width: 520px;
-        height: auto;
-        border-radius: 0;
-        background: transparent;
-        object-fit: contain;
-        display: block;
-        margin: 0 auto;
-    }
-
-
-    .mobile-demo-title {
-        font-family: 'Inter', sans-serif;
-        text-align: center;
-        padding: 16px 16px 10px;
-        margin: 0;
-        background: transparent;
-    }
-
-    .mobile-demo-title h2 {
-        font-weight: 900;
-        font-size: 26px;
-        line-height: 1.12;
-        color: #111827;
-        margin: 0;
-    }
-
-    .mobile-demo-title p {
-        margin: 8px 0 0;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 1.35;
-        color: #6b7280;
-    }
-@media (max-width: 768px) {
-        html, body { background: #ffffff !important; }
-
-        /* En celular: ocultar demo desktop y mostrar SOLO el video (sin fondo ni padding) */
-        #demo-conversaciones-desktop { display: none !important; }
-        #demo-conversaciones-mobile { display: block !important; }
-
-        #demo-conversaciones-section {
-            padding: 0 !important;
-            margin: 0 !important;
-            background: #ffffff !important;
-            background-image: none !important;
-        }
-        #demo-conversaciones-section > div {
-            max-width: 100% !important;
-            padding: 0 !important;
-            margin: 0 auto !important;
-        }
-
-        .mobile-demo-video {
-            height: auto !important;
-            border-radius: 0 !important;
-            background: transparent !important;
-        }
-    }
-</style>
-    
     <div id="demo-conversaciones-section" style="width: 100%; background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%); padding: 80px 5%; margin: 0;">
         <div style="max-width: 1200px; margin: 0 auto;">
-            <div id="demo-conversaciones-desktop">
             <div style="text-align: center; margin-bottom: 50px;">
                 <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 15px; color: #1a1a1a; font-family: 'Inter', sans-serif;">
                     ¿Cómo responden nuestros asistentes?
@@ -5465,7 +5401,7 @@ else:
                     Mirá conversaciones reales con clientes en diferentes industrias
                 </p>
             </div>
-            
+
             <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
                 <iframe 
                     src="https://gvelazcamp.github.io/Mercadobot/mercadobot-demo.html" 
@@ -5474,62 +5410,50 @@ else:
                     allowfullscreen>
                 </iframe>
             </div>
-            
+
             <div style="text-align: center; margin-top: 30px;">
                 <p style="font-size: 16px; color: #666; font-family: 'Inter', sans-serif;">
                     ⚡ Demo interactiva - Seleccioná una industria y mirá cómo responde el asistente
                 </p>
             </div>
-
-            </div>
-
-            <div id="demo-conversaciones-mobile" style="text-align:center;">
-    <div class="mobile-demo-title">
-        <h2>Demo WhatsApp</h2>
-        <p>Mirá cómo responden nuestros asistentes</p>
-    </div>
-    <video class="mobile-demo-video" autoplay loop muted playsinline preload="auto">
-        <source src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/mercadobot_whatsapp_demo-19.mp4" type="video/mp4">
-        Tu navegador no soporta video HTML5.
-    </video>
-
-    <script>
-        // Intento de autoplay (algunos navegadores lo bloquean; muted + playsinline suele permitirlo)
-        (function() {
-            const v = document.querySelector('#demo-conversaciones-mobile video');
-            if (!v) return;
-            const tryPlay = () => v.play().catch(() => {});
-            window.addEventListener('load', tryPlay);
-            document.addEventListener('visibilitychange', () => {
-                if (!document.hidden) tryPlay();
-            });
-        })();
-    </script>
-
-    <script>
-        // Ajustar alto del iframe automáticamente para que no quede espacio vacío
-        (function() {
-            const resize = () => {
-                const h = Math.max(
-                    document.documentElement.scrollHeight || 0,
-                    document.body ? document.body.scrollHeight : 0
-                );
-                if (window.frameElement && h) {
-                    window.frameElement.style.height = h + "px";
-                }
-            };
-            window.addEventListener('load', resize);
-            window.addEventListener('resize', resize);
-            setTimeout(resize, 50);
-            setTimeout(resize, 250);
-        })();
-    </script>
-</div>
-            </div>
-
         </div>
     </div>
     """, height=1100, scrolling=False)
+
+    components.html("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { background: #ffffff; font-family: 'Inter', sans-serif; }
+    #mb-whatsapp-demo { width: 100%; background: #ffffff; padding: 18px 0 6px; margin: 0; }
+    .mb-title { text-align: center; padding: 0 16px 12px; margin: 0; background: transparent; }
+    .mb-title h2 { font-weight: 900; font-size: 26px; line-height: 1.15; color: #111827; margin: 0; }
+    .mb-title p { margin: 8px 0 0; font-weight: 500; font-size: 14px; line-height: 1.35; color: #6b7280; }
+    .mb-video { width: 100%; max-width: 520px; height: auto; display: block; margin: 0 auto; background: transparent; border-radius: 0; object-fit: contain; }
+    </style>
+
+    <div id="mb-whatsapp-demo">
+        <div class="mb-title">
+            <h2>Demo WhatsApp</h2>
+            <p>Mirá cómo contestan nuestros asistentes</p>
+        </div>
+
+        <video class="mb-video" autoplay loop muted playsinline preload="auto">
+            <source src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/mercadobot_whatsapp_demo-19.mp4" type="video/mp4">
+            Tu navegador no soporta video HTML5.
+        </video>
+    </div>
+
+    <script>
+    (function() {
+        const v = document.querySelector('video');
+        if (!v) return;
+        const tryPlay = () => v.play().catch(() => {});
+        window.addEventListener('load', tryPlay);
+        document.addEventListener('visibilitychange', () => { if (!document.hidden) tryPlay(); });
+    })();
+    </script>
+    """, height=781, scrolling=False)
     
     st.html(HTML_HOME_PARTE_2)
 
@@ -5542,11 +5466,35 @@ div[data-testid="element-container"]:has(iframe[height="550"]) {
 div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
     overflow: visible !important;
 }
-    @media (max-width: 768px) {
-        /* Ajuste de alto del components.html de la sección demo en celular */
-        iframe[height="1100"] { height: 680px !important; }
-        div[data-testid="element-container"]:has(iframe[height="1100"]) iframe { height: 680px !important; }
+
+/* Mostrar demo correcto según dispositivo */
+@media (max-width: 768px) {
+    /* En celular: ocultar demo desktop (1100) y mostrar demo WhatsApp (781) */
+    div[data-testid="element-container"]:has(iframe[height="1100"]) {
+        display: none !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
+    div[data-testid="element-container"]:has(iframe[height="781"]) {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+    }
+    div[data-testid="element-container"]:has(iframe[height="781"]) iframe {
+        background: #ffffff !important;
+    }
+}
+
+@media (min-width: 769px) {
+    /* En PC: ocultar demo WhatsApp (781) */
+    div[data-testid="element-container"]:has(iframe[height="781"]) {
+        display: none !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
