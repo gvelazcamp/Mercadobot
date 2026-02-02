@@ -75,7 +75,7 @@ BASE_URL = "https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/"
 # =========================
 # HTML COMPLETO
 # =========================
-HTML_BASE = """
+HTML_BASE = f"""
 <!DOCTYPE html>
 <html lang="es">
 <head>
