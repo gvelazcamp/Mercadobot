@@ -1808,6 +1808,7 @@ HEADER = """
     <div class="header">
         <a class="logo" href="?vista=home">
             <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/LogoMercadobot.png" alt="MercadoBot" class="logo-img">
+            <span style="font-size: 28px; font-weight: 700; color: #1e3a8a; margin-left: 12px;">MercadoBot</span>
         </a>
         <div class="nav">
             <a href="?vista=home">Inicio</a>
@@ -6057,4 +6058,4 @@ iframe[height="0"] * {
 </style>
 """, unsafe_allow_html=True)
 
-components.html(CHATBOT, height=0)
+components.html(CHATBOT, height=0)v
