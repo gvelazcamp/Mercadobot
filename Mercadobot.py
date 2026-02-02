@@ -5868,25 +5868,12 @@ else:
             </div>
             
             <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
-                <!-- Demo para Desktop (iframe) -->
                 <iframe 
                     src="https://gvelazcamp.github.io/Mercadobot/mercadobot-demo.html" 
                     style="width: 100%; height: 850px; border: none; border-radius: 15px; display: block;"
-                    class="demo-desktop"
                     frameborder="0"
                     allowfullscreen>
                 </iframe>
-                
-                <!-- Demo para Móvil (video) -->
-                <video 
-                    class="demo-mobile"
-                    style="width: 100%; height: auto; border-radius: 15px; display: none;"
-                    controls
-                    playsinline
-                    poster="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/mercadobot_whatsapp_demo-19.mp4">
-                    <source src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/mercadobot_whatsapp_demo-19.mp4" type="video/mp4">
-                    Tu navegador no soporta videos HTML5.
-                </video>
             </div>
             
             <div style="text-align: center; margin-top: 30px;">
@@ -5912,41 +5899,30 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
 
 /* ELIMINAR TODO EL ESPACIO del demo en móviles */
 @media (max-width: 768px) {
-    /* Ocultar iframe de demo en móviles */
-    .demo-desktop {
-        display: none !important;
-    }
-    
-    /* Mostrar video en móviles */
-    .demo-mobile {
-        display: block !important;
-    }
-    
     /* Todos los contenedores posibles del iframe */
     div[data-testid="stVerticalBlock"]:has(iframe[height="1100"]),
     div[data-testid="stVerticalBlockBorderWrapper"]:has(iframe[height="1100"]),
     div[data-testid="element-container"]:has(iframe[height="1100"]),
     div[data-testid="column"]:has(iframe[height="1100"]),
     section[data-testid="stAppViewContainer"] div:has(> iframe[height="1100"]) {
-        display: block !important;
-        height: auto !important;
+        display: none !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        visibility: hidden !important;
+        position: absolute !important;
+        top: -9999px !important;
     }
     
     /* El iframe directamente */
     iframe[height="1100"] {
-        display: block !important;
-        height: auto !important;
-    }
-}
-
-/* Mostrar iframe en desktop, ocultar video */
-@media (min-width: 769px) {
-    .demo-desktop {
-        display: block !important;
-    }
-    
-    .demo-mobile {
         display: none !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        visibility: hidden !important;
     }
 }
 </style>
@@ -5954,6 +5930,151 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
 
 # Footer + Chatbot juntos con components.html (para que funcione JS)
 components.html(FOOTER_SIMPLE, height=150)
+
+# ==============================================================
+# VIDEO FLOTANTE PARA MÓVILES (reemplaza chatbot en celulares)
+# ==============================================================
+VIDEO_MOBILE_CHATBOT = """
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin:0;padding:0;overflow:visible;">
+<style>
+/* Botón del video móvil */
+#video-btn-mobile {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f4b400, #ff6b00);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(244, 180, 0, 0.5);
+    font-size: 26px;
+    z-index: 999999;
+    display: none;
+    transition: transform 0.3s;
+}
+
+#video-btn-mobile:active {
+    transform: scale(0.95);
+}
+
+/* Container del video fullscreen */
+#video-container-mobile {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999999;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+#video-container-mobile.open {
+    display: flex !important;
+}
+
+#video-container-mobile video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.video-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.video-close-btn:active {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Solo mostrar en móviles */
+@media (max-width: 768px) {
+    #video-btn-mobile {
+        display: block !important;
+    }
+}
+
+/* Ocultar completamente en desktop */
+@media (min-width: 769px) {
+    #video-btn-mobile,
+    #video-container-mobile {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+}
+</style>
+
+<!-- Botón flotante para móvil -->
+<button id="video-btn-mobile" onclick="openVideoMobile()">🎬</button>
+
+<!-- Container del video -->
+<div id="video-container-mobile" onclick="event.target === this && closeVideoMobile()">
+    <button class="video-close-btn" onclick="closeVideoMobile()">✕</button>
+    <video controls playsinline controlsList="nodownload">
+        <source src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/mercadobot_whatsapp_demo-19.mp4" type="video/mp4">
+        Tu navegador no soporta video HTML5.
+    </video>
+</div>
+
+<script>
+function openVideoMobile() {
+    const container = document.getElementById('video-container-mobile');
+    container.classList.add('open');
+    const video = container.querySelector('video');
+    video.play();
+}
+
+function closeVideoMobile() {
+    const container = document.getElementById('video-container-mobile');
+    container.classList.remove('open');
+    const video = container.querySelector('video');
+    video.pause();
+    video.currentTime = 0;
+}
+
+// Cerrar con tecla ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeVideoMobile();
+    }
+});
+</script>
+
+</body>
+</html>
+"""
+
+components.html(VIDEO_MOBILE_CHATBOT, height=0)
 
 
 # Chatbot flotante COMPLETO
@@ -6572,93 +6693,66 @@ st.markdown("""
 <style>
 
 /* ============================================
-   CSS RESPONSIVE PARA CHATBOT EN MÓVILES
-   (Aplicado al documento principal de Streamlit)
+   CSS RESPONSIVE PARA MÓVILES
+   OCULTA: Chatbot flotante + Iframe verde
+   MUESTRA: Video flotante
 ============================================ */
 
 /* Responsive para móviles */
 @media (max-width: 768px) {
-    /* Botón del chatbot más pequeño */
-    #bot-btn {
-        width: 56px !important;
-        height: 56px !important;
-        bottom: 16px !important;
-        right: 16px !important;
-        font-size: 26px !important;
-    }
-    
-    /* Chatbot FULLSCREEN en móviles */
+    /* ===== OCULTAR CHATBOT FLOTANTE ORIGINAL EN MÓVILES ===== */
+    #bot-btn,
     #bot-box {
-        position: fixed !important;
-        bottom: 0 !important;
-        right: 0 !important;
-        left: 0 !important;
-        top: 0 !important;
-        width: 100vw !important;
-        max-width: 100vw !important;
-        height: 100vh !important;
-        max-height: 100vh !important;
-        border-radius: 0 !important;
-        margin: 0 !important;
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        opacity: 0 !important;
     }
     
-    /* Header sin border-radius en móvil */
-    #bot-box .h {
-        padding: 14px 16px !important;
-        border-radius: 0 !important;
+    /* ===== OCULTAR IFRAME VERDE (SELECTOR DE INDUSTRIAS) ===== */
+    div[data-testid="stVerticalBlock"]:has(iframe[height="1100"]),
+    div[data-testid="stVerticalBlockBorderWrapper"]:has(iframe[height="1100"]),
+    div[data-testid="element-container"]:has(iframe[height="1100"]),
+    div[data-testid="column"]:has(iframe[height="1100"]),
+    section[data-testid="stAppViewContainer"] div:has(> iframe[height="1100"]),
+    iframe[height="1100"] {
+        display: none !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+}
+
+/* ===== EN DESKTOP: Ocultar video, mostrar chatbot normal ===== */
+@media (min-width: 769px) {
+    #video-btn-mobile,
+    #video-container-mobile {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
     }
     
-    #bot-box .h h3 {
-        font-size: 16px !important;
+    /* Chatbot normal visible */
+    #bot-btn {
+        width: 64px !important;
+        height: 64px !important;
     }
     
-    /* Mensajes con menos padding */
-    #bot-box #msgs {
-        padding: 16px 12px !important;
-    }
-    
-    /* Avatares más pequeños */
-    #bot-box .m .a {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 20px !important;
-    }
-    
-    /* Mensajes con ancho ajustado */
-    #bot-box .m .b {
-        padding: 10px 14px !important;
-        font-size: 14px !important;
-        max-width: calc(100% - 48px) !important;
-    }
-    
-    /* Input más compacto */
-    #bot-box .inp {
-        padding: 12px !important;
-        gap: 8px !important;
-    }
-    
-    #bot-box .inp input {
-        padding: 10px 14px !important;
-        font-size: 15px !important;
-    }
-    
-    #bot-box .inp button {
-        width: 40px !important;
-        height: 40px !important;
-        font-size: 18px !important;
+    #bot-box {
+        width: 350px !important;
+        height: 450px !important;
     }
 }
 
 /* Para pantallas MUY pequeñas */
 @media (max-width: 400px) {
-    #bot-box .m .b {
-        font-size: 13px !important;
-        padding: 9px 12px !important;
-    }
-    
-    #bot-box .inp input {
-        font-size: 14px !important;
-        padding: 9px 12px !important;
+    #video-btn-mobile {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 24px !important;
     }
 }
 
