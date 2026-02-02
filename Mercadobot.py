@@ -5402,6 +5402,18 @@ else:
         margin: 0 auto;
     }
 
+
+    .mobile-demo-title {
+        font-family: 'Inter', sans-serif;
+        font-weight: 800;
+        font-size: 18px;
+        line-height: 1.2;
+        color: #111;
+        background: #ffffff;
+        padding: 18px 16px 12px;
+        text-align: center;
+    }
+
     @media (max-width: 768px) {
         /* En celular: ocultar demo desktop y mostrar SOLO el video (sin fondo ni padding) */
         #demo-conversaciones-desktop { display: none !important; }
@@ -5410,7 +5422,7 @@ else:
         #demo-conversaciones-section {
             padding: 0 !important;
             margin: 0 !important;
-            background: transparent !important;
+            background: #ffffff !important;
         }
         #demo-conversaciones-section > div {
             max-width: 100% !important;
@@ -5456,6 +5468,7 @@ else:
             </div>
 
             <div id="demo-conversaciones-mobile" style="text-align:center;">
+    <div class="mobile-demo-title">Demo WhatsApp — Mirá cómo contestan nuestros asistentes</div>
     <video class="mobile-demo-video" autoplay loop muted playsinline preload="auto">
         <source src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/mercadobot_whatsapp_demo-19.mp4" type="video/mp4">
         Tu navegador no soporta video HTML5.
