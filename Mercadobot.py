@@ -5868,12 +5868,25 @@ else:
             </div>
             
             <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                <!-- Demo para Desktop (iframe) -->
                 <iframe 
                     src="https://gvelazcamp.github.io/Mercadobot/mercadobot-demo.html" 
                     style="width: 100%; height: 850px; border: none; border-radius: 15px; display: block;"
+                    class="demo-desktop"
                     frameborder="0"
                     allowfullscreen>
                 </iframe>
+                
+                <!-- Demo para Móvil (video) -->
+                <video 
+                    class="demo-mobile"
+                    style="width: 100%; height: auto; border-radius: 15px; display: none;"
+                    controls
+                    playsinline
+                    poster="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/mercadobot_whatsapp_demo-19.mp4">
+                    <source src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/mercadobot_whatsapp_demo-19.mp4" type="video/mp4">
+                    Tu navegador no soporta videos HTML5.
+                </video>
             </div>
             
             <div style="text-align: center; margin-top: 30px;">
@@ -5899,30 +5912,41 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
 
 /* ELIMINAR TODO EL ESPACIO del demo en móviles */
 @media (max-width: 768px) {
+    /* Ocultar iframe de demo en móviles */
+    .demo-desktop {
+        display: none !important;
+    }
+    
+    /* Mostrar video en móviles */
+    .demo-mobile {
+        display: block !important;
+    }
+    
     /* Todos los contenedores posibles del iframe */
     div[data-testid="stVerticalBlock"]:has(iframe[height="1100"]),
     div[data-testid="stVerticalBlockBorderWrapper"]:has(iframe[height="1100"]),
     div[data-testid="element-container"]:has(iframe[height="1100"]),
     div[data-testid="column"]:has(iframe[height="1100"]),
     section[data-testid="stAppViewContainer"] div:has(> iframe[height="1100"]) {
-        display: none !important;
-        height: 0 !important;
-        min-height: 0 !important;
-        max-height: 0 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-        visibility: hidden !important;
-        position: absolute !important;
-        top: -9999px !important;
+        display: block !important;
+        height: auto !important;
     }
     
     /* El iframe directamente */
     iframe[height="1100"] {
+        display: block !important;
+        height: auto !important;
+    }
+}
+
+/* Mostrar iframe en desktop, ocultar video */
+@media (min-width: 769px) {
+    .demo-desktop {
+        display: block !important;
+    }
+    
+    .demo-mobile {
         display: none !important;
-        height: 0 !important;
-        min-height: 0 !important;
-        visibility: hidden !important;
     }
 }
 </style>
