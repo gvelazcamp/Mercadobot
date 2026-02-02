@@ -5389,13 +5389,30 @@ else:
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; }
     
+    /* Swap: desktop vs mobile */
+    #demo-conversaciones-mobile { display: none; }
+    #demo-conversaciones-desktop { display: block; }
+
+    .mobile-demo-video {
+        width: 100%;
+        height: 900px;
+        border-radius: 16px;
+        background: #000;
+        object-fit: cover;
+        display: block;
+    }
+
     @media (max-width: 768px) {
-        #demo-conversaciones-section { display: none !important; }
+        #demo-conversaciones-section { padding: 35px 4% !important; }
+        #demo-conversaciones-desktop { display: none !important; }
+        #demo-conversaciones-mobile { display: block !important; }
+        .mobile-demo-video { height: 860px; }
     }
 </style>
     
     <div id="demo-conversaciones-section" style="width: 100%; background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%); padding: 80px 5%; margin: 0;">
         <div style="max-width: 1200px; margin: 0 auto;">
+            <div id="demo-conversaciones-desktop">
             <div style="text-align: center; margin-bottom: 50px;">
                 <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 15px; color: #1a1a1a; font-family: 'Inter', sans-serif;">
                     ¿Cómo responden nuestros asistentes?
@@ -5419,6 +5436,33 @@ else:
                     ⚡ Demo interactiva - Seleccioná una industria y mirá cómo responde el asistente
                 </p>
             </div>
+
+            </div>
+
+            <div id="demo-conversaciones-mobile">
+                <div style="text-align: center; margin-bottom: 22px;">
+                    <h2 style="font-size: 26px; font-weight: 800; margin-bottom: 10px; color: #1a1a1a; font-family: 'Inter', sans-serif;">
+                        Demo WhatsApp
+                    </h2>
+                    <p style="font-size: 15px; color: #666; font-family: 'Inter', sans-serif;">
+                        Mirá cómo responde el asistente en una conversación real.
+                    </p>
+                </div>
+
+                <div style="background: white; border-radius: 20px; padding: 14px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); max-width: 420px; margin: 0 auto;">
+                    <video class="mobile-demo-video" controls muted playsinline preload="metadata">
+                        <source src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/mercadobot_whatsapp_demo-19.mp4" type="video/mp4">
+                        Tu navegador no soporta video HTML5.
+                    </video>
+                </div>
+
+                <div style="text-align: center; margin-top: 22px;">
+                    <p style="font-size: 14px; color: #666; font-family: 'Inter', sans-serif;">
+                        ⚡ Video demo - WhatsApp
+                    </p>
+                </div>
+            </div>
+
         </div>
     </div>
     """, height=1100, scrolling=False)
