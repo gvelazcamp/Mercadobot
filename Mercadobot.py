@@ -5933,6 +5933,7 @@ components.html(FOOTER_SIMPLE, height=150)
 
 # ==============================================================
 # VIDEO FLOTANTE PARA MÓVILES (reemplaza chatbot en celulares)
+# DETECCIÓN POR JAVASCRIPT - MÁS CONFIABLE
 # ==============================================================
 VIDEO_MOBILE_CHATBOT = """
 <!DOCTYPE html>
@@ -5943,7 +5944,7 @@ VIDEO_MOBILE_CHATBOT = """
 </head>
 <body style="margin:0;padding:0;overflow:visible;">
 <style>
-/* Botón del video móvil */
+/* Botón del video móvil - OCULTO por defecto, JS lo muestra en móvil */
 #video-btn-mobile {
     position: fixed;
     bottom: 20px;
@@ -5957,7 +5958,7 @@ VIDEO_MOBILE_CHATBOT = """
     box-shadow: 0 4px 15px rgba(244, 180, 0, 0.5);
     font-size: 26px;
     z-index: 999999;
-    display: none;
+    display: none; /* Por defecto oculto */
     transition: transform 0.3s;
 }
 
@@ -6015,23 +6016,6 @@ VIDEO_MOBILE_CHATBOT = """
 .video-close-btn:active {
     background: rgba(255, 255, 255, 0.8);
 }
-
-/* Solo mostrar en móviles */
-@media (max-width: 768px) {
-    #video-btn-mobile {
-        display: block !important;
-    }
-}
-
-/* Ocultar completamente en desktop */
-@media (min-width: 769px) {
-    #video-btn-mobile,
-    #video-container-mobile {
-        display: none !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-    }
-}
 </style>
 
 <!-- Botón flotante para móvil -->
@@ -6047,6 +6031,30 @@ VIDEO_MOBILE_CHATBOT = """
 </div>
 
 <script>
+// DETECCIÓN DE MÓVIL POR JAVASCRIPT
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+        || window.innerWidth <= 768;
+}
+
+// Si es móvil, mostrar botón de video y ocultar chatbot
+if (isMobile()) {
+    document.getElementById('video-btn-mobile').style.display = 'block';
+    
+    // Intentar ocultar el chatbot normal si existe
+    setTimeout(function() {
+        try {
+            const parentDoc = window.parent.document;
+            const botBtn = parentDoc.getElementById('bot-btn');
+            const botBox = parentDoc.getElementById('bot-box');
+            if (botBtn) botBtn.style.display = 'none';
+            if (botBox) botBox.style.display = 'none';
+        } catch(e) {
+            console.log('No se pudo acceder al chatbot principal');
+        }
+    }, 100);
+}
+
 function openVideoMobile() {
     const container = document.getElementById('video-container-mobile');
     container.classList.add('open');
@@ -6068,6 +6076,57 @@ document.addEventListener('keydown', function(e) {
         closeVideoMobile();
     }
 });
+
+// Mover botón al body principal si estamos en iframe
+try {
+    if (window.parent && window.parent.document && window.parent !== window) {
+        const parentDoc = window.parent.document;
+        const btn = document.getElementById('video-btn-mobile');
+        const container = document.getElementById('video-container-mobile');
+        
+        if (btn && container && parentDoc.body) {
+            const btnClone = btn.cloneNode(true);
+            const containerClone = container.cloneNode(true);
+            
+            parentDoc.body.appendChild(btnClone);
+            parentDoc.body.appendChild(containerClone);
+            
+            // Copiar estilos
+            const style = document.createElement('style');
+            style.textContent = document.querySelector('style').textContent;
+            parentDoc.head.appendChild(style);
+            
+            // Reconectar eventos
+            btnClone.onclick = function() {
+                containerClone.classList.add('open');
+                containerClone.querySelector('video').play();
+            };
+            
+            const closeBtn = containerClone.querySelector('.video-close-btn');
+            closeBtn.onclick = function() {
+                containerClone.classList.remove('open');
+                const vid = containerClone.querySelector('video');
+                vid.pause();
+                vid.currentTime = 0;
+            };
+            
+            containerClone.onclick = function(e) {
+                if (e.target === containerClone) {
+                    containerClone.classList.remove('open');
+                    const vid = containerClone.querySelector('video');
+                    vid.pause();
+                    vid.currentTime = 0;
+                }
+            };
+            
+            // Ocultar originales
+            btn.style.display = 'none';
+            container.style.display = 'none';
+        }
+    }
+} catch(e) {
+    console.log('Teleport failed:', e);
+}
 </script>
 
 </body>
@@ -6694,22 +6753,27 @@ st.markdown("""
 
 /* ============================================
    CSS RESPONSIVE PARA MÓVILES
-   OCULTA: Chatbot flotante + Iframe verde
-   MUESTRA: Video flotante
+   OCULTA: Chatbot original + Iframe verde
 ============================================ */
 
 /* Responsive para móviles */
 @media (max-width: 768px) {
-    /* ===== OCULTAR CHATBOT FLOTANTE ORIGINAL EN MÓVILES ===== */
-    #bot-btn,
+    /* ===== OCULTAR CHATBOT FLOTANTE ORIGINAL ===== */
+    #bot-btn {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+    
     #bot-box {
         display: none !important;
         visibility: hidden !important;
-        pointer-events: none !important;
         opacity: 0 !important;
+        pointer-events: none !important;
     }
     
-    /* ===== OCULTAR IFRAME VERDE (SELECTOR DE INDUSTRIAS) ===== */
+    /* ===== OCULTAR IFRAME VERDE (demos de industrias) ===== */
     div[data-testid="stVerticalBlock"]:has(iframe[height="1100"]),
     div[data-testid="stVerticalBlockBorderWrapper"]:has(iframe[height="1100"]),
     div[data-testid="element-container"]:has(iframe[height="1100"]),
@@ -6723,36 +6787,6 @@ st.markdown("""
         visibility: hidden !important;
         opacity: 0 !important;
         pointer-events: none !important;
-    }
-}
-
-/* ===== EN DESKTOP: Ocultar video, mostrar chatbot normal ===== */
-@media (min-width: 769px) {
-    #video-btn-mobile,
-    #video-container-mobile {
-        display: none !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-    }
-    
-    /* Chatbot normal visible */
-    #bot-btn {
-        width: 64px !important;
-        height: 64px !important;
-    }
-    
-    #bot-box {
-        width: 350px !important;
-        height: 450px !important;
-    }
-}
-
-/* Para pantallas MUY pequeñas */
-@media (max-width: 400px) {
-    #video-btn-mobile {
-        width: 50px !important;
-        height: 50px !important;
-        font-size: 24px !important;
     }
 }
 
