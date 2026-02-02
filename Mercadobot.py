@@ -131,7 +131,7 @@ body {
 }
 
 .logo-img {
-    height: 40px;
+    height: 150px;
     width: auto;
 }
 .logo span { color: #60a5fa; }
@@ -1587,7 +1587,7 @@ body {
 
 .chat-avatar {
     width: 40px;
-    height: 40px;
+    height: 150px;
     border-radius: 50%;
     background: white;
     display: flex;
@@ -2438,7 +2438,7 @@ HTML_DEMO_FUTBOL = f"""{HTML_BASE}
 
 .demo-header img {{
     width: 120px;
-    height: 120px;
+    height: 150px;
     object-fit: contain;
     margin-bottom: 20px;
 }}
@@ -2844,7 +2844,7 @@ HTML_DEMO_COCINA = f"""{HTML_BASE}
 
 .demo-header img {{
     width: 120px;
-    height: 120px;
+    height: 150px;
     object-fit: contain;
     margin-bottom: 20px;
 }}
@@ -3229,7 +3229,7 @@ HTML_DEMO_ECOMMERCE = f"""{HTML_BASE}
 
 .demo-header img {{
     width: 120px;
-    height: 120px;
+    height: 150px;
     object-fit: contain;
     margin-bottom: 20px;
 }}
@@ -3682,7 +3682,7 @@ HTML_DEMO_FINANZAS = f"""{HTML_BASE}
 
 .demo-header img {{
     width: 120px;
-    height: 120px;
+    height: 150px;
     object-fit: contain;
     margin-bottom: 20px;
 }}
@@ -4223,7 +4223,7 @@ HTML_DEMO_ROPA = f"""{HTML_BASE}
 
 .demo-header img {{
     width: 120px;
-    height: 120px;
+    height: 150px;
     object-fit: contain;
     margin-bottom: 20px;
 }}
@@ -4572,7 +4572,7 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
 
 .demo-header img {{
     width: 120px;
-    height: 120px;
+    height: 150px;
     object-fit: contain;
     margin-bottom: 20px;
 }}
@@ -4912,7 +4912,7 @@ HTML_DEMO_VIAJES = f"""{HTML_BASE}
 
 .demo-header img {{
     width: 120px;
-    height: 120px;
+    height: 150px;
     object-fit: contain;
     margin-bottom: 20px;
 }}
