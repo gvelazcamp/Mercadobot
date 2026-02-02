@@ -1807,7 +1807,7 @@ body {
 HEADER = """
     <div class="header">
         <a class="logo" href="?vista=home">
-            <img src="${BASE_URL}LogoMercadobot.png" alt="MercadoBot" class="logo-img">
+            <img src="${BASE_URL}logomercadobot.png" alt="MercadoBot" class="logo-img">
         </a>
         <div class="nav">
             <a href="?vista=home">Inicio</a>
