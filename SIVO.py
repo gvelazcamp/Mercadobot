@@ -2212,44 +2212,74 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
 """
 
 # =========================
-# SIVOS (SLIDER) - COMPONENTS.HTML
-# (st.html sanitiza iframes/scripts; por eso este bloque va como component)
+# SLIDER SIVOs (HTML EMBEBIDO)
 # =========================
-SIVO_SLIDER_COMPONENT_HTML = """<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body { margin:0; padding:0; font-family: Inter, system-ui, -apple-system, sans-serif; background:#ffffff; }
-    .section { padding: 24px 5% 10px; max-width: 1100px; margin: 0 auto; text-align:center; }
-    h2 { font-size: 48px; font-weight: 900; color: #0B1C2C; margin: 0 0 6px; }
-    .subtitle { font-size: 16px; color: #506174; margin: 0 0 18px; }
-    .frame-wrap { border-radius: 18px; overflow: hidden; border: 1px solid #eef2f7; box-shadow: 0 12px 30px rgba(0,0,0,0.07); background:#ffffff; }
-    iframe { width:100%; height: 1400px; border:0; display:block; background:#ffffff; }
-  </style>
-</head>
-<body>
-    <div class="frame-wrap">
+SIVO_SLIDER_COMPONENT_HTML = """
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+      body { margin:0; background: transparent; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+      .sivo-slider-wrap{
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 24px 20px;
+      }
+      .sivo-slider-title{
+        text-align: center;
+        font-size: 44px;
+        font-weight: 800;
+        margin: 0 0 10px 0;
+        color: #0b1320;
+      }
+      .sivo-slider-subtitle{
+        text-align: center;
+        font-size: 15px;
+        color: #64748b;
+        margin: 0 0 22px 0;
+      }
+      .sivo-slider-frame{
+        width: 100%;
+        height: 880px; /* PC: reduce espacio */
+        border: 0;
+        border-radius: 18px;
+        overflow: hidden;
+        background: transparent;
+        display: block;
+        box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+      }
+
+      @media (max-width: 900px){
+        .sivo-slider-wrap{ padding: 26px 14px 10px; }
+        .sivo-slider-title{ font-size: 34px; }
+        .sivo-slider-frame{ height: 980px; } /* mobile: un poco más alto */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sivo-slider-wrap">
+      <h2 class="sivo-slider-title">Ejemplos reales de SIVOs</h2>
+      <p class="sivo-slider-subtitle">Deslizá para ver cómo se ven en producción.</p>
+
       <iframe
+        class="sivo-slider-frame"
         src="https://gvelazcamp.github.io/SIVO/slider_sivos_imagenes_reales.html"
-        title="SIVOs reales"
         loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allow="fullscreen"
       ></iframe>
     </div>
-  </div>
-</body>
+  </body>
 </html>
 """
-
 
 # =========================
 # ASISTENTES
 # =========================
-HTML_ASISTENTES = f"""
-
-
-{HTML_BASE}
+HTML_ASISTENTES = f"""{HTML_BASE}
 {HEADER}
 
     <div class="section">
@@ -5582,9 +5612,14 @@ else:
         })();
         </script>
         """, height=640, scrolling=False)
-    components.html(SIVO_SLIDER_COMPONENT_HTML, height=1500, scrolling=False)
-    st.html(HTML_HOME_PARTE_2)
-
+    _home_partes = HTML_HOME_PARTE_2.split("<!-- INTEGRACIONES -->", 1)
+    if len(_home_partes) == 2:
+        st.html(_home_partes[0])
+        # Slider de SIVOs (debajo de testimonios, antes de Integraciones)
+        components.html(SIVO_SLIDER_COMPONENT_HTML, height=1120, scrolling=False)
+        st.html("<!-- INTEGRACIONES -->" + _home_partes[1])
+    else:
+        st.html(HTML_HOME_PARTE_2)
 # CSS para overflow visible
 st.markdown("""
 <style>
@@ -6218,5 +6253,4 @@ iframe[height="0"] * {
 """, unsafe_allow_html=True)
 
 components.html(CHATBOT, height=0)
-
 
