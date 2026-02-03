@@ -1873,8 +1873,8 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
         <div class="hero-content">
             <h1>Tu negocio atendido<br>por un <span style="color:#1e40af;">chatbot IA</span></h1>
             <p>
-                Instalamos un asistente virtual que responde a tus clientes 24/7, con tus reglas y tus datos.
-                Elegí un rubro (stock, ecommerce, turnos, viajes) y lo dejamos funcionando.
+                SIVO es un asistente polifuncional con IA que se adapta a distintos rubros de industrias, desde ecommerce y finanzas hasta turnos médicos y viajes. Responde a tus clientes 24/7 con tus reglas y tus datos.
+                Elegí uno de los tantos rubros donde SIVO se desempeña y lo dejamos funcionando.
             </p>
 
             <div class="trust-row" style="margin-top: 30px;">
