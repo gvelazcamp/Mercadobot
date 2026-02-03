@@ -2226,7 +2226,7 @@ SIVO_SLIDER_COMPONENT_HTML = """
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 40px 24px 20px;
+        padding: 12px 24px 12px;
       }
       .sivo-slider-title{
         text-align: center;
@@ -2243,7 +2243,7 @@ SIVO_SLIDER_COMPONENT_HTML = """
       }
       .sivo-slider-frame{
         width: 100%;
-        height: 880px; /* PC: reduce espacio */
+        height: 1120px; /* PC: reduce espacio */
         border: 0;
         border-radius: 18px;
         overflow: hidden;
@@ -2255,22 +2255,19 @@ SIVO_SLIDER_COMPONENT_HTML = """
       @media (max-width: 900px){
         .sivo-slider-wrap{ padding: 26px 14px 10px; }
         .sivo-slider-title{ font-size: 34px; }
-        .sivo-slider-frame{ height: 980px; } /* mobile: un poco más alto */
+        .sivo-slider-frame{ height: 1120px; } /* mobile: un poco más alto */
       }
     </style>
   </head>
   <body>
     <div class="sivo-slider-wrap">
-      <h2 class="sivo-slider-title">Ejemplos reales de SIVOs</h2>
-      <p class="sivo-slider-subtitle">Deslizá para ver cómo se ven en producción.</p>
-
-      <iframe
+<iframe
         class="sivo-slider-frame"
         src="https://gvelazcamp.github.io/SIVO/slider_sivos_imagenes_reales.html"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         allow="fullscreen"
-      ></iframe>
+       scrolling="no"></iframe>
     </div>
   </body>
 </html>
@@ -5616,7 +5613,7 @@ else:
     if len(_home_partes) == 2:
         st.html(_home_partes[0])
         # Slider de SIVOs (debajo de testimonios, antes de Integraciones)
-        components.html(SIVO_SLIDER_COMPONENT_HTML, height=1120, scrolling=False)
+        components.html(SIVO_SLIDER_COMPONENT_HTML, height=1160, scrolling=False)
         st.html("<!-- INTEGRACIONES -->" + _home_partes[1])
     else:
         st.html(HTML_HOME_PARTE_2)
