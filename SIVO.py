@@ -2325,6 +2325,125 @@ SIVO_SLIDER_COMPONENT_HTML_MOBILE = """<!DOCTYPE html>
 """
 
 # =========================
+# SIVO SLIDER RESPONSIVE (SOLUCIÓN MEJORADA)
+# =========================
+# Este slider se adapta automáticamente usando CSS Media Queries
+# No necesita recarga de página ni parámetros URL
+SIVO_SLIDER_COMPONENT_RESPONSIVE = """<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      margin:0; 
+      padding:0; 
+      font-family: Inter, system-ui, -apple-system, sans-serif; 
+      background:#ffffff; 
+      overflow-x: hidden;
+    }
+    
+    /* Contenedor principal */
+    .slider-container { 
+      padding: 10px 0; 
+      background:#ffffff; 
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    /* IFRAME PC - visible por defecto */
+    .slider-pc {
+      width: 100%; 
+      height: 980px; 
+      border: 0; 
+      display: block; 
+      background: #ffffff;
+    }
+    
+    /* IFRAME MOBILE - oculto por defecto */
+    .slider-mobile {
+      width: 100%; 
+      height: 560px; 
+      border: 0; 
+      display: none; 
+      background: #ffffff;
+    }
+    
+    /* MEDIA QUERY: En móviles (<=900px), ocultar PC y mostrar MOBILE */
+    @media (max-width: 900px) {
+      .slider-container {
+        padding: 6px 0;
+      }
+      
+      .slider-pc {
+        display: none !important;
+      }
+      
+      .slider-mobile {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="slider-container">
+    <!-- Slider PC - se muestra en pantallas grandes -->
+    <iframe
+      class="slider-pc"
+      src="https://gvelazcamp.github.io/SIVO/slider_sivos_imagenes_reales_pc.html"
+      title="SIVOs - PC"
+      loading="lazy"
+      scrolling="no"
+    ></iframe>
+    
+    <!-- Slider MOBILE - se muestra en pantallas pequeñas -->
+    <iframe
+      class="slider-mobile"
+      src="https://gvelazcamp.github.io/SIVO/slider_sivos_imagenes_reales_mobile.html"
+      title="SIVOs - Mobile"
+      loading="lazy"
+      scrolling="no"
+    ></iframe>
+  </div>
+  
+  <script>
+    // Ajustar altura dinámicamente según el iframe visible
+    function adjustHeight() {
+      const isMobile = window.innerWidth <= 900;
+      const container = document.querySelector('.slider-container');
+      const body = document.body;
+      
+      if (isMobile) {
+        body.style.height = '576px';
+      } else {
+        body.style.height = '1000px';
+      }
+      
+      // Notificar a Streamlit del cambio de altura
+      try {
+        window.parent.postMessage({
+          type: 'streamlit:setFrameHeight',
+          height: isMobile ? 576 : 1000
+        }, '*');
+      } catch(e) {}
+    }
+    
+    // Ajustar al cargar
+    adjustHeight();
+    
+    // Ajustar al cambiar tamaño de ventana
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(adjustHeight, 100);
+    });
+  </script>
+</body>
+</html>
+"""
+
+# =========================
 # ASISTENTES
 # =========================
 HTML_ASISTENTES = f"""{HTML_BASE}
@@ -5693,10 +5812,8 @@ else:
 
         _is_mobile = (str(_m) == "1")
 
-        if _is_mobile:
-            components.html(SIVO_SLIDER_COMPONENT_HTML_MOBILE, height=620, scrolling=False)
-        else:
-            components.html(SIVO_SLIDER_COMPONENT_HTML_PC, height=1020, scrolling=False)
+        # SOLUCIÓN MEJORADA: Usar slider responsive que se adapta automáticamente
+        components.html(SIVO_SLIDER_COMPONENT_RESPONSIVE, height=1020, scrolling=False)
 
         st.html("<!-- INTEGRACIONES -->" + _home_partes[1])
     else:
@@ -6334,4 +6451,3 @@ iframe[height="0"] * {
 """, unsafe_allow_html=True)
 
 components.html(CHATBOT, height=0)
-
