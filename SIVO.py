@@ -2358,7 +2358,7 @@ SIVO_SLIDER_COMPONENT_RESPONSIVE = """<!DOCTYPE html>
     /* IFRAME PC - visible por defecto */
     .slider-pc {
       width: 100%; 
-      height: 900px; 
+      height: 760px; 
       border: 0; 
       display: block; 
       background: #ffffff;
@@ -2367,7 +2367,7 @@ SIVO_SLIDER_COMPONENT_RESPONSIVE = """<!DOCTYPE html>
     /* IFRAME MOBILE - oculto por defecto */
     .slider-mobile {
       width: 100%; 
-      height: 520px; 
+      height: 420px; 
       border: 0; 
       display: none; 
       background: #ffffff;
@@ -2411,35 +2411,42 @@ SIVO_SLIDER_COMPONENT_RESPONSIVE = """<!DOCTYPE html>
   </div>
   
   <script>
-    // Ajustar altura dinámicamente según el iframe visible
+    // Ajustar altura dinámicamente según el iframe visible (para evitar huecos)
     function adjustHeight() {
       const isMobile = window.innerWidth <= 900;
-      const container = document.querySelector('.slider-container');
-      const body = document.body;
-      
-      if (isMobile) {
-        body.style.height = '540px';
-      } else {
-        body.style.height = '920px';
+      const el = document.querySelector(isMobile ? '.slider-mobile' : '.slider-pc');
+      let h = 0;
+
+      try {
+        if (el) {
+          h = el.getBoundingClientRect().height;
+        }
+      } catch (e) {}
+
+      if (!h) {
+        h = isMobile ? 420 : 760;
       }
-      
+
+      h = Math.ceil(h);
+
       // Notificar a Streamlit del cambio de altura
       try {
-        window.parent.postMessage({
-          type: 'streamlit:setFrameHeight',
-          height: isMobile ? 540 : 920
-        }, '*');
-      } catch(e) {}
+        window.parent.postMessage(
+          { isStreamlitMessage: true, type: 'streamlit:setFrameHeight', height: h },
+          '*'
+        );
+      } catch (e) {}
     }
-    
+
     // Ajustar al cargar
+    try { window.addEventListener('load', adjustHeight); } catch (e) {}
     adjustHeight();
-    
+
     // Ajustar al cambiar tamaño de ventana
     let resizeTimer;
     window.addEventListener('resize', function() {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(adjustHeight, 100);
+      resizeTimer = setTimeout(adjustHeight, 120);
     });
   </script>
 </body>
@@ -5816,7 +5823,7 @@ else:
         _is_mobile = (str(_m) == "1")
 
         # SOLUCIÓN MEJORADA: Usar slider responsive que se adapta automáticamente
-        components.html(SIVO_SLIDER_COMPONENT_RESPONSIVE, height=(560 if _is_mobile else 940), scrolling=False)
+        components.html(SIVO_SLIDER_COMPONENT_RESPONSIVE, height=(440 if _is_mobile else 780), scrolling=False)
 
         st.html("<!-- INTEGRACIONES -->" + _home_partes[1])
     else:
