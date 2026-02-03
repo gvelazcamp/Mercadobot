@@ -1959,7 +1959,7 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
     <div class="section">
 
     <!-- CARRUSEL DE SIVOS -->
-    <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 60px 5%; margin: 60px 0; border-radius: 20px;">
+    <div class="section" style="background: linear-gradient(135deg, #667eea 0%%, #764ba2 100%%); padding: 60px 5%%; margin: 60px 0; border-radius: 20px;">
         <h2 style="color: white; text-align: center; margin-bottom: 15px;">Mirá nuestros SIVOs IA</h2>
         <p style="color: rgba(255,255,255,0.9); text-align: center; font-size: 18px; margin-bottom: 40px;">Asistentes especializados para cada industria</p>
         
@@ -2020,7 +2020,7 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
 
     <style>
     .carousel-container {
-        max-width: 100%;
+        max-width: 100%%;
         margin: 0 auto;
     }
     
@@ -2061,11 +2061,11 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
     }
     
     @keyframes scroll {
-        0% {
+        0%% {
             transform: translateX(0);
         }
-        100% {
-            transform: translateX(-50%);
+        100%% {
+            transform: translateX(-50%%);
         }
     }
     
