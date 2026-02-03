@@ -1809,7 +1809,7 @@ body {
 HEADER = """
     <div class="header">
         <a class="logo" href="?vista=home">
-            <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/LogoMercadobot.png" alt="Sivo" class="logo-img">
+            <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/LogoMercadobot.png" alt="Sivo" class="logo-img">
             <span style="font-size: 28px; font-weight: 700; color: #1e3a8a; margin-left: 12px;">Sivo</span>
         </a>
         <div class="nav">
@@ -1963,28 +1963,28 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
         <div class="cards">
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedetiendaderopa.png" alt="Tienda de Ropa">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentedetiendaderopa.png" alt="Tienda de Ropa">
                 <h3>Asistente de Tienda de Ropa</h3>
                 <p>Consultas sobre productos, talles y envíos.</p>
                 <a href="https://demoropa.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteecommerce.png" alt="Ecommerce">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistenteecommerce.png" alt="Ecommerce">
                 <h3>Asistente de Ecommerce</h3>
                 <p>Respuestas automáticas sobre productos y pedidos.</p>
                 <a href="https://demoecommerce.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedepeluqueria.png" alt="Peluquería">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentedepeluqueria.png" alt="Peluquería">
                 <h3>Asistente de Peluquería</h3>
                 <p>Turnos, servicios y precios de salón.</p>
                 <a href="https://demopelu.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedeviaje.png" alt="Viajes">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentedeviaje.png" alt="Viajes">
                 <h3>Asistente de Viajes</h3>
                 <p>Paquetes turísticos, vuelos y hoteles.</p>
                 <a href="https://demo-viajes.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
@@ -2148,7 +2148,7 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
         
         <div class="sivo-card-clean">
             <div class="sivo-image-side">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentetelefonico.png" alt="SIVO Asistente Telefónico" class="sivo-img">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentetelefonico.png" alt="SIVO Asistente Telefónico" class="sivo-img">
             </div>
             
             <div class="sivo-content-side">
@@ -2224,49 +2224,49 @@ HTML_ASISTENTES = f"""{HTML_BASE}
         <div class="cards">
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentecocina.png" alt="Cocina">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentecocina.png" alt="Cocina">
                 <h3>Asistente de Cocina</h3>
                 <p>Recetas, consejos y conversiones.</p>
                 <a href="https://demorestaurante.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteecommerce.png" alt="Ecommerce">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistenteecommerce.png" alt="Ecommerce">
                 <h3>Asistente de Ecommerce</h3>
                 <p>Soporte para productos y pedidos.</p>
                 <a href="https://demoecommerce.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentefinanzas.png" alt="Finanzas">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentefinanzas.png" alt="Finanzas">
                 <h3>Asistente de Finanzas</h3>
                 <p>Cotizaciones y análisis financiero.</p>
                 <a href="?vista=demo&asistente=finanzas" style="text-decoration: none;"><button>Ver Asistente</button></a>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentestock.png" alt="Stock">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentestock.png" alt="Stock">
                 <h3>Asistente de Stock</h3>
                 <p>Control de inventario y alertas.</p>
                 <a href="https://demostockuy.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteinmobiliaria.png" alt="Inmobiliaria">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistenteinmobiliaria.png" alt="Inmobiliaria">
                 <h3>Asistente Inmobiliario</h3>
                 <p>Consultas de propiedades y agendado.</p>
                 <button>Ver asistente</button>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteagendas.png" alt="Agenda">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistenteagendas.png" alt="Agenda">
                 <h3>Asistente de Turnos</h3>
                 <p>Reserva de turnos y recordatorios.</p>
                 <a href="https://demoturnos.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedental.png" alt="Dental">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentedental.png" alt="Dental">
                 <h3>Asistente Dental</h3>
                 <p>Turnos y precios orientativos.</p>
                 <button>Ver asistente</button>
@@ -2274,28 +2274,28 @@ HTML_ASISTENTES = f"""{HTML_BASE}
 
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedetiendaderopa.png" alt="Tienda de Ropa">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentedetiendaderopa.png" alt="Tienda de Ropa">
                 <h3>Asistente de Tienda de Ropa</h3>
                 <p>Consultas sobre productos, talles y envíos.</p>
                 <a href="https://demoropa.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedepeluqueria.png" alt="Peluquería">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentedepeluqueria.png" alt="Peluquería">
                 <h3>Asistente de Peluquería</h3>
                 <p>Turnos, servicios y precios de salón.</p>
                 <a href="https://demopelu.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedeviaje.png" alt="Viajes">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentedeviaje.png" alt="Viajes">
                 <h3>Asistente de Viajes</h3>
                 <p>Paquetes turísticos, vuelos y hoteles.</p>
                 <a href="https://demo-viajes.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
             </div>
 
             <div class="card">
-                <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentetelefonico.png" alt="Telefónico">
+                <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentetelefonico.png" alt="Telefónico">
                 <h3>Asistente Telefónico</h3>
                 <p>Atiende llamadas reales con IA conversacional.</p>
                 <a href="https://demotelefonico.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar ahora</button></a>
@@ -2545,7 +2545,7 @@ HTML_DEMO_FUTBOL = f"""{HTML_BASE}
 
 <div class="demo-container">
     <div class="demo-header">
-        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentefutbol.png" alt="Fútbol">
+        <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentefutbol.png" alt="Fútbol">
         <h1>Asistente de Fútbol</h1>
         <p>Demo interactivo con 20 conversaciones de ejemplo</p>
     </div>
@@ -2951,7 +2951,7 @@ HTML_DEMO_COCINA = f"""{HTML_BASE}
 
 <div class="demo-container">
     <div class="demo-header">
-        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentecocina.png" alt="Cocina">
+        <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentecocina.png" alt="Cocina">
         <h1>Asistente de Cocina</h1>
         <p>Demo interactivo - Restaurante</p>
     </div>
@@ -3336,7 +3336,7 @@ HTML_DEMO_ECOMMERCE = f"""{HTML_BASE}
 
 <div class="demo-container">
     <div class="demo-header">
-        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistenteecommerce.png" alt="Ecommerce">
+        <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistenteecommerce.png" alt="Ecommerce">
         <h1>Asistente de Ecommerce</h1>
         <p>Demo interactivo - Tienda Online</p>
     </div>
@@ -3789,7 +3789,7 @@ HTML_DEMO_FINANZAS = f"""{HTML_BASE}
 
 <div class="demo-container">
     <div class="demo-header">
-        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentefinanzas.png" alt="Finanzas">
+        <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentefinanzas.png" alt="Finanzas">
         <h1>Asistente de Finanzas</h1>
         <p>Demo interactivo - Asesoramiento Financiero</p>
     </div>
@@ -4330,7 +4330,7 @@ HTML_DEMO_ROPA = f"""{HTML_BASE}
 
 <div class="demo-container">
     <div class="demo-header">
-        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedetiendaderopa.png" alt="Tienda de Ropa">
+        <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentedetiendaderopa.png" alt="Tienda de Ropa">
         <h1>Asistente de Tienda de Ropa</h1>
         <p>Demo interactivo - Tienda Online</p>
     </div>
@@ -4679,7 +4679,7 @@ HTML_DEMO_PELUQUERIA = f"""{HTML_BASE}
 
 <div class="demo-container">
     <div class="demo-header">
-        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedepeluqueria.png" alt="Peluquería">
+        <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentedepeluqueria.png" alt="Peluquería">
         <h1>Asistente de Peluquería</h1>
         <p>Demo interactivo - Salón de Belleza</p>
     </div>
@@ -5019,7 +5019,7 @@ HTML_DEMO_VIAJES = f"""{HTML_BASE}
 
 <div class="demo-container">
     <div class="demo-header">
-        <img src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/Asistentedeviaje.png" alt="Viajes">
+        <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/Asistentedeviaje.png" alt="Viajes">
         <h1>Asistente de Viajes</h1>
         <p>Demo interactivo - Agencia de Turismo</p>
     </div>
@@ -5403,7 +5403,7 @@ else:
             
             <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
                 <iframe 
-                    src="https://gvelazcamp.github.io/Mercadobot/mercadobot-demo.html" 
+                    src="https://gvelazcamp.github.io/SIVO/mercadobot-demo.html" 
                     style="width: 100%; height: 850px; border: none; border-radius: 15px; display: block;"
                     frameborder="0"
                     allowfullscreen>
@@ -5473,8 +5473,8 @@ else:
                         preload="auto"
                         style="width: 100%; height: auto; display: block; border-radius: 22px; background: transparent;"
                     >
-                        <source src="https://gvelazcamp.github.io/Mercadobot/mercadobot_whatsapp_demo-19.mp4?v=1770062658" type="video/mp4">
-                        <source src="https://raw.githubusercontent.com/gvelazcamp/Mercadobot/main/mercadobot_whatsapp_demo-19.mp4?v=1770062658" type="video/mp4">
+                        <source src="https://gvelazcamp.github.io/SIVO/mercadobot_whatsapp_demo-19.mp4?v=1770062658" type="video/mp4">
+                        <source src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/mercadobot_whatsapp_demo-19.mp4?v=1770062658" type="video/mp4">
                     </video>
                 </div>
             </div>
