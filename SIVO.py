@@ -2230,10 +2230,6 @@ SIVO_SLIDER_COMPONENT_HTML = """<!DOCTYPE html>
   </style>
 </head>
 <body>
-  <div class="section" id="sivos-reales">
-    <h2>Ejemplos reales de SIVOs</h2>
-    <div class="subtitle">Deslizá para ver cómo se ven en producción.</div>
-
     <div class="frame-wrap">
       <iframe
         src="https://gvelazcamp.github.io/SIVO/slider_sivos_imagenes_reales.html"
@@ -6222,4 +6218,5 @@ iframe[height="0"] * {
 """, unsafe_allow_html=True)
 
 components.html(CHATBOT, height=0)
+
 
