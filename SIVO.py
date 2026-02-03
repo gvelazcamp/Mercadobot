@@ -1809,7 +1809,7 @@ body {
 HEADER = """
     <div class="header">
         <a class="logo" href="?vista=home">
-            <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/LogoSIVO.png" alt="SIVO" class="logo-img">
+            <img src="https://raw.githubusercontent.com/gvelazcamp/SIVO/main/LogoMercadobot.png" alt="SIVO" class="logo-img">
             <span style="font-size: 28px; font-weight: 700; color: #1e3a8a; margin-left: 12px;">SIVO</span>
         </a>
         <div class="nav">
