@@ -2212,6 +2212,42 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
 """
 
 # =========================
+# SIVOS (SLIDER) - COMPONENTS.HTML
+# (st.html sanitiza iframes/scripts; por eso este bloque va como component)
+# =========================
+SIVO_SLIDER_COMPONENT_HTML = """<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body { margin:0; padding:0; font-family: Inter, system-ui, -apple-system, sans-serif; background:#ffffff; }
+    .section { padding: 24px 5% 10px; max-width: 1100px; margin: 0 auto; text-align:center; }
+    h2 { font-size: 48px; font-weight: 900; color: #0B1C2C; margin: 0 0 6px; }
+    .subtitle { font-size: 16px; color: #506174; margin: 0 0 18px; }
+    .frame-wrap { border-radius: 18px; overflow: hidden; border: 1px solid #eef2f7; box-shadow: 0 12px 30px rgba(0,0,0,0.07); background:#ffffff; }
+    iframe { width:100%; height: 1400px; border:0; display:block; background:#ffffff; }
+  </style>
+</head>
+<body>
+  <div class="section" id="sivos-reales">
+    <h2>Ejemplos reales de SIVOs</h2>
+    <div class="subtitle">Deslizá para ver cómo se ven en producción.</div>
+
+    <div class="frame-wrap">
+      <iframe
+        src="https://gvelazcamp.github.io/SIVO/slider_sivos_imagenes_reales.html"
+        title="SIVOs reales"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+</body>
+</html>
+"""
+
+
+# =========================
 # ASISTENTES
 # =========================
 HTML_ASISTENTES = f"""
