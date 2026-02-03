@@ -2175,44 +2175,6 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
         </div>
     </div>
 
-
-
-    
-    <!-- SIVOS (SLIDER) -->
-    <div class="section" id="sivos-reales">
-        <h2>Ejemplos reales de SIVOs</h2>
-        <div class="subtitle">Deslizá para ver cómo se ven en producción.</div>
-
-        <div style="max-width:1100px; margin:0 auto;">
-            <iframe
-                id="sivo-slider-frame"
-                style="width:100%; height:1400px; border:0; border-radius:18px; overflow:hidden; background:#ffffff;"
-                loading="lazy"
-                title="SIVOs reales"
-            ></iframe>
-        </div>
-
-        <script>
-            (function () {{
-                var iframe = document.getElementById('sivo-slider-frame');
-                if (!iframe) return;
-
-                // Carga el HTML desde GitHub RAW y lo inyecta como srcdoc (evita bloqueos por iframe)
-                var url = 'https://raw.githubusercontent.com/gvelazcamp/SIVO/main/slider_sivos_imagenes_reales.html';
-
-                fetch(url, {{ cache: 'no-store' }})
-                    .then(function (r) {{ return r.text(); }})
-                    .then(function (html) {{
-                        iframe.srcdoc = html;
-                    }})
-                    .catch(function () {{
-                        iframe.srcdoc = '<div style="font-family:Inter,system-ui,sans-serif; padding:24px; color:#475569;">No se pudo cargar el slider de SIVOs. Verificá que el archivo exista y sea público en GitHub.</div>';
-                    }});
-            }})();
-        </script>
-    </div>
-
-    
     <!-- INTEGRACIONES -->
     <div class="integrations-section">
         <h2>Integraciones</h2>
@@ -2252,7 +2214,10 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
 # =========================
 # ASISTENTES
 # =========================
-HTML_ASISTENTES = f"""{HTML_BASE}
+HTML_ASISTENTES = f"""
+
+
+{HTML_BASE}
 {HEADER}
 
     <div class="section">
@@ -5585,7 +5550,7 @@ else:
         })();
         </script>
         """, height=640, scrolling=False)
-    
+    components.html(SIVO_SLIDER_COMPONENT_HTML, height=1500, scrolling=False)
     st.html(HTML_HOME_PARTE_2)
 
 # CSS para overflow visible
