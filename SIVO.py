@@ -196,7 +196,7 @@ body {
 ========================= */
 .hero-impact {
     background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    padding: 30px 5% 25px;
+    padding: 10px 5%;
     text-align: center;
     color: #1e3a8a;
     position: relative;
@@ -295,7 +295,7 @@ body {
 
 @media (max-width: 768px) {
     .hero-impact {
-        padding: 25px 5% 20px;
+        padding: 8px 5%;
     }
     
     .hero-impact-title {
@@ -323,8 +323,8 @@ body {
 .hero {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
-    gap: 20px;
-    padding: 25px 5%;
+    gap: 15px;
+    padding: 10px 5%;
     align-items: center;
     width: 100%;
 }
@@ -583,14 +583,14 @@ body {
     justify-content: center;
     gap: 30px;
     max-width: 1200px;
-    margin: 25px auto;
+    margin: 5px auto;
     flex-wrap: wrap;
 }
 
 .step-simple {
     background: #fff;
     border-radius: 24px;
-    padding: 30px 25px;
+    padding: 20px 15px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     flex: 1;
@@ -637,7 +637,7 @@ body {
    SECTION
 ========================= */
 .section {
-    padding: 15px 5% 25px;
+    padding: 5px 5%;
     width: 100%;
 }
 
@@ -651,7 +651,7 @@ body {
     text-align: center;
     font-size: 14px;
     color: #777;
-    margin: 0 0 30px 0;
+    margin: 0 0 10px 0;
 }
 
 /* =========================
@@ -816,7 +816,7 @@ body {
    TESTIMONIOS
 ========================= */
 .testimonios {
-    padding: 30px 5% 25px;
+    padding: 5px 5%;
     background: #fff;
 }
 
@@ -909,10 +909,10 @@ body {
    CTA FINAL
 ========================= */
 .cta {
-    margin: 25px 5% 15px;
+    margin: 5px 5%;
     background: linear-gradient(180deg, #eef2f7, #ffffff);
     border-radius: 40px;
-    padding: 30px;
+    padding: 20px;
     text-align: center;
     max-width: 1200px;
     margin-left: auto;
@@ -1010,7 +1010,7 @@ body {
    FAQ
 ========================= */
 .faq-section {
-    padding: 30px 5%;
+    padding: 5px 5%;
     background: #fff;
     max-width: 1200px;
     margin: 0 auto;
@@ -1052,7 +1052,7 @@ body {
    SIVO SECTION (LIMPIA)
 ========================= */
 .sivo-section {
-    padding: 35px 5%;
+    padding: 5px 5% 5px;
     background: white;
     text-align: center;
 }
@@ -1193,7 +1193,7 @@ body {
 
 @media (max-width: 600px) {
     .sivo-section {
-        padding: 30px 5%;
+        padding: 5px 5%;
     }
     
     .sivo-card-clean {
@@ -1232,7 +1232,7 @@ body {
    INTEGRACIONES
 ========================= */
 .integrations-section {
-    padding: 30px 5%;
+    padding: 5px 5%;
     background: linear-gradient(180deg, #ffffff, #fff);
     text-align: center;
 }
@@ -1245,7 +1245,7 @@ body {
 .integrations-subtitle {
     font-size: 16px;
     color: #666;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
 .integrations-grid {
@@ -1476,7 +1476,7 @@ body {
     }
 
     .section {
-        padding: 12px 4%;
+        padding: 5px 4%;
     }
 
     .section h2 {
@@ -2344,9 +2344,9 @@ SIVO_SLIDER_COMPONENT_RESPONSIVE = """<!DOCTYPE html>
       overflow-x: hidden;
     }
     
-    /* Contenedor principal */
+    /* Contenedor principal - SIN PADDING para que las secciones estén pegadas */
     .slider-container { 
-      padding: 10px 0; 
+      padding: 0; 
       background:#ffffff; 
       width: 100%;
       overflow: hidden;
@@ -2373,7 +2373,7 @@ SIVO_SLIDER_COMPONENT_RESPONSIVE = """<!DOCTYPE html>
     /* MEDIA QUERY: En móviles (<=900px), ocultar PC y mostrar MOBILE */
     @media (max-width: 900px) {
       .slider-container {
-        padding: 6px 0;
+        padding: 0;
       }
       
       .slider-pc {
