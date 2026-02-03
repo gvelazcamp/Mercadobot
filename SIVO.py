@@ -823,7 +823,7 @@ body {
 .testimonios h2 {
     font-size: 36px;
     text-align: center;
-    margin: 0 0 50px 0;
+    margin: 0 0 10px 0;
 }
 
 .testimonios-grid {
@@ -837,7 +837,7 @@ body {
 .testimonio-card {
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
     border-radius: 20px;
-    padding: 30px;
+    padding: 20px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.06);
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -927,7 +927,7 @@ body {
 .cta p {
     font-size: 14px;
     color: #666;
-    margin: 0 0 20px 0;
+    margin: 0 0 10px 0;
 }
 
 .cta-form {
@@ -1019,7 +1019,7 @@ body {
 .faq-section h2 {
     text-align: center;
     font-size: 36px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 
 .faq-grid {
@@ -1052,7 +1052,9 @@ body {
    SIVO SECTION (LIMPIA)
 ========================= */
 .sivo-section {
-    padding: 5px 5% 5px;
+    padding: 0 5%;
+    margin-top: 0;
+    margin-bottom: 0;
     background: white;
     text-align: center;
 }
@@ -1065,7 +1067,7 @@ body {
     border-radius: 30px;
     font-weight: 700;
     font-size: 18px;
-    margin-bottom: 35px;
+    margin-bottom: 10px;
     box-shadow: 0 4px 15px rgba(255, 107, 53, 0.25);
 }
 
@@ -1074,10 +1076,10 @@ body {
     margin: 0 auto;
     background: #fafbfc;
     border-radius: 24px;
-    padding: 50px;
+    padding: 30px;
     display: grid;
     grid-template-columns: 300px 1fr;
-    gap: 50px;
+    gap: 30px;
     align-items: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
@@ -1232,20 +1234,21 @@ body {
    INTEGRACIONES
 ========================= */
 .integrations-section {
-    padding: 5px 5%;
+    padding: 0 5%;
+    margin-top: -20px;
     background: linear-gradient(180deg, #ffffff, #fff);
     text-align: center;
 }
 
 .integrations-section h2 {
     font-size: 36px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .integrations-subtitle {
     font-size: 16px;
     color: #666;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .integrations-grid {
