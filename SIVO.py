@@ -2367,7 +2367,7 @@ SIVO_SLIDER_COMPONENT_RESPONSIVE = """<!DOCTYPE html>
     /* IFRAME MOBILE - oculto por defecto */
     .slider-mobile {
       width: 100%; 
-      height: 420px; 
+      height: 600px; 
       border: 0; 
       display: none; 
       background: #ffffff;
@@ -2418,13 +2418,25 @@ SIVO_SLIDER_COMPONENT_RESPONSIVE = """<!DOCTYPE html>
       let h = 0;
 
       try {
+        // 1) Altura declarada del iframe visible
         if (el) {
-          h = el.getBoundingClientRect().height;
+          h = el.getBoundingClientRect().height || 0;
         }
       } catch (e) {}
 
+      try {
+        // 2) Altura real del documento del componente (por si cambia CSS)
+        const dh = Math.max(
+          document.body ? document.body.scrollHeight : 0,
+          document.documentElement ? document.documentElement.scrollHeight : 0,
+          document.body ? document.body.offsetHeight : 0,
+          document.documentElement ? document.documentElement.offsetHeight : 0
+        );
+        if (dh && dh > h) h = dh;
+      } catch (e) {}
+
       if (!h) {
-        h = isMobile ? 420 : 760;
+        h = isMobile ? 600 : 760;
       }
 
       h = Math.ceil(h);
@@ -2441,6 +2453,9 @@ SIVO_SLIDER_COMPONENT_RESPONSIVE = """<!DOCTYPE html>
     // Ajustar al cargar
     try { window.addEventListener('load', adjustHeight); } catch (e) {}
     adjustHeight();
+    setTimeout(adjustHeight, 200);
+    setTimeout(adjustHeight, 800);
+    setTimeout(adjustHeight, 1500);
 
     // Ajustar al cambiar tamaño de ventana
     let resizeTimer;
@@ -5823,7 +5838,7 @@ else:
         _is_mobile = (str(_m) == "1")
 
         # SOLUCIÓN MEJORADA: Usar slider responsive que se adapta automáticamente
-        components.html(SIVO_SLIDER_COMPONENT_RESPONSIVE, height=(440 if _is_mobile else 780), scrolling=False)
+        components.html(SIVO_SLIDER_COMPONENT_RESPONSIVE, height=10, scrolling=False)
 
         st.html("<!-- INTEGRACIONES -->" + _home_partes[1])
     else:
