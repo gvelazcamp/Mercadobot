@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Phone, Zap, TrendingDown, BarChart3, Sparkles } from 'lucide-react';
 
 export default function SivoBenefits() {
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState(0);
   const [autoPaused, setAutoPaused] = useState(false);
 
   const benefits = [
     {
-      id: 1,
+      id: 0,
       icon: Phone,
       title: 'Atención 24/7',
       subtitle: 'Siempre disponible para tus clientes',
@@ -18,7 +18,7 @@ export default function SivoBenefits() {
       gradientColor: 'from-blue-500 to-cyan-500'
     },
     {
-      id: 2,
+      id: 1,
       icon: Zap,
       title: 'Automatización Inteligente',
       subtitle: 'Libera tiempo valioso',
@@ -29,7 +29,7 @@ export default function SivoBenefits() {
       gradientColor: 'from-purple-500 to-pink-500'
     },
     {
-      id: 3,
+      id: 2,
       icon: TrendingDown,
       title: 'Reduce Costos',
       subtitle: 'Hasta 70% de ahorro',
@@ -40,7 +40,7 @@ export default function SivoBenefits() {
       gradientColor: 'from-green-500 to-emerald-500'
     },
     {
-      id: 4,
+      id: 3,
       icon: BarChart3,
       title: 'Escalabilidad Instantánea',
       subtitle: 'Crece sin límites',
@@ -52,23 +52,16 @@ export default function SivoBenefits() {
     }
   ];
 
-  // Auto-hover (ciclo automático)
+  // Auto-hover mejorado - cicla automáticamente cada 2.5 segundos
   useEffect(() => {
     if (autoPaused) return;
 
-    const ids = benefits.map((b) => b.id);
-    if (!ids.length) return;
-
-    let i = 0;
-    setHoveredCard(ids[0]);
-
     const interval = setInterval(() => {
-      i = (i + 1) % ids.length;
-      setHoveredCard(ids[i]);
-    }, 1600);
+      setHoveredCard((prev) => (prev + 1) % benefits.length);
+    }, 2500); // 2500ms = 2.5 segundos por tarjeta
 
     return () => clearInterval(interval);
-  }, [autoPaused]);
+  }, [autoPaused, benefits.length]);
 
   return (
     <div id="sivo-benefits-root" className="bg-white py-16 px-4">
@@ -95,6 +88,7 @@ export default function SivoBenefits() {
                 <div
                   key={benefit.id}
                   data-benefit-card="true"
+                  data-card-id={benefit.id}
                   className="benefit-card relative flex-shrink-0 w-80 h-72 rounded-2xl overflow-hidden cursor-pointer snap-center"
                   onMouseEnter={() => {
                     setAutoPaused(true);
@@ -113,7 +107,7 @@ export default function SivoBenefits() {
                 >
                   {/* Front Card - Simple Design */}
                   <div
-                    className={`benefit-front absolute inset-0 ${benefit.bgColor} p-8 text-center transition-transform duration-500 ease-out ${
+                    className={`benefit-front absolute inset-0 ${benefit.bgColor} p-8 text-center transition-transform duration-700 ease-in-out ${
                       isHovered ? '-translate-x-full' : 'translate-x-0'
                     }`}
                   >
@@ -150,7 +144,7 @@ export default function SivoBenefits() {
 
                   {/* Back Card - Slides in from right */}
                   <div
-                    className={`benefit-back absolute inset-0 bg-gradient-to-br ${benefit.gradientColor} p-8 flex flex-col justify-center text-white transition-transform duration-500 ease-out ${
+                    className={`benefit-back absolute inset-0 bg-gradient-to-br ${benefit.gradientColor} p-8 flex flex-col justify-center text-white transition-transform duration-700 ease-in-out ${
                       isHovered ? 'translate-x-0' : 'translate-x-full'
                     }`}
                   >
@@ -174,25 +168,39 @@ export default function SivoBenefits() {
             })}
           </div>
 
-          {/* Scroll Indicators */}
+          {/* Scroll Indicators - Activos según el card actual */}
           <div className="flex justify-center gap-2 mt-6">
             {benefits.map((benefit) => (
               <div
                 key={benefit.id}
-                className="w-2 h-2 rounded-full bg-gray-300"
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  hoveredCard === benefit.id ? 'bg-blue-600 w-8' : 'bg-gray-300'
+                }`}
               />
             ))}
           </div>
         </div>
 
-        {/* CSS: ocultar scrollbar + fallback auto-hover para HTML estático */}
+        {/* CSS: ocultar scrollbar + transiciones suaves */}
         <style>{`
           .scrollbar-hide::-webkit-scrollbar { display: none; }
           .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-          /* Fallback: si el HTML queda estático, el script agrega .auto-hover y esto fuerza el efecto */
-          .benefit-card.auto-hover .benefit-front { transform: translateX(-100%) !important; }
-          .benefit-card.auto-hover .benefit-back { transform: translateX(0%) !important; }
+          /* Asegurar que las transiciones sean suaves */
+          .benefit-front,
+          .benefit-back {
+            will-change: transform;
+          }
+
+          /* Fallback: si el HTML queda estático, el script agrega .auto-hover */
+          .benefit-card.auto-hover .benefit-front { 
+            transform: translateX(-100%) !important; 
+            transition: transform 0.7s ease-in-out !important;
+          }
+          .benefit-card.auto-hover .benefit-back { 
+            transform: translateX(0%) !important; 
+            transition: transform 0.7s ease-in-out !important;
+          }
         `}</style>
 
         {/* Fallback JS: si esto termina como HTML standalone sin React, igual cicla el hover */}
@@ -200,55 +208,92 @@ export default function SivoBenefits() {
           dangerouslySetInnerHTML={{
             __html: `
               (function () {
-                var root = document.getElementById('sivo-benefits-root');
-                if (!root) return;
-                var cards = Array.prototype.slice.call(root.querySelectorAll('[data-benefit-card="true"]'));
-                if (!cards.length) return;
+                // Esperar a que el DOM esté completamente cargado
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', initBenefitsCarousel);
+                } else {
+                  initBenefitsCarousel();
+                }
 
-                var i = 0;
-                var paused = false;
-                var intervalMs = 1600;
-                var timer = null;
+                function initBenefitsCarousel() {
+                  var root = document.getElementById('sivo-benefits-root');
+                  if (!root) return;
+                  
+                  var cards = Array.prototype.slice.call(root.querySelectorAll('[data-benefit-card="true"]'));
+                  if (!cards.length) return;
 
-                function activate(idx) {
-                  for (var j = 0; j < cards.length; j++) {
-                    if (j === idx) cards[j].classList.add('auto-hover');
-                    else cards[j].classList.remove('auto-hover');
+                  var currentIndex = 0;
+                  var paused = false;
+                  var intervalMs = 2500; // 2.5 segundos
+                  var timer = null;
+
+                  function activateCard(idx) {
+                    for (var j = 0; j < cards.length; j++) {
+                      if (j === idx) {
+                        cards[j].classList.add('auto-hover');
+                      } else {
+                        cards[j].classList.remove('auto-hover');
+                      }
+                    }
                   }
+
+                  function startCarousel() {
+                    if (timer) return;
+                    timer = setInterval(function () {
+                      if (paused) return;
+                      currentIndex = (currentIndex + 1) % cards.length;
+                      activateCard(currentIndex);
+                    }, intervalMs);
+                  }
+
+                  function stopCarousel() {
+                    if (!timer) return;
+                    clearInterval(timer);
+                    timer = null;
+                  }
+
+                  // Iniciar con la primera tarjeta
+                  activateCard(0);
+                  startCarousel();
+
+                  // Agregar eventos a cada tarjeta
+                  for (var k = 0; k < cards.length; k++) {
+                    (function (idx) {
+                      var card = cards[idx];
+                      
+                      card.addEventListener('mouseenter', function () { 
+                        paused = true; 
+                        activateCard(idx); 
+                      });
+                      
+                      card.addEventListener('mouseleave', function () { 
+                        paused = false; 
+                        currentIndex = idx;
+                      });
+                      
+                      card.addEventListener('touchstart', function () { 
+                        paused = true; 
+                        activateCard(idx); 
+                      }, { passive: true });
+                      
+                      card.addEventListener('touchend', function () { 
+                        setTimeout(function() {
+                          paused = false;
+                          currentIndex = idx;
+                        }, 300);
+                      }, { passive: true });
+                    })(k);
+                  }
+
+                  // Pausar cuando la pestaña no está visible
+                  document.addEventListener('visibilitychange', function () {
+                    if (document.hidden) {
+                      stopCarousel();
+                    } else {
+                      startCarousel();
+                    }
+                  });
                 }
-
-                function start() {
-                  if (timer) return;
-                  timer = setInterval(function () {
-                    if (paused) return;
-                    i = (i + 1) % cards.length;
-                    activate(i);
-                  }, intervalMs);
-                }
-
-                function stop() {
-                  if (!timer) return;
-                  clearInterval(timer);
-                  timer = null;
-                }
-
-                activate(0);
-                start();
-
-                for (var k = 0; k < cards.length; k++) {
-                  (function (idx) {
-                    var c = cards[idx];
-                    c.addEventListener('mouseenter', function () { paused = true; activate(idx); });
-                    c.addEventListener('mouseleave', function () { paused = false; });
-                    c.addEventListener('touchstart', function () { paused = true; activate(idx); }, { passive: true });
-                    c.addEventListener('touchend', function () { paused = false; }, { passive: true });
-                  })(k);
-                }
-
-                document.addEventListener('visibilitychange', function () {
-                  if (document.hidden) stop();
-                  else start();
-                });
               })();
             `
           }}
