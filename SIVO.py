@@ -2005,41 +2005,176 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
         </div>
     </div>
 
-    <div class="section">
-        <h2>SIVOs IA listos para potenciar tu negocio</h2>
-        <div class="subtitle">Estos son ejemplos. El producto principal es el <strong>chatbot instalado</strong>.</div>
-
-        <div class="cards">
-
-            <div class="card">
-                <img src="https://gvelazcamp.github.io/SIVO/Asistentedetiendaderopa.png" alt="Tienda de Ropa">
-                <h3>SIVO Tienda de Ropa</h3>
-                <p>Consultas sobre productos, talles y envíos.</p>
-                <a href="https://demoropa.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
+    <!-- SECCIÓN DE BENEFICIOS CON HOVER -->
+    <div class="benefits-section" style="background: #ffffff; padding: 64px 20px;">
+        <div style="max-width: 1280px; margin: 0 auto;">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 48px;">
+                <h2 style="font-size: 2.5rem; font-weight: 700; color: #111827; margin-bottom: 12px;">
+                    Beneficios de tener un SIVO
+                </h2>
+                <p style="font-size: 1.125rem; color: #6b7280;">
+                    Transforma tu negocio con inteligencia artificial. 
+                    <span style="font-weight: 600;">Estos son solo algunos de los beneficios.</span>
+                </p>
             </div>
 
-            <div class="card">
-                <img src="https://gvelazcamp.github.io/SIVO/Asistenteecommerce.png" alt="Ecommerce">
-                <h3>SIVO Ecommerce</h3>
-                <p>Respuestas automáticas sobre productos y pedidos.</p>
-                <a href="https://demoecommerce.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
-            </div>
+            <!-- Benefits Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto;">
+                
+                <!-- Benefit 1: Atención 24/7 -->
+                <div class="benefit-card" data-id="1" style="position: relative; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer;">
+                    <div class="benefit-front" style="position: absolute; inset: 0; background: #eff6ff; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
+                        <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+                            <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
+                                <svg style="width: 32px; height: 32px; color: #2563eb; stroke-width: 2.5;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 8px;">Atención 24/7</h3>
+                        <p style="color: #6b7280; font-size: 0.875rem; margin-bottom: 24px;">Siempre disponible para tus clientes</p>
+                        <div style="position: absolute; bottom: 24px; left: 0; right: 0;">
+                            <span style="color: #9ca3af; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 4px;">
+                                Desliza para ver más
+                                <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="benefit-back" style="position: absolute; inset: 0; background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%); padding: 32px; display: flex; flex-direction: column; justify-content: center; color: white; transition: transform 0.5s ease-out; transform: translateX(100%);">
+                        <div style="margin-bottom: 16px;">
+                            <svg style="width: 48px; height: 48px; opacity: 0.9; margin-bottom: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">Atención 24/7</h3>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.95); line-height: 1.5;">Tu SIVO nunca duerme. Atiende llamadas, chats y consultas en cualquier momento del día, todos los días del año.</p>
+                    </div>
+                </div>
 
-            <div class="card">
-                <img src="https://gvelazcamp.github.io/SIVO/Asistentedepeluqueria.png" alt="Peluquería">
-                <h3>SIVO Peluquería</h3>
-                <p>Turnos, servicios y precios de salón.</p>
-                <a href="https://demopelu.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
-            </div>
+                <!-- Benefit 2: Automatización -->
+                <div class="benefit-card" data-id="2" style="position: relative; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer;">
+                    <div class="benefit-front" style="position: absolute; inset: 0; background: #faf5ff; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
+                        <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+                            <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
+                                <svg style="width: 32px; height: 32px; color: #9333ea; stroke-width: 2.5;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 8px;">Automatización Inteligente</h3>
+                        <p style="color: #6b7280; font-size: 0.875rem; margin-bottom: 24px;">Libera tiempo valioso</p>
+                        <div style="position: absolute; bottom: 24px; left: 0; right: 0;">
+                            <span style="color: #9ca3af; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 4px;">
+                                Desliza para ver más
+                                <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="benefit-back" style="position: absolute; inset: 0; background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); padding: 32px; display: flex; flex-direction: column; justify-content: center; color: white; transition: transform 0.5s ease-out; transform: translateX(100%);">
+                        <div style="margin-bottom: 16px;">
+                            <svg style="width: 48px; height: 48px; opacity: 0.9; margin-bottom: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">Automatización Inteligente</h3>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.95); line-height: 1.5;">Automatiza tareas repetitivas como reservas, consultas frecuentes y seguimiento de pedidos. Tu equipo se enfoca en lo importante.</p>
+                    </div>
+                </div>
 
-            <div class="card">
-                <img src="https://gvelazcamp.github.io/SIVO/Asistentedeviaje.png" alt="Viajes">
-                <h3>SIVO Viajes</h3>
-                <p>Paquetes turísticos, vuelos y hoteles.</p>
-                <a href="https://demo-viajes.streamlit.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><button>Probar demo</button></a>
+                <!-- Benefit 3: Reduce Costos -->
+                <div class="benefit-card" data-id="3" style="position: relative; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer;">
+                    <div class="benefit-front" style="position: absolute; inset: 0; background: #f0fdf4; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
+                        <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+                            <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
+                                <svg style="width: 32px; height: 32px; color: #16a34a; stroke-width: 2.5;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 8px;">Reduce Costos</h3>
+                        <p style="color: #6b7280; font-size: 0.875rem; margin-bottom: 24px;">Hasta 70% de ahorro</p>
+                        <div style="position: absolute; bottom: 24px; left: 0; right: 0;">
+                            <span style="color: #9ca3af; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 4px;">
+                                Desliza para ver más
+                                <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="benefit-back" style="position: absolute; inset: 0; background: linear-gradient(135deg, #22c55e 0%, #10b981 100%); padding: 32px; display: flex; flex-direction: column; justify-content: center; color: white; transition: transform 0.5s ease-out; transform: translateX(100%);">
+                        <div style="margin-bottom: 16px;">
+                            <svg style="width: 48px; height: 48px; opacity: 0.9; margin-bottom: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">Reduce Costos</h3>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.95); line-height: 1.5;">Elimina costos de contratación, capacitación y turnos nocturnos. Un SIVO reemplaza múltiples agentes a una fracción del costo.</p>
+                    </div>
+                </div>
+
+                <!-- Benefit 4: Escalabilidad -->
+                <div class="benefit-card" data-id="4" style="position: relative; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer;">
+                    <div class="benefit-front" style="position: absolute; inset: 0; background: #fff7ed; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
+                        <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+                            <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
+                                <svg style="width: 32px; height: 32px; color: #ea580c; stroke-width: 2.5;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 style="font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 8px;">Escalabilidad Instantánea</h3>
+                        <p style="color: #6b7280; font-size: 0.875rem; margin-bottom: 24px;">Crece sin límites</p>
+                        <div style="position: absolute; bottom: 24px; left: 0; right: 0;">
+                            <span style="color: #9ca3af; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 4px;">
+                                Desliza para ver más
+                                <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="benefit-back" style="position: absolute; inset: 0; background: linear-gradient(135deg, #f97316 0%, #dc2626 100%); padding: 32px; display: flex; flex-direction: column; justify-content: center; color: white; transition: transform 0.5s ease-out; transform: translateX(100%);">
+                        <div style="margin-bottom: 16px;">
+                            <svg style="width: 48px; height: 48px; opacity: 0.9; margin-bottom: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">Escalabilidad Instantánea</h3>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.95); line-height: 1.5;">Atiende 1 o 1000 clientes simultáneamente sin contratar más personal. Escala tu negocio sin preocupaciones.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
+
+    <script>
+    // Hover effect for benefit cards
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.benefit-card');
+        
+        cards.forEach(card => {
+            const front = card.querySelector('.benefit-front');
+            const back = card.querySelector('.benefit-back');
+            
+            card.addEventListener('mouseenter', function() {
+                front.style.transform = 'translateX(-100%)';
+                back.style.transform = 'translateX(0)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                front.style.transform = 'translateX(0)';
+                back.style.transform = 'translateX(100%)';
+            });
+        });
+    });
+    </script>
 
 
 {FOOTER}
