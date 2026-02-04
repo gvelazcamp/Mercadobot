@@ -1518,7 +1518,7 @@ body {
     }
     
     .integrations-section {
-        margin-top: -350px !important;
+        margin-top: -250px !important;
         padding-top: 15px !important;
     }
     
