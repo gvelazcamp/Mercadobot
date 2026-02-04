@@ -1897,8 +1897,8 @@ body { background: #1a1a2e; font-family: Inter, sans-serif; margin: 0; padding: 
 # =========================
 # HOME (MODIFICADO: chatbot protagonista)
 # =========================
-HTML_HOME_PARTE_1 = f"""{HTML_BASE}
-{HEADER}
+HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
+""" + HEADER + """
 
     <!-- HERO IMPACT -->
     <div class="hero-impact">
@@ -2022,13 +2022,13 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
             <!-- Benefits Horizontal Scroll -->
             <div style="display: flex; gap: 24px; overflow-x: auto; padding: 20px 0; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch;">
                 <style>
-                    .benefits-section div::-webkit-scrollbar {{
+                    .benefits-section div::-webkit-scrollbar {
                         display: none;
-                    }}
+                    }
                 </style>
                 
                 <!-- Benefit 1: Atención 24/7 -->
-                <div class="benefit-card" data-id="1" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;">
+                <div class="benefit-card" data-id="1" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;" onmouseenter="this.querySelector('.benefit-front').style.transform='translateX(-100%)'; this.querySelector('.benefit-back').style.transform='translateX(0)';" onmouseleave="this.querySelector('.benefit-front').style.transform='translateX(0)'; this.querySelector('.benefit-back').style.transform='translateX(100%)';">
                     <div class="benefit-front" style="position: absolute; inset: 0; background: #eff6ff; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
                         <div style="display: flex; justify-content: center; margin-bottom: 24px;">
                             <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
@@ -2060,7 +2060,7 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
                 </div>
 
                 <!-- Benefit 2: Automatización -->
-                <div class="benefit-card" data-id="2" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;">
+                <div class="benefit-card" data-id="2" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;" onmouseenter="this.querySelector('.benefit-front').style.transform='translateX(-100%)'; this.querySelector('.benefit-back').style.transform='translateX(0)';" onmouseleave="this.querySelector('.benefit-front').style.transform='translateX(0)'; this.querySelector('.benefit-back').style.transform='translateX(100%)';">
                     <div class="benefit-front" style="position: absolute; inset: 0; background: #faf5ff; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
                         <div style="display: flex; justify-content: center; margin-bottom: 24px;">
                             <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
@@ -2092,7 +2092,7 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
                 </div>
 
                 <!-- Benefit 3: Reduce Costos -->
-                <div class="benefit-card" data-id="3" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;">
+                <div class="benefit-card" data-id="3" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;" onmouseenter="this.querySelector('.benefit-front').style.transform='translateX(-100%)'; this.querySelector('.benefit-back').style.transform='translateX(0)';" onmouseleave="this.querySelector('.benefit-front').style.transform='translateX(0)'; this.querySelector('.benefit-back').style.transform='translateX(100%)';">
                     <div class="benefit-front" style="position: absolute; inset: 0; background: #f0fdf4; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
                         <div style="display: flex; justify-content: center; margin-bottom: 24px;">
                             <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
@@ -2124,7 +2124,7 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
                 </div>
 
                 <!-- Benefit 4: Escalabilidad -->
-                <div class="benefit-card" data-id="4" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;">
+                <div class="benefit-card" data-id="4" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;" onmouseenter="this.querySelector('.benefit-front').style.transform='translateX(-100%)'; this.querySelector('.benefit-back').style.transform='translateX(0)';" onmouseleave="this.querySelector('.benefit-front').style.transform='translateX(0)'; this.querySelector('.benefit-back').style.transform='translateX(100%)';">
                     <div class="benefit-front" style="position: absolute; inset: 0; background: #fff7ed; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
                         <div style="display: flex; justify-content: center; margin-bottom: 24px;">
                             <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
@@ -2164,30 +2164,10 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
         </div>
     </div>
 
-    <script>
-    // Hover effect for benefit cards
-    document.addEventListener('DOMContentLoaded', function() {{
-        const cards = document.querySelectorAll('.benefit-card');
-        
-        cards.forEach(card => {{
-            const front = card.querySelector('.benefit-front');
-            const back = card.querySelector('.benefit-back');
-            
-            card.addEventListener('mouseenter', function() {{
-                front.style.transform = 'translateX(-100%)';
-                back.style.transform = 'translateX(0)';
-            }});
-            
-            card.addEventListener('mouseleave', function() {{
-                front.style.transform = 'translateX(0)';
-                back.style.transform = 'translateX(100%)';
-            }});
-        }});
-    }});
-    </script>
+    <!-- Inline event handlers are used on cards for better compatibility -->
 
 
-{FOOTER}
+""" + FOOTER + """
 """
 
 HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
