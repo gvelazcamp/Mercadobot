@@ -1505,6 +1505,42 @@ body {
     .pricing {
         grid-template-columns: 1fr;
     }
+    
+    /* REDUCIR ESPACIO ENTRE SIVO COCINA E INTEGRACIONES EN MÓVIL */
+    .integrations-section {
+        margin-top: -120px !important;
+        padding-top: 30px !important;
+    }
+    
+    .integrations-section h2 {
+        font-size: 28px !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .integrations-subtitle {
+        font-size: 14px !important;
+        margin-bottom: 25px !important;
+    }
+    
+    /* Ajustar grid de integraciones para móvil */
+    .integrations-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 15px !important;
+        padding: 0 !important;
+    }
+    
+    .integration-logo {
+        padding: 20px 10px !important;
+    }
+    
+    .integration-logo span {
+        font-size: 36px !important;
+    }
+    
+    .integration-logo p {
+        font-size: 12px !important;
+        margin-top: 8px !important;
+    }
 }
 
 /* =========================
