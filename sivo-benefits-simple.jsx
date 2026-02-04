@@ -52,7 +52,7 @@ export default function SivoBenefits() {
     }
   ];
 
-  // Auto-hover (ciclo automático) para activar el efecto sin mouse
+  // Auto-hover (ciclo automático)
   useEffect(() => {
     if (autoPaused) return;
 
@@ -60,7 +60,6 @@ export default function SivoBenefits() {
     if (!ids.length) return;
 
     let i = 0;
-    // Arranca activando la primera tarjeta
     setHoveredCard(ids[0]);
 
     const interval = setInterval(() => {
@@ -71,9 +70,8 @@ export default function SivoBenefits() {
     return () => clearInterval(interval);
   }, [autoPaused]);
 
-
   return (
-    <div className="bg-white py-16 px-4">
+    <div id="sivo-benefits-root" className="bg-white py-16 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -96,15 +94,26 @@ export default function SivoBenefits() {
               return (
                 <div
                   key={benefit.id}
-                  className="relative flex-shrink-0 w-80 h-72 rounded-2xl overflow-hidden cursor-pointer snap-center"
-                  onMouseEnter={() => { setAutoPaused(true); setHoveredCard(benefit.id); }}
-                  onMouseLeave={() => { setHoveredCard(null); setAutoPaused(false); }}
-                  onTouchStart={() => { setAutoPaused(true); setHoveredCard(benefit.id); }}
-                  onTouchEnd={() => { setHoveredCard(null); setAutoPaused(false); }}
+                  data-benefit-card="true"
+                  className="benefit-card relative flex-shrink-0 w-80 h-72 rounded-2xl overflow-hidden cursor-pointer snap-center"
+                  onMouseEnter={() => {
+                    setAutoPaused(true);
+                    setHoveredCard(benefit.id);
+                  }}
+                  onMouseLeave={() => {
+                    setAutoPaused(false);
+                  }}
+                  onTouchStart={() => {
+                    setAutoPaused(true);
+                    setHoveredCard(benefit.id);
+                  }}
+                  onTouchEnd={() => {
+                    setAutoPaused(false);
+                  }}
                 >
                   {/* Front Card - Simple Design */}
                   <div
-                    className={`absolute inset-0 ${benefit.bgColor} p-8 text-center transition-transform duration-500 ease-out ${
+                    className={`benefit-front absolute inset-0 ${benefit.bgColor} p-8 text-center transition-transform duration-500 ease-out ${
                       isHovered ? '-translate-x-full' : 'translate-x-0'
                     }`}
                   >
@@ -127,10 +136,10 @@ export default function SivoBenefits() {
                     <div className="absolute bottom-6 left-0 right-0">
                       <span className="text-gray-500 text-sm inline-flex items-center gap-1">
                         Desliza para ver más
-                        <svg 
-                          className="w-4 h-4" 
-                          fill="none" 
-                          stroke="currentColor" 
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
                           viewBox="0 0 24 24"
                         >
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -141,7 +150,7 @@ export default function SivoBenefits() {
 
                   {/* Back Card - Slides in from right */}
                   <div
-                    className={`absolute inset-0 bg-gradient-to-br ${benefit.gradientColor} p-8 flex flex-col justify-center text-white transition-transform duration-500 ease-out ${
+                    className={`benefit-back absolute inset-0 bg-gradient-to-br ${benefit.gradientColor} p-8 flex flex-col justify-center text-white transition-transform duration-500 ease-out ${
                       isHovered ? 'translate-x-0' : 'translate-x-full'
                     }`}
                   >
@@ -154,7 +163,7 @@ export default function SivoBenefits() {
                     <p className="text-white/95 leading-relaxed">
                       {benefit.description}
                     </p>
-                    
+
                     {/* Decorative element */}
                     <div className="absolute top-6 right-6 opacity-20">
                       <Sparkles className="w-8 h-8" />
@@ -164,11 +173,11 @@ export default function SivoBenefits() {
               );
             })}
           </div>
-          
+
           {/* Scroll Indicators */}
           <div className="flex justify-center gap-2 mt-6">
             {benefits.map((benefit) => (
-              <div 
+              <div
                 key={benefit.id}
                 className="w-2 h-2 rounded-full bg-gray-300"
               />
@@ -176,16 +185,74 @@ export default function SivoBenefits() {
           </div>
         </div>
 
-        {/* CSS for hiding scrollbar */}
-        <style jsx>{`
-          .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-          }
-          .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
+        {/* CSS: ocultar scrollbar + fallback auto-hover para HTML estático */}
+        <style>{`
+          .scrollbar-hide::-webkit-scrollbar { display: none; }
+          .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+          /* Fallback: si el HTML queda estático, el script agrega .auto-hover y esto fuerza el efecto */
+          .benefit-card.auto-hover .benefit-front { transform: translateX(-100%) !important; }
+          .benefit-card.auto-hover .benefit-back { transform: translateX(0%) !important; }
         `}</style>
+
+        {/* Fallback JS: si esto termina como HTML standalone sin React, igual cicla el hover */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                var root = document.getElementById('sivo-benefits-root');
+                if (!root) return;
+                var cards = Array.prototype.slice.call(root.querySelectorAll('[data-benefit-card="true"]'));
+                if (!cards.length) return;
+
+                var i = 0;
+                var paused = false;
+                var intervalMs = 1600;
+                var timer = null;
+
+                function activate(idx) {
+                  for (var j = 0; j < cards.length; j++) {
+                    if (j === idx) cards[j].classList.add('auto-hover');
+                    else cards[j].classList.remove('auto-hover');
+                  }
+                }
+
+                function start() {
+                  if (timer) return;
+                  timer = setInterval(function () {
+                    if (paused) return;
+                    i = (i + 1) % cards.length;
+                    activate(i);
+                  }, intervalMs);
+                }
+
+                function stop() {
+                  if (!timer) return;
+                  clearInterval(timer);
+                  timer = null;
+                }
+
+                activate(0);
+                start();
+
+                for (var k = 0; k < cards.length; k++) {
+                  (function (idx) {
+                    var c = cards[idx];
+                    c.addEventListener('mouseenter', function () { paused = true; activate(idx); });
+                    c.addEventListener('mouseleave', function () { paused = false; });
+                    c.addEventListener('touchstart', function () { paused = true; activate(idx); }, { passive: true });
+                    c.addEventListener('touchend', function () { paused = false; }, { passive: true });
+                  })(k);
+                }
+
+                document.addEventListener('visibilitychange', function () {
+                  if (document.hidden) stop();
+                  else start();
+                });
+              })();
+            `
+          }}
+        />
       </div>
     </div>
   );
