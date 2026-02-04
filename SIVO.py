@@ -2156,24 +2156,24 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
 
     <script>
     // Hover effect for benefit cards
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {{
         const cards = document.querySelectorAll('.benefit-card');
         
-        cards.forEach(card => {
+        cards.forEach(card => {{
             const front = card.querySelector('.benefit-front');
             const back = card.querySelector('.benefit-back');
             
-            card.addEventListener('mouseenter', function() {
+            card.addEventListener('mouseenter', function() {{
                 front.style.transform = 'translateX(-100%)';
                 back.style.transform = 'translateX(0)';
-            });
+            }});
             
-            card.addEventListener('mouseleave', function() {
+            card.addEventListener('mouseleave', function() {{
                 front.style.transform = 'translateX(0)';
                 back.style.transform = 'translateX(100%)';
-            });
-        });
-    });
+            }});
+        }});
+    }});
     </script>
 
 
