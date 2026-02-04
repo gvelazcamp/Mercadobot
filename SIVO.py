@@ -1518,7 +1518,7 @@ body {
     }
     
     .integrations-section {
-        margin-top: -350px !important;
+        margin-top: -320px !important;
         padding-top: 15px !important;
     }
     
@@ -2302,9 +2302,9 @@ SIVO_SLIDER_COMPONENT_HTML = """
       }
 
       @media (max-width: 900px){
-        .sivo-slider-wrap{ padding: 26px 14px 0px; } /* Eliminar padding-bottom */
+        .sivo-slider-wrap{ padding: 26px 14px 30px; } /* Agregar padding-bottom para que no se corte */
         .sivo-slider-title{ font-size: 34px; }
-        .sivo-slider-frame{ height: 560px; } /* mobile: un poco más alto */
+        .sivo-slider-frame{ height: 650px; } /* Aumentar altura para que se vea completo */
       }
     </style>
   </head>
