@@ -1970,15 +1970,15 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
         <div class="hero-impact-content">
             <h1 class="hero-impact-title">
                 Preguntale a tus datos.<br>
-                <span class="hero-impact-subtitle">No esperes por la informacion, el asistente la encuentra por vos.</span>
+                <span class="hero-impact-subtitle">No esperes por la información, el asistente la encuentra por vos.</span>
             </h1>
             <p class="hero-impact-text">
                     Asistentes IA que responden al instante con la información de tu negocio,
                     tanto para uso interno como para atención a clientes.
             </p>
             <div class="hero-impact-actions">
-                <a class="hero-impact-btn-primary" href="?vista=asistentes">Ver asistentes →</a>
-                <a class="hero-impact-btn-secondary" href="https://demo-viajes.streamlit.app/" target="_blank" rel="noopener noreferrer">Demo en vivo</a>
+                <a class="hero-impact-btn-primary" href="#soporte">Agendá tu demo →</a>
+                <a class="hero-impact-btn-secondary" href="?vista=asistentes">Ver asistentes →</a>
             </div>
         </div>
     </div>
@@ -2179,13 +2179,13 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
     </div>
 
     <div class="cta" id="soporte">
-        <h2>Agenda una demo gratuita</h2>
+        <h2>Agendá una demo gratuita</h2>
         <p>Probá 7 días gratis. Sin tarjeta de crédito. Cancelá cuando quieras.</p>
         
-        <form class="cta-form" onsubmit="event.preventDefault(); alert('¡Gracias! Te contactamos en 24hs.');">
+        <form class="cta-form" onsubmit="event.preventDefault(); alert('¡Gracias! Te contactamos en 24 hs.');">
             <input type="text" placeholder="Tu nombre" required>
             <input type="email" placeholder="Tu email" required>
-            <button type="submit">Quiero mi demo gratuita</button>
+            <button type="submit">Agendar demo</button>
         </form>
 
         <div class="features">
@@ -2255,12 +2255,12 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
                     <div class="sivo-feat">✅ <strong>Voz natural:</strong> Conversaciones profesionales</div>
                     <div class="sivo-feat">✅ <strong>Derivación inteligente:</strong> Transfiere cuando es necesario</div>
                     <div class="sivo-feat">✅ <strong>Respuestas instantáneas:</strong> Precios y disponibilidad</div>
-                    <div class="sivo-feat">✅ <strong>Integración total:</strong> Conecta con tu sistema</div>
+                    <div class="sivo-feat">✅ <strong>Integración total:</strong> Se integra con tu sistema</div>
                 </div>
                 
                 <div class="sivo-actions">
-                    <a href="#demo" class="sivo-btn-primary">Probá SIVO Gratis</a>
-                    <a href="#demo" class="sivo-btn-secondary">Ver demo en vivo →</a>
+                    <a href="#soporte" class="sivo-btn-primary">Agendá tu demo</a>
+                    <a href="?vista=asistentes" class="sivo-btn-secondary">Ver asistentes →</a>
                 </div>
             </div>
         </div>
@@ -2269,7 +2269,7 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
     <!-- INTEGRACIONES -->
     <div class="integrations-section">
         <h2>Integraciones</h2>
-        <p class="integrations-subtitle">Conecta tu chatbot con las plataformas que ya usás</p>
+        <p class="integrations-subtitle">Conectá tu SIVO con las plataformas que ya usás</p>
         
         <div class="integrations-grid">
             <div class="integration-logo">
