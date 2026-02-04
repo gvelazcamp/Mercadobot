@@ -65,81 +65,104 @@ export default function SivoBenefits() {
           </p>
         </div>
 
-        {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {benefits.map((benefit) => {
-            const Icon = benefit.icon;
-            const isHovered = hoveredCard === benefit.id;
+        {/* Benefits Horizontal Scroll */}
+        <div className="relative">
+          <div className="flex gap-6 overflow-x-auto pb-4 px-4 snap-x snap-mandatory scrollbar-hide">
+            {benefits.map((benefit) => {
+              const Icon = benefit.icon;
+              const isHovered = hoveredCard === benefit.id;
 
-            return (
-              <div
-                key={benefit.id}
-                className="relative h-72 rounded-2xl overflow-hidden cursor-pointer"
-                onMouseEnter={() => setHoveredCard(benefit.id)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                {/* Front Card - Simple Design */}
+              return (
                 <div
-                  className={`absolute inset-0 ${benefit.bgColor} p-8 text-center transition-transform duration-500 ease-out ${
-                    isHovered ? '-translate-x-full' : 'translate-x-0'
-                  }`}
+                  key={benefit.id}
+                  className="relative flex-shrink-0 w-80 h-72 rounded-2xl overflow-hidden cursor-pointer snap-center"
+                  onMouseEnter={() => setHoveredCard(benefit.id)}
+                  onMouseLeave={() => setHoveredCard(null)}
                 >
-                  {/* Icon */}
-                  <div className="flex justify-center mb-6">
-                    <div className={`${benefit.iconBg} w-16 h-16 rounded-full shadow-md flex items-center justify-center`}>
-                      <Icon className={`w-8 h-8 ${benefit.iconColor}`} strokeWidth={2.5} />
+                  {/* Front Card - Simple Design */}
+                  <div
+                    className={`absolute inset-0 ${benefit.bgColor} p-8 text-center transition-transform duration-500 ease-out ${
+                      isHovered ? '-translate-x-full' : 'translate-x-0'
+                    }`}
+                  >
+                    {/* Icon */}
+                    <div className="flex justify-center mb-6">
+                      <div className={`${benefit.iconBg} w-16 h-16 rounded-full shadow-md flex items-center justify-center`}>
+                        <Icon className={`w-8 h-8 ${benefit.iconColor}`} strokeWidth={2.5} />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-6">
+                      {benefit.subtitle}
+                    </p>
+
+                    {/* Hover indicator */}
+                    <div className="absolute bottom-6 left-0 right-0">
+                      <span className="text-gray-500 text-sm inline-flex items-center gap-1">
+                        Desliza para ver más
+                        <svg 
+                          className="w-4 h-4" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </span>
                     </div>
                   </div>
 
-                  {/* Content */}
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-6">
-                    {benefit.subtitle}
-                  </p>
-
-                  {/* Hover indicator */}
-                  <div className="absolute bottom-6 left-0 right-0">
-                    <button className="text-gray-500 text-sm hover:text-gray-700 transition-colors inline-flex items-center gap-1 group">
-                      Desliza para ver más
-                      <svg 
-                        className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
+                  {/* Back Card - Slides in from right */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${benefit.gradientColor} p-8 flex flex-col justify-center text-white transition-transform duration-500 ease-out ${
+                      isHovered ? 'translate-x-0' : 'translate-x-full'
+                    }`}
+                  >
+                    <div className="mb-4">
+                      <Icon className="w-12 h-12 mb-3 opacity-90" />
+                      <h3 className="text-2xl font-bold mb-2">
+                        {benefit.title}
+                      </h3>
+                    </div>
+                    <p className="text-white/95 leading-relaxed">
+                      {benefit.description}
+                    </p>
+                    
+                    {/* Decorative element */}
+                    <div className="absolute top-6 right-6 opacity-20">
+                      <Sparkles className="w-8 h-8" />
+                    </div>
                   </div>
                 </div>
-
-                {/* Back Card - Slides in from right */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${benefit.gradientColor} p-8 flex flex-col justify-center text-white transition-transform duration-500 ease-out ${
-                    isHovered ? 'translate-x-0' : 'translate-x-full'
-                  }`}
-                >
-                  <div className="mb-4">
-                    <Icon className="w-12 h-12 mb-3 opacity-90" />
-                    <h3 className="text-2xl font-bold mb-2">
-                      {benefit.title}
-                    </h3>
-                  </div>
-                  <p className="text-white/95 leading-relaxed">
-                    {benefit.description}
-                  </p>
-                  
-                  {/* Decorative element */}
-                  <div className="absolute top-6 right-6 opacity-20">
-                    <Sparkles className="w-8 h-8" />
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+          
+          {/* Scroll Indicators */}
+          <div className="flex justify-center gap-2 mt-6">
+            {benefits.map((benefit) => (
+              <div 
+                key={benefit.id}
+                className="w-2 h-2 rounded-full bg-gray-300"
+              />
+            ))}
+          </div>
         </div>
+
+        {/* CSS for hiding scrollbar */}
+        <style jsx>{`
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+          .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}</style>
       </div>
     </div>
   );
