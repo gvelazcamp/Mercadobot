@@ -2019,11 +2019,16 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
                 </p>
             </div>
 
-            <!-- Benefits Grid -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto;">
+            <!-- Benefits Horizontal Scroll -->
+            <div style="display: flex; gap: 24px; overflow-x: auto; padding: 20px 0; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch;">
+                <style>
+                    .benefits-section div::-webkit-scrollbar {
+                        display: none;
+                    }
+                </style>
                 
                 <!-- Benefit 1: Atención 24/7 -->
-                <div class="benefit-card" data-id="1" style="position: relative; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer;">
+                <div class="benefit-card" data-id="1" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;">
                     <div class="benefit-front" style="position: absolute; inset: 0; background: #eff6ff; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
                         <div style="display: flex; justify-content: center; margin-bottom: 24px;">
                             <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
@@ -2055,7 +2060,7 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
                 </div>
 
                 <!-- Benefit 2: Automatización -->
-                <div class="benefit-card" data-id="2" style="position: relative; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer;">
+                <div class="benefit-card" data-id="2" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;">
                     <div class="benefit-front" style="position: absolute; inset: 0; background: #faf5ff; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
                         <div style="display: flex; justify-content: center; margin-bottom: 24px;">
                             <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
@@ -2087,7 +2092,7 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
                 </div>
 
                 <!-- Benefit 3: Reduce Costos -->
-                <div class="benefit-card" data-id="3" style="position: relative; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer;">
+                <div class="benefit-card" data-id="3" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;">
                     <div class="benefit-front" style="position: absolute; inset: 0; background: #f0fdf4; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
                         <div style="display: flex; justify-content: center; margin-bottom: 24px;">
                             <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
@@ -2119,7 +2124,7 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
                 </div>
 
                 <!-- Benefit 4: Escalabilidad -->
-                <div class="benefit-card" data-id="4" style="position: relative; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer;">
+                <div class="benefit-card" data-id="4" style="position: relative; min-width: 320px; width: 320px; height: 288px; border-radius: 16px; overflow: hidden; cursor: pointer; flex-shrink: 0;">
                     <div class="benefit-front" style="position: absolute; inset: 0; background: #fff7ed; padding: 32px; text-align: center; transition: transform 0.5s ease-out;">
                         <div style="display: flex; justify-content: center; margin-bottom: 24px;">
                             <div style="background: white; width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
@@ -2150,6 +2155,11 @@ HTML_HOME_PARTE_1 = f"""{HTML_BASE}
                     </div>
                 </div>
 
+            </div>
+            
+            <!-- Scroll hint -->
+            <div style="text-align: center; margin-top: 24px; color: #9ca3af; font-size: 0.875rem;">
+                ← Desliza para ver todas las tarjetas →
             </div>
         </div>
     </div>
