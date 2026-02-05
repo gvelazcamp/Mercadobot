@@ -2175,10 +2175,11 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             text-align: center;
 
-            /* Animación base - NO se ejecuta hasta que se agregue la clase 'animate' */
+            /* Animación base - INICIA INVISIBLE */
             opacity: 0;
-            transform: translateY(0);
-            transition: none;
+            transform: translateY(50px);
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
 
             /* Para que queden TODAS iguales en altura */
             flex: 1 1 0;
@@ -2241,22 +2242,19 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             }
         }
 
+        /* Las animaciones SOLO se activan cuando tienen la clase 'visible' */
+        .card.visible.slide-up { 
+            animation-name: slideInUp;
+        }
         
-        
+        .card.visible.slide-down { 
+            animation-name: slideInDown;
+        }
 
-        /* NO animar por defecto - solo cuando se agrega la clase 'animate' */
-        .card.animate.slide-up {
-            animation: slideInUp 0.8s ease-out forwards;
-        }
-        
-        .card.animate.slide-down {
-            animation: slideInDown 0.8s ease-out forwards;
-        }
-        
-        /* Delays escalonados cuando se activa la animación */
-        .cards-row .card:nth-child(1).animate { animation-delay: 0s; }
-        .cards-row .card:nth-child(2).animate { animation-delay: 0.3s; }
-        .cards-row .card:nth-child(3).animate { animation-delay: 0.6s; }
+        /* Delays escalonados DESPUÉS de ser visibles */
+        .cards-row .card.visible:nth-child(1) { animation-delay: 0s; }
+        .cards-row .card.visible:nth-child(2) { animation-delay: 0.3s; }
+        .cards-row .card.visible:nth-child(3) { animation-delay: 0.6s; }
 
         /* ====== Responsive: si achica, apilar ====== */
         @media (max-width: 900px) {
@@ -2284,6 +2282,58 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             }
         }
     </style>
+
+    <script>
+    // 🎬 SCROLL OBSERVER - Activa animaciones al hacer scroll
+    (function() {
+        'use strict';
+        
+        function initScrollAnimations() {
+            const cards = document.querySelectorAll('.cards-row .card');
+            
+            // Si no hay tarjetas, salir
+            if (!cards.length) {
+                console.log('No se encontraron tarjetas para animar');
+                return;
+            }
+            
+            // Configurar el observador con opciones más permisivas
+            const observerOptions = {
+                threshold: 0.1,  // Se activa cuando el 10% es visible
+                rootMargin: '50px'  // Empieza a detectar 50px antes
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        // Agregar clase 'visible' para activar la animación
+                        entry.target.classList.add('visible');
+                        console.log('Tarjeta visible:', entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observar cada tarjeta
+            cards.forEach(function(card) {
+                observer.observe(card);
+                console.log('Observando tarjeta:', card);
+            });
+            
+            console.log('Scroll observer iniciado correctamente');
+        }
+
+        // Ejecutar cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initScrollAnimations);
+        } else {
+            // El DOM ya está listo
+            initScrollAnimations();
+        }
+        
+        // FALLBACK: También intentar después de 1 segundo por si acaso
+        setTimeout(initScrollAnimations, 1000);
+    })();
+    </script>
 
     <div class="como-funciona-container">
         <div class="como-funciona-header">
@@ -2315,40 +2365,6 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
         </div>
     </div>
     <!-- ====== FIN SECCIÓN CÓMO FUNCIONA ====== -->
-
-    <script>
-    // 🎬 ACTIVAR ANIMACIONES CUANDO HACES SCROLL
-    (function() {
-        const observerOptions = {
-            threshold: 0.15,  // Se activa cuando el 15% del elemento es visible
-            rootMargin: '0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.classList.contains('animate')) {
-                    // Agregar clase 'animate' para activar la animación
-                    entry.target.classList.add('animate');
-                }
-            });
-        }, observerOptions);
-
-        // Esperar a que el DOM esté listo
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initObserver);
-        } else {
-            initObserver();
-        }
-
-        function initObserver() {
-            // Observar todas las tarjetas
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                observer.observe(card);
-            });
-        }
-    })();
-    </script>
 
     
 <!-- BENEFICIOS (cargado desde benefits-standalone.html) -->
