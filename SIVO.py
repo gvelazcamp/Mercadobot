@@ -2175,9 +2175,8 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             text-align: center;
 
-            /* Animación base - INICIA INVISIBLE */
+            /* Animación base */
             opacity: 0;
-            transform: translateY(50px);
             animation-duration: 0.8s;
             animation-fill-mode: forwards;
 
@@ -2242,19 +2241,31 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             }
         }
 
-        /* Las animaciones SOLO se activan cuando tienen la clase 'visible' */
-        .card.visible.slide-up { 
-            animation-name: slideInUp;
+        .slide-up { animation-name: slideInUp; }
+        .slide-down { animation-name: slideInDown; }
+
+        /* ANIMACIONES CON CSS PURO - Funciona siempre */
+        /* Inicia con las tarjetas visibles pero con efecto suave */
+        .cards-row .card:nth-child(1) { 
+            animation-delay: 0.2s; 
+            opacity: 0;
+        }
+        .cards-row .card:nth-child(2) { 
+            animation-delay: 0.5s; 
+            opacity: 0;
+        }
+        .cards-row .card:nth-child(3) { 
+            animation-delay: 0.8s; 
+            opacity: 0;
         }
         
-        .card.visible.slide-down { 
-            animation-name: slideInDown;
+        /* Activar animaciones automáticamente */
+        .slide-up { 
+            animation-name: slideInUp !important;
         }
-
-        /* Delays escalonados DESPUÉS de ser visibles */
-        .cards-row .card.visible:nth-child(1) { animation-delay: 0s; }
-        .cards-row .card.visible:nth-child(2) { animation-delay: 0.3s; }
-        .cards-row .card.visible:nth-child(3) { animation-delay: 0.6s; }
+        .slide-down { 
+            animation-name: slideInDown !important;
+        }
 
         /* ====== Responsive: si achica, apilar ====== */
         @media (max-width: 900px) {
@@ -2282,58 +2293,6 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             }
         }
     </style>
-
-    <script>
-    // 🎬 SCROLL OBSERVER - Activa animaciones al hacer scroll
-    (function() {
-        'use strict';
-        
-        function initScrollAnimations() {
-            const cards = document.querySelectorAll('.cards-row .card');
-            
-            // Si no hay tarjetas, salir
-            if (!cards.length) {
-                console.log('No se encontraron tarjetas para animar');
-                return;
-            }
-            
-            // Configurar el observador con opciones más permisivas
-            const observerOptions = {
-                threshold: 0.1,  // Se activa cuando el 10% es visible
-                rootMargin: '50px'  // Empieza a detectar 50px antes
-            };
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        // Agregar clase 'visible' para activar la animación
-                        entry.target.classList.add('visible');
-                        console.log('Tarjeta visible:', entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            // Observar cada tarjeta
-            cards.forEach(function(card) {
-                observer.observe(card);
-                console.log('Observando tarjeta:', card);
-            });
-            
-            console.log('Scroll observer iniciado correctamente');
-        }
-
-        // Ejecutar cuando el DOM esté listo
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initScrollAnimations);
-        } else {
-            // El DOM ya está listo
-            initScrollAnimations();
-        }
-        
-        // FALLBACK: También intentar después de 1 segundo por si acaso
-        setTimeout(initScrollAnimations, 1000);
-    })();
-    </script>
 
     <div class="como-funciona-container">
         <div class="como-funciona-header">
