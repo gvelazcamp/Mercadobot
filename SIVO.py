@@ -2175,10 +2175,10 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             text-align: center;
 
-            /* Estado inicial - INVISIBLE */
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            /* Animación INFINITA - Se repite constantemente */
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
 
             /* Para que queden TODAS iguales en altura */
             flex: 1 1 0;
@@ -2220,57 +2220,42 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
 
         /* ====== ANIMACIONES (Abajo / Arriba / Abajo) ====== */
         @keyframes slideInUp {
-            from {
-                transform: translateY(70px);
-                opacity: 0;
+            0% {
+                transform: translateY(30px);
+                opacity: 0.3;
             }
-            to {
+            50% {
                 transform: translateY(0);
                 opacity: 1;
+            }
+            100% {
+                transform: translateY(30px);
+                opacity: 0.3;
             }
         }
 
         @keyframes slideInDown {
-            from {
-                transform: translateY(-70px);
-                opacity: 0;
+            0% {
+                transform: translateY(-30px);
+                opacity: 0.3;
             }
-            to {
+            50% {
                 transform: translateY(0);
                 opacity: 1;
             }
+            100% {
+                transform: translateY(-30px);
+                opacity: 0.3;
+            }
         }
 
-        /* Estado VISIBLE - Se activa con la clase 'show' */
-        .card.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Animación desde abajo (slide-up) */
-        .card.show.slide-up {
-            transform: translateY(0);
-        }
-        
-        /* Animación desde arriba (slide-down) */
-        .card.show.slide-down {
-            transform: translateY(0);
-        }
-        
-        .card.slide-down {
-            transform: translateY(-50px);
-        }
+        .slide-up { animation-name: slideInUp; }
+        .slide-down { animation-name: slideInDown; }
 
-        /* Delays ESCALONADOS cuando aparecen */
-        .cards-row .card:nth-child(1).show { 
-            transition-delay: 0s;
-        }
-        .cards-row .card:nth-child(2).show { 
-            transition-delay: 0.2s;
-        }
-        .cards-row .card:nth-child(3).show { 
-            transition-delay: 0.4s;
-        }
+        /* Delays ESCALONADOS para animación infinita */
+        .cards-row .card:nth-child(1) { animation-delay: 0s; }
+        .cards-row .card:nth-child(2) { animation-delay: 0.3s; }
+        .cards-row .card:nth-child(3) { animation-delay: 0.6s; }
 
         /* ====== Responsive: si achica, apilar ====== */
         @media (max-width: 900px) {
@@ -2298,60 +2283,6 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             }
         }
     </style>
-
-    <script>
-    // 🔄 ANIMACIONES QUE SE REPITEN - Se activan cada vez que haces scroll
-    (function() {
-        'use strict';
-        
-        function initRepeatingAnimations() {
-            const cards = document.querySelectorAll('.cards-row .card');
-            
-            if (!cards.length) {
-                console.log('❌ No se encontraron tarjetas');
-                setTimeout(initRepeatingAnimations, 500);
-                return;
-            }
-            
-            console.log('✅ Encontradas ' + cards.length + ' tarjetas');
-            
-            // Configuración del observador
-            const observerOptions = {
-                threshold: 0.2,  // 20% del elemento visible
-                rootMargin: '0px'
-            };
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        // ENTRÓ EN LA VISTA - Mostrar con animación
-                        entry.target.classList.add('show');
-                        console.log('✅ Tarjeta visible - ANIMANDO');
-                    } else {
-                        // SALIÓ DE LA VISTA - Ocultar para reiniciar
-                        entry.target.classList.remove('show');
-                        console.log('🔄 Tarjeta oculta - LISTA PARA REPETIR');
-                    }
-                });
-            }, observerOptions);
-
-            // Observar cada tarjeta
-            cards.forEach(function(card, index) {
-                observer.observe(card);
-                console.log('👀 Observando tarjeta ' + (index + 1));
-            });
-            
-            console.log('🎬 Sistema de animaciones REPETIBLES iniciado');
-        }
-
-        // Ejecutar cuando el DOM esté listo
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initRepeatingAnimations);
-        } else {
-            initRepeatingAnimations();
-        }
-    })();
-    </script>
 
     <div class="como-funciona-container">
         <div class="como-funciona-header">
