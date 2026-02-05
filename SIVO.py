@@ -170,6 +170,16 @@ body {
     min-height: 100vh;
 }
 
+/* ASEGURAR FONDO BLANCO EN TODO */
+html, body, .page-container, section, div {
+    background-color: #ffffff !important;
+}
+
+/* Solo la tarjeta hero-impact tiene fondo oscuro */
+.hero-impact {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%) !important;
+}
+
 .page-container {
     width: 100%;
     max-width: 100%;
@@ -282,7 +292,7 @@ body {
     z-index: 1;
     opacity: 0;
     transform: translateY(60px) scale(0.9);
-    animation: fadeInCard 1.2s ease-out forwards;
+    animation: fadeInCard 1.2s ease-out 0.8s forwards;
 }
 
 @keyframes fadeInCard {
@@ -303,7 +313,7 @@ body {
     margin: 0 0 30px 0;
     color: #ffffff;
     opacity: 0;
-    animation: fadeInText 0.6s ease-out 1s forwards;
+    animation: fadeInText 0.6s ease-out 2.6s forwards;
 }
 
 .hero-impact-subtitle {
@@ -314,7 +324,7 @@ body {
     margin: 0 0 40px 0;
     line-height: 1.3;
     opacity: 0;
-    animation: fadeInText 0.6s ease-out 1.4s forwards;
+    animation: fadeInText 0.6s ease-out 2.2s forwards;
 }
 
 @keyframes fadeInText {
@@ -337,7 +347,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     opacity: 0;
-    animation: fadeInText 0.6s ease-out 1.8s forwards;
+    animation: fadeInText 0.6s ease-out 2.6s forwards;
 }
 
 .hero-impact-actions {
@@ -346,7 +356,7 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     opacity: 0;
-    animation: fadeInButton 0.6s ease-out 2.2s forwards;
+    animation: fadeInButton 0.6s ease-out 3.0s forwards;
 }
 
 @keyframes fadeInButton {
