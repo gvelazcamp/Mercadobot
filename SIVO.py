@@ -2245,9 +2245,9 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
         .slide-down { animation-name: slideInDown; }
 
         /* Delays CON 1 SEGUNDO DE ESPERA INICIAL (para que entren escalonadas DESPUÉS) */
-        .cards-row .card:nth-child(1) { animation-delay: 1.0s; }
-        .cards-row .card:nth-child(2) { animation-delay: 1.3s; }
-        .cards-row .card:nth-child(3) { animation-delay: 1.6s; }
+        .cards-row .card:nth-child(1) { animation-delay: 0.3s; }
+        .cards-row .card:nth-child(2) { animation-delay: 0.9s; }
+        .cards-row .card:nth-child(3) { animation-delay: 1.5s; }
 
         /* ====== Responsive: si achica, apilar ====== */
         @media (max-width: 900px) {
