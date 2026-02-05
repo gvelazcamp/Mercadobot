@@ -278,7 +278,7 @@ body {
     position: relative;
     z-index: 1;
     opacity: 0;
-    transform: scale(0.95);
+    animation: fadeInCard 0.8s ease-out forwards;
 }
 
 @keyframes fadeInCard {
@@ -733,115 +733,62 @@ body {
     line-height: 1.45;
 }
 
-/* NUEVOS STEPS SIMPLES CON ANIMACIONES */
+/* NUEVOS STEPS SIMPLES */
 .steps-simple {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 5px auto;
+    flex-wrap: wrap;
 }
 
 .step-simple {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    margin-bottom: 30px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 24px;
+    padding: 20px 15px;
     text-align: center;
-    opacity: 0;
-    transform: translateX(-100%);
-    transition: none;
-}
-
-.step-simple.slide-right {
-    transform: translateX(100%);
-}
-
-.step-simple.animate {
-    animation-duration: 0.8s;
-    animation-fill-mode: forwards;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
 }
 
 .step-icon {
-    font-size: 80px;
+    font-size: 64px;
     margin-bottom: 20px;
 }
 
 .step-simple h3 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 15px;
-    font-weight: 700;
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: #000;
 }
 
 .step-simple p {
-    font-size: 1rem;
+    font-size: 14px;
     color: #666;
     line-height: 1.6;
 }
 
-/* Animaciones */
-@keyframes slideInLeft {
-    from {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.step-simple.animate.slide-left {
-    animation-name: slideInLeft;
-}
-
-.step-simple.animate.slide-right {
-    animation-name: slideInRight;
-}
-
-/* Delays para las animaciones */
-.step-simple:nth-child(1).animate {
-    animation-delay: 0.2s;
-}
-
-.step-simple:nth-child(2).animate {
-    animation-delay: 0.5s;
-}
-
-.step-simple:nth-child(3).animate {
-    animation-delay: 0.8s;
-}
-
 .step-arrow {
-    display: none;
+    font-size: 32px;
+    color: #f4b400;
+    font-weight: 800;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    .step-simple {
-        padding: 30px 20px;
+@media (max-width: 768px) {
+    .step-arrow {
+        display: none;
     }
-
-    .step-icon {
-        font-size: 60px;
-    }
-
-    .step-simple h3 {
-        font-size: 1.5rem;
+    
+    .steps-simple {
+        flex-direction: column;
+        gap: 20px;
     }
 }
-
 
 /* =========================
    SECTION
@@ -2113,10 +2060,18 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
     <!-- HERO IMPACT -->
     <div class="hero-impact">
         <div class="hero-impact-content">
-            <h1 class="hero-impact-title">Pregúntale a tus datos.</h1>
-            <span class="hero-impact-subtitle">No esperes por la información, el asistente la encuentra por vos.</span>
-            <p class="hero-impact-text">Asistentes IA que responden al instante con la información de tu negocio, tanto para uso interno como para atención a clientes.</p>
-            <a href="?vista=asistentes" class="hero-impact-btn-primary">Ver asistentes →</a>
+            <h1 class="hero-impact-title">
+                Preguntale a tus datos.<br>
+                <span class="hero-impact-subtitle">No esperes por la información, el asistente la encuentra por vos.</span>
+            </h1>
+            <p class="hero-impact-text">
+                    Asistentes IA que responden al instante con la información de tu negocio,
+                    tanto para uso interno como para atención a clientes.
+            </p>
+            <div class="hero-impact-actions">
+                <a class="hero-impact-btn-primary" href="#soporte">Agendá tu demo →</a>
+                <a class="hero-impact-btn-secondary" href="?vista=asistentes">Ver asistentes →</a>
+            </div>
         </div>
     </div>
 
@@ -2187,70 +2142,25 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
         <div class="subtitle">Simple y rápido. En 3 pasos tenés tu asistente funcionando.</div>
 
         <div class="steps-simple">
-            <!-- Tarjeta 1: Izquierda a Derecha -->
-            <div class="step-simple slide-left">
+            <div class="step-simple">
                 <div class="step-icon">🔌</div>
                 <h3>Conectás</h3>
                 <p>Vinculás tus datos, productos, servicios o información del negocio.</p>
             </div>
-
-            <!-- Tarjeta 2: Derecha a Izquierda -->
-            <div class="step-simple slide-right">
+            <div class="step-arrow">→</div>
+            <div class="step-simple">
                 <div class="step-icon">🧠</div>
                 <h3>Entrenás</h3>
                 <p>El asistente aprende tu negocio: precios, stock, políticas, horarios.</p>
             </div>
-
-            <!-- Tarjeta 3: Izquierda a Derecha -->
-            <div class="step-simple slide-left">
+            <div class="step-arrow">→</div>
+            <div class="step-simple">
                 <div class="step-icon">🚀</div>
                 <h3>Lanzás</h3>
                 <p>Lo instalamos en tu web o WhatsApp y empieza a atender clientes.</p>
             </div>
         </div>
     </div>
-
-    <script>
-    // Intersection Observer para animar elementos cuando entran en el viewport
-    document.addEventListener('DOMContentLoaded', function() {
-        // Observer general para todas las secciones animables
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -100px 0px'
-        };
-        
-        const animationObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Para tarjetas de pasos
-                    if (entry.target.classList.contains('step-simple')) {
-                        entry.target.classList.add('animate');
-                    }
-                    // Para hero-impact
-                    else if (entry.target.classList.contains('hero-impact')) {
-                        const content = entry.target.querySelector('.hero-impact-content');
-                        if (content) {
-                            content.style.animation = 'fadeInCard 0.8s ease-out forwards';
-                        }
-                    }
-                    
-                    animationObserver.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        // Observar tarjetas de pasos
-        document.querySelectorAll('.step-simple').forEach(card => {
-            animationObserver.observe(card);
-        });
-        
-        // Observar hero-impact
-        const heroImpact = document.querySelector('.hero-impact');
-        if (heroImpact) {
-            animationObserver.observe(heroImpact);
-        }
-    });
-    </script>
 
     
 <!-- BENEFICIOS (cargado desde benefits-standalone.html) -->
