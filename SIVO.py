@@ -2141,28 +2141,40 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
         <h2>Cómo funciona</h2>
         <div class="subtitle">Simple y rápido. En 3 pasos tenés tu asistente funcionando.</div>
 
-        <div class="steps-simple">
-            <div class="step-simple">
-                <div class="step-icon">🔌</div>
-                <h3>Conectás</h3>
-                <p>Vinculás tus datos, productos, servicios o información del negocio.</p>
-            </div>
-            <div class="step-arrow">→</div>
-            <div class="step-simple">
-                <div class="step-icon">🧠</div>
-                <h3>Entrenás</h3>
-                <p>El asistente aprende tu negocio: precios, stock, políticas, horarios.</p>
-            </div>
-            <div class="step-arrow">→</div>
-            <div class="step-simple">
-                <div class="step-icon">🚀</div>
-                <h3>Lanzás</h3>
-                <p>Lo instalamos en tu web o WhatsApp y empieza a atender clientes.</p>
-            </div>
+        <div class="how-works-iframe-wrap">
+            <iframe
+                class="how-works-iframe how-works-desktop"
+                src="https://gvelazcamp.github.io/SIVO/tarjetas-animadas-pc-horizontal.html"
+                title="Cómo funciona - PC"
+                loading="lazy"
+                scrolling="no"
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+
+            <iframe
+                class="how-works-iframe how-works-mobile"
+                src="https://gvelazcamp.github.io/SIVO/tarjetas-animadas.html"
+                title="Cómo funciona - Celular"
+                loading="lazy"
+                scrolling="no"
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
         </div>
+
+        <style>
+            /* Iframes Cómo funciona (PC vs Mobile) */
+            .how-works-iframe { width: 100%; border: 0; display: block; }
+            .how-works-desktop { height: 560px; }
+            .how-works-mobile { height: 820px; display: none; }
+
+            @media (max-width: 900px) {
+                .how-works-desktop { display: none; }
+                .how-works-mobile { display: block; }
+            }
+        </style>
     </div>
 
-    
+
 <!-- BENEFICIOS (cargado desde benefits-standalone.html) -->
 __BENEFITS_STANDALONE__
 
