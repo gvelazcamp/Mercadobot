@@ -2176,7 +2176,7 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             text-align: center;
 
             /* Animación INFINITA - Se repite constantemente */
-            animation-duration: 2s;
+            animation-duration: 4s;
             animation-iteration-count: infinite;
             animation-timing-function: ease-in-out;
 
@@ -2254,8 +2254,8 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
 
         /* Delays ESCALONADOS para animación infinita */
         .cards-row .card:nth-child(1) { animation-delay: 0s; }
-        .cards-row .card:nth-child(2) { animation-delay: 0.3s; }
-        .cards-row .card:nth-child(3) { animation-delay: 0.6s; }
+        .cards-row .card:nth-child(2) { animation-delay: 0.5s; }
+        .cards-row .card:nth-child(3) { animation-delay: 1s; }
 
         /* ====== Responsive: si achica, apilar ====== */
         @media (max-width: 900px) {
