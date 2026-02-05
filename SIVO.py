@@ -270,6 +270,9 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 60vh;
+    border-radius: 40px;
+    margin: 20px;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.4);
 }
 
 .hero-impact-content {
@@ -278,17 +281,18 @@ body {
     position: relative;
     z-index: 1;
     opacity: 0;
-    animation: fadeInCard 0.8s ease-out forwards;
+    transform: translateY(60px) scale(0.9);
+    animation: fadeInCard 1.2s ease-out forwards;
 }
 
 @keyframes fadeInCard {
     from {
         opacity: 0;
-        transform: scale(0.95);
+        transform: translateY(60px) scale(0.9);
     }
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0) scale(1);
     }
 }
 
@@ -316,7 +320,7 @@ body {
 @keyframes fadeInText {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
@@ -348,7 +352,7 @@ body {
 @keyframes fadeInButton {
     from {
         opacity: 0;
-        transform: translateY(20px) scale(0.9);
+        transform: translateY(30px) scale(0.85);
     }
     to {
         opacity: 1;
