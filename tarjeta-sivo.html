@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIVO - Asistente IA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-radius: 24px;
+            padding: 80px 60px;
+            text-align: center;
+            color: #ffffff;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            opacity: 0;
+            animation: fadeInCard 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInCard {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .card h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: #ffffff;
+            opacity: 0;
+            animation: fadeInText 0.6s ease-out 1s forwards;
+        }
+
+        .card .highlight {
+            color: #ffffff;
+            font-size: 52px;
+            display: block;
+            margin-bottom: 40px;
+            font-weight: 700;
+            line-height: 1.3;
+            opacity: 0;
+            animation: fadeInText 0.6s ease-out 1.4s forwards;
+        }
+
+        .card p {
+            font-size: 22px;
+            line-height: 1.8;
+            color: #ffffff;
+            margin-bottom: 50px;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeInText 0.6s ease-out 1.8s forwards;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #FFC107;
+            color: #000;
+            padding: 20px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+            opacity: 0;
+            animation: fadeInButton 0.6s ease-out 2.2s forwards;
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInButton {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .button:hover {
+            background-color: #FFD54F;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.6);
+        }
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .card {
+                padding: 60px 50px;
+                max-width: 800px;
+            }
+
+            .card h1 {
+                font-size: 40px;
+            }
+
+            .card .highlight {
+                font-size: 44px;
+            }
+
+            .card p {
+                font-size: 20px;
+            }
+
+            .button {
+                padding: 18px 45px;
+                font-size: 19px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .card {
+                padding: 40px 30px;
+                border-radius: 20px;
+            }
+
+            .card h1 {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+
+            .card .highlight {
+                font-size: 32px;
+                margin-bottom: 30px;
+            }
+
+            .card p {
+                font-size: 17px;
+                margin-bottom: 40px;
+            }
+
+            .button {
+                padding: 16px 40px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 20px;
+            }
+
+            .card h1 {
+                font-size: 24px;
+            }
+
+            .card .highlight {
+                font-size: 28px;
+            }
+
+            .card p {
+                font-size: 16px;
+            }
+
+            .button {
+                padding: 14px 35px;
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Pregúntale a tus datos.</h1>
+        <span class="highlight">No esperes por la información, el asistente la encuentra por vos.</span>
+        <p>Asistentes IA que responden al instante con la información de tu negocio, tanto para uso interno como para atención a clientes.</p>
+        <a href="#asistentes" class="button">Ver asistentes →</a>
+    </div>
+</body>
+</html>
