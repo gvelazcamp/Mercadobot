@@ -2137,7 +2137,7 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
 
     
 
-    <!-- ====== SECCIÓN CÓMO FUNCIONA CON TARJETAS ANIMADAS (SCROLL) ====== -->
+    <!-- ====== SECCIÓN CÓMO FUNCIONA CON TARJETAS ANIMADAS ====== -->
     <style>
         .como-funciona-container {
             max-width: 1100px;
@@ -2175,10 +2175,10 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             text-align: center;
 
-            /* Animación base - INICIA INVISIBLE */
+            /* Animación base */
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
 
             /* Para que queden TODAS iguales en altura */
             flex: 1 1 0;
@@ -2186,12 +2186,6 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             display: flex;
             flex-direction: column;
             min-height: 320px;
-        }
-
-        /* Clase que se agrega cuando la tarjeta es visible */
-        .card.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .card-icon {
@@ -2224,10 +2218,36 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             text-align: center;
         }
 
-        /* Delays para animación escalonada */
-        .card:nth-child(1).visible { transition-delay: 0.1s; }
-        .card:nth-child(2).visible { transition-delay: 0.3s; }
-        .card:nth-child(3).visible { transition-delay: 0.5s; }
+        /* ====== ANIMACIONES (Abajo / Arriba / Abajo) ====== */
+        @keyframes slideInUp {
+            from {
+                transform: translateY(70px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-70px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-up { animation-name: slideInUp; }
+        .slide-down { animation-name: slideInDown; }
+
+        /* Delays (para que entren escalonadas) */
+        .cards-row .card:nth-child(1) { animation-delay: 0.2s; }
+        .cards-row .card:nth-child(2) { animation-delay: 0.5s; }
+        .cards-row .card:nth-child(3) { animation-delay: 0.8s; }
 
         /* ====== Responsive: si achica, apilar ====== */
         @media (max-width: 900px) {
@@ -2263,66 +2283,28 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
         </div>
 
         <div class="cards-row">
-            <!-- Tarjeta 1: Conectás -->
-            <div class="card" data-animate="scroll">
+            <!-- Tarjeta 1: Abajo -> Arriba -->
+            <div class="card slide-up">
                 <div class="card-icon">🔌</div>
                 <h2>Conectás</h2>
                 <p>Vinculás tus datos, productos, servicios o información del negocio.</p>
             </div>
 
-            <!-- Tarjeta 2: Entrenás -->
-            <div class="card" data-animate="scroll">
+            <!-- Tarjeta 2: Arriba -> Abajo (entra desde arriba) -->
+            <div class="card slide-down">
                 <div class="card-icon">🧠</div>
                 <h2>Entrenás</h2>
                 <p>El asistente aprende tu negocio: precios, stock, políticas, horarios.</p>
             </div>
 
-            <!-- Tarjeta 3: Lanzás -->
-            <div class="card" data-animate="scroll">
+            <!-- Tarjeta 3: Abajo -> Arriba -->
+            <div class="card slide-up">
                 <div class="card-icon">🚀</div>
                 <h2>Lanzás</h2>
                 <p>Lo instalamos en tu web o WhatsApp y empieza a atender clientes.</p>
             </div>
         </div>
     </div>
-
-    <script>
-    (function() {
-        // Esperar a que el DOM esté listo
-        function initScrollAnimations() {
-            // Intersection Observer para animar al hacer scroll
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1 // Reducido a 10% para que se active más rápido
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Pequeño delay para asegurar que la animación se vea
-                        setTimeout(() => {
-                            entry.target.classList.add('visible');
-                        }, 50);
-                    }
-                });
-            }, observerOptions);
-
-            // Observar todas las tarjetas
-            const cards = document.querySelectorAll('.card[data-animate="scroll"]');
-            cards.forEach(card => {
-                observer.observe(card);
-            });
-        }
-
-        // Iniciar cuando el DOM esté listo
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initScrollAnimations);
-        } else {
-            initScrollAnimations();
-        }
-    })();
-    </script>
     <!-- ====== FIN SECCIÓN CÓMO FUNCIONA ====== -->
 
     
