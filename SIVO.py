@@ -278,7 +278,7 @@ body {
     position: relative;
     z-index: 1;
     opacity: 0;
-    animation: fadeInCard 0.8s ease-out forwards;
+    transform: scale(0.95);
 }
 
 @keyframes fadeInCard {
@@ -748,6 +748,15 @@ body {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     text-align: center;
     opacity: 0;
+    transform: translateX(-100%);
+    transition: none;
+}
+
+.step-simple.slide-right {
+    transform: translateX(100%);
+}
+
+.step-simple.animate {
     animation-duration: 0.8s;
     animation-fill-mode: forwards;
 }
@@ -793,24 +802,24 @@ body {
     }
 }
 
-.slide-left {
+.step-simple.animate.slide-left {
     animation-name: slideInLeft;
 }
 
-.slide-right {
+.step-simple.animate.slide-right {
     animation-name: slideInRight;
 }
 
 /* Delays para las animaciones */
-.step-simple:nth-child(1) {
+.step-simple:nth-child(1).animate {
     animation-delay: 0.2s;
 }
 
-.step-simple:nth-child(2) {
+.step-simple:nth-child(2).animate {
     animation-delay: 0.5s;
 }
 
-.step-simple:nth-child(3) {
+.step-simple:nth-child(3).animate {
     animation-delay: 0.8s;
 }
 
@@ -2202,25 +2211,44 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
     </div>
 
     <script>
-    // Intersection Observer para animar las tarjetas cuando entran en el viewport
+    // Intersection Observer para animar elementos cuando entran en el viewport
     document.addEventListener('DOMContentLoaded', function() {
-        const cards = document.querySelectorAll('.step-simple');
+        // Observer general para todas las secciones animables
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
         
-        const observer = new IntersectionObserver((entries) => {
+        const animationObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    observer.unobserve(entry.target);
+                    // Para tarjetas de pasos
+                    if (entry.target.classList.contains('step-simple')) {
+                        entry.target.classList.add('animate');
+                    }
+                    // Para hero-impact
+                    else if (entry.target.classList.contains('hero-impact')) {
+                        const content = entry.target.querySelector('.hero-impact-content');
+                        if (content) {
+                            content.style.animation = 'fadeInCard 0.8s ease-out forwards';
+                        }
+                    }
+                    
+                    animationObserver.unobserve(entry.target);
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+        }, observerOptions);
+        
+        // Observar tarjetas de pasos
+        document.querySelectorAll('.step-simple').forEach(card => {
+            animationObserver.observe(card);
         });
         
-        cards.forEach(card => {
-            observer.observe(card);
-        });
+        // Observar hero-impact
+        const heroImpact = document.querySelector('.hero-impact');
+        if (heroImpact) {
+            animationObserver.observe(heroImpact);
+        }
     });
     </script>
 
