@@ -2087,6 +2087,31 @@ h1, h2, h3, h4, h5, h6 {
     width: 20px;
     height: 20px;
     fill: white;
+
+
+    /* MOBILE FIX: quitar sombreado/fondo gris debajo de la tarjeta "Pregúntale a tus datos" */
+    .sivo-card-wrapper {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        min-height: auto !important;
+        justify-content: flex-start !important;
+        align-items: stretch !important;
+    }
+
+    .sivo-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+    }
+
+    /* MOBILE: más interlineado en "Tu negocio atendido / Empleado Digital" */
+    .hero h1 {
+        line-height: 1.25 !important;
+        margin-bottom: 24px !important;
+    }
 }
 
 @media (max-width: 768px) {
@@ -2406,22 +2431,11 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
 
 /* Mobile */
 @media (max-width: 768px) {
-    /* MOBILE: sin fondo gris, sin márgenes grandes y sin recortes */
-    .sivo-card-wrapper {
-        padding: 0 !important;
-        background-color: #ffffff !important;
-        min-height: auto !important;
-        justify-content: flex-start !important;
-        align-items: stretch !important;
-    }
-
     .sivo-card {
-        padding: 52px 26px;
-        border-radius: 34px;
-        min-height: auto;
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
+        padding: 50px 35px;
+        border-radius: 30px;
+        min-height: 75vh;
+        width: 92%;
     }
 
     .sivo-card h1 {
