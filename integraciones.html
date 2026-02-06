@@ -3,27 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Integraciones glow</title>
 <style>
 body{margin:0;font-family:system-ui;background:#f6f7fb}
 .wrap{max-width:1100px;margin:auto;padding:60px 20px;text-align:center}
 h1{margin:0;font-size:38px}
-p{color:#667085;margin-top:10px}
 .carousel{margin-top:40px;overflow:hidden}
 .track{display:flex;gap:22px;animation:scroll 28s linear infinite}
-.card{min-width:190px;background:#fff;padding:28px 20px;border-radius:22px;
-box-shadow:0 10px 28px rgba(0,0,0,.08);transition:.35s}
+.card{min-width:190px;background:#fff;padding:28px 20px;border-radius:22px;box-shadow:0 10px 28px rgba(0,0,0,.08);transition:.35s}
 .card:hover{transform:translateY(-10px)}
-.iconBox{
-width:60px;height:60px;margin:auto;margin-bottom:12px;border-radius:18px;
-display:flex;align-items:center;justify-content:center;
-background:
-radial-gradient(20px 20px at 30% 30%, rgba(37,99,235,.25), transparent 60%),
-radial-gradient(25px 25px at 70% 70%, rgba(249,115,22,.25), transparent 60%),
-white;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-}
-svg{width:28px;height:28px;stroke:#0f172a}
+.iconBox{width:60px;height:60px;margin:auto;margin-bottom:12px;border-radius:18px;display:flex;align-items:center;justify-content:center;background:radial-gradient(20px 20px at 30% 30%, rgba(37,99,235,.25), transparent 60%),radial-gradient(25px 25px at 70% 70%, rgba(249,115,22,.25), transparent 60%),white;box-shadow:0 10px 25px rgba(0,0,0,.08);font-size:28px}
 .label{font-weight:600}
 .sub{font-size:13px;color:#667085}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -33,111 +21,15 @@ svg{width:28px;height:28px;stroke:#0f172a}
 <div class="wrap">
 <h1>Conecta con lo que ya usás</h1>
 <div class="carousel"><div class="track">
-<!-- WhatsApp -->
-<div class="card">
-  <div class="iconBox">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="9"/>
-      <path d="M8 10c1.5 3 4 4 6 5l2-2"/>
-    </svg>
-  </div>
-  <div class="label">WhatsApp</div>
-  <div class="sub">Ventas + soporte</div>
-</div>
-
-<!-- Instagram -->
-<div class="card">
-  <div class="iconBox">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="4" width="16" height="16" rx="4"/>
-      <circle cx="12" cy="12" r="3"/>
-    </svg>
-  </div>
-  <div class="label">Instagram</div>
-  <div class="sub">DMs automatizados</div>
-</div>
-
-<!-- Web -->
-<div class="card">
-  <div class="iconBox">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="9"/>
-      <path d="M3 12h18M12 3c3 3 3 15 0 18"/>
-    </svg>
-  </div>
-  <div class="label">Web</div>
-  <div class="sub">Chat en tu sitio</div>
-</div>
-
-<!-- Shopify -->
-<div class="card">
-  <div class="iconBox">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6 8l6-3 6 3v9l-6 3-6-3z"/>
-    </svg>
-  </div>
-  <div class="label">Shopify</div>
-  <div class="sub">Catálogo + pedidos</div>
-</div>
-
-<!-- Mercado Pago -->
-<div class="card">
-  <div class="iconBox">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3" y="7" width="18" height="10" rx="2"/>
-      <path d="M3 11h18"/>
-    </svg>
-  </div>
-  <div class="label">Mercado Pago</div>
-  <div class="sub">Cobros y links</div>
-</div>
-
-<!-- Email -->
-<div class="card">
-  <div class="iconBox">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3" y="6" width="18" height="12" rx="2"/>
-      <path d="M3 7l9 6 9-6"/>
-    </svg>
-  </div>
-  <div class="label">Email</div>
-  <div class="sub">Seguimiento automático</div>
-</div>
-
-<!-- Duplicados para el efecto infinito -->
-<div class="card">
-  <div class="iconBox">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="9"/>
-      <path d="M8 10c1.5 3 4 4 6 5l2-2"/>
-    </svg>
-  </div>
-  <div class="label">WhatsApp</div>
-  <div class="sub">Ventas + soporte</div>
-</div>
-
-<div class="card">
-  <div class="iconBox">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="4" width="16" height="16" rx="4"/>
-      <circle cx="12" cy="12" r="3"/>
-    </svg>
-  </div>
-  <div class="label">Instagram</div>
-  <div class="sub">DMs automatizados</div>
-</div>
-
-<div class="card">
-  <div class="iconBox">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="9"/>
-      <path d="M3 12h18M12 3c3 3 3 15 0 18"/>
-    </svg>
-  </div>
-  <div class="label">Web</div>
-  <div class="sub">Chat en tu sitio</div>
-</div>
-
+<div class="card"><div class="iconBox">💬</div><div class="label">WhatsApp</div><div class="sub">Ventas + soporte</div></div>
+<div class="card"><div class="iconBox">📷</div><div class="label">Instagram</div><div class="sub">DMs automatizados</div></div>
+<div class="card"><div class="iconBox">🌐</div><div class="label">Web</div><div class="sub">Chat en tu sitio</div></div>
+<div class="card"><div class="iconBox">🛍️</div><div class="label">Shopify</div><div class="sub">Catálogo + pedidos</div></div>
+<div class="card"><div class="iconBox">💳</div><div class="label">Mercado Pago</div><div class="sub">Cobros y links</div></div>
+<div class="card"><div class="iconBox">📧</div><div class="label">Email</div><div class="sub">Seguimiento automático</div></div>
+<div class="card"><div class="iconBox">💬</div><div class="label">WhatsApp</div><div class="sub">Ventas + soporte</div></div>
+<div class="card"><div class="iconBox">📷</div><div class="label">Instagram</div><div class="sub">DMs automatizados</div></div>
+<div class="card"><div class="iconBox">🌐</div><div class="label">Web</div><div class="sub">Chat en tu sitio</div></div>
 </div></div>
 </div>
 </body>
