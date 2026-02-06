@@ -183,7 +183,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* =========================
-   HEADER
+   HEADER MEJORADO CON MENÚ HAMBURGUESA
 ========================= */
 .header {
     display: flex;
@@ -192,6 +192,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 18px 5%;
     width: 100%;
     border-bottom: 1px solid #f0f0f0;
+    position: relative;
 }
 
 .logo {
@@ -199,12 +200,20 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     text-decoration: none;
     white-space: nowrap;
+    gap: 12px;
 }
 
 .logo-img {
     height: 150px;
     width: auto;
 }
+
+.logo-text {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111;
+}
+
 .logo span { color: #60a5fa; }
 
 .nav {
@@ -274,40 +283,113 @@ h1, h2, h3, h4, h5, h6 {
     background: #333;
 }
 
-/* Responsive para móviles - Logo centrado */
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        text-align: center;
-        padding: 15px 5%;
-        gap: 12px;
-    }
-    
-    .logo {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .logo span {
-        margin-left: 0 !important;
-        margin-top: 5px;
-    }
-    
-    .nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 16px;
-        font-size: 15px;
-    }
+/* Botón hamburguesa (oculto por defecto en desktop) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
 
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background: #111;
+    border-radius: 10px;
+    transition: all 0.3s;
+    transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* =========================
+   RESPONSIVE MÓVIL - MENÚ HAMBURGUESA
+========================= */
+@media (max-width: 768px) {
+    /* Header: logo a la izquierda, hamburguesa a la derecha */
+    .header {
+        padding: 12px 20px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    /* Logo más compacto en móvil */
+    .logo {
+        gap: 8px;
+    }
+    
+    .logo-img {
+        height: 45px;
+        width: auto;
+    }
+    
+    .logo-text {
+        font-size: 22px;
+    }
+    
+    /* Mostrar hamburguesa */
+    .hamburger {
+        display: flex;
+    }
+    
+    /* Menú de navegación: panel lateral deslizable */
+    .nav {
+        position: fixed;
+        top: 70px;
+        right: 0;
+        width: 250px;
+        height: calc(100vh - 70px);
+        background: white;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 30px 20px;
+        gap: 20px;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 999;
+        overflow-y: auto;
+    }
+    
+    .nav.active {
+        transform: translateX(0);
+    }
+    
+    .nav a {
+        font-size: 18px;
+        width: 100%;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
     .nav-buttons {
         margin-left: 0;
-        gap: 10px;
+        width: 100%;
+        flex-direction: column;
+        gap: 15px;
     }
-
+    
     .btn-login, .btn-demo {
-        padding: 8px 18px;
-        font-size: 14px;
+        width: 100%;
+        text-align: center;
+        padding: 12px 24px;
+        font-size: 16px;
     }
 }
 
@@ -1980,9 +2062,16 @@ HEADER = """
     <div class="header">
         <a class="logo" href="?vista=home">
             <img src="https://gvelazcamp.github.io/SIVO/LogoMercadobot.png" alt="SIVO" class="logo-img">
-            <span style="font-size: 28px; font-weight: 800; color: #111; margin-left: 12px;">SIVO</span>
+            <span class="logo-text">SIVO</span>
         </a>
-        <div class="nav">
+        
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <div class="nav" id="nav">
             <a href="?vista=home">Inicio</a>
             <a href="?vista=asistentes">Asistentes</a>
             <a href="?vista=precios">Precios</a>
@@ -1992,6 +2081,41 @@ HEADER = """
             </div>
         </div>
     </div>
+    
+    <script>
+        // Toggle menú hamburguesa
+        (function() {
+            const hamburger = document.getElementById('hamburger');
+            const nav = document.getElementById('nav');
+            
+            if (hamburger && nav) {
+                hamburger.addEventListener('click', function() {
+                    hamburger.classList.toggle('active');
+                    nav.classList.toggle('active');
+                });
+                
+                // Cerrar menú al hacer click en un link
+                const navLinks = nav.querySelectorAll('a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        hamburger.classList.remove('active');
+                        nav.classList.remove('active');
+                    });
+                });
+                
+                // Cerrar menú al hacer click fuera
+                document.addEventListener('click', function(event) {
+                    const isClickInsideNav = nav.contains(event.target);
+                    const isClickOnHamburger = hamburger.contains(event.target);
+                    
+                    if (!isClickInsideNav && !isClickOnHamburger && nav.classList.contains('active')) {
+                        hamburger.classList.remove('active');
+                        nav.classList.remove('active');
+                    }
+                });
+            }
+        })();
+    </script>
 """
 
 # FOOTER SIN CIERRE (para st.html) - el body/html se cierra en FOOTER_CHATBOT
@@ -7200,6 +7324,3 @@ iframe[height="0"] * {
 """, unsafe_allow_html=True)
 
 components.html(CHATBOT, height=0)
-
-
-
