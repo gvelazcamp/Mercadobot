@@ -153,6 +153,34 @@ def cargar_integraciones_standalone_html():
                     keyframes_block = css[idx_kf:end_kf].strip()
                     css = (css[:idx_kf] + css[end_kf:]).strip()
 
+        # Hacer tarjetas más compactas
+        css = css.replace('min-width:190px', 'min-width:140px')
+        css = css.replace('min-width: 190px', 'min-width: 140px')
+        css = css.replace('padding:28px 20px', 'padding:20px 16px')
+        css = css.replace('padding: 28px 20px', 'padding: 20px 16px')
+        css = css.replace('border-radius:22px', 'border-radius:16px')
+        css = css.replace('border-radius: 22px', 'border-radius: 16px')
+        css = css.replace('gap:22px', 'gap:16px')
+        css = css.replace('gap: 22px', 'gap: 16px')
+        css = css.replace('width:60px', 'width:48px')
+        css = css.replace('width: 60px', 'width: 48px')
+        css = css.replace('height:60px', 'height:48px')
+        css = css.replace('height: 60px', 'height: 48px')
+        css = css.replace('border-radius:18px', 'border-radius:12px')
+        css = css.replace('border-radius: 18px', 'border-radius: 12px')
+        css = css.replace('font-size:28px', 'font-size:22px')
+        css = css.replace('font-size: 28px', 'font-size: 22px')
+        css = css.replace('font-size:38px', 'font-size:32px')
+        css = css.replace('font-size: 38px', 'font-size: 32px')
+        css = css.replace('padding:60px 20px', 'padding:40px 20px')
+        css = css.replace('padding: 60px 20px', 'padding: 40px 20px')
+        css = css.replace('margin-top:40px', 'margin-top:30px')
+        css = css.replace('margin-top: 40px', 'margin-top: 30px')
+        css = css.replace('font-size:13px', 'font-size:12px')
+        css = css.replace('font-size: 13px', 'font-size: 12px')
+        css = css.replace('margin-bottom:12px', 'margin-bottom:10px')
+        css = css.replace('margin-bottom: 12px', 'margin-bottom: 10px')
+
         # Prefijar selectores para que el CSS quede "scoped" dentro de la sección
         prefix = ".integrations-section .integraciones-glow"
 
