@@ -1526,6 +1526,16 @@ body {
         color: #ffffff !important;
     }
 
+    /* FIX: Mantener blanco en TARJETA SIVO (home hero .sivo-card) */
+    .sivo-card, .sivo-card * {
+        color: #ffffff !important;
+    }
+    /* Pero el botón debe seguir negro sobre amarillo */
+    .sivo-card .button,
+    .sivo-card .button * {
+        color: #000000 !important;
+    }
+
     .cta h2 {
         color: #000 !important;
         font-weight: 800 !important;
