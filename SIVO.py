@@ -2275,7 +2275,7 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
 
     <div class="hero">
         <div class="hero-content">
-            <h1>Tu negocio atendido<br>por tu <span style="color:#1e40af;">Empleado Digital</span></h1>
+            <h1>Tu negocio atendido<br>por un <span style="color:#1e40af;">chatbot IA</span></h1>
             <p>
                 SIVO es un asistente polifuncional con IA que se adapta a distintos rubros de industrias, desde ecommerce y finanzas hasta turnos médicos y viajes. Responde a tus clientes 24/7 con tus reglas y tus datos.
                 Elegí uno de los tantos rubros donde SIVO se desempeña y lo dejamos funcionando.
@@ -6234,6 +6234,105 @@ elif vista == "precios":
 
 else:
     st.html(HTML_HOME_PARTE_1)
+
+    # =========================
+    # FIX: ANIMACIÓN DE CONTADORES (JS) PARA st.html
+    # (st.html no ejecuta <script>, así que lo inyectamos vía components.html)
+    # =========================
+    components.html(
+        """
+        <script>
+        (function () {
+          var ran = false;
+
+          function animateStats(doc) {
+            var el1 = doc.getElementById('stat-num-1');
+            var el2 = doc.getElementById('stat-num-2');
+            var elA = doc.getElementById('stat-alpha');
+
+            if (!el1 || !el2 || !elA) return false;
+
+            // Si ya están en valores finales, no repetir animación
+            try {
+              var t1 = (el1.textContent || '').trim();
+              var t2 = (el2.textContent || '').trim();
+              var ta = (elA.textContent || '').trim();
+              if (t1 === '100' && t2 === '60' && ta === 'ILIMITADO') return true;
+            } catch (e) {}
+
+            if (ran) return true;
+            ran = true;
+
+            // Reset visible (por si vuelve a HOME)
+            try {
+              el1.textContent = '0';
+              el2.textContent = '0';
+              elA.textContent = 'A';
+            } catch (e) {}
+
+            function countTo(el, target, durationMs) {
+              var startTime = null;
+              function step(ts) {
+                if (!startTime) startTime = ts;
+                var progress = Math.min((ts - startTime) / durationMs, 1);
+                var value = Math.floor(target * progress);
+                try { el.textContent = String(value); } catch (e) {}
+                if (progress < 1) {
+                  requestAnimationFrame(step);
+                } else {
+                  try { el.textContent = String(target); } catch (e) {}
+                }
+              }
+              requestAnimationFrame(step);
+            }
+
+            // Números
+            countTo(el1, 100, 1200);
+            countTo(el2, 60, 1200);
+
+            // Alfabeto -> ILIMITADO
+            var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var idx = 0;
+            var alphaTimer = setInterval(function () {
+              try {
+                if (idx < letters.length) {
+                  elA.textContent = letters[idx];
+                  idx++;
+                } else {
+                  clearInterval(alphaTimer);
+                  setTimeout(function () {
+                    try { elA.textContent = "ILIMITADO"; } catch (e) {}
+                  }, 200);
+                }
+              } catch (e) {}
+            }, 50);
+
+            return true;
+          }
+
+          function tryRun() {
+            var doc = null;
+            try { doc = window.parent.document; } catch (e) { doc = null; }
+            if (!doc) return;
+
+            if (animateStats(doc)) return;
+
+            // Reintentar ~3s por si el DOM aún no cargó
+            var attempts = 0;
+            var maxAttempts = 60;
+            var t = setInterval(function () {
+              attempts++;
+              if (animateStats(doc) || attempts >= maxAttempts) clearInterval(t);
+            }, 50);
+          }
+
+          setTimeout(tryRun, 200);
+        })();
+        </script>
+        """,
+        height=0,
+        scrolling=False
+    )
     
     components.html("""
     <style>
@@ -7071,4 +7170,3 @@ iframe[height="0"] * {
 """, unsafe_allow_html=True)
 
 components.html(CHATBOT, height=0)
-
