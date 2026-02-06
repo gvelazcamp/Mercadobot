@@ -2337,80 +2337,111 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             </style>
 
             <div class="stat-card">
-                <div class="stat-number" id="stat-num-1" data-target="100">0</div>
+                <div class="stat-number" data-target="100">0</div>
                 <div class="stat-label">Conversaciones simultáneas</div>
                 <div class="stat-desc">Atiende múltiples clientes al mismo tiempo</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-number" id="stat-num-2" data-target="60">0</div>
+                <div class="stat-number" data-target="60">0</div>
                 <div class="stat-label">Mensajes por minuto</div>
                 <div class="stat-desc">Respuestas en tiempo real</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-number-small" id="stat-alpha">A</div>
+                <div class="stat-number-small" data-alphabet="true">A</div>
                 <div class="stat-label">Fuentes de conocimiento</div>
                 <div class="stat-desc">Entrenable con cualquier información del negocio</div>
             </div>
         </div>
 
         <script>
-        setTimeout(function() {
-            // Animar número 100
-            var el1 = document.getElementById('stat-num-1');
-            if (el1) {
-                var target1 = 100;
-                var current1 = 0;
-                var increment1 = target1 / 60;
-                var timer1 = setInterval(function() {
-                    current1 += increment1;
-                    if (current1 >= target1) {
-                        el1.textContent = target1;
-                        clearInterval(timer1);
+        (function() {
+            console.log('🔵 Script de animación iniciado');
+            
+            function animateNumber(el) {
+                console.log('🔢 Animando número:', el);
+                const target = parseInt(el.getAttribute("data-target"));
+                const duration = 1500;
+                let startTime = null;
+                
+                function update(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    const progress = timestamp - startTime;
+                    const percent = Math.min(progress / duration, 1);
+                    const ease = 1 - Math.pow(1 - percent, 3);
+                    const current = Math.floor(ease * target);
+                    
+                    el.textContent = current;
+                    
+                    if (percent < 1) {
+                        requestAnimationFrame(update);
                     } else {
-                        el1.textContent = Math.floor(current1);
+                        el.textContent = target;
+                        console.log('✅ Animación completada:', target);
                     }
-                }, 20);
+                }
+                requestAnimationFrame(update);
             }
-
-            // Animar número 60
-            var el2 = document.getElementById('stat-num-2');
-            if (el2) {
-                var target2 = 60;
-                var current2 = 0;
-                var increment2 = target2 / 60;
-                var timer2 = setInterval(function() {
-                    current2 += increment2;
-                    if (current2 >= target2) {
-                        el2.textContent = target2;
-                        clearInterval(timer2);
+            
+            function animateAlphabet(el) {
+                console.log('🔤 Animando alfabeto');
+                const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+                let i = 0;
+                
+                function step() {
+                    if (i < letters.length) {
+                        el.textContent = letters[i];
+                        i++;
+                        setTimeout(step, 50);
                     } else {
-                        el2.textContent = Math.floor(current2);
-                    }
-                }, 20);
-            }
-
-            // Animar alfabeto
-            var elAlpha = document.getElementById('stat-alpha');
-            if (elAlpha) {
-                var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                var idx = 0;
-                var alphaTimer = setInterval(function() {
-                    if (idx < letters.length) {
-                        elAlpha.textContent = letters[idx];
-                        idx++;
-                    } else {
-                        clearInterval(alphaTimer);
-                        setTimeout(function() {
-                            elAlpha.textContent = "ILIMITADO";
+                        setTimeout(() => {
+                            el.textContent = "ILIMITADO";
+                            console.log('✅ Alfabeto completado');
                         }, 200);
                     }
-                }, 50);
+                }
+                step();
             }
-        }, 500);
+            
+            function initAnimations() {
+                console.log('🎬 Iniciando observador...');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            console.log('👁️ Elemento visible:', entry.target);
+                            
+                            if (entry.target.hasAttribute('data-target')) {
+                                animateNumber(entry.target);
+                            } else if (entry.target.hasAttribute('data-alphabet')) {
+                                animateAlphabet(entry.target);
+                            }
+                            
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                
+                // Observar todos los elementos con data-target o data-alphabet
+                document.querySelectorAll('[data-target], [data-alphabet]').forEach(el => {
+                    console.log('👀 Observando elemento:', el);
+                    observer.observe(el);
+                });
+            }
+            
+            // Ejecutar cuando el DOM esté listo
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initAnimations);
+            } else {
+                // DOM ya está listo
+                initAnimations();
+            }
+            
+            // Fallback: ejecutar después de 500ms por si acaso
+            setTimeout(initAnimations, 500);
+        })();
         </script>
-    </div>
 
     
 
