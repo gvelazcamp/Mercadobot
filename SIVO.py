@@ -2337,111 +2337,177 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             </style>
 
             <div class="stat-card">
-                <div class="stat-number" data-target="100">0</div>
+                <div class="stat-number" id="stat-num-1" data-target="100">0</div>
                 <div class="stat-label">Conversaciones simultáneas</div>
                 <div class="stat-desc">Atiende múltiples clientes al mismo tiempo</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-number" data-target="60">0</div>
+                <div class="stat-number" id="stat-num-2" data-target="60">0</div>
                 <div class="stat-label">Mensajes por minuto</div>
                 <div class="stat-desc">Respuestas en tiempo real</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-number-small" data-alphabet="true">A</div>
+                <div class="stat-number-small" id="stat-alpha">A</div>
                 <div class="stat-label">Fuentes de conocimiento</div>
                 <div class="stat-desc">Entrenable con cualquier información del negocio</div>
             </div>
         </div>
 
         <script>
+        // VERSIÓN OPTIMIZADA PARA STREAMLIT
         (function() {
-            console.log('🔵 Script de animación iniciado');
+            console.log('🔵 SIVO Animation Script v2.0 - Streamlit Edition');
             
             function animateNumber(el) {
-                console.log('🔢 Animando número:', el);
                 const target = parseInt(el.getAttribute("data-target"));
                 const duration = 1500;
-                let startTime = null;
+                const start = Date.now();
                 
-                function update(timestamp) {
-                    if (!startTime) startTime = timestamp;
-                    const progress = timestamp - startTime;
-                    const percent = Math.min(progress / duration, 1);
-                    const ease = 1 - Math.pow(1 - percent, 3);
-                    const current = Math.floor(ease * target);
+                function animate() {
+                    const elapsed = Date.now() - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const ease = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.floor(ease * target);
                     
-                    el.textContent = current;
-                    
-                    if (percent < 1) {
-                        requestAnimationFrame(update);
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
                     } else {
                         el.textContent = target;
-                        console.log('✅ Animación completada:', target);
                     }
                 }
-                requestAnimationFrame(update);
+                animate();
             }
             
             function animateAlphabet(el) {
-                console.log('🔤 Animando alfabeto');
-                const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+                const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                 let i = 0;
                 
-                function step() {
+                const timer = setInterval(() => {
                     if (i < letters.length) {
-                        el.textContent = letters[i];
-                        i++;
-                        setTimeout(step, 50);
+                        el.textContent = letters[i++];
                     } else {
-                        setTimeout(() => {
-                            el.textContent = "ILIMITADO";
-                            console.log('✅ Alfabeto completado');
-                        }, 200);
+                        clearInterval(timer);
+                        setTimeout(() => { el.textContent = "ILIMITADO"; }, 200);
                     }
-                }
-                step();
+                }, 50);
             }
             
-            function initAnimations() {
-                console.log('🎬 Iniciando observador...');
+            function startAnimations() {
+                console.log('🎬 Buscando elementos...');
+                
+                // Buscar elementos numéricos
+                const numberElements = document.querySelectorAll('[data-target]');
+                console.log('📊 Encontrados', numberElements.length, 'elementos numéricos');
+                
+                numberElements.forEach((el, idx) => {
+                    console.log('🔢 Animando elemento', idx + 1);
+                    // Pequeño delay escalonado para efecto visual
+                    setTimeout(() => animateNumber(el), idx * 150);
+                });
+                
+                // Buscar elementos alfabéticos
+                const alphaElements = document.querySelectorAll('[data-alphabet]');
+                console.log('🔤 Encontrados', alphaElements.length, 'elementos alfabéticos');
+                
+                alphaElements.forEach((el, idx) => {
+                    setTimeout(() => animateAlphabet(el), numberElements.length * 150 + 300);
+                });
+            }
+            
+            // MÉTODO 1: IntersectionObserver (ideal)
+            function tryIntersectionObserver() {
+                if (!window.IntersectionObserver) {
+                    console.warn('⚠️ IntersectionObserver no disponible');
+                    return false;
+                }
                 
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            console.log('👁️ Elemento visible:', entry.target);
-                            
-                            if (entry.target.hasAttribute('data-target')) {
-                                animateNumber(entry.target);
-                            } else if (entry.target.hasAttribute('data-alphabet')) {
-                                animateAlphabet(entry.target);
-                            }
-                            
-                            observer.unobserve(entry.target);
+                            console.log('👁️ Sección visible, iniciando animaciones');
+                            startAnimations();
+                            observer.disconnect();
                         }
                     });
-                }, { threshold: 0.3 });
+                }, { threshold: 0.2 });
                 
-                // Observar todos los elementos con data-target o data-alphabet
-                document.querySelectorAll('[data-target], [data-alphabet]').forEach(el => {
-                    console.log('👀 Observando elemento:', el);
-                    observer.observe(el);
-                });
+                // Observar el contenedor principal
+                const container = document.querySelector('.sivo-stats-cards');
+                if (container) {
+                    console.log('✅ IntersectionObserver configurado');
+                    observer.observe(container);
+                    return true;
+                }
+                return false;
             }
             
-            // Ejecutar cuando el DOM esté listo
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initAnimations);
-            } else {
-                // DOM ya está listo
-                initAnimations();
+            // MÉTODO 2: Scroll listener (fallback)
+            function tryScrollListener() {
+                console.log('📜 Configurando scroll listener');
+                
+                function checkVisibility() {
+                    const container = document.querySelector('.sivo-stats-cards');
+                    if (!container) return;
+                    
+                    const rect = container.getBoundingClientRect();
+                    const isVisible = (
+                        rect.top < window.innerHeight &&
+                        rect.bottom > 0
+                    );
+                    
+                    if (isVisible) {
+                        console.log('👁️ Sección visible (scroll), iniciando');
+                        startAnimations();
+                        window.removeEventListener('scroll', checkVisibility);
+                    }
+                }
+                
+                window.addEventListener('scroll', checkVisibility);
+                checkVisibility(); // Check inicial
             }
             
-            // Fallback: ejecutar después de 500ms por si acaso
-            setTimeout(initAnimations, 500);
+            // MÉTODO 3: Timer directo (último fallback)
+            function timerFallback() {
+                console.log('⏰ Usando timer fallback (1 segundo)');
+                setTimeout(() => {
+                    console.log('⏰ Timer ejecutado');
+                    startAnimations();
+                }, 1000);
+            }
+            
+            // EJECUTAR CON MÚLTIPLES ESTRATEGIAS
+            function init() {
+                console.log('🚀 Inicializando animaciones...');
+                
+                // Esperar a que el DOM esté listo
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', executeStrategies);
+                } else {
+                    executeStrategies();
+                }
+            }
+            
+            function executeStrategies() {
+                console.log('📋 DOM listo, probando estrategias...');
+                
+                // Intentar métodos en orden
+                const observerWorked = tryIntersectionObserver();
+                
+                if (!observerWorked) {
+                    console.log('⚠️ Usando fallbacks...');
+                    tryScrollListener();
+                }
+                
+                // Siempre usar timer como backup final
+                timerFallback();
+            }
+            
+            init();
         })();
         </script>
+    </div>
 
     
 
