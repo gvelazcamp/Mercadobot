@@ -102,151 +102,6 @@ def cargar_integraciones_standalone_html():
 
 HTML_INTEGRACIONES_STANDALONE = cargar_integraciones_standalone_html()
 
-
-# =========================
-# PREGUNTAS FRECUENTES (standalone HTML)
-# =========================
-def cargar_preguntas_frecuentes_standalone_html():
-    """Carga Preguntas Frecuentes.html desde el repo (para incrustarlo en HOME).
-    Si no existe, usa un fallback embebido para no romper la sección.
-    """
-    candidatos = []
-    try:
-        candidatos.append(Path(__file__).resolve().parent / "Preguntas Frecuentes.html")
-    except Exception:
-        pass
-    candidatos.append(Path("Preguntas Frecuentes.html"))
-    candidatos.append(Path("SIVO/Preguntas Frecuentes.html"))
-
-    for p in candidatos:
-        try:
-            if p.exists():
-                raw = p.read_text(encoding="utf-8", errors="ignore")
-                # Tomar contenido del <body> si existe
-                m_body = re.search(r"<body[^>]*>(.*?)</body>", raw, flags=re.I | re.S)
-                body = m_body.group(1) if m_body else raw
-
-                # Mantener <style>, <script> y links (estén donde estén)
-                styles = re.findall(r"<style[^>]*>.*?</style>", raw, flags=re.I | re.S)
-                scripts = re.findall(r"<script[^>]*>.*?</script>", raw, flags=re.I | re.S)
-                links = re.findall(r'<link[^>]+rel=["\']stylesheet["\'][^>]*>', raw, flags=re.I)
-
-                head = ""
-                if styles:
-                    head += "\n".join(styles) + "\n"
-                if links:
-                    head += "\n".join(links) + "\n"
-
-                footer = ""
-                if scripts:
-                    footer = "\n" + "\n".join(scripts)
-
-                return f"""\
-{head}
-{body}
-{footer}
-"""
-        except Exception:
-            continue
-
-    # Fallback embebido (igual al HTML de Preguntas Frecuentes.html)
-    return """\
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-body{background:#f4f4f4;padding:60px 20px;}
-h1{text-align:center;font-size:42px;margin-bottom:60px;}
-
-.faq-container{
-    max-width:1100px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:40px;
-}
-
-.faq{
-    background:white;
-    padding:30px 35px;
-    border-radius:18px;
-    border-left:6px solid #ffb400;
-    opacity:0;
-    transform:translateX(80px);
-    transition:all .6s ease;
-}
-
-.faq.left{ transform:translateX(-80px); }
-
-.faq.show{
-    opacity:1;
-    transform:translateX(0);
-}
-
-.faq:hover{
-    transform:translateY(-8px) scale(1.02);
-    box-shadow:0 15px 35px rgba(0,0,0,.12);
-}
-
-.faq h3{font-size:20px;margin-bottom:12px;}
-.faq p{color:#555;line-height:1.6;}
-
-@media(max-width:800px){
-    .faq-container{grid-template-columns:1fr;}
-}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<h1>Preguntas frecuentes</h1>
-
-<div class="faq-container">
-
-<div class="faq left"><h3>¿Necesito saber programar?</h3>
-<p>No. Nosotros configuramos todo por vos. Vos solo nos pasás la información de tu negocio y nosotros lo dejamos funcionando.</p></div>
-
-<div class="faq"><h3>¿Funciona con WhatsApp?</h3>
-<p>Sí. Podés integrar el chatbot con WhatsApp, Instagram, tu sitio web, Shopify y más plataformas.</p></div>
-
-<div class="faq left"><h3>¿Puedo cancelar cuando quiera?</h3>
-<p>Sí. No hay permanencia. Cancelás cuando quieras sin costos adicionales ni penalizaciones.</p></div>
-
-<div class="faq"><h3>¿Qué pasa si el bot no sabe responder?</h3>
-<p>El bot deriva la consulta a un humano o toma tus datos para que te contactemos. Nunca deja al cliente sin respuesta.</p></div>
-
-<div class="faq left"><h3>¿Los datos están seguros?</h3>
-<p>Sí. Toda la información está encriptada y cumplimos con normativas de protección de datos. Tus datos y los de tus clientes están 100% seguros.</p></div>
-
-<div class="faq"><h3>¿Cuánto tarda la implementación?</h3>
-<p>Depende de la complejidad. Te damos un timeline al inicio.</p></div>
-
-</div>
-
-<script>
-const cards = document.querySelectorAll('.faq');
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting){
-            entry.target.classList.add('show');
-        }
-    });
-},{ threshold:0.2 });
-
-cards.forEach(card => observer.observe(card));
-</script>
-<script>
-const cards = document.querySelectorAll('.faq');
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting){
-            entry.target.classList.add('show');
-        }
-    });
-},{ threshold:0.2 });
-
-cards.forEach(card => observer.observe(card));
-</script>
-"""
-
-HTML_PREGUNTAS_FRECUENTES_STANDALONE = cargar_preguntas_frecuentes_standalone_html()
-
 # =========================
 # CONFIGURACIÓN NORMAL APP
 # =========================
@@ -3047,7 +2902,41 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
     </div>
 
     <!-- FAQ -->
-    {HTML_PREGUNTAS_FRECUENTES_STANDALONE}
+    <div class="faq-section">
+        <h2>Preguntas frecuentes</h2>
+        
+        <div class="faq-grid">
+            <div class="faq-item">
+                <div class="faq-question">¿Necesito saber programar?</div>
+                <div class="faq-answer">No. Nosotros configuramos todo por vos. Vos solo nos pasás la información de tu negocio y nosotros lo dejamos funcionando.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">¿Funciona con WhatsApp?</div>
+                <div class="faq-answer">Sí. Podés integrar el chatbot con WhatsApp, Instagram, tu sitio web, Shopify y más plataformas.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">¿Puedo cancelar cuando quiera?</div>
+                <div class="faq-answer">Sí. No hay permanencia. Cancelás cuando quieras sin costos adicionales ni penalizaciones.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">¿Qué pasa si el bot no sabe responder?</div>
+                <div class="faq-answer">El bot deriva la consulta a un humano o toma tus datos para que te contactemos. Nunca deja al cliente sin respuesta.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">¿Los datos están seguros?</div>
+                <div class="faq-answer">Sí. Toda la información está encriptada y cumplimos con normativas de protección de datos. Tus datos y los de tus clientes están 100% seguros.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">¿Cuánto tarda la implementación?</div>
+                <div class="faq-answer">Depende de la complejidad. Te damos un timeline al inicio.</div>
+            </div>
+        </div>
+    </div>
 
     <!-- NOVEDAD SIVO -->
     <div class="sivo-section">
