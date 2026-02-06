@@ -2406,11 +2406,22 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
 
 /* Mobile */
 @media (max-width: 768px) {
+    /* MOBILE: sin fondo gris, sin márgenes grandes y sin recortes */
+    .sivo-card-wrapper {
+        padding: 0 !important;
+        background-color: #ffffff !important;
+        min-height: auto !important;
+        justify-content: flex-start !important;
+        align-items: stretch !important;
+    }
+
     .sivo-card {
-        padding: 50px 35px;
-        border-radius: 30px;
-        min-height: 75vh;
-        width: 92%;
+        padding: 52px 26px;
+        border-radius: 34px;
+        min-height: auto;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
     }
 
     .sivo-card h1 {
