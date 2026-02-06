@@ -2059,23 +2059,209 @@ body { background: #1a1a2e; font-family: Inter, sans-serif; margin: 0; padding: 
 # HOME (MODIFICADO: chatbot protagonista)
 # =========================
 HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
-""" + HEADER + """
+<style>
+/* ===========================
+   ESTILOS PARA LA TARJETA SIVO
+=========================== */
+.sivo-card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
 
-    <!-- HERO IMPACT -->
-    <div class="hero-impact">
-        <div class="hero-impact-content">
-            <h1 class="hero-impact-title">
-                Preguntale a tus datos.<br>
-                <span class="hero-impact-subtitle">No esperes por la información, el asistente la encuentra por vos.</span>
-            </h1>
-            <p class="hero-impact-text">
-                    Asistentes IA que responden al instante con la información de tu negocio,
-                    tanto para uso interno como para atención a clientes.
-            </p>
-            <div class="hero-impact-actions">
-                <a class="hero-impact-btn-primary" href="#soporte">Agendá tu demo →</a>
-                <a class="hero-impact-btn-secondary" href="?vista=asistentes">Ver asistentes →</a>
-            </div>
+.sivo-card {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border-radius: 40px;
+    padding: 80px 60px;
+    text-align: center;
+    color: #ffffff;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+    
+    /* ANIMACIÓN DE APARICIÓN */
+    opacity: 0;
+    transform: translateY(60px) scale(0.9);
+    animation: fadeInCard 1.2s ease-out forwards;
+}
+
+@keyframes fadeInCard {
+    from {
+        opacity: 0;
+        transform: translateY(60px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.sivo-card h1 {
+    font-size: 48px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: #ffffff;
+    opacity: 0;
+    animation: fadeInText 0.8s ease-out 0.6s forwards;
+}
+
+.sivo-card .highlight {
+    color: #ffffff;
+    font-size: 52px;
+    display: block;
+    margin-bottom: 40px;
+    font-weight: 700;
+    line-height: 1.3;
+    opacity: 0;
+    animation: fadeInText 0.8s ease-out 1s forwards;
+}
+
+.sivo-card p {
+    font-size: 22px;
+    line-height: 1.8;
+    color: #ffffff;
+    margin-bottom: 50px;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    animation: fadeInText 0.8s ease-out 1.4s forwards;
+}
+
+.sivo-card .button {
+    display: inline-block;
+    background-color: #FFC107;
+    color: #000;
+    padding: 20px 50px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+    opacity: 0;
+    animation: fadeInButton 0.8s ease-out 1.8s forwards;
+}
+
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInButton {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.sivo-card .button:hover {
+    background-color: #FFD54F;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 193, 7, 0.6);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .sivo-card {
+        padding: 60px 50px;
+        max-width: 800px;
+        border-radius: 35px;
+    }
+
+    .sivo-card h1 {
+        font-size: 40px;
+    }
+
+    .sivo-card .highlight {
+        font-size: 44px;
+    }
+
+    .sivo-card p {
+        font-size: 20px;
+    }
+
+    .sivo-card .button {
+        padding: 18px 45px;
+        font-size: 19px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .sivo-card {
+        padding: 40px 30px;
+        border-radius: 30px;
+    }
+
+    .sivo-card h1 {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .sivo-card .highlight {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .sivo-card p {
+        font-size: 17px;
+        margin-bottom: 40px;
+    }
+
+    .sivo-card .button {
+        padding: 16px 40px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sivo-card {
+        padding: 30px 20px;
+        border-radius: 25px;
+    }
+
+    .sivo-card h1 {
+        font-size: 24px;
+    }
+
+    .sivo-card .highlight {
+        font-size: 28px;
+    }
+
+    .sivo-card p {
+        font-size: 16px;
+    }
+
+    .sivo-card .button {
+        padding: 14px 35px;
+        font-size: 17px;
+    }
+}
+</style>
+""" + HEADER + """
+    <!-- HERO TARJETA SIVO -->
+    <div class="sivo-card-wrapper">
+        <div class="sivo-card">
+            <h1>Pregúntale a tus datos.</h1>
+            <span class="highlight">No esperes por la información, SIVO la encuentra por vos.</span>
+            <p>Responde al instante con la información de tu negocio, tanto para uso interno como para atención a clientes.</p>
+            <a href="?vista=asistentes" class="button">Ver SIVO Digitales →</a>
         </div>
     </div>
 
