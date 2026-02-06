@@ -1546,7 +1546,7 @@ h1, h2, h3, h4, h5, h6 {
 ========================= */
 .sivo-section {
     padding: 0 5%;
-    margin-top: 40px;
+    margin-top: 0;
     margin-bottom: 0;
     background: white;
     text-align: center;
@@ -3048,6 +3048,10 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
 
     <!-- FAQ -->
     {HTML_PREGUNTAS_FRECUENTES_STANDALONE}
+
+    <div style=\"height:28px;\"></div>
+
+
 
     <!-- NOVEDAD SIVO -->
     <div class="sivo-section">
