@@ -3049,10 +3049,6 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
     <!-- FAQ -->
     {HTML_PREGUNTAS_FRECUENTES_STANDALONE}
 
-    <div style=\"height:28px;\"></div>
-
-
-
     <!-- NOVEDAD SIVO -->
     <div class="sivo-section">
         <div class="sivo-badge-top">🔥 Recién Lanzado - Enero 2026</div>
