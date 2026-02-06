@@ -2288,8 +2288,119 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             </div>
         </div>
 
-        <!-- STATS_CARDS_PLACEHOLDER -->
+        <!-- TARJETAS NUMÉRICAS SIVO -->
+        <div class="sivo-stats-cards">
+            <style>
+                .sivo-stats-cards {
+                    max-width: 500px;
+                    margin: 0;
+                }
+                .sivo-stats-cards .stat-card {
+                    background: #fff;
+                    border: 1px solid #e6eaf2;
+                    border-radius: 22px;
+                    padding: 40px 30px;
+                    margin-bottom: 22px;
+                    text-align: center;
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+                    transition: transform 0.3s, box-shadow 0.3s;
+                }
+                .sivo-stats-cards .stat-card:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+                }
+                .sivo-stats-cards .stat-number {
+                    font-size: 64px;
+                    font-weight: 800;
+                    color: #2f7df6;
+                    line-height: 1;
+                }
+                .sivo-stats-cards .stat-number-small {
+                    font-size: 40px;
+                    font-weight: 800;
+                    color: #2f7df6;
+                    letter-spacing: 1px;
+                    line-height: 1;
+                }
+                .sivo-stats-cards .stat-label {
+                    font-size: 22px;
+                    margin-top: 12px;
+                    font-weight: 600;
+                    color: #0b1220;
+                }
+                .sivo-stats-cards .stat-desc {
+                    opacity: 0.65;
+                    margin-top: 10px;
+                    font-size: 15px;
+                    color: #4a5568;
+                }
+            </style>
 
+            <div class="stat-card">
+                <div class="stat-number" id="stat-num-1">0</div>
+                <div class="stat-label">Conversaciones simultáneas</div>
+                <div class="stat-desc">Atiende múltiples clientes al mismo tiempo</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number" id="stat-num-2">0</div>
+                <div class="stat-label">Mensajes por minuto</div>
+                <div class="stat-desc">Respuestas en tiempo real</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number-small" id="stat-alpha">A</div>
+                <div class="stat-label">Fuentes de conocimiento</div>
+                <div class="stat-desc">Entrenable con cualquier información del negocio</div>
+            </div>
+        </div>
+
+        <script>
+        // EJECUTAR INMEDIATAMENTE (sin timeouts ni observers)
+        (function() {
+            function animateNumber(el, target) {
+                var duration = 1500;
+                var start = Date.now();
+                
+                function update() {
+                    var elapsed = Date.now() - start;
+                    var progress = Math.min(elapsed / duration, 1);
+                    var ease = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.floor(ease * target);
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        el.textContent = target;
+                    }
+                }
+                requestAnimationFrame(update);
+            }
+            
+            function animateAlphabet(el) {
+                var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                var i = 0;
+                var timer = setInterval(function() {
+                    if (i < letters.length) {
+                        el.textContent = letters[i++];
+                    } else {
+                        clearInterval(timer);
+                        setTimeout(function() { el.textContent = "ILIMITADO"; }, 200);
+                    }
+                }, 50);
+            }
+            
+            // Ejecutar AHORA
+            var el1 = document.getElementById('stat-num-1');
+            var el2 = document.getElementById('stat-num-2');
+            var elAlpha = document.getElementById('stat-alpha');
+            
+            if (el1) setTimeout(function() { animateNumber(el1, 100); }, 100);
+            if (el2) setTimeout(function() { animateNumber(el2, 60); }, 250);
+            if (elAlpha) setTimeout(function() { animateAlphabet(elAlpha); }, 400);
+        })();
+        </script>
+    </div>
 
     
 
@@ -2487,157 +2598,6 @@ try:
     HTML_HOME_PARTE_1 = HTML_HOME_PARTE_1.replace("__BENEFITS_STANDALONE__", HTML_BENEFITS_STANDALONE)
 except Exception:
     pass
-
-
-# =========================
-# COMPONENTE: Tarjetas de estadísticas (requiere JavaScript)
-# =========================
-STATS_CARDS_COMPONENT = """
-        <!-- TARJETAS NUMÉRICAS SIVO -->
-        <div class="sivo-stats-cards">
-            <style>
-                .sivo-stats-cards {
-                    max-width: 500px;
-                    margin: 0;
-                }
-                .sivo-stats-cards .stat-card {
-                    background: #fff;
-                    border: 1px solid #e6eaf2;
-                    border-radius: 22px;
-                    padding: 40px 30px;
-                    margin-bottom: 22px;
-                    text-align: center;
-                    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-                    transition: transform 0.3s, box-shadow 0.3s;
-                }
-                .sivo-stats-cards .stat-card:hover {
-                    transform: translateY(-4px);
-                    box-shadow: 0 12px 35px rgba(0,0,0,0.12);
-                }
-                .sivo-stats-cards .stat-number {
-                    font-size: 64px;
-                    font-weight: 800;
-                    color: #2f7df6;
-                    line-height: 1;
-                }
-                .sivo-stats-cards .stat-number-small {
-                    font-size: 40px;
-                    font-weight: 800;
-                    color: #2f7df6;
-                    letter-spacing: 1px;
-                    line-height: 1;
-                }
-                .sivo-stats-cards .stat-label {
-                    font-size: 22px;
-                    margin-top: 12px;
-                    font-weight: 600;
-                    color: #0b1220;
-                }
-                .sivo-stats-cards .stat-desc {
-                    opacity: 0.65;
-                    margin-top: 10px;
-                    font-size: 15px;
-                    color: #4a5568;
-                }
-            </style>
-
-            <div class="stat-card">
-                <div class="stat-number" id="stat-num-1" data-target="100">0</div>
-                <div class="stat-label">Conversaciones simultáneas</div>
-                <div class="stat-desc">Atiende múltiples clientes al mismo tiempo</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-number" id="stat-num-2" data-target="60">0</div>
-                <div class="stat-label">Mensajes por minuto</div>
-                <div class="stat-desc">Respuestas en tiempo real</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-number-small" id="stat-alpha">A</div>
-                <div class="stat-label">Fuentes de conocimiento</div>
-                <div class="stat-desc">Entrenable con cualquier información del negocio</div>
-            </div>
-        </div>
-
-        <script>
-        // Versión optimizada para components.html
-        (function() {
-            console.log('🔵 Tarjetas SIVO - Script iniciado');
-            
-            function animateNumber(el, target) {
-                console.log('🔢 Animando:', target);
-                var duration = 1500;
-                var start = Date.now();
-                
-                function update() {
-                    var elapsed = Date.now() - start;
-                    var progress = Math.min(elapsed / duration, 1);
-                    var ease = 1 - Math.pow(1 - progress, 3);
-                    var current = Math.floor(ease * target);
-                    
-                    el.textContent = current;
-                    
-                    if (progress < 1) {
-                        requestAnimationFrame(update);
-                    } else {
-                        el.textContent = target;
-                        console.log('✅ Completado:', target);
-                    }
-                }
-                requestAnimationFrame(update);
-            }
-            
-            function animateAlphabet(el) {
-                console.log('🔤 Animando alfabeto');
-                var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                var i = 0;
-                
-                var timer = setInterval(function() {
-                    if (i < letters.length) {
-                        el.textContent = letters[i++];
-                    } else {
-                        clearInterval(timer);
-                        setTimeout(function() {
-                            el.textContent = "ILIMITADO";
-                            console.log('✅ Alfabeto completado');
-                        }, 200);
-                    }
-                }, 50);
-            }
-            
-            function init() {
-                console.log('🚀 Inicializando...');
-                
-                var el1 = document.getElementById('stat-num-1');
-                var el2 = document.getElementById('stat-num-2');
-                var elAlpha = document.getElementById('stat-alpha');
-                
-                if (el1) {
-                    setTimeout(function() { animateNumber(el1, 100); }, 100);
-                }
-                if (el2) {
-                    setTimeout(function() { animateNumber(el2, 60); }, 250);
-                }
-                if (elAlpha) {
-                    setTimeout(function() { animateAlphabet(elAlpha); }, 400);
-                }
-            }
-            
-            // Múltiples intentos de inicio
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', init);
-            } else {
-                init();
-            }
-            
-            // Fallback
-            setTimeout(init, 500);
-            setTimeout(init, 1000);
-        })();
-        </script>
-    </div>
-"""
 
 HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
     <div class="testimonios">
@@ -6263,10 +6223,7 @@ elif vista == "precios":
     st.html(HTML_PRECIOS)
 
 else:
-    st.html(HTML_HOME_PARTE_1)
-    # Renderizar tarjetas con components.html (requiere JS)
-    components.html(STATS_CARDS_COMPONENT, height=650)
-
+    components.html(HTML_HOME_PARTE_1, height=3500, scrolling=False)
     
     components.html("""
     <style>
