@@ -171,6 +171,14 @@ body {
     min-height: 100vh;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    color: #111;
+}
+
+p, li, span, a {
+    color: inherit;
+}
+
 .page-container {
     width: 100%;
     max-width: 100%;
@@ -499,6 +507,7 @@ body {
     font-size: 38px;
     line-height: 1.15;
     margin: 0 0 18px 0;
+    color: #111;
 }
 
 .hero p {
