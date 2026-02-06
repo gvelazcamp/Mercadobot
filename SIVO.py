@@ -163,6 +163,7 @@ html {
 body {
     font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     background: #ffffff !important;
+    color: #111 !important;
     margin: 0;
     padding: 0;
     width: 100%;
