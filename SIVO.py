@@ -2337,99 +2337,78 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
             </style>
 
             <div class="stat-card">
-                <div class="stat-number sivo-counter" data-target="100">0</div>
+                <div class="stat-number" id="stat-num-1" data-target="100">0</div>
                 <div class="stat-label">Conversaciones simultáneas</div>
                 <div class="stat-desc">Atiende múltiples clientes al mismo tiempo</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-number sivo-counter" data-target="60">0</div>
+                <div class="stat-number" id="stat-num-2" data-target="60">0</div>
                 <div class="stat-label">Mensajes por minuto</div>
                 <div class="stat-desc">Respuestas en tiempo real</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-number-small sivo-alphabet">A</div>
+                <div class="stat-number-small" id="stat-alpha">A</div>
                 <div class="stat-label">Fuentes de conocimiento</div>
                 <div class="stat-desc">Entrenable con cualquier información del negocio</div>
             </div>
         </div>
 
         <script>
-        (function() {
-            // Esperar a que el DOM esté listo
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initSivoAnimations);
-            } else {
-                initSivoAnimations();
+        setTimeout(function() {
+            // Animar número 100
+            var el1 = document.getElementById('stat-num-1');
+            if (el1) {
+                var target1 = 100;
+                var current1 = 0;
+                var increment1 = target1 / 60;
+                var timer1 = setInterval(function() {
+                    current1 += increment1;
+                    if (current1 >= target1) {
+                        el1.textContent = target1;
+                        clearInterval(timer1);
+                    } else {
+                        el1.textContent = Math.floor(current1);
+                    }
+                }, 20);
             }
 
-            function initSivoAnimations() {
-                function animateSivoNumber(el) {
-                    const target = parseInt(el.getAttribute("data-target"));
-                    const duration = 1500;
-                    const startTime = performance.now();
-                    
-                    function update() {
-                        const currentTime = performance.now();
-                        const progress = currentTime - startTime;
-                        const percent = Math.min(progress / duration, 1);
-                        const ease = 1 - Math.pow(1 - percent, 3);
-                        const currentValue = Math.floor(ease * target);
-                        
-                        el.textContent = currentValue;
-                        
-                        if (percent < 1) {
-                            requestAnimationFrame(update);
-                        } else {
-                            el.textContent = target;
-                        }
+            // Animar número 60
+            var el2 = document.getElementById('stat-num-2');
+            if (el2) {
+                var target2 = 60;
+                var current2 = 0;
+                var increment2 = target2 / 60;
+                var timer2 = setInterval(function() {
+                    current2 += increment2;
+                    if (current2 >= target2) {
+                        el2.textContent = target2;
+                        clearInterval(timer2);
+                    } else {
+                        el2.textContent = Math.floor(current2);
                     }
-                    requestAnimationFrame(update);
-                }
-
-                function animateSivoAlphabet(el) {
-                    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-                    let i = 0;
-                    
-                    function step() {
-                        if (i < letters.length) {
-                            el.textContent = letters[i];
-                            i++;
-                            setTimeout(step, 50);
-                        } else {
-                            setTimeout(() => {
-                                el.textContent = "ILIMITADO";
-                            }, 200);
-                        }
-                    }
-                    step();
-                }
-
-                // Observer para activar animaciones cuando sean visibles
-                const sivoObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting && !entry.target.dataset.animated) {
-                            entry.target.dataset.animated = "true";
-                            
-                            if (entry.target.classList.contains("sivo-counter")) {
-                                animateSivoNumber(entry.target);
-                            }
-                            if (entry.target.classList.contains("sivo-alphabet")) {
-                                animateSivoAlphabet(entry.target);
-                            }
-                            
-                            sivoObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.3 });
-
-                // Observar todos los elementos
-                document.querySelectorAll(".sivo-counter, .sivo-alphabet").forEach(el => {
-                    sivoObserver.observe(el);
-                });
+                }, 20);
             }
-        })();
+
+            // Animar alfabeto
+            var elAlpha = document.getElementById('stat-alpha');
+            if (elAlpha) {
+                var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                var idx = 0;
+                var alphaTimer = setInterval(function() {
+                    if (idx < letters.length) {
+                        elAlpha.textContent = letters[idx];
+                        idx++;
+                    } else {
+                        clearInterval(alphaTimer);
+                        setTimeout(function() {
+                            elAlpha.textContent = "ILIMITADO";
+                        }, 200);
+                    }
+                }, 50);
+            }
+        }, 500);
         </script>
     </div>
 
