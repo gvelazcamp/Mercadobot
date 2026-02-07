@@ -144,11 +144,31 @@ st.markdown(
         height: 0 !important;
     }
 
-    /* Eliminar scroll horizontal y forzar fondo blanco */
-    html, body, [data-testid="stAppViewContainer"], section.main,
-    .stApp, [data-testid="stApp"], .main, .block-container {
+    /* Eliminar scroll horizontal */
+    html, body, [data-testid="stAppViewContainer"], section.main {
         overflow-x: hidden !important;
         max-width: 100vw !important;
+    }
+
+    /* FORZAR FONDO BLANCO EN ABSOLUTAMENTE TODO STREAMLIT */
+    html, body,
+    .stApp,
+    [data-testid="stApp"],
+    [data-testid="stAppViewContainer"],
+    [data-testid="stVerticalBlock"],
+    [data-testid="stElementContainer"],
+    [data-testid="element-container"],
+    [data-testid="stHtml"],
+    section.main,
+    section.main > div,
+    .main,
+    .main .block-container,
+    .block-container,
+    .element-container,
+    div[data-testid="stVerticalBlock"] > div,
+    div[data-testid="stElementContainer"],
+    .stMarkdown,
+    div.stHtml {
         background-color: #ffffff !important;
         background: #ffffff !important;
     }
