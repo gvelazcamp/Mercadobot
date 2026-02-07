@@ -144,10 +144,13 @@ st.markdown(
         height: 0 !important;
     }
 
-    /* Eliminar scroll horizontal */
-    html, body, [data-testid="stAppViewContainer"], section.main {
+    /* Eliminar scroll horizontal y forzar fondo blanco */
+    html, body, [data-testid="stAppViewContainer"], section.main,
+    .stApp, [data-testid="stApp"], .main, .block-container {
         overflow-x: hidden !important;
         max-width: 100vw !important;
+        background-color: #ffffff !important;
+        background: #ffffff !important;
     }
 
     /* El iframe debe ocupar exactamente el espacio */
@@ -157,6 +160,7 @@ st.markdown(
         display: block !important;
         margin: 0 !important;
         padding: 0 !important;
+        background: #ffffff !important;
     }
     </style>
     """,
