@@ -2087,31 +2087,6 @@ h1, h2, h3, h4, h5, h6 {
     width: 20px;
     height: 20px;
     fill: white;
-
-
-    /* MOBILE FIX: quitar sombreado/fondo gris debajo de la tarjeta "Pregúntale a tus datos" */
-    .sivo-card-wrapper {
-        background: #ffffff !important;
-        background-color: #ffffff !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        min-height: auto !important;
-        justify-content: flex-start !important;
-        align-items: stretch !important;
-    }
-
-    .sivo-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        box-shadow: none !important;
-    }
-
-    /* MOBILE: más interlineado en "Tu negocio atendido / Empleado Digital" */
-    .hero h1 {
-        line-height: 1.25 !important;
-        margin-bottom: 24px !important;
-    }
 }
 
 @media (max-width: 768px) {
@@ -2290,7 +2265,8 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
+    overflow: hidden;
 }
 
 .sivo-card {
@@ -2310,18 +2286,18 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
     
     /* ANIMACIÓN DE APARICIÓN */
     opacity: 0;
-    transform: translateY(60px) scale(0.9);
+    transform: translateX(-100px) scale(0.9);
     animation: fadeInCard 1.2s ease-out forwards;
 }
 
 @keyframes fadeInCard {
     from {
         opacity: 0;
-        transform: translateY(60px) scale(0.9);
+        transform: translateX(-100px) scale(0.9);
     }
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateX(0) scale(1);
     }
 }
 
@@ -2377,22 +2353,22 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
 @keyframes fadeInText {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateX(-30px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0);
     }
 }
 
 @keyframes fadeInButton {
     from {
         opacity: 0;
-        transform: translateY(30px) scale(0.85);
+        transform: translateX(-30px) scale(0.85);
     }
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateX(0) scale(1);
     }
 }
 
