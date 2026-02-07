@@ -150,6 +150,29 @@ st.markdown(
         max-width: 100vw !important;
     }
 
+    /* FORZAR FONDO BLANCO EN ABSOLUTAMENTE TODO STREAMLIT */
+    html, body,
+    .stApp,
+    [data-testid="stApp"],
+    [data-testid="stAppViewContainer"],
+    [data-testid="stVerticalBlock"],
+    [data-testid="stElementContainer"],
+    [data-testid="element-container"],
+    [data-testid="stHtml"],
+    section.main,
+    section.main > div,
+    .main,
+    .main .block-container,
+    .block-container,
+    .element-container,
+    div[data-testid="stVerticalBlock"] > div,
+    div[data-testid="stElementContainer"],
+    .stMarkdown,
+    div.stHtml {
+        background-color: #ffffff !important;
+        background: #ffffff !important;
+    }
+
     /* El iframe debe ocupar exactamente el espacio */
     iframe {
         width: 100% !important;
@@ -157,6 +180,7 @@ st.markdown(
         display: block !important;
         margin: 0 !important;
         padding: 0 !important;
+        background: #ffffff !important;
     }
     </style>
     """,
@@ -2087,31 +2111,6 @@ h1, h2, h3, h4, h5, h6 {
     width: 20px;
     height: 20px;
     fill: white;
-
-
-    /* MOBILE FIX: quitar sombreado/fondo gris debajo de la tarjeta "Pregúntale a tus datos" */
-    .sivo-card-wrapper {
-        background: #ffffff !important;
-        background-color: #ffffff !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        min-height: auto !important;
-        justify-content: flex-start !important;
-        align-items: stretch !important;
-    }
-
-    .sivo-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        box-shadow: none !important;
-    }
-
-    /* MOBILE: más interlineado en "Tu negocio atendido / Empleado Digital" */
-    .hero h1 {
-        line-height: 1.25 !important;
-        margin-bottom: 24px !important;
-    }
 }
 
 @media (max-width: 768px) {
@@ -2282,15 +2281,23 @@ body { background: #1a1a2e; font-family: Inter, sans-serif; margin: 0; padding: 
 HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
 <style>
 /* ===========================
-   ESTILOS PARA LA TARJETA SIVO
+   TARJETA SIVO - TODO INLINE, FONDO BLANCO PURO
 =========================== */
+html, body, .page-container {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
 .sivo-card-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
     min-height: 100vh;
     padding: 20px;
-    background-color: #f5f5f5;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    overflow: hidden !important;
+    margin: 0 !important;
 }
 
 .sivo-card {
@@ -2306,22 +2313,22 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 25px 80px rgba(0,0,0,0.4);
-    
-    /* ANIMACIÓN DE APARICIÓN */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+    /* ANIMACIÓN: ENTRA DESDE LA IZQUIERDA */
     opacity: 0;
-    transform: translateY(60px) scale(0.9);
-    animation: fadeInCard 1.2s ease-out forwards;
+    transform: translateX(-100%) scale(0.95);
+    animation: slideFromLeft 1s ease-out forwards;
 }
 
-@keyframes fadeInCard {
-    from {
+@keyframes slideFromLeft {
+    0% {
         opacity: 0;
-        transform: translateY(60px) scale(0.9);
+        transform: translateX(-100%) scale(0.95);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateX(0) scale(1);
     }
 }
 
@@ -2331,7 +2338,7 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
     font-weight: 600;
     color: #ffffff;
     opacity: 0;
-    animation: fadeInText 0.8s ease-out 0.6s forwards;
+    animation: slideTextFromLeft 0.6s ease-out 0.5s forwards;
 }
 
 .sivo-card .highlight {
@@ -2342,7 +2349,7 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
     font-weight: 700;
     line-height: 1.3;
     opacity: 0;
-    animation: fadeInText 0.8s ease-out 1s forwards;
+    animation: slideTextFromLeft 0.6s ease-out 0.8s forwards;
 }
 
 .sivo-card p {
@@ -2354,7 +2361,7 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
     margin-left: auto;
     margin-right: auto;
     opacity: 0;
-    animation: fadeInText 0.8s ease-out 1.4s forwards;
+    animation: slideTextFromLeft 0.6s ease-out 1.1s forwards;
 }
 
 .sivo-card .button {
@@ -2371,28 +2378,17 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
     cursor: pointer;
     box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
     opacity: 0;
-    animation: fadeInButton 0.8s ease-out 1.8s forwards;
+    animation: slideTextFromLeft 0.6s ease-out 1.4s forwards;
 }
 
-@keyframes fadeInText {
-    from {
+@keyframes slideTextFromLeft {
+    0% {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateX(-40px);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInButton {
-    from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.85);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateX(0);
     }
 }
 
@@ -2410,77 +2406,45 @@ HTML_HOME_PARTE_1 = """""" + HTML_BASE + """
         min-height: 80vh;
         border-radius: 35px;
     }
-
-    .sivo-card h1 {
-        font-size: 52px;
-    }
-
-    .sivo-card .highlight {
-        font-size: 60px;
-    }
-
-    .sivo-card p {
-        font-size: 24px;
-    }
-
-    .sivo-card .button {
-        padding: 22px 55px;
-        font-size: 21px;
-    }
+    .sivo-card h1 { font-size: 52px; }
+    .sivo-card .highlight { font-size: 60px; }
+    .sivo-card p { font-size: 24px; }
+    .sivo-card .button { padding: 22px 55px; font-size: 21px; }
 }
 
 /* Mobile */
 @media (max-width: 768px) {
+    .sivo-card-wrapper {
+        padding: 10px !important;
+        background: #ffffff !important;
+    }
     .sivo-card {
         padding: 50px 35px;
         border-radius: 30px;
         min-height: 75vh;
         width: 92%;
+        box-shadow: none !important;
     }
-
-    .sivo-card h1 {
-        font-size: 36px;
-        margin-bottom: 25px;
-    }
-
-    .sivo-card .highlight {
-        font-size: 42px;
-        margin-bottom: 35px;
-    }
-
-    .sivo-card p {
-        font-size: 19px;
-        margin-bottom: 45px;
-    }
-
-    .sivo-card .button {
-        padding: 18px 45px;
-        font-size: 19px;
-    }
+    .sivo-card h1 { font-size: 36px; margin-bottom: 25px; }
+    .sivo-card .highlight { font-size: 42px; margin-bottom: 35px; }
+    .sivo-card p { font-size: 19px; margin-bottom: 45px; }
+    .sivo-card .button { padding: 18px 45px; font-size: 19px; }
 }
 
 @media (max-width: 480px) {
+    .sivo-card-wrapper {
+        padding: 5px !important;
+        background: #ffffff !important;
+    }
     .sivo-card {
         padding: 30px 20px;
         border-radius: 25px;
+        box-shadow: none !important;
     }
-
-    .sivo-card h1 {
-        font-size: 24px;
-    }
-
-    .sivo-card .highlight {
-        font-size: 28px;
-    }
-
-    .sivo-card p {
-        font-size: 16px;
-    }
-
-    .sivo-card .button {
-        padding: 14px 35px;
-        font-size: 17px;
-    }
+    .sivo-card h1 { font-size: 24px; }
+    .sivo-card .highlight { font-size: 28px; }
+    .sivo-card p { font-size: 16px; }
+    .sivo-card .button { padding: 14px 35px; font-size: 17px; }
 }
 </style>
 """ + HEADER + """
