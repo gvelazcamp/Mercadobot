@@ -2233,7 +2233,7 @@ h1, h2, h3, h4, h5, h6 {
 HEADER = """
     <div class="header">
         <a class="logo" href="?vista=home">
-            <img src="https://gvelazcamp.github.io/SIVO/LogoMercadobot.png" alt="SIVO" class="logo-img">
+            <img src="https://gvelazcamp.github.io/SIVO/LogoSivo.png" alt="SIVO" class="logo-img">
             <span class="logo-text">SIVO</span>
         </a>
 
@@ -2271,11 +2271,44 @@ FOOTER_SIMPLE = """
 <html>
 <head>
 <style>
-body { background: #1a1a2e; font-family: Inter, sans-serif; margin: 0; padding: 40px 20px; color: white; text-align: center; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+    background: #1a1a2e;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.footer-container {
+    background: #1a1a2e;
+    width: 100%;
+    padding: 40px 20px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+.footer-logo {
+    height: 60px;
+    width: auto;
+    opacity: 0.9;
+}
+.footer-copyright {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.3px;
+}
 </style>
 </head>
 <body>
-<p style="font-size: 14px; opacity: 0.7;">© 2025 SIVO. Todos los derechos reservados.</p>
+<div class="footer-container">
+    <img src="https://gvelazcamp.github.io/SIVO/LogoSivoDark.png" alt="SIVO" class="footer-logo">
+    <p class="footer-copyright">&copy; 2026 SIVO. Todos los derechos reservados.</p>
+</div>
 </body>
 </html>
 """
@@ -6705,8 +6738,28 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
 </style>
 """, unsafe_allow_html=True)
 
+# CSS para que el footer ocupe todo el ancho sin márgenes y fondo oscuro
+st.markdown("""
+<style>
+div[data-testid="element-container"]:has(iframe[height="200"]) {
+    background: #1a1a2e !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+}
+div[data-testid="element-container"]:has(iframe[height="200"]) iframe {
+    background: #1a1a2e !important;
+}
+div[data-testid="stVerticalBlock"]:has(iframe[height="200"]) {
+    gap: 0 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Footer + Chatbot juntos con components.html (para que funcione JS)
-components.html(FOOTER_SIMPLE, height=150)
+components.html(FOOTER_SIMPLE, height=200)
 
 
 # Chatbot flotante COMPLETO
