@@ -2137,6 +2137,51 @@ h1, h2, h3, h4, h5, h6 {
 .chat-messages::-webkit-scrollbar-thumb:hover {
     background: #ff6b00;
 }
+
+/* =========================
+   SCROLL REVEAL - APARECEN AL SCROLLEAR
+========================= */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.reveal.reveal-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.reveal-left.reveal-visible {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+}
+.reveal-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.reveal-right.reveal-visible {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+}
+
+/* Delays escalonados para hijos dentro de reveal-children */
+.reveal-children.reveal-visible > * { opacity: 1 !important; transform: none !important; }
+.reveal-children > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.reveal-children > *:nth-child(1) { transition-delay: 0s; }
+.reveal-children > *:nth-child(2) { transition-delay: 0.12s; }
+.reveal-children > *:nth-child(3) { transition-delay: 0.24s; }
+.reveal-children > *:nth-child(4) { transition-delay: 0.36s; }
+.reveal-children > *:nth-child(5) { transition-delay: 0.48s; }
+.reveal-children > *:nth-child(6) { transition-delay: 0.6s; }
 </style>
 </head>
 <body>
@@ -2458,7 +2503,7 @@ html, body, .page-container {
         </div>
     </div>
 
-    <div class="hero">
+    <div class="hero reveal">
         <div class="hero-content">
             <h1>Tu negocio atendido<br>por un <span style="color:#1e40af;">Empleado Digital</span></h1>
             <p>
@@ -2474,7 +2519,7 @@ html, body, .page-container {
         </div>
 
         <!-- TARJETAS NUMÉRICAS SIVO -->
-        <div class="sivo-stats-cards">
+        <div class="sivo-stats-cards reveal reveal-children">
             <style>
                 .sivo-stats-cards {
                     max-width: 500px;
@@ -2746,7 +2791,7 @@ html, body, .page-container {
         }
     </style>
 
-    <div class="como-funciona-container">
+    <div class="como-funciona-container reveal">
         <div class="como-funciona-header">
             <h1>Cómo funciona</h1>
             <p>Simple y rápido. En 3 pasos tenés tu asistente funcionando.</p>
@@ -2783,7 +2828,6 @@ __BENEFITS_STANDALONE__
 
 <!-- Inline event handlers are used on cards for better compatibility -->
 
-
 """ + FOOTER + """
 """
 
@@ -2795,10 +2839,10 @@ except Exception:
     pass
 
 HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
-    <div class="testimonios">
+    <div class="testimonios reveal">
         <h2>Lo que dicen nuestros clientes</h2>
         
-        <div class="testimonios-grid">
+        <div class="testimonios-grid reveal-children">
             <div class="testimonio-card">
                 <div class="testimonio-quote">
                     "Desde que instalé el chatbot, las consultas se responden automáticamente. Las ventas subieron un 40% y ya no pierdo clientes por demoras en responder."
@@ -2885,7 +2929,7 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
         </div>
     </div>
 
-    <div class="cta" id="soporte">
+    <div class="cta reveal" id="soporte">
         <h2>Agendá una demo gratuita</h2>
         <p>Probá 7 días gratis. Sin tarjeta de crédito. Cancelá cuando quieras.</p>
         
@@ -2904,10 +2948,10 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
     </div>
 
     <!-- FAQ -->
-    <div class="faq-section">
+    <div class="faq-section reveal">
         <h2>Preguntas frecuentes</h2>
-        
-        <div class="faq-grid">
+
+        <div class="faq-grid reveal-children">
             <div class="faq-item">
                 <div class="faq-question">¿Necesito saber programar?</div>
                 <div class="faq-answer">No. Nosotros configuramos todo por vos. Vos solo nos pasás la información de tu negocio y nosotros lo dejamos funcionando.</div>
@@ -2941,7 +2985,7 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
     </div>
 
     <!-- NOVEDAD SIVO -->
-    <div class="sivo-section">
+    <div class="sivo-section reveal">
         <div class="sivo-badge-top">🔥 Recién Lanzado - Enero 2026</div>
         
         <div class="sivo-card-clean">
@@ -2974,7 +3018,7 @@ HTML_HOME_PARTE_2 = f"""    <!-- TESTIMONIOS -->
     </div>
 
     <!-- INTEGRACIONES -->
-    <div class="integrations-section">
+    <div class="integrations-section reveal">
 {HTML_INTEGRACIONES_STANDALONE}
 </div>
 
@@ -6709,7 +6753,7 @@ components.html("""
         var containers = parentDoc.querySelectorAll('div[data-testid="stHtml"]');
         if (!containers || containers.length < 2) return;
 
-        // Estilos de transición
+        // Estilos de transición para contenedores padre
         var style = parentDoc.createElement('style');
         style.textContent = `
             .scroll-hidden {
@@ -6729,7 +6773,7 @@ components.html("""
             containers[i].classList.add('scroll-hidden');
         }
 
-        // Observer en el contexto del padre
+        // Observer para contenedores padre
         var observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
@@ -6753,6 +6797,55 @@ components.html("""
             el.classList.add('scroll-hidden');
             observer.observe(el);
         });
+
+        // =============================================
+        // SCROLL REVEAL INTERNO: elementos .reveal dentro de iframes
+        // =============================================
+        function setupInternalReveals() {
+            var iframes = parentDoc.querySelectorAll('div[data-testid="stHtml"] iframe');
+            var revealEls = [];
+
+            iframes.forEach(function(iframe) {
+                try {
+                    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    if (!iframeDoc) return;
+                    var els = iframeDoc.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+                    els.forEach(function(el) {
+                        revealEls.push({ el: el, iframe: iframe });
+                    });
+                } catch(e) {}
+            });
+
+            if (!revealEls.length) return;
+
+            function checkReveals() {
+                var viewH = window.parent.innerHeight;
+                revealEls.forEach(function(item) {
+                    if (item.done) return;
+                    var iframeRect = item.iframe.getBoundingClientRect();
+                    var elRect = item.el.getBoundingClientRect();
+                    // Posición real del elemento en el viewport del padre
+                    var elTop = iframeRect.top + elRect.top;
+                    var triggerPoint = viewH * 0.88;
+                    if (elTop < triggerPoint) {
+                        item.el.classList.add('reveal-visible');
+                        item.done = true;
+                    }
+                });
+                // Limpiar los que ya se revelaron
+                revealEls = revealEls.filter(function(item) { return !item.done; });
+                if (revealEls.length === 0) {
+                    window.parent.removeEventListener('scroll', checkReveals);
+                }
+            }
+
+            window.parent.addEventListener('scroll', checkReveals, { passive: true });
+            // Check inicial
+            setTimeout(checkReveals, 300);
+        }
+
+        // Esperar a que los iframes carguen su contenido
+        setTimeout(setupInternalReveals, 800);
 
     } catch(e) {
         console.log('Scroll reveal error:', e);
