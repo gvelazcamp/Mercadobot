@@ -2233,7 +2233,7 @@ h1, h2, h3, h4, h5, h6 {
 HEADER = """
     <div class="header">
         <a class="logo" href="?vista=home">
-            <img src="https://gvelazcamp.github.io/SIVO/LogoSivo.png" alt="SIVO" class="logo-img">
+            <img src="https://gvelazcamp.github.io/SIVO/LogoSivo.svg" alt="SIVO" class="logo-img">
             <span class="logo-text">SIVO</span>
         </a>
 
@@ -2306,7 +2306,7 @@ html, body {
 </head>
 <body>
 <div class="footer-container">
-    <img src="https://gvelazcamp.github.io/SIVO/LogoSivoDark.png" alt="SIVO" class="footer-logo">
+    <img src="https://gvelazcamp.github.io/SIVO/LogoSivoDark.svg" alt="SIVO" class="footer-logo">
     <p class="footer-copyright">&copy; 2026 SIVO. Todos los derechos reservados.</p>
 </div>
 </body>
