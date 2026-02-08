@@ -470,7 +470,7 @@ h1, h2, h3, h4, h5, h6 {
    HERO IMPACT
 ========================= */
 .hero-impact {
-    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, #1a6fb5 0%, #0d4a7a 50%, #1a3a5c 100%);
     padding: 80px 20px;
     text-align: center;
     color: #ffffff;
@@ -2346,7 +2346,7 @@ html, body, .page-container {
 }
 
 .sivo-card {
-    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, #1a6fb5 0%, #0d4a7a 50%, #1a3a5c 100%);
     border-radius: 40px;
     padding: 100px 80px;
     text-align: center;
