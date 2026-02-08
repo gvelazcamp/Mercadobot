@@ -477,7 +477,7 @@ h1, h2, h3, h4, h5, h6 {
         gap: 12px !important;
     }
 
-    .btn-login {
+    .nav .nav-buttons a.btn-login {
         background: #e8e8e8 !important;
         color: #333 !important;
         width: auto !important;
@@ -487,7 +487,9 @@ h1, h2, h3, h4, h5, h6 {
         font-weight: 600 !important;
         border-radius: 50px !important;
         border: none !important;
+        border-bottom: none !important;
         display: inline-block !important;
+        letter-spacing: 0 !important;
     }
 }
 
