@@ -183,10 +183,6 @@ st.markdown(
         background: #ffffff !important;
     }
 
-    /* Footer iframe: fondo oscuro, NO blanco */
-    iframe[height="250"] {
-        background: #1a1a2e !important;
-    }
     </style>
     """,
     unsafe_allow_html=True
@@ -1701,15 +1697,28 @@ h1, h2, h3, h4, h5, h6 {
    FOOTER
 ========================= */
 .footer {
-    border-top: 1px solid #eee;
-    padding: 20px 5%;
-    font-size: 13px;
-    color: #888;
+    background: #1a1a2e;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 50px 20px 40px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    width: 100%;
-    margin-top: 20px;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+    border: none;
+}
+.footer-logo {
+    height: 100px;
+    width: auto;
+    opacity: 0.9;
+}
+.footer-copyright {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.3px;
+    margin: 0;
 }
 
 /* =========================
@@ -1831,10 +1840,11 @@ h1, h2, h3, h4, h5, h6 {
 
 
     .footer {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-        padding: 20px 4%;
+        padding: 35px 15px 30px;
+        gap: 15px;
+    }
+    .footer-logo {
+        height: 70px;
     }
 
     .pricing {
@@ -2260,9 +2270,11 @@ HEADER = """
     </div>
 """
 
-# FOOTER SIN CIERRE (para st.html) - el body/html se cierra en FOOTER_CHATBOT
+# FOOTER con branding SIVO (dentro de st.html, NO en iframe separado)
 FOOTER = """
-    <div class="footer" style="display: none;">
+    <div class="footer">
+        <img src="https://gvelazcamp.github.io/SIVO/LogoSivoDark.svg" alt="SIVO" class="footer-logo">
+        <p class="footer-copyright">&copy; 2026 SIVO. Todos los derechos reservados.</p>
     </div>
 </div>
 </body>
@@ -6743,62 +6755,7 @@ div[data-testid="element-container"]:has(iframe[height="550"]) iframe {
 </style>
 """, unsafe_allow_html=True)
 
-# CSS para que el footer ocupe TODO el ancho sin márgenes y fondo oscuro
-st.markdown("""
-<style>
-/* ============ FOOTER FULL-WIDTH ============ */
-/* Contenedor directo del iframe del footer */
-div[data-testid="element-container"]:has(iframe[height="250"]),
-div[data-testid="stElementContainer"]:has(iframe[height="250"]) {
-    background: #1a1a2e !important;
-    background-color: #1a1a2e !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    max-width: none !important;
-    width: 100vw !important;
-    position: relative !important;
-    left: 50% !important;
-    right: 50% !important;
-    margin-left: -50vw !important;
-    margin-right: -50vw !important;
-}
-div[data-testid="element-container"]:has(iframe[height="250"]) iframe,
-div[data-testid="stElementContainer"]:has(iframe[height="250"]) iframe {
-    background: #1a1a2e !important;
-    background-color: #1a1a2e !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-/* Todos los padres del footer: sin gap, sin padding, sin margen */
-div[data-testid="stVerticalBlock"]:has(iframe[height="250"]),
-div[data-testid="stVerticalBlock"]:has(iframe[height="250"]) > div:last-child {
-    gap: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-/* El block-container no debe limitar el ancho */
-.main .block-container {
-    padding-bottom: 0 !important;
-}
-/* Bottom de la app: fondo oscuro para que no se vea blanco */
-section[data-testid="stAppViewContainer"] > .main {
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-}
-section[data-testid="stBottom"] {
-    background: #1a1a2e !important;
-}
-/* Eliminar espacio blanco debajo del footer */
-.stApp {
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Footer + Chatbot juntos con components.html (para que funcione JS)
-components.html(FOOTER_SIMPLE, height=250)
+# Footer ya incluido dentro del HTML de cada página via variable FOOTER
 
 
 # Chatbot flotante COMPLETO
