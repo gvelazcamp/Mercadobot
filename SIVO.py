@@ -599,8 +599,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-impact-btn-primary {
-    background-color: #FFC107;
-    color: #000;
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    color: #ffffff;
     padding: 20px 50px;
     border-radius: 50px;
     font-weight: 600;
@@ -608,15 +608,14 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
     display: inline-block;
     transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
     border: none;
     cursor: pointer;
 }
 
 .hero-impact-btn-primary:hover {
-    background-color: #FFD54F;
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 193, 7, 0.6);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
 }
 
 .hero-impact-btn-secondary {
@@ -764,20 +763,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-    background: #f4b400;
-    color: #000;
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    color: #ffffff;
     padding: 12px 22px;
     border-radius: 14px;
     font-weight: 700;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    transition: all 0.3s;
     border: none;
     white-space: nowrap;
 }
 
 .btn-primary:hover {
-    background: #e5a500;
+    box-shadow: 0 6px 25px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
 }
 
 .btn-secondary {
@@ -1100,7 +1102,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card button {
-    background: #f4b400;
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    color: #ffffff;
     border: none;
     padding: 12px 24px;
     border-radius: 12px;
@@ -1110,10 +1113,13 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     min-height: 44px;
     box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    transition: all 0.3s;
 }
 
 .card button:hover {
-    background: #e5a500;
+    box-shadow: 0 6px 25px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
 }
 
 /* =========================
