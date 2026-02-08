@@ -26,7 +26,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 30px;
+            padding: 40px 24px;
             text-align: center;
             opacity: 0;
             transform: scale(0.95);
@@ -56,34 +56,27 @@
             to { opacity: 0; transform: scale(1.05); }
         }
 
-        /* Scene 1 - Hook */
+        /* ==================== SCENE 1 - Hook ==================== */
         .s1 { background: #000; }
         .s1 h1 {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 800;
-            line-height: 1.3;
+            line-height: 1.4;
             overflow: hidden;
             border-right: 3px solid #3b82f6;
             white-space: nowrap;
-            animation: typing 2s steps(35) 0.5s forwards, blink 0.6s step-end infinite;
+            animation: typing 2s steps(40) 0.5s forwards, blink 0.6s step-end infinite;
             width: 0;
             max-width: 100%;
         }
 
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
+        @keyframes typing { from { width: 0; } to { width: 100%; } }
+        @keyframes blink { 50% { border-color: transparent; } }
 
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-
-        /* Scene 2 - Presentación */
+        /* ==================== SCENE 2 - Presentacion ==================== */
         .s2 { background: linear-gradient(135deg, #1a6fb5 0%, #0d4a7a 50%, #1a3a5c 100%); }
         .s2 .logo-anim {
-            width: 120px;
-            height: 120px;
+            width: 120px; height: 120px;
             margin-bottom: 30px;
             border-radius: 30px;
             overflow: hidden;
@@ -91,34 +84,26 @@
             animation: glowPulse 2s ease-in-out infinite;
         }
         .s2 .logo-anim img { width: 100%; height: 100%; object-fit: cover; }
-        .s2 h1 { font-size: 48px; font-weight: 900; margin-bottom: 10px; }
-        .s2 p { font-size: 24px; opacity: 0.9; font-weight: 500; }
+        .s2 h1 { font-size: 44px; font-weight: 900; margin-bottom: 10px; }
+        .s2 p { font-size: 22px; opacity: 0.9; font-weight: 500; }
 
         @keyframes glowPulse {
             0%, 100% { box-shadow: 0 0 40px rgba(96, 165, 250, 0.4); }
             50% { box-shadow: 0 0 80px rgba(96, 165, 250, 0.8); }
         }
 
-        /* Scene 3 - Llamadas */
+        /* ==================== SCENE 3 - Llamadas ==================== */
         .s3 { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); }
         .s3 .phone-icon {
-            font-size: 80px;
-            margin-bottom: 24px;
+            font-size: 80px; margin-bottom: 24px;
             animation: phoneRing 0.5s ease-in-out infinite alternate;
         }
-        .s3 h2 { font-size: 30px; font-weight: 800; margin-bottom: 16px; }
+        .s3 h2 { font-size: 28px; font-weight: 800; margin-bottom: 16px; }
         .s3 .wave {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
+            display: flex; gap: 5px; align-items: center; justify-content: center; margin-top: 20px;
         }
         .s3 .wave span {
-            display: block;
-            width: 5px;
-            background: #60a5fa;
-            border-radius: 10px;
+            display: block; width: 6px; background: #60a5fa; border-radius: 10px;
             animation: waveAnim 0.8s ease-in-out infinite alternate;
         }
         .s3 .wave span:nth-child(1) { height: 20px; animation-delay: 0s; }
@@ -129,89 +114,204 @@
         .s3 .wave span:nth-child(6) { height: 30px; animation-delay: 0.25s; }
         .s3 .wave span:nth-child(7) { height: 45px; animation-delay: 0.05s; }
         .s3 .wave span:nth-child(8) { height: 25px; animation-delay: 0.35s; }
+        .s3 .wave span:nth-child(9) { height: 42px; animation-delay: 0.12s; }
+        .s3 .wave span:nth-child(10) { height: 18px; animation-delay: 0.28s; }
 
-        @keyframes phoneRing {
-            from { transform: rotate(-10deg); }
-            to { transform: rotate(10deg); }
-        }
+        @keyframes phoneRing { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
+        @keyframes waveAnim { from { height: 8px; } }
 
-        @keyframes waveAnim {
-            from { height: 10px; }
-            to { height: var(--h, 50px); }
+        /* ==================== SCENE 4 - WhatsApp Demo SIVO ==================== */
+        .s4 {
+            background: linear-gradient(180deg, #075e54 0%, #054d44 100%);
+            padding: 20px 16px;
+            justify-content: flex-start;
+            padding-top: 30px;
         }
+        .s4 .wa-header {
+            display: flex; align-items: center; gap: 12px;
+            width: 100%; padding: 12px 16px;
+            background: #075e54; border-radius: 0;
+            margin-bottom: 8px;
+        }
+        .s4 .wa-avatar {
+            width: 44px; height: 44px; border-radius: 50%; overflow: hidden;
+            background: #25d366; display: flex; align-items: center; justify-content: center;
+        }
+        .s4 .wa-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .s4 .wa-name { font-size: 18px; font-weight: 700; }
+        .s4 .wa-status { font-size: 12px; opacity: 0.7; }
+        .s4 .wa-chat {
+            width: 100%; flex: 1;
+            background: #ece5dd url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" opacity="0.03"><rect width="200" height="200" fill="%23000"/></svg>');
+            border-radius: 0 0 16px 16px;
+            padding: 16px 12px;
+            overflow-y: auto;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .s4 .wa-msg {
+            max-width: 85%; padding: 10px 14px;
+            border-radius: 12px; font-size: 14px; line-height: 1.4;
+            opacity: 0; animation: bubbleIn 0.4s ease-out forwards;
+            position: relative;
+        }
+        .s4 .wa-msg .wa-time {
+            font-size: 10px; opacity: 0.5; text-align: right; margin-top: 4px;
+        }
+        .s4 .wa-user {
+            background: #dcf8c6; color: #111;
+            align-self: flex-end; border-bottom-right-radius: 4px;
+        }
+        .s4 .wa-bot {
+            background: #fff; color: #111;
+            align-self: flex-start; border-bottom-left-radius: 4px;
+        }
+        .s4 .wa-msg:nth-child(1) { animation-delay: 0.3s; }
+        .s4 .wa-msg:nth-child(2) { animation-delay: 1.2s; }
+        .s4 .wa-msg:nth-child(3) { animation-delay: 2.5s; }
+        .s4 .wa-msg:nth-child(4) { animation-delay: 3.5s; }
+        .s4 .wa-msg:nth-child(5) { animation-delay: 5.0s; }
+        .s4 .wa-msg:nth-child(6) { animation-delay: 6.2s; }
 
-        /* Scene 4 - Mensajes */
-        .s4 { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); }
-        .s4 .chat-box {
-            width: 90%;
-            max-width: 340px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .s4 .bubble {
-            padding: 12px 18px;
-            border-radius: 18px;
-            margin-bottom: 10px;
-            font-size: 15px;
-            opacity: 0;
-            animation: bubbleIn 0.4s ease-out forwards;
-            text-align: left;
-        }
-        .s4 .bubble.user {
-            background: #dcf8c6;
-            color: #111;
-            margin-left: 40px;
-            border-bottom-right-radius: 4px;
-        }
-        .s4 .bubble.bot {
-            background: #fff;
-            color: #111;
-            margin-right: 40px;
+        .s4 .wa-typing {
+            align-self: flex-start; background: #fff; color: #999;
+            padding: 10px 18px; border-radius: 12px; font-size: 14px;
+            opacity: 0; animation: bubbleIn 0.3s ease-out forwards;
             border-bottom-left-radius: 4px;
         }
-        .s4 .bubble:nth-child(1) { animation-delay: 0.3s; }
-        .s4 .bubble:nth-child(2) { animation-delay: 1s; }
-        .s4 .bubble:nth-child(3) { animation-delay: 1.8s; }
-        .s4 h2 { font-size: 26px; font-weight: 800; }
+        .s4 .wa-typing span {
+            display: inline-block; width: 6px; height: 6px;
+            background: #999; border-radius: 50%; margin: 0 2px;
+            animation: typingDot 1s infinite;
+        }
+        .s4 .wa-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .s4 .wa-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingDot {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+        }
 
         @keyframes bubbleIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Scene 5 - Agenda */
-        .s5 { background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%); }
-        .s5 .calendar-icon { font-size: 80px; margin-bottom: 20px; }
-        .s5 h2 { font-size: 28px; font-weight: 800; margin-bottom: 20px; }
-        .s5 .checks {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            align-items: flex-start;
-            width: 80%;
+        /* ==================== SCENE 5 - Audios ==================== */
+        .s5 { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+        .s5 .mic-icon { font-size: 80px; margin-bottom: 20px; }
+        .s5 h2 { font-size: 28px; font-weight: 800; margin-bottom: 16px; }
+        .s5 .audio-demo {
+            width: 85%; background: rgba(255,255,255,0.08);
+            border-radius: 16px; padding: 16px 20px;
+            display: flex; align-items: center; gap: 14px;
+            margin-top: 16px;
         }
-        .s5 .check-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 18px;
-            opacity: 0;
-            animation: checkIn 0.4s ease-out forwards;
-        }
-        .s5 .check-item:nth-child(1) { animation-delay: 0.3s; }
-        .s5 .check-item:nth-child(2) { animation-delay: 0.7s; }
-        .s5 .check-item:nth-child(3) { animation-delay: 1.1s; }
-        .s5 .check-mark {
-            width: 28px; height: 28px;
-            background: #22c55e;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
+        .s5 .play-icon {
+            width: 44px; height: 44px; background: #25d366;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
+        }
+        .s5 .play-icon::after {
+            content: ''; border-style: solid;
+            border-width: 8px 0 8px 14px;
+            border-color: transparent transparent transparent white;
+            margin-left: 3px;
+        }
+        .s5 .audio-waves {
+            flex: 1; display: flex; align-items: center; gap: 2px; height: 30px;
+        }
+        .s5 .audio-waves span {
+            flex: 1; background: #60a5fa; border-radius: 2px;
+            animation: audioBar 0.6s ease-in-out infinite alternate;
+        }
+        .s5 .audio-waves span:nth-child(odd) { animation-delay: 0.15s; }
+        .s5 .audio-waves span:nth-child(3n) { animation-delay: 0.3s; }
+        .s5 .audio-time { font-size: 13px; opacity: 0.6; flex-shrink: 0; }
+        .s5 p { font-size: 16px; opacity: 0.7; margin-top: 20px; }
+
+        @keyframes audioBar {
+            from { height: 4px; } to { height: 24px; }
+        }
+
+        /* ==================== SCENE 6 - Reportes ==================== */
+        .s6 { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); }
+        .s6 h2 { font-size: 26px; font-weight: 800; margin-bottom: 24px; }
+        .s6 .report-card {
+            width: 90%; background: rgba(255,255,255,0.06);
+            border-radius: 20px; padding: 24px 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .s6 .report-header {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 20px; font-size: 14px; opacity: 0.7;
+        }
+        .s6 .report-header span { font-size: 20px; }
+        .s6 .report-stats {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+        }
+        .s6 .stat-box {
+            background: rgba(255,255,255,0.06);
+            border-radius: 12px; padding: 16px 12px; text-align: center;
+            opacity: 0; animation: statIn 0.4s ease-out forwards;
+        }
+        .s6 .stat-box:nth-child(1) { animation-delay: 0.3s; }
+        .s6 .stat-box:nth-child(2) { animation-delay: 0.5s; }
+        .s6 .stat-box:nth-child(3) { animation-delay: 0.7s; }
+        .s6 .stat-box:nth-child(4) { animation-delay: 0.9s; }
+        .s6 .stat-num {
+            font-size: 28px; font-weight: 900; margin-bottom: 4px;
+        }
+        .s6 .stat-num.blue { color: #60a5fa; }
+        .s6 .stat-num.green { color: #34d399; }
+        .s6 .stat-num.purple { color: #a78bfa; }
+        .s6 .stat-num.yellow { color: #fbbf24; }
+        .s6 .stat-label { font-size: 11px; opacity: 0.6; font-weight: 600; text-transform: uppercase; }
+
+        .s6 .report-bar {
+            margin-top: 16px; display: flex; gap: 4px; align-items: flex-end;
+            height: 60px; padding-top: 8px;
+        }
+        .s6 .report-bar div {
+            flex: 1; background: linear-gradient(to top, #3b82f6, #60a5fa);
+            border-radius: 4px 4px 0 0;
+            animation: barGrow 0.6s ease-out forwards;
+            height: 0;
+        }
+        .s6 .report-bar div:nth-child(1) { animation-delay: 1.1s; --h: 30px; }
+        .s6 .report-bar div:nth-child(2) { animation-delay: 1.2s; --h: 45px; }
+        .s6 .report-bar div:nth-child(3) { animation-delay: 1.3s; --h: 35px; }
+        .s6 .report-bar div:nth-child(4) { animation-delay: 1.4s; --h: 55px; }
+        .s6 .report-bar div:nth-child(5) { animation-delay: 1.5s; --h: 42px; }
+        .s6 .report-bar div:nth-child(6) { animation-delay: 1.6s; --h: 60px; }
+        .s6 .report-bar div:nth-child(7) { animation-delay: 1.7s; --h: 50px; }
+
+        @keyframes statIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes barGrow {
+            from { height: 0; } to { height: var(--h, 40px); }
+        }
+
+        /* ==================== SCENE 7 - Agenda ==================== */
+        .s7 { background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%); }
+        .s7 .calendar-icon { font-size: 80px; margin-bottom: 20px; }
+        .s7 h2 { font-size: 28px; font-weight: 800; margin-bottom: 20px; }
+        .s7 .checks {
+            display: flex; flex-direction: column; gap: 12px;
+            align-items: flex-start; width: 85%;
+        }
+        .s7 .check-item {
+            display: flex; align-items: center; gap: 12px; font-size: 17px;
+            opacity: 0; animation: checkIn 0.4s ease-out forwards;
+        }
+        .s7 .check-item:nth-child(1) { animation-delay: 0.3s; }
+        .s7 .check-item:nth-child(2) { animation-delay: 0.7s; }
+        .s7 .check-item:nth-child(3) { animation-delay: 1.1s; }
+        .s7 .check-mark {
+            width: 28px; height: 28px; background: #22c55e;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-size: 16px; flex-shrink: 0;
         }
 
         @keyframes checkIn {
@@ -219,140 +319,89 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
-        /* Scene 6 - 24/7 */
-        .s6 { background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%); }
-        .s6 .big-number {
-            font-size: 100px;
-            font-weight: 900;
+        /* ==================== SCENE 8 - 24/7 ==================== */
+        .s8 { background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%); }
+        .s8 .big-number {
+            font-size: 100px; font-weight: 900;
             background: linear-gradient(135deg, #60a5fa, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: numberPulse 1.5s ease-in-out infinite;
         }
-        .s6 h2 { font-size: 24px; font-weight: 600; opacity: 0.9; margin-top: 10px; }
+        .s8 h2 { font-size: 22px; font-weight: 600; opacity: 0.9; margin-top: 10px; }
 
         @keyframes numberPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+            0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); }
         }
 
-        /* Scene 7 - Escala */
-        .s7 { background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); }
-        .s7 .counter {
-            font-size: 80px;
-            font-weight: 900;
-            color: #60a5fa;
-            margin-bottom: 16px;
-        }
-        .s7 h2 { font-size: 24px; font-weight: 700; }
-        .s7 p { font-size: 18px; opacity: 0.8; margin-top: 8px; }
+        /* ==================== SCENE 9 - Escala ==================== */
+        .s9 { background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); }
+        .s9 .counter { font-size: 80px; font-weight: 900; color: #60a5fa; margin-bottom: 16px; }
+        .s9 h2 { font-size: 24px; font-weight: 700; }
+        .s9 p { font-size: 18px; opacity: 0.8; margin-top: 8px; }
 
-        /* Scene 8 - Rubros */
-        .s8 { background: linear-gradient(135deg, #111827 0%, #1f2937 100%); }
-        .s8 h2 { font-size: 26px; font-weight: 800; margin-bottom: 30px; }
-        .s8 .rubros-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            width: 90%;
+        /* ==================== SCENE 10 - Rubros ==================== */
+        .s10 { background: linear-gradient(135deg, #111827 0%, #1f2937 100%); }
+        .s10 h2 { font-size: 26px; font-weight: 800; margin-bottom: 30px; }
+        .s10 .rubros-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 16px; width: 90%;
         }
-        .s8 .rubro {
-            background: rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 16px 8px;
-            text-align: center;
-            opacity: 0;
-            animation: rubroIn 0.3s ease-out forwards;
+        .s10 .rubro {
+            background: rgba(255,255,255,0.08); border-radius: 16px;
+            padding: 16px 8px; text-align: center;
+            opacity: 0; animation: rubroIn 0.3s ease-out forwards;
         }
-        .s8 .rubro:nth-child(1) { animation-delay: 0.1s; }
-        .s8 .rubro:nth-child(2) { animation-delay: 0.2s; }
-        .s8 .rubro:nth-child(3) { animation-delay: 0.3s; }
-        .s8 .rubro:nth-child(4) { animation-delay: 0.4s; }
-        .s8 .rubro:nth-child(5) { animation-delay: 0.5s; }
-        .s8 .rubro:nth-child(6) { animation-delay: 0.6s; }
-        .s8 .rubro .rubro-icon { font-size: 36px; margin-bottom: 6px; }
-        .s8 .rubro .rubro-name { font-size: 12px; font-weight: 600; }
+        .s10 .rubro:nth-child(1) { animation-delay: 0.1s; }
+        .s10 .rubro:nth-child(2) { animation-delay: 0.2s; }
+        .s10 .rubro:nth-child(3) { animation-delay: 0.3s; }
+        .s10 .rubro:nth-child(4) { animation-delay: 0.4s; }
+        .s10 .rubro:nth-child(5) { animation-delay: 0.5s; }
+        .s10 .rubro:nth-child(6) { animation-delay: 0.6s; }
+        .s10 .rubro .rubro-icon { font-size: 36px; margin-bottom: 6px; }
+        .s10 .rubro .rubro-name { font-size: 12px; font-weight: 600; }
 
-        @keyframes rubroIn {
-            from { opacity: 0; transform: scale(0.5); }
-            to { opacity: 1; transform: scale(1); }
-        }
+        @keyframes rubroIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
 
-        /* Scene 9 - Cierre */
-        .s9 { background: linear-gradient(135deg, #1a6fb5 0%, #0d4a7a 50%, #1a3a5c 100%); }
-        .s9 h1 {
-            font-size: 32px;
-            font-weight: 900;
-            line-height: 1.4;
-            margin-bottom: 20px;
-        }
-        .s9 .highlight {
-            color: #93c5fd;
-            display: block;
-            font-size: 42px;
-        }
+        /* ==================== SCENE 11 - Cierre ==================== */
+        .s11 { background: linear-gradient(135deg, #1a6fb5 0%, #0d4a7a 50%, #1a3a5c 100%); }
+        .s11 h1 { font-size: 30px; font-weight: 900; line-height: 1.4; }
+        .s11 .highlight { color: #93c5fd; display: block; font-size: 40px; margin-top: 8px; }
 
-        /* Scene 10 - CTA */
-        .s10 { background: #000; }
-        .s10 .logo-final {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 24px;
+        /* ==================== SCENE 12 - CTA ==================== */
+        .s12 { background: #000; }
+        .s12 .logo-final {
+            width: 80px; height: 80px; border-radius: 20px;
+            overflow: hidden; margin-bottom: 24px;
         }
-        .s10 .logo-final img { width: 100%; height: 100%; object-fit: cover; }
-        .s10 h2 { font-size: 28px; font-weight: 800; margin-bottom: 24px; }
-        .s10 .cta-btn {
+        .s12 .logo-final img { width: 100%; height: 100%; object-fit: cover; }
+        .s12 h2 { font-size: 28px; font-weight: 800; margin-bottom: 24px; }
+        .s12 .cta-btn {
             background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
-            color: #fff;
-            padding: 18px 48px;
-            border-radius: 50px;
-            font-size: 20px;
-            font-weight: 700;
-            border: none;
+            color: #fff; padding: 18px 48px; border-radius: 50px;
+            font-size: 20px; font-weight: 700; border: none;
             animation: ctaBounce 1s ease-in-out infinite;
         }
-        .s10 .url {
-            margin-top: 20px;
-            font-size: 16px;
-            opacity: 0.6;
-            font-weight: 500;
-        }
+        .s12 .url { margin-top: 20px; font-size: 16px; opacity: 0.6; font-weight: 500; }
 
-        @keyframes ctaBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
+        @keyframes ctaBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-        /* Play button overlay */
+        /* ==================== Play overlay ==================== */
         .play-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            cursor: pointer;
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: #000;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; z-index: 100; cursor: pointer;
         }
         .play-overlay.hidden { display: none; }
         .play-btn {
-            width: 80px;
-            height: 80px;
+            width: 80px; height: 80px;
             background: linear-gradient(135deg, #60a5fa, #3b82f6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; margin-bottom: 20px;
             animation: ctaBounce 1.5s ease-in-out infinite;
         }
         .play-btn::after {
-            content: '';
-            border-style: solid;
+            content: ''; border-style: solid;
             border-width: 15px 0 15px 28px;
             border-color: transparent transparent transparent white;
             margin-left: 5px;
@@ -370,7 +419,7 @@
 
     <!-- Scene 1: Hook -->
     <div class="scene s1" id="scene1">
-        <h1 id="typingText">Y si tu negocio nunca dejara de atender?</h1>
+        <h1>Y si tu negocio nunca dejara de atender?</h1>
     </div>
 
     <!-- Scene 2: Presentacion -->
@@ -387,25 +436,110 @@
         <div class="phone-icon">📞</div>
         <h2>Atiendo llamadas<br>con voz natural</h2>
         <div class="wave">
-            <span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
         </div>
     </div>
 
-    <!-- Scene 4: Mensajes -->
+    <!-- Scene 4: WhatsApp Demo SIVO -->
     <div class="scene s4" id="scene4">
-        <div class="chat-box">
-            <div class="bubble user">Hola! Tienen disponibilidad para manana?</div>
-            <div class="bubble bot">Hola! Si, tenemos turno a las 10:00, 14:00 y 17:30. Cual preferis?</div>
-            <div class="bubble user">El de las 14 por favor!</div>
+        <div class="wa-header">
+            <div class="wa-avatar">
+                <img src="https://gvelazcamp.github.io/SIVO/LogoMercadobot.png" alt="SIVO">
+            </div>
+            <div>
+                <div class="wa-name">SIVO Asistente</div>
+                <div class="wa-status">en linea</div>
+            </div>
         </div>
-        <h2>Respondo mensajes y audios al instante</h2>
+        <div class="wa-chat">
+            <div class="wa-msg wa-user">
+                Hola! Quiero saber los precios de los planes
+                <div class="wa-time">15:30</div>
+            </div>
+            <div class="wa-msg wa-bot">
+                Hola! Tenemos 3 planes:<br>
+                <b>Basico:</b> $15.000/mes<br>
+                <b>Pro:</b> $25.000/mes<br>
+                <b>Enterprise:</b> $45.000/mes
+                <div class="wa-time">15:30</div>
+            </div>
+            <div class="wa-msg wa-user">
+                Quiero agendar una demo del Pro
+                <div class="wa-time">15:31</div>
+            </div>
+            <div class="wa-msg wa-bot">
+                Perfecto! Tengo disponibilidad:<br>
+                Lunes 10:00<br>
+                Martes 14:00<br>
+                Miercoles 17:30<br>
+                Cual te queda mejor?
+                <div class="wa-time">15:31</div>
+            </div>
+            <div class="wa-msg wa-user">
+                Martes a las 14!
+                <div class="wa-time">15:31</div>
+            </div>
+            <div class="wa-msg wa-bot">
+                Listo! Quedo agendado para el martes 14:00. Te envio un recordatorio. Gracias!
+                <div class="wa-time">15:31</div>
+            </div>
+        </div>
     </div>
 
-    <!-- Scene 5: Agenda -->
+    <!-- Scene 5: Audios -->
     <div class="scene s5" id="scene5">
+        <div class="mic-icon">🎙️</div>
+        <h2>Respondo audios<br>al instante</h2>
+        <div class="audio-demo">
+            <div class="play-icon"></div>
+            <div class="audio-waves">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="audio-time">0:12</div>
+        </div>
+        <p>Escucho, entiendo y respondo con voz natural</p>
+    </div>
+
+    <!-- Scene 6: Reportes -->
+    <div class="scene s6" id="scene6">
+        <h2>Genero reportes profesionales</h2>
+        <div class="report-card">
+            <div class="report-header">
+                <span>📊</span> Reporte semanal - Generado por SIVO
+            </div>
+            <div class="report-stats">
+                <div class="stat-box">
+                    <div class="stat-num blue" id="statConversations">0</div>
+                    <div class="stat-label">Conversaciones</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num green" id="statResolved">0%</div>
+                    <div class="stat-label">Resueltas</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num purple" id="statAgendas">0</div>
+                    <div class="stat-label">Turnos agendados</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num yellow" id="statTime">0s</div>
+                    <div class="stat-label">Tiempo promedio</div>
+                </div>
+            </div>
+            <div class="report-bar">
+                <div></div><div></div><div></div><div></div>
+                <div></div><div></div><div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scene 7: Agenda -->
+    <div class="scene s7" id="scene7">
         <div class="calendar-icon">📅</div>
-        <h2>Agendo turnos automaticamente</h2>
+        <h2>Agendo turnos<br>automaticamente</h2>
         <div class="checks">
             <div class="check-item"><div class="check-mark">✓</div> Lunes 10:00 - Maria G.</div>
             <div class="check-item"><div class="check-mark">✓</div> Martes 14:00 - Juan P.</div>
@@ -413,21 +547,21 @@
         </div>
     </div>
 
-    <!-- Scene 6: 24/7 -->
-    <div class="scene s6" id="scene6">
+    <!-- Scene 8: 24/7 -->
+    <div class="scene s8" id="scene8">
         <div class="big-number">24/7</div>
         <h2>Sin descanso. Sin excusas.<br>Siempre disponible.</h2>
     </div>
 
-    <!-- Scene 7: Escala -->
-    <div class="scene s7" id="scene7">
+    <!-- Scene 9: Escala -->
+    <div class="scene s9" id="scene9">
         <div class="counter" id="scaleCounter">1</div>
         <h2>clientes al mismo tiempo</h2>
         <p>Sin contratar mas personal</p>
     </div>
 
-    <!-- Scene 8: Rubros -->
-    <div class="scene s8" id="scene8">
+    <!-- Scene 10: Rubros -->
+    <div class="scene s10" id="scene10">
         <h2>Se adapta a tu rubro</h2>
         <div class="rubros-grid">
             <div class="rubro"><div class="rubro-icon">🍽️</div><div class="rubro-name">Restaurantes</div></div>
@@ -439,13 +573,13 @@
         </div>
     </div>
 
-    <!-- Scene 9: Cierre -->
-    <div class="scene s9" id="scene9">
+    <!-- Scene 11: Cierre -->
+    <div class="scene s11" id="scene11">
         <h1>No contrates<br>mas personal.<br><span class="highlight">Contrata un SIVO.</span></h1>
     </div>
 
-    <!-- Scene 10: CTA -->
-    <div class="scene s10" id="scene10">
+    <!-- Scene 12: CTA -->
+    <div class="scene s12" id="scene12">
         <div class="logo-final">
             <img src="https://gvelazcamp.github.io/SIVO/LogoMercadobot.png" alt="SIVO">
         </div>
@@ -459,13 +593,15 @@
             { id: 'scene1',  duration: 3500 },
             { id: 'scene2',  duration: 3500 },
             { id: 'scene3',  duration: 3500 },
-            { id: 'scene4',  duration: 4500 },
+            { id: 'scene4',  duration: 8000 },
             { id: 'scene5',  duration: 4000 },
-            { id: 'scene6',  duration: 3000 },
+            { id: 'scene6',  duration: 5000 },
             { id: 'scene7',  duration: 4000 },
-            { id: 'scene8',  duration: 3500 },
-            { id: 'scene9',  duration: 3500 },
-            { id: 'scene10', duration: 4000 }
+            { id: 'scene8',  duration: 3000 },
+            { id: 'scene9',  duration: 4000 },
+            { id: 'scene10', duration: 3500 },
+            { id: 'scene11', duration: 3500 },
+            { id: 'scene12', duration: 4000 }
         ];
 
         var currentScene = -1;
@@ -473,7 +609,6 @@
         function showScene(index) {
             if (index >= scenes.length) return;
 
-            // Exit previous
             if (currentScene >= 0) {
                 var prev = document.getElementById(scenes[currentScene].id);
                 prev.classList.remove('active');
@@ -484,18 +619,21 @@
             var el = document.getElementById(scenes[index].id);
 
             setTimeout(function() {
-                // Clean all
                 for (var i = 0; i < scenes.length; i++) {
                     document.getElementById(scenes[i].id).classList.remove('active', 'exit');
                 }
                 el.classList.add('active');
 
-                // Counter animation for scene 7
-                if (scenes[index].id === 'scene7') {
+                // Counter animation for scene 9
+                if (scenes[index].id === 'scene9') {
                     animateCounter();
                 }
 
-                // Next scene
+                // Report stats animation for scene 6
+                if (scenes[index].id === 'scene6') {
+                    animateReportStats();
+                }
+
                 setTimeout(function() {
                     showScene(index + 1);
                 }, scenes[index].duration);
@@ -516,7 +654,29 @@
             }, 400);
         }
 
-        // Start on tap
+        function animateReportStats() {
+            // Conversations: 0 -> 847
+            animateNumber('statConversations', 0, 847, 1500, '');
+            // Resolved: 0% -> 94%
+            animateNumber('statResolved', 0, 94, 1500, '%');
+            // Agendas: 0 -> 156
+            animateNumber('statAgendas', 0, 156, 1500, '');
+            // Time: 0s -> 8s
+            animateNumber('statTime', 0, 8, 1000, 's');
+        }
+
+        function animateNumber(id, from, to, duration, suffix) {
+            var el = document.getElementById(id);
+            var start = performance.now();
+            function update(now) {
+                var progress = Math.min((now - start) / duration, 1);
+                var current = Math.round(from + (to - from) * progress);
+                el.textContent = current.toLocaleString() + suffix;
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
         document.getElementById('playOverlay').addEventListener('click', function() {
             this.classList.add('hidden');
             showScene(0);
