@@ -344,7 +344,12 @@ h1, h2, h3, h4, h5, h6 {
     background: #333;
 }
 
-/* Botón hamburguesa (oculto por defecto en desktop) */
+/* Checkbox oculto para menú hamburguesa CSS-only */
+#menu-toggle {
+    display: none;
+}
+
+/* Label como botón hamburguesa (oculto por defecto en desktop) */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -355,10 +360,11 @@ h1, h2, h3, h4, h5, h6 {
     border: none;
     cursor: pointer;
     padding: 0;
-    z-index: 10;
+    z-index: 1001;
 }
 
 .hamburger span {
+    display: block;
     width: 30px;
     height: 3px;
     background: #111;
@@ -367,16 +373,22 @@ h1, h2, h3, h4, h5, h6 {
     transform-origin: center;
 }
 
-.hamburger.active span:nth-child(1) {
+/* Animación X cuando checkbox está checked */
+#menu-toggle:checked ~ .hamburger span:nth-child(1) {
     transform: translateY(11px) rotate(45deg);
 }
 
-.hamburger.active span:nth-child(2) {
+#menu-toggle:checked ~ .hamburger span:nth-child(2) {
     opacity: 0;
 }
 
-.hamburger.active span:nth-child(3) {
+#menu-toggle:checked ~ .hamburger span:nth-child(3) {
     transform: translateY(-11px) rotate(-45deg);
+}
+
+/* Mostrar nav cuando checkbox está checked */
+#menu-toggle:checked ~ .nav {
+    transform: translateX(0) !important;
 }
 
 /* =========================
@@ -438,9 +450,7 @@ h1, h2, h3, h4, h5, h6 {
         justify-content: flex-start !important;
     }
     
-    .nav.active {
-        transform: translateX(0) !important;
-    }
+    /* nav se abre via #menu-toggle:checked ~ .nav en CSS global */
     
     .nav a {
         font-size: 18px !important;
@@ -2202,13 +2212,14 @@ HEADER = """
             <img src="https://gvelazcamp.github.io/SIVO/LogoMercadobot.png" alt="SIVO" class="logo-img">
             <span class="logo-text">SIVO</span>
         </a>
-        
-        <button class="hamburger" id="hamburger" aria-label="Menu">
+
+        <input type="checkbox" id="menu-toggle">
+        <label class="hamburger" for="menu-toggle" aria-label="Menu">
             <span></span>
             <span></span>
             <span></span>
-        </button>
-        
+        </label>
+
         <div class="nav" id="nav">
             <a href="?vista=home">Inicio</a>
             <a href="?vista=asistentes">Asistentes</a>
@@ -2219,89 +2230,6 @@ HEADER = """
             </div>
         </div>
     </div>
-    
-    <script>
-        // Toggle menú hamburguesa - MEJORADO
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🔧 Inicializando menú hamburguesa...');
-            
-            const hamburger = document.getElementById('hamburger');
-            const nav = document.getElementById('nav');
-            
-            console.log('Hamburger:', hamburger);
-            console.log('Nav:', nav);
-            
-            if (hamburger && nav) {
-                console.log('✅ Elementos encontrados');
-                
-                // Toggle al hacer click en hamburguesa
-                hamburger.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('🍔 Click en hamburguesa');
-                    
-                    const isActive = hamburger.classList.contains('active');
-                    
-                    if (isActive) {
-                        hamburger.classList.remove('active');
-                        nav.classList.remove('active');
-                        console.log('❌ Menú cerrado');
-                    } else {
-                        hamburger.classList.add('active');
-                        nav.classList.add('active');
-                        console.log('✅ Menú abierto');
-                    }
-                });
-                
-                // Cerrar menú al hacer click en un link
-                const navLinks = nav.querySelectorAll('a');
-                console.log('📎 Links encontrados:', navLinks.length);
-                
-                navLinks.forEach(function(link) {
-                    link.addEventListener('click', function() {
-                        console.log('🔗 Click en link');
-                        hamburger.classList.remove('active');
-                        nav.classList.remove('active');
-                    });
-                });
-                
-                // Cerrar menú al hacer click fuera
-                document.addEventListener('click', function(event) {
-                    const isClickInsideNav = nav.contains(event.target);
-                    const isClickOnHamburger = hamburger.contains(event.target);
-                    
-                    if (!isClickInsideNav && !isClickOnHamburger && nav.classList.contains('active')) {
-                        console.log('🌍 Click fuera del menú');
-                        hamburger.classList.remove('active');
-                        nav.classList.remove('active');
-                    }
-                });
-                
-                console.log('✅ Menú hamburguesa inicializado correctamente');
-            } else {
-                console.error('❌ No se encontraron los elementos del menú');
-            }
-        });
-        
-        // Backup: intentar inicializar después de 1 segundo si no funcionó
-        setTimeout(function() {
-            const hamburger = document.getElementById('hamburger');
-            const nav = document.getElementById('nav');
-            
-            if (hamburger && nav && !hamburger.hasAttribute('data-initialized')) {
-                console.log('🔄 Reintentar inicialización...');
-                hamburger.setAttribute('data-initialized', 'true');
-                
-                hamburger.onclick = function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.classList.toggle('active');
-                    nav.classList.toggle('active');
-                    console.log('🍔 Toggle (backup)');
-                };
-            }
-        }, 1000);
-    </script>
 """
 
 # FOOTER SIN CIERRE (para st.html) - el body/html se cierra en FOOTER_CHATBOT
