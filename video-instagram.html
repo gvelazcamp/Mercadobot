@@ -590,18 +590,18 @@
 
     <script>
         var scenes = [
-            { id: 'scene1',  duration: 4000,  voice: '¿Y si tu negocio nunca dejara de atender?' },
-            { id: 'scene2',  duration: 4000,  voice: 'Hola, soy SIVO, tu empleado digital.' },
-            { id: 'scene3',  duration: 4000,  voice: 'Atiendo llamadas telefónicas con voz natural, como una persona real.' },
-            { id: 'scene4',  duration: 8000,  voice: 'Respondo mensajes de WhatsApp al instante. Precios, disponibilidad, y agendo turnos en segundos.' },
-            { id: 'scene5',  duration: 4500,  voice: 'También entiendo y respondo audios. Escucho, proceso y contesto con voz natural.' },
-            { id: 'scene6',  duration: 5500,  voice: 'Genero reportes profesionales. Conversaciones atendidas, turnos agendados, todo medido.' },
-            { id: 'scene7',  duration: 4000,  voice: 'Agendo turnos automáticamente en tu calendario.' },
-            { id: 'scene8',  duration: 3500,  voice: 'Trabajo las veinticuatro horas, los siete días de la semana. Sin descanso.' },
-            { id: 'scene9',  duration: 4000,  voice: 'Atiendo desde uno hasta mil clientes al mismo tiempo.' },
-            { id: 'scene10', duration: 4000,  voice: 'Me adapto a cualquier rubro. Restaurantes, ecommerce, salud, inmobiliaria y más.' },
-            { id: 'scene11', duration: 4000,  voice: 'No contrates más personal. Contratá un SIVO.' },
-            { id: 'scene12', duration: 5000,  voice: 'Probalo gratis siete días. Visitá sivoia punto streamlit punto app.' }
+            { id: 'scene1',  duration: 5000,  voice: '¿Y si tu negocio nunca dejara de atender?' },
+            { id: 'scene2',  duration: 5000,  voice: 'Hola. Soy SIVO. Tu empleado digital.' },
+            { id: 'scene3',  duration: 6000,  voice: 'Atiendo llamadas telefónicas con voz natural. Como una persona real.' },
+            { id: 'scene4',  duration: 9000,  voice: 'Respondo mensajes de WhatsApp al instante. Precios, disponibilidad, y agendo turnos en segundos.' },
+            { id: 'scene5',  duration: 6000,  voice: 'También entiendo y respondo audios. Escucho, proceso, y contesto con voz natural.' },
+            { id: 'scene6',  duration: 7000,  voice: 'Genero reportes profesionales. Conversaciones atendidas, turnos agendados, todo medido.' },
+            { id: 'scene7',  duration: 5000,  voice: 'Agendo turnos automáticamente en tu calendario.' },
+            { id: 'scene8',  duration: 5000,  voice: 'Trabajo las veinticuatro horas. Los siete días de la semana. Sin descanso.' },
+            { id: 'scene9',  duration: 5000,  voice: 'Atiendo desde uno, hasta mil clientes al mismo tiempo.' },
+            { id: 'scene10', duration: 6000,  voice: 'Me adapto a cualquier rubro. Restaurantes, ecommerce, salud, inmobiliaria, y más.' },
+            { id: 'scene11', duration: 5000,  voice: 'No contrates más personal. Contratá un SIVO.' },
+            { id: 'scene12', duration: 6000,  voice: 'Probalo gratis, siete días. Visitá sivoia punto streamlit punto app.' }
         ];
 
         var currentScene = -1;
@@ -638,29 +638,16 @@
         function speak(text) {
             try {
                 synth.cancel();
-                // Workaround Chrome bug: resume if paused
-                if (synth.paused) synth.resume();
                 var utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'es-AR';
-                utterance.rate = 0.92;
+                utterance.rate = 0.88;
                 utterance.pitch = 1.0;
                 utterance.volume = 1.0;
                 if (selectedVoice) {
                     utterance.voice = selectedVoice;
                 }
                 synth.speak(utterance);
-                // Chrome bug: speech stops after ~15s, keep it alive
-                var keepAlive = setInterval(function() {
-                    if (!synth.speaking) {
-                        clearInterval(keepAlive);
-                    } else {
-                        synth.pause();
-                        synth.resume();
-                    }
-                }, 5000);
-            } catch(e) {
-                console.log('Speech error:', e);
-            }
+            } catch(e) {}
         }
 
         function showScene(index) {
