@@ -2585,61 +2585,7 @@ html, body, .page-container {
             </div>
         </div>
 
-        <script>
-        setTimeout(function() {
-            // Animar número 100
-            var el1 = document.getElementById('stat-num-1');
-            if (el1) {
-                var target1 = 100;
-                var current1 = 0;
-                var increment1 = target1 / 60;
-                var timer1 = setInterval(function() {
-                    current1 += increment1;
-                    if (current1 >= target1) {
-                        el1.textContent = target1;
-                        clearInterval(timer1);
-                    } else {
-                        el1.textContent = Math.floor(current1);
-                    }
-                }, 20);
-            }
-
-            // Animar número 60
-            var el2 = document.getElementById('stat-num-2');
-            if (el2) {
-                var target2 = 60;
-                var current2 = 0;
-                var increment2 = target2 / 60;
-                var timer2 = setInterval(function() {
-                    current2 += increment2;
-                    if (current2 >= target2) {
-                        el2.textContent = target2;
-                        clearInterval(timer2);
-                    } else {
-                        el2.textContent = Math.floor(current2);
-                    }
-                }, 20);
-            }
-
-            // Animar alfabeto
-            var elAlpha = document.getElementById('stat-alpha');
-            if (elAlpha) {
-                var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                var idx = 0;
-                var alphaTimer = setInterval(function() {
-                    if (idx < letters.length) {
-                        elAlpha.textContent = letters[idx];
-                        idx++;
-                    } else {
-                        clearInterval(alphaTimer);
-                        setTimeout(function() {
-                            elAlpha.textContent = "ILIMITADO";
-                        }, 200);
-                    }
-                }, 50);
-            }
-        }, 500);
-        </script>
+        <!-- Contadores animados por scroll via components.html -->
     </div>
 
     
@@ -6446,88 +6392,93 @@ else:
         (function () {
           var ran = false;
 
-          function animateStats(doc) {
-            var el1 = doc.getElementById('stat-num-1');
-            var el2 = doc.getElementById('stat-num-2');
-            var elA = doc.getElementById('stat-alpha');
+          function findStatsElements() {
+            var doc;
+            try { doc = window.parent.document; } catch(e) { return null; }
+            if (!doc) return null;
+            // Buscar dentro de iframes
+            var iframes = doc.querySelectorAll('iframe');
+            for (var i = 0; i < iframes.length; i++) {
+              try {
+                var iDoc = iframes[i].contentDocument || iframes[i].contentWindow.document;
+                if (!iDoc) continue;
+                var e1 = iDoc.getElementById('stat-num-1');
+                var e2 = iDoc.getElementById('stat-num-2');
+                var eA = iDoc.getElementById('stat-alpha');
+                if (e1 && e2 && eA) return { el1:e1, el2:e2, elA:eA, iframe:iframes[i] };
+              } catch(e) {}
+            }
+            // Fallback directo
+            var e1 = doc.getElementById('stat-num-1');
+            var e2 = doc.getElementById('stat-num-2');
+            var eA = doc.getElementById('stat-alpha');
+            if (e1 && e2 && eA) return { el1:e1, el2:e2, elA:eA, iframe:null };
+            return null;
+          }
 
-            if (!el1 || !el2 || !elA) return false;
+          function countTo(el, target, duration) {
+            var start = null;
+            function step(ts) {
+              if (!start) start = ts;
+              var p = Math.min((ts - start) / duration, 1);
+              try { el.textContent = String(Math.floor(target * p)); } catch(e) {}
+              if (p < 1) requestAnimationFrame(step);
+              else try { el.textContent = String(target); } catch(e) {}
+            }
+            requestAnimationFrame(step);
+          }
 
-            // Si ya están en valores finales, no repetir animación
-            try {
-              var t1 = (el1.textContent || '').trim();
-              var t2 = (el2.textContent || '').trim();
-              var ta = (elA.textContent || '').trim();
-              if (t1 === '100' && t2 === '60' && ta === 'ILIMITADO') return true;
-            } catch (e) {}
+          function runAnimation(els) {
+            try { els.el1.textContent='0'; els.el2.textContent='0'; els.elA.textContent='A'; } catch(e){}
+            countTo(els.el1, 100, 1200);
+            countTo(els.el2, 60, 1200);
+            var letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ", idx=0;
+            var at = setInterval(function(){
+              try {
+                if(idx<letters.length){ els.elA.textContent=letters[idx]; idx++; }
+                else { clearInterval(at); setTimeout(function(){ try{els.elA.textContent="ILIMITADO";}catch(e){} },200); }
+              } catch(e){ clearInterval(at); }
+            }, 50);
+          }
 
-            if (ran) return true;
-            ran = true;
+          function trySetup() {
+            var els = findStatsElements();
+            if (!els) return false;
+            // Iniciar en 0
+            try { els.el1.textContent='0'; els.el2.textContent='0'; els.elA.textContent='A'; } catch(e){}
 
-            // Reset visible (por si vuelve a HOME)
-            try {
-              el1.textContent = '0';
-              el2.textContent = '0';
-              elA.textContent = 'A';
-            } catch (e) {}
-
-            function countTo(el, target, durationMs) {
-              var startTime = null;
-              function step(ts) {
-                if (!startTime) startTime = ts;
-                var progress = Math.min((ts - startTime) / durationMs, 1);
-                var value = Math.floor(target * progress);
-                try { el.textContent = String(value); } catch (e) {}
-                if (progress < 1) {
-                  requestAnimationFrame(step);
+            function checkVisible() {
+              if (ran) return;
+              try {
+                var viewH = window.parent.innerHeight;
+                var elTop;
+                if (els.iframe) {
+                  var ir = els.iframe.getBoundingClientRect();
+                  var er = els.el1.getBoundingClientRect();
+                  elTop = ir.top + er.top;
                 } else {
-                  try { el.textContent = String(target); } catch (e) {}
+                  elTop = els.el1.getBoundingClientRect().top;
                 }
-              }
-              requestAnimationFrame(step);
+                if (elTop < viewH * 0.85 && elTop > -200) {
+                  ran = true;
+                  window.parent.removeEventListener('scroll', checkVisible);
+                  // Primera animación
+                  runAnimation(els);
+                  // Repetir UNA vez más después de terminar
+                  setTimeout(function() { runAnimation(els); }, 2800);
+                }
+              } catch(e) {}
             }
 
-            // Números
-            countTo(el1, 100, 1200);
-            countTo(el2, 60, 1200);
-
-            // Alfabeto -> ILIMITADO
-            var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            var idx = 0;
-            var alphaTimer = setInterval(function () {
-              try {
-                if (idx < letters.length) {
-                  elA.textContent = letters[idx];
-                  idx++;
-                } else {
-                  clearInterval(alphaTimer);
-                  setTimeout(function () {
-                    try { elA.textContent = "ILIMITADO"; } catch (e) {}
-                  }, 200);
-                }
-              } catch (e) {}
-            }, 50);
-
+            window.parent.addEventListener('scroll', checkVisible, { passive: true });
+            setTimeout(checkVisible, 500);
             return true;
           }
 
-          function tryRun() {
-            var doc = null;
-            try { doc = window.parent.document; } catch (e) { doc = null; }
-            if (!doc) return;
-
-            if (animateStats(doc)) return;
-
-            // Reintentar ~3s por si el DOM aún no cargó
-            var attempts = 0;
-            var maxAttempts = 60;
-            var t = setInterval(function () {
-              attempts++;
-              if (animateStats(doc) || attempts >= maxAttempts) clearInterval(t);
-            }, 50);
-          }
-
-          setTimeout(tryRun, 200);
+          var attempts = 0;
+          var t = setInterval(function() {
+            if (trySetup() || attempts++ > 80) clearInterval(t);
+          }, 150);
         })();
         </script>
         """,
