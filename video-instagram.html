@@ -421,11 +421,7 @@
             max-width: 90vw;
         }
 
-        .video-hover-zone:hover .tooltip {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
+        /* hover controlled via JS for typewriter sync */
 
         .tooltip-text {
             font-size: 18px;
@@ -434,9 +430,37 @@
             margin-bottom: 12px;
             line-height: 1.4;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tooltip-text .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: #60a5fa;
+            margin-left: 2px;
+            animation: blink 0.6s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .tooltip-link {
+            opacity: 0;
+            transition: opacity 0.5s ease, background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .tooltip-link.visible {
+            opacity: 1;
+        }
+
+        .tooltip-link-wrap {
             display: inline-block;
             background: #60a5fa;
             color: #000;
@@ -449,7 +473,7 @@
             box-shadow: 0 4px 16px rgba(96, 165, 250, 0.4);
         }
 
-        .tooltip-link:hover {
+        .tooltip-link-wrap:hover {
             background: #93c5fd;
             transform: scale(1.05);
             box-shadow: 0 6px 24px rgba(96, 165, 250, 0.6);
@@ -476,8 +500,8 @@
     <!-- Hover Tooltip -->
     <div class="video-hover-zone" id="hoverZone">
         <div class="tooltip">
-            <div class="tooltip-text">Que tu negocio<br>nunca deje de atender</div>
-            <a href="https://sivo-ia.com" target="_blank" class="tooltip-link">Visita sivo-ia.com</a>
+            <div class="tooltip-text"><span id="typewriterText"></span><span class="cursor" id="typewriterCursor"></span></div>
+            <a href="https://sivo-ia.com" target="_blank" class="tooltip-link-wrap tooltip-link" id="tooltipLink">Visita sivo-ia.com</a>
             <div class="tooltip-arrow"></div>
         </div>
     </div>
@@ -851,17 +875,74 @@
         var hoverZone = document.getElementById('hoverZone');
         hoverZone.style.display = 'none';
 
+        // Typewriter effect
+        var typewriterMessage = 'Que tu negocio nunca deje de atender';
+        var typewriterEl = document.getElementById('typewriterText');
+        var typewriterCursor = document.getElementById('typewriterCursor');
+        var tooltipLink = document.getElementById('tooltipLink');
+        var typewriterInterval = null;
+        var isTyping = false;
+
+        function startTypewriter() {
+            if (isTyping) return;
+            isTyping = true;
+            typewriterEl.textContent = '';
+            typewriterCursor.style.display = 'inline-block';
+            tooltipLink.classList.remove('visible');
+            var i = 0;
+            typewriterInterval = setInterval(function() {
+                if (i < typewriterMessage.length) {
+                    typewriterEl.textContent += typewriterMessage.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typewriterInterval);
+                    typewriterInterval = null;
+                    typewriterCursor.style.display = 'none';
+                    tooltipLink.classList.add('visible');
+                }
+            }, 60);
+        }
+
+        function resetTypewriter() {
+            if (typewriterInterval) {
+                clearInterval(typewriterInterval);
+                typewriterInterval = null;
+            }
+            isTyping = false;
+            typewriterEl.textContent = '';
+            typewriterCursor.style.display = 'none';
+            tooltipLink.classList.remove('visible');
+        }
+
+        hoverZone.addEventListener('mouseenter', function() {
+            var tooltip = this.querySelector('.tooltip');
+            tooltip.style.opacity = '1';
+            tooltip.style.visibility = 'visible';
+            tooltip.style.transform = 'translateX(-50%) translateY(0)';
+            startTypewriter();
+        });
+
+        hoverZone.addEventListener('mouseleave', function() {
+            var tooltip = this.querySelector('.tooltip');
+            tooltip.style.opacity = '0';
+            tooltip.style.visibility = 'hidden';
+            tooltip.style.transform = 'translateX(-50%) translateY(20px)';
+            resetTypewriter();
+        });
+
         // Mobile touch support for tooltip
         hoverZone.addEventListener('touchstart', function(e) {
             var tooltip = this.querySelector('.tooltip');
-            if (tooltip.style.opacity === '1' || getComputedStyle(tooltip).opacity === '1') {
+            if (tooltip.style.opacity === '1') {
                 tooltip.style.opacity = '0';
                 tooltip.style.visibility = 'hidden';
                 tooltip.style.transform = 'translateX(-50%) translateY(20px)';
+                resetTypewriter();
             } else {
                 tooltip.style.opacity = '1';
                 tooltip.style.visibility = 'visible';
                 tooltip.style.transform = 'translateX(-50%) translateY(0)';
+                startTypewriter();
             }
         });
 
