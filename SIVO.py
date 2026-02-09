@@ -196,6 +196,15 @@ st.markdown(
         background: #ffffff !important;
     }
 
+
+    /* Zoom 80% para sección de beneficios solo en PC */
+    @media (min-width: 769px) {
+        #benefits-section {
+            zoom: 0.8;
+            -moz-transform: scale(0.8);
+            -moz-transform-origin: 0 0;
+        }
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -2832,8 +2841,10 @@ html, body, .page-container {
     <!-- ====== FIN SECCIÓN CÓMO FUNCIONA ====== -->
 
     
+<div id="benefits-section">
 <!-- BENEFICIOS (cargado desde benefits-standalone.html) -->
 __BENEFITS_STANDALONE__
+</div>
 
 <!-- Inline event handlers are used on cards for better compatibility -->
 
@@ -7664,7 +7675,7 @@ function send(){
         
         // 3. Precios
         else if(l.includes('precio')||l.includes('costo')||l.includes('cuanto')||l.includes('plan'))
-            r='💰 <strong>Nuestros Planes:</strong><br><br><strong>Implementacion Inicial - $250</strong><br>• Creación del asistente IA<br>• Conexión a base de datos / archivos<br>• Soporte por email<br><br><strong>PRO - $50.000/mes</strong><br>• 5.000 consultas/mes<br>• 3 asistentes<br>• Soporte prioritario<br><br><strong>ENTERPRISE - Personalizado</strong><br>• Ilimitado<br>• Soporte dedicado<br><br>🎁 <strong>7 días gratis</strong> para probar!';
+            r='💰 <strong>Nuestros Planes:</strong><br><br><strong>BÁSICO - $25.000/mes</strong><br>• 1.000 consultas/mes<br>• 1 asistente<br>• Soporte por email<br><br><strong>PRO - $50.000/mes</strong><br>• 5.000 consultas/mes<br>• 3 asistentes<br>• Soporte prioritario<br><br><strong>ENTERPRISE - Personalizado</strong><br>• Ilimitado<br>• Soporte dedicado<br><br>🎁 <strong>7 días gratis</strong> para probar!';
         
         // 4. Integraciones
         else if(l.includes('integra')||l.includes('whatsapp')||l.includes('instagram')||l.includes('plataforma'))
@@ -7973,4 +7984,3 @@ iframe[height="0"] * {
 """, unsafe_allow_html=True)
 
 components.html(CHATBOT, height=0)
-
