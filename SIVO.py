@@ -2568,8 +2568,8 @@ html, body, .page-container {
     <!-- HERO TARJETA SIVO -->
     <div class="sivo-card-wrapper">
         <div class="sivo-card">
-            <h1>Pregúntale a tus datos.</h1>
-            <span class="highlight">No esperes por la información, SIVO la encuentra por vos.</span>
+            <h1>Interactua con tus datos.</h1>
+            <span class="highlight">No esperes por la información, SIVO la trabaja por vos.</span>
             <p>Responde al instante con la información de tu negocio, tanto para uso interno como para atención a clientes.</p>
             <a href="?vista=asistentes" class="button">Ver SIVO Digitales →</a>
         </div>
@@ -7975,3 +7975,4 @@ iframe[height="0"] * {
 """, unsafe_allow_html=True)
 
 components.html(CHATBOT, height=0)
+
