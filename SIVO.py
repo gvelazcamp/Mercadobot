@@ -6898,108 +6898,64 @@ elif vista == "login":
         st.query_params["vista"] = "asistentes"
         st.rerun()
 
-    # CSS para estilizar login como una sola tarjeta compacta centrada
+    # CSS login compacto
     st.markdown("""
     <style>
-    /* Fondo gris en todo */
-    .stApp, [data-testid="stAppViewContainer"], .main, section.main,
-    section.main > div, .main .block-container {
-        background: #f5f7fa !important;
-    }
-    /* Centrar y limitar ancho compacto */
-    .block-container {
-        max-width: 420px !important;
-        margin: 0 auto !important;
-        padding: 60px 10px 40px !important;
-    }
-    /* Tarjeta blanca principal */
-    .main [data-testid="stVerticalBlock"]:first-child {
-        background: white !important;
-        border-radius: 20px !important;
-        padding: 35px 28px 30px !important;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.08) !important;
-        gap: 0 !important;
-        max-width: 400px !important;
-        margin: 0 auto !important;
-    }
-    /* Sub-bloques sin fondo extra */
-    [data-testid="stVerticalBlock"] [data-testid="stVerticalBlock"] {
-        background: transparent !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-        border-radius: 0 !important;
-        gap: 8px !important;
-        max-width: 100% !important;
-    }
-    /* Ocultar labels nativos */
+    .stApp, [data-testid="stAppViewContainer"], section.main, .main .block-container,
+    section.main > div { background: #f5f7fa !important; }
+    header[data-testid="stHeader"] { background: #f5f7fa !important; }
     .stTextInput > label { display: none !important; }
-    /* Inputs compactos */
     .stTextInput > div > div > input {
-        padding: 12px 14px !important;
-        border: 1.5px solid #e0e0e0 !important;
-        border-radius: 10px !important;
-        font-size: 14px !important;
-        background: #fafafa !important;
-        font-family: Inter, sans-serif !important;
+        padding: 12px 14px !important; border: 1.5px solid #e0e0e0 !important;
+        border-radius: 10px !important; font-size: 14px !important;
+        background: #fafafa !important; font-family: Inter, sans-serif !important;
     }
     .stTextInput > div > div > input:focus {
-        border-color: #60a5fa !important;
-        background: #fff !important;
+        border-color: #60a5fa !important; background: #fff !important;
     }
-    /* Botón compacto */
     .stFormSubmitButton > button {
-        width: 100% !important;
-        padding: 12px !important;
+        width: 100% !important; padding: 12px !important;
         background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 12px !important;
-        font-size: 15px !important;
-        font-weight: 700 !important;
+        color: white !important; border: none !important; border-radius: 12px !important;
+        font-size: 15px !important; font-weight: 700 !important;
         font-family: Inter, sans-serif !important;
-        box-shadow: 0 4px 15px rgba(59,130,246,0.3) !important;
-        margin-top: 8px !important;
+        box-shadow: 0 4px 15px rgba(59,130,246,0.3) !important; margin-top: 8px !important;
     }
-    .stFormSubmitButton > button:hover {
-        box-shadow: 0 6px 25px rgba(59,130,246,0.4) !important;
-    }
-    /* Form border oculto */
-    [data-testid="stForm"] {
-        border: none !important;
-        padding: 0 !important;
-    }
-    /* Ocultar header y footer de Streamlit */
-    header[data-testid="stHeader"] { background: #f5f7fa !important; }
+    .stFormSubmitButton > button:hover { box-shadow: 0 6px 25px rgba(59,130,246,0.4) !important; }
+    [data-testid="stForm"] { border: none !important; padding: 0 !important; }
+    div[data-testid="stVerticalBlock"] { gap: 0.4rem !important; }
     </style>
     """, unsafe_allow_html=True)
 
-    # Logo + título (dentro de la tarjeta visual)
-    st.markdown("""
-    <div style="text-align:center;margin-bottom:18px;">
-        <img src="https://gvelazcamp.github.io/SIVO/LogoSivo.svg" style="height:55px;margin-bottom:10px;">
-        <h1 style="font-size:20px;font-weight:800;color:#111;margin:0 0 4px;font-family:Inter,sans-serif;">Bienvenido de vuelta</h1>
-        <p style="font-size:13px;color:#888;margin:0;font-family:Inter,sans-serif;">Ingresá a tu cuenta para continuar</p>
-    </div>
-    """, unsafe_allow_html=True)
+    # Centrado con columns
+    _left, center_col, _right = st.columns([1.2, 1, 1.2])
+    with center_col:
+        st.markdown("""
+        <div style="background:white;border-radius:20px;padding:35px 30px 28px;box-shadow:0 8px 30px rgba(0,0,0,0.08);margin-top:30px;">
+            <div style="text-align:center;margin-bottom:18px;">
+                <img src="https://gvelazcamp.github.io/SIVO/LogoSivo.svg" style="height:55px;margin-bottom:10px;">
+                <h1 style="font-size:20px;font-weight:800;color:#111;margin:0 0 4px;font-family:Inter,sans-serif;">Bienvenido de vuelta</h1>
+                <p style="font-size:13px;color:#888;margin:0;font-family:Inter,sans-serif;">Ingresá a tu cuenta para continuar</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
-    # Formulario
-    with st.form("login_form"):
-        st.markdown('<p style="font-size:13px;font-weight:600;color:#333;margin:0 0 2px;font-family:Inter,sans-serif;">Email</p>', unsafe_allow_html=True)
-        email = st.text_input("Email", placeholder="tucorreo@ejemplo.com", label_visibility="collapsed")
-        st.markdown('<p style="font-size:13px;font-weight:600;color:#333;margin:8px 0 2px;font-family:Inter,sans-serif;">Contraseña</p>', unsafe_allow_html=True)
-        password = st.text_input("Contraseña", type="password", placeholder="Tu contraseña", label_visibility="collapsed")
-        submitted = st.form_submit_button("Iniciar sesión")
+        with st.form("login_form"):
+            st.markdown('<p style="font-size:13px;font-weight:600;color:#333;margin:0 0 2px;font-family:Inter,sans-serif;">Email</p>', unsafe_allow_html=True)
+            email = st.text_input("Email", placeholder="tucorreo@ejemplo.com", label_visibility="collapsed")
+            st.markdown('<p style="font-size:13px;font-weight:600;color:#333;margin:8px 0 2px;font-family:Inter,sans-serif;">Contraseña</p>', unsafe_allow_html=True)
+            password = st.text_input("Contraseña", type="password", placeholder="Tu contraseña", label_visibility="collapsed")
+            submitted = st.form_submit_button("Iniciar sesión")
 
-    if submitted and email:
-        nombre = email.split("@")[0].replace(".", " ").replace("_", " ").title()
-        st.session_state.logged_in = True
-        st.session_state.user_name = nombre
-        st.session_state.user_email = email
-        st.query_params["vista"] = "asistentes"
-        st.rerun()
+        if submitted and email:
+            nombre = email.split("@")[0].replace(".", " ").replace("_", " ").title()
+            st.session_state.logged_in = True
+            st.session_state.user_name = nombre
+            st.session_state.user_email = email
+            st.query_params["vista"] = "asistentes"
+            st.rerun()
 
-    # Link volver
-    st.markdown('<div style="text-align:center;margin-top:15px;"><a href="?vista=home" style="color:#3b82f6;text-decoration:none;font-weight:600;font-size:14px;font-family:Inter,sans-serif;">← Volver al inicio</a></div>', unsafe_allow_html=True)
+        st.markdown('<div style="text-align:center;margin-top:12px;"><a href="?vista=home" style="color:#3b82f6;text-decoration:none;font-weight:600;font-size:14px;font-family:Inter,sans-serif;">← Volver al inicio</a></div>', unsafe_allow_html=True)
 
 else:
     st.html(HTML_HOME_PARTE_1)
