@@ -7675,7 +7675,7 @@ function send(){
         
         // 3. Precios
         else if(l.includes('precio')||l.includes('costo')||l.includes('cuanto')||l.includes('plan'))
-            r='💰 <strong>Nuestros Planes:</strong><br><br><strong>BÁSICO - $25.000/mes</strong><br>• 1.000 consultas/mes<br>• 1 asistente<br>• Soporte por email<br><br><strong>PRO - $50.000/mes</strong><br>• 5.000 consultas/mes<br>• 3 asistentes<br>• Soporte prioritario<br><br><strong>ENTERPRISE - Personalizado</strong><br>• Ilimitado<br>• Soporte dedicado<br><br>🎁 <strong>7 días gratis</strong> para probar!';
+            r='💰 <strong>Nuestros Planes:</strong><br><br><strong>Implementación inicial - US$ 250</strong><br>• Pago único<br>• 1 asistente · 1 sitio<br>• Creación del asistente IA<br>• Conexión a base de datos<br>• Instalación en web<br><br><strong>PRO - US$ 100/mes</strong><br>• 1 asistente · 1 sitio<br>• Asistentes entrenados con tus datos<br>• Ajustes y mejoras mensuales<br>• Soporte prioritario<br><br><strong>ENTERPRISE - A medida/mes</strong><br>• Asistentes ilimitados<br>• Multi-sitio<br>• Soporte dedicado<br><br>🎁 <strong>7 días gratis</strong> para probar!';
         
         // 4. Integraciones
         else if(l.includes('integra')||l.includes('whatsapp')||l.includes('instagram')||l.includes('plataforma'))
