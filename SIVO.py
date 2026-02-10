@@ -3701,12 +3701,252 @@ html, body, .page-container {{
     transform: translateY(-2px);
 }}
 
+/* ─── Modal Reportes ─── */
+.rpt-overlay {{
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}}
+.rpt-overlay.active {{
+    display: flex;
+    animation: rptFadeIn 0.25s ease;
+}}
+@keyframes rptFadeIn {{
+    from {{ opacity: 0; }}
+    to {{ opacity: 1; }}
+}}
+@keyframes rptSlideUp {{
+    from {{ opacity: 0; transform: translateY(30px) scale(0.97); }}
+    to {{ opacity: 1; transform: translateY(0) scale(1); }}
+}}
+.rpt-modal {{
+    background: #ffffff;
+    border-radius: 24px;
+    max-width: 680px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    animation: rptSlideUp 0.35s ease;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+}}
+.rpt-modal::-webkit-scrollbar {{
+    width: 6px;
+}}
+.rpt-modal::-webkit-scrollbar-thumb {{
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px;
+}}
+.rpt-head {{
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+    padding: 32px 32px 28px;
+    border-radius: 24px 24px 0 0;
+    position: relative;
+}}
+.rpt-close {{
+    position: absolute;
+    top: 16px; right: 18px;
+    background: rgba(255,255,255,0.12);
+    border: none;
+    color: white;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}}
+.rpt-close:hover {{
+    background: rgba(255,255,255,0.25);
+}}
+.rpt-head-icon {{
+    font-size: 36px;
+    margin-bottom: 12px;
+}}
+.rpt-head h2 {{
+    color: white;
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    line-height: 1.3;
+}}
+.rpt-head p {{
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}}
+.rpt-body {{
+    padding: 28px 32px 32px;
+}}
+.rpt-section-label {{
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+}}
+/* ── Metric cards ── */
+.rpt-metrics {{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+}}
+.rpt-metric {{
+    background: #f8fafc;
+    border-radius: 14px;
+    padding: 14px 10px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+}}
+.rpt-metric-val {{
+    font-size: 22px;
+    font-weight: 800;
+    color: #1e3a5f;
+    line-height: 1.2;
+}}
+.rpt-metric-lbl {{
+    font-size: 10px;
+    color: #6b7280;
+    font-weight: 600;
+    margin-top: 4px;
+}}
+.rpt-metric-delta {{
+    font-size: 10px;
+    color: #22c55e;
+    font-weight: 700;
+    margin-top: 2px;
+}}
+/* ── Bar chart ── */
+.rpt-chart {{
+    background: #f8fafc;
+    border-radius: 14px;
+    padding: 18px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 24px;
+}}
+.rpt-chart-top {{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}}
+.rpt-chart-top span {{
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e3a5f;
+}}
+.rpt-chart-top small {{
+    font-size: 10px;
+    color: #94a3b8;
+}}
+.rpt-bars {{
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 80px;
+    padding-bottom: 22px;
+    position: relative;
+}}
+.rpt-bar {{
+    flex: 1;
+    border-radius: 5px 5px 0 0;
+    background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
+    position: relative;
+    transition: background 0.2s;
+}}
+.rpt-bar:hover {{
+    background: linear-gradient(180deg, #93c5fd 0%, #60a5fa 100%);
+}}
+.rpt-bar-lbl {{
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: #94a3b8;
+    font-weight: 500;
+}}
+/* ── Feature list ── */
+.rpt-features {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}}
+.rpt-feat {{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+    background: #f0f9ff;
+    border-radius: 12px;
+    border: 1px solid #dbeafe;
+}}
+.rpt-feat-ic {{
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}}
+.rpt-feat h4 {{
+    font-size: 12px;
+    font-weight: 700;
+    color: #1e3a5f;
+    margin: 0 0 2px;
+}}
+.rpt-feat p {{
+    font-size: 11px;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.4;
+}}
+/* ── Card clickable indicator ── */
+.qh-featured {{
+    cursor: pointer;
+}}
+.qh-card-link {{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #93c5fd;
+    transition: color 0.2s;
+}}
+.qh-card-link:hover {{
+    color: #bfdbfe;
+}}
+
 @media (max-width: 768px) {{
     .qh-hero h1 {{ font-size: 28px; }}
     .qh-hero p {{ font-size: 15px; }}
     .qh-grid {{ grid-template-columns: 1fr; gap: 16px; }}
     .qh-card {{ padding: 24px 20px; }}
     .qh-featured {{ padding: 30px 24px; }}
+    /* Modal responsive */
+    .rpt-overlay {{ padding: 10px; }}
+    .rpt-head {{ padding: 24px 20px 20px; }}
+    .rpt-head h2 {{ font-size: 20px; }}
+    .rpt-body {{ padding: 20px; }}
+    .rpt-metrics {{ grid-template-columns: repeat(2, 1fr); }}
+    .rpt-features {{ grid-template-columns: 1fr; }}
+    .rpt-bars {{ height: 60px; }}
 }}
 </style>
 
@@ -3719,11 +3959,12 @@ html, body, .page-container {{
 <div class="qh-grid">
 
     <!-- FEATURED: Reportes -->
-    <div class="qh-card qh-featured">
+    <div class="qh-card qh-featured" onclick="document.getElementById('rptModal').classList.add('active')">
         <div class="qh-card-icon">📊</div>
         <h3>Genera reportes automáticos de cada conversación</h3>
         <p>SIVO crea reportes detallados de atención al cliente: cuántas consultas hubo, tiempos de respuesta, temas más frecuentes, nivel de satisfacción y ventas cerradas. Todo en tiempo real, sin que toques nada.</p>
         <span class="qh-tag">NUEVO</span>
+        <span class="qh-card-link">Conocé los reportes &rarr;</span>
     </div>
 
     <!-- Card: WhatsApp -->
@@ -3790,6 +4031,111 @@ html, body, .page-container {{
         <span class="qh-tag">SOPORTE</span>
     </div>
 
+</div>
+
+<!-- ═══ Modal Reportes ═══ -->
+<div class="rpt-overlay" id="rptModal" onclick="if(event.target===this)this.classList.remove('active')">
+    <div class="rpt-modal">
+        <!-- Header -->
+        <div class="rpt-head">
+            <button class="rpt-close" onclick="document.getElementById('rptModal').classList.remove('active')">&times;</button>
+            <div class="rpt-head-icon">📊</div>
+            <h2>Reportes automáticos en tiempo real</h2>
+            <p>SIVO analiza cada conversación y genera reportes detallados sin que tengas que hacer nada. Visualizá métricas clave de tu negocio al instante.</p>
+        </div>
+
+        <!-- Body -->
+        <div class="rpt-body">
+            <!-- Metrics -->
+            <div class="rpt-section-label">Vista previa del dashboard</div>
+            <div class="rpt-metrics">
+                <div class="rpt-metric">
+                    <div class="rpt-metric-val">1,247</div>
+                    <div class="rpt-metric-lbl">Consultas</div>
+                    <div class="rpt-metric-delta">+12%</div>
+                </div>
+                <div class="rpt-metric">
+                    <div class="rpt-metric-val">1.3m</div>
+                    <div class="rpt-metric-lbl">Tiempo resp.</div>
+                    <div class="rpt-metric-delta">-18%</div>
+                </div>
+                <div class="rpt-metric">
+                    <div class="rpt-metric-val">94%</div>
+                    <div class="rpt-metric-lbl">Satisfacción</div>
+                    <div class="rpt-metric-delta">+5%</div>
+                </div>
+                <div class="rpt-metric">
+                    <div class="rpt-metric-val">89</div>
+                    <div class="rpt-metric-lbl">Ventas cerradas</div>
+                    <div class="rpt-metric-delta">+23%</div>
+                </div>
+            </div>
+
+            <!-- Bar chart -->
+            <div class="rpt-chart">
+                <div class="rpt-chart-top">
+                    <span>Conversaciones por día</span>
+                    <small>Últimos 7 días</small>
+                </div>
+                <div class="rpt-bars">
+                    <div class="rpt-bar" style="height:55%"><span class="rpt-bar-lbl">Lun</span></div>
+                    <div class="rpt-bar" style="height:72%"><span class="rpt-bar-lbl">Mar</span></div>
+                    <div class="rpt-bar" style="height:48%"><span class="rpt-bar-lbl">Mié</span></div>
+                    <div class="rpt-bar" style="height:90%"><span class="rpt-bar-lbl">Jue</span></div>
+                    <div class="rpt-bar" style="height:65%"><span class="rpt-bar-lbl">Vie</span></div>
+                    <div class="rpt-bar" style="height:100%"><span class="rpt-bar-lbl">Sáb</span></div>
+                    <div class="rpt-bar" style="height:38%"><span class="rpt-bar-lbl">Dom</span></div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="rpt-section-label">Qué incluyen los reportes</div>
+            <div class="rpt-features">
+                <div class="rpt-feat">
+                    <div class="rpt-feat-ic">💬</div>
+                    <div>
+                        <h4>Total de consultas</h4>
+                        <p>Cantidad de conversaciones por día, semana y mes.</p>
+                    </div>
+                </div>
+                <div class="rpt-feat">
+                    <div class="rpt-feat-ic">⏱️</div>
+                    <div>
+                        <h4>Tiempos de respuesta</h4>
+                        <p>Promedio de tiempo que tarda SIVO en responder cada mensaje.</p>
+                    </div>
+                </div>
+                <div class="rpt-feat">
+                    <div class="rpt-feat-ic">🏷️</div>
+                    <div>
+                        <h4>Temas frecuentes</h4>
+                        <p>Los temas más consultados por tus clientes, clasificados por categoría.</p>
+                    </div>
+                </div>
+                <div class="rpt-feat">
+                    <div class="rpt-feat-ic">⭐</div>
+                    <div>
+                        <h4>Nivel de satisfacción</h4>
+                        <p>Índice de satisfacción basado en el análisis de cada conversación.</p>
+                    </div>
+                </div>
+                <div class="rpt-feat">
+                    <div class="rpt-feat-ic">💰</div>
+                    <div>
+                        <h4>Ventas cerradas</h4>
+                        <p>Seguimiento de ventas concretadas directamente desde el chat.</p>
+                    </div>
+                </div>
+                <div class="rpt-feat">
+                    <div class="rpt-feat-ic">📅</div>
+                    <div>
+                        <h4>Horarios pico</h4>
+                        <p>Identificá cuándo recibís más consultas para optimizar tu atención.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="qh-cta">
